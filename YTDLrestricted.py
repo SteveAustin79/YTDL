@@ -62,8 +62,7 @@ try:
 
     print("\n")
     url = input("Enter the YouTube URL: ")
-    yt = YouTube(url, on_progress_callback = on_progress)
-    yt.age_check()
+    yt = YouTube(url, cookies=cookie_dict)
 
     print("Title:", yt.title)
     print("Views:", yt.views)
