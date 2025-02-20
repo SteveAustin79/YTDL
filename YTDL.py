@@ -12,8 +12,8 @@ try:
     print("Views:", yt.views)
     print("\n")
     #print(yt.streams.filter(file_extension='mp4'))
-    print(yt.streams)
-    print("\n")
+    #print(yt.streams)
+    #print("\n")
 
     #videoVersion = input ("Enter itag: ")
     res = input("Enter wanted resolution (1080p): ")
@@ -33,7 +33,7 @@ try:
             #print(i.resolution)
             break
     #print(yt.streams[idx])
-    #yt.streams[idx].download(output_path=dlpath)
+    yt.streams[idx].download(output_path=dlpath)
 
     print("Download VIDEO complete.")
 
