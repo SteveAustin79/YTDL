@@ -67,6 +67,25 @@ def merge_video_audio():
     except Exception as e:
         print(f"❌ Error merging files: {e}")
 
+
+# 🔹 Subclass YouTube to Override `watch_html`
+class YouTubeWithCookies(YouTube):
+    def __init__(self, url, cookies):
+        self._cookies = cookies  # Store cookies
+        super().__init__(url)  # Call original YouTube constructor
+
+    @property
+    def watch_html(self):
+        """Fetch video page manually with authentication cookies."""
+        headers = {"User-Agent": "Mozilla/5.0"}
+        response = requests.get(self.watch_url, headers=headers, cookies=self._cookies)
+
+        if response.status_code != 200:
+            raise Exception(f"❌ Failed to fetch video page! HTTP {response.status_code}")
+
+        return response.text  # Return HTML content for PyTubeFix to parse
+
+
 try:
 
     print("\n")
@@ -78,22 +97,7 @@ try:
     # Convert cookies into a dictionary format
     cookie_dict = load_cookies_from_file("cookies.txt")
 
-    # 🔹 Convert cookies to HTTP headers format
-    cookie_header = "; ".join([f"{key}={value}" for key, value in cookie_dict.items()])
-
-    # 🔹 Fetch the video page manually using `requests`
-    headers = {"User-Agent": "Mozilla/5.0"}
-    response = requests.get(url, headers=headers, cookies=cookie_dict)
-
-    # 🔹 Ensure the request was successful
-    if response.status_code != 200:
-        print(f"❌ Failed to fetch video page! Status code: {response.status_code}")
-        exit()
-
-    yt = YouTube(url, on_progress_callback = on_progress)
-
-    # 🔹 Manually set `watch_html` with the fetched page content
-    yt.watch_html = response.text  # Manually set HTML content
+    yt = YouTubeWithCookies(url, cookie_dict)
 
     # Perform age check (needed for restricted videos)
     yt.age_check()
