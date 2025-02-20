@@ -33,7 +33,7 @@ try:
             #print(i.resolution)
             break
     #print(yt.streams[idx])
-    yt.streams[idx].download(output_path=dlpath)
+    #yt.streams[idx].download(output_path=dlpath)
 
     print("Download VIDEO complete.")
 
