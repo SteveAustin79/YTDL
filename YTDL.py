@@ -45,6 +45,9 @@ def merge_video_audio():
         ffmpeg.run(output, overwrite_output=True)
         print(f"✅ Merged file saved as: {output_file}")
 
+        os.remove(video_file)
+        os.remove(audio_file)
+
     except Exception as e:
         print(f"❌ Error merging files: {e}")
 
