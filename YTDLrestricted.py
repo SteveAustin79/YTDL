@@ -81,16 +81,19 @@ try:
     # 🔹 Convert cookies to HTTP headers format
     cookie_header = "; ".join([f"{key}={value}" for key, value in cookie_dict.items()])
 
-    # 🔹 Manually fetch video page with cookies (No `default_session()` needed)
-    headers = {
-        "User-Agent": "Mozilla/5.0",
-        "Cookie": cookie_header,  # Pass cookies manually
-    }
-    html = request.get(url, headers=headers)  # Fetch page with cookies
+    # 🔹 Fetch the video page manually using `requests`
+    headers = {"User-Agent": "Mozilla/5.0"}
+    response = requests.get(video_url, headers=headers, cookies=cookie_dict)
+
+    # 🔹 Ensure the request was successful
+    if response.status_code != 200:
+        print(f"❌ Failed to fetch video page! Status code: {response.status_code}")
+        exit()
 
     yt = YouTube(url, cookies=cookie_dict)
 
-    yt.watch_html = request.get(url)  # Re-fetch the video page with cookies
+    # 🔹 Manually set `watch_html` with the fetched page content
+    yt.watch_html = response.text  # Manually set HTML content
 
     # Perform age check (needed for restricted videos)
     yt.age_check()
