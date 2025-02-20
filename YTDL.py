@@ -61,7 +61,7 @@ try:
     print("Views:", yt.views)
 
     res = input("Enter desired resolution (eg. 1080p): ")
-    dlpath = input("Enter path to download: (eg. d:)")
+    dlpath = input("Enter path to download: (eg. d:): ")
 
     for idx, i in enumerate(yt.streams):
         if i.resolution == res:
