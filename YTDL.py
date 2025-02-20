@@ -12,15 +12,16 @@ try:
     print("Views:", yt.views)
     print("\n")
     #print(yt.streams.filter(file_extension='mp4'))
-    print(yt.streams)
-    print("\n")
+    #print(yt.streams)
+    #print("\n")
 
-    videoVersion = input ("Enter itag: ")
+    #videoVersion = input ("Enter itag: ")
 
     dlpath = input("Enter path to download: ")
 
     # Get the highest resolution stream
-    yd = yt.streams.get_by_itag(videoVersion)
+    #yd = yt.streams.get_by_itag(videoVersion)
+    yd = yt.streams.get_highest_resolution()
 
     # Download the video to the current directory
     yd.download(output_path=dlpath)
