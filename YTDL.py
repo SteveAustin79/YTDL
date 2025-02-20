@@ -20,12 +20,14 @@ def find_media_files():
 
     return video_file, audio_file
 
-def merge_video_audio(output_file="merged_output.mp4"):
+def merge_video_audio():
     video_file, audio_file = find_media_files()
 
     if not video_file or not audio_file:
         print("❌ No MP4 or M4A files found in the current directory.")
         return
+
+    output_file = dlpath + "/" + video_file
 
     """Merge video and audio into a single MP4 file using FFmpeg."""
     try:
