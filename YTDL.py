@@ -32,9 +32,19 @@ try:
             #print(idx)
             #print(i.resolution)
             break
-    print(yt.streams[idx])
+    #print(yt.streams[idx])
     yt.streams[idx].download(output_path=dlpath)
 
-    print("Download complete.")
+    print("Download VIDEO complete.")
+
+    for idx, i in enumerate(yt.streams):
+        if i.adaptivebitrate == "128kbps":
+            #print(idx)
+            #print(i.resolution)
+            break
+    #print(yt.streams[idx])
+    yt.streams[idx].download(output_path=dlpath)
+
+    print("Download AUDIO complete.")
 except Exception as e:
     print("An error occurred:", str(e))
