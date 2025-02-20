@@ -1,4 +1,4 @@
-# YTDL
+# YTDL - YouTubeDownLoader 0.1
 A command line YouTube video downloader, downloading a specific video resolution file and a 128kps audio stream, finally merged into a single file. Use of ffmpg and pytubefix.
 
 History:
