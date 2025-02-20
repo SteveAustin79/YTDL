@@ -11,7 +11,7 @@ Prerequisites:
 - FFMPG (https://ffmpeg.org)
 
 Installation: 
-1. Run <code>git clone https://github.com/SixMission/YTDL.git</code>
+1. Clone repository <code>git clone https://github.com/SixMission/YTDL.git</code>
 2. Run YTDL/Installer.bat
 3. Start app with YTDL.bat
 
