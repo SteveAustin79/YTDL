@@ -38,7 +38,7 @@ try:
     print("Download VIDEO complete.")
 
     for idx, i in enumerate(yt.streams):
-        if i.adaptivebitrate == "128kbps":
+        if i.bitrate == "128kbps":
             #print(idx)
             #print(i.resolution)
             break
