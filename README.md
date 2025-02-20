@@ -15,3 +15,5 @@ Installation:
 2. Run YTDL/Installer.bat
 3. Start app with YTDL.bat
 
+Update:
+1. Run YTDL/Updater.bat
