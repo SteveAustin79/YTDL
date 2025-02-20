@@ -90,7 +90,7 @@ try:
         print(f"❌ Failed to fetch video page! Status code: {response.status_code}")
         exit()
 
-    yt = YouTube(url, cookies=cookie_dict)
+    yt = YouTube(url, on_progress_callback = on_progress)
 
     # 🔹 Manually set `watch_html` with the fetched page content
     yt.watch_html = response.text  # Manually set HTML content
