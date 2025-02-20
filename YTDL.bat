@@ -1,4 +1,4 @@
 @echo off
-pip install --upgrade --target venv\Lib\site-packages pytubefix browser-cookie3 ffmpeg-python
+pip install --upgrade --target venv\Lib\site-packages pytubefix ffmpeg-python
 venv\Scripts\python.exe YTDL.py
 pause
