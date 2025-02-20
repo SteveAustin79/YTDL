@@ -34,7 +34,7 @@ class YouTubeWithCookies(YouTube):
 
 
 # 🔹 YouTube video URL (must be logged in to access)
-video_url = "https://www.youtube.com/watch?v=HH_iMeIRHxk"
+video_url = ""
 
 # 🔹 Load cookies from `cookies.txt`
 cookie_dict = load_cookies_from_file("cookies.txt")
