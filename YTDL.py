@@ -1,16 +1,20 @@
 from pytubefix import YouTube
+from pytubefix.cli import on_progress
 
 try:
     # Ask the user to input the YouTube URL
     url = input("Enter the YouTube URL: ")
 
-    yt = YouTube(url)
+    yt = YouTube(url, on_progress_callback = on_progres)
 
+    print("\n")
     print("Title:", yt.title)
     print("Views:", yt.views)
-    print("\n\n")
-    print(yt.streams.filter(file_extension='mp4'))
-    print("\n\n")
+    print("\n")
+    #print(yt.streams.filter(file_extension='mp4'))
+    print(yt.streams)
+    print("\n")
+
     videoVersion = input ("Enter itag: ")
 
     dlpath = input("Enter path to download: ")
