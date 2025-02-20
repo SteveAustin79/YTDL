@@ -16,15 +16,24 @@ try:
     #print("\n")
 
     #videoVersion = input ("Enter itag: ")
+    res = input("Enter wanted resolution (1080p): ")
 
     dlpath = input("Enter path to download: ")
 
     # Get the highest resolution stream
     #yd = yt.streams.get_by_itag(videoVersion)
-    yd = yt.streams.get_highest_resolution()
+    #yd = yt.streams.get_highest_resolution()
 
     # Download the video to the current directory
-    yd.download(output_path=dlpath)
+    #yd.download(output_path=dlpath)
+
+    for idx, i in enumerate(yt.streams):
+        if i.resolution == res:
+            print(idx)
+            print(i.resolution)
+            break
+    print(yt.streams[idx])
+    yt.streams[idx].download(output_path=dlpath)
 
     print("Download complete.")
 except Exception as e:
