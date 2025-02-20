@@ -68,18 +68,26 @@ def merge_video_audio():
         print(f"❌ Error merging files: {e}")
 
 try:
+
+    print("\n")
+    url = input("Enter the YouTube URL: ")
+
     # Fetch YouTube cookies from browser for user aoth to download restricted videos
     cookies = browser_cookie3.firefox(domain_name="youtube.com")  # Change to firefox() or edge() if needed
 
     # Convert cookies into a dictionary format
     cookie_dict = load_cookies_from_file("cookies.txt")
 
-    # Manually set cookies in the PyTubeFix request session
-    session = request.default_session()
-    session.cookies.update(cookie_dict)
+    # 🔹 Convert cookies to HTTP headers format
+    cookie_header = "; ".join([f"{key}={value}" for key, value in cookie_dict.items()])
 
-    print("\n")
-    url = input("Enter the YouTube URL: ")
+    # 🔹 Manually fetch video page with cookies (No `default_session()` needed)
+    headers = {
+        "User-Agent": "Mozilla/5.0",
+        "Cookie": cookie_header,  # Pass cookies manually
+    }
+    html = request.get(url, headers=headers)  # Fetch page with cookies
+
     yt = YouTube(url, cookies=cookie_dict)
 
     yt.watch_html = request.get(url)  # Re-fetch the video page with cookies
