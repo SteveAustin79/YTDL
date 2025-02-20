@@ -2,6 +2,7 @@ import os
 import ffmpeg
 from pytubefix import YouTube
 from pytubefix.cli import on_progress
+import browser_cookie3
 
 
 def find_media_files():
@@ -53,9 +54,15 @@ def merge_video_audio():
         print(f"❌ Error merging files: {e}")
 
 try:
+    # Fetch YouTube cookies from browser for user aoth to download restricted videos
+    cookies = browser_cookie3.firefox(domain_name="youtube.com")  # Change to firefox() or edge() if needed
+
+    # Convert cookies into a dictionary format
+    cookie_dict = {cookie.name: cookie.value for cookie in cookies}
+
     print("\n")
     url = input("Enter the YouTube URL: ")
-    yt = YouTube(url, on_progress_callback = on_progress)
+    yt = YouTube(url, on_progress_callback = on_progress, cookies=cookie_dict)
 
     print("Title:", yt.title)
     print("Views:", yt.views)
