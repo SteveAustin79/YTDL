@@ -1,4 +1,7 @@
 # YTDL
 A YouTube video downloader, downloading a video specific resolution and 128kps audio, finally merged into a single file using ffmpg.
 
-v0.1 - 20250220
+Installation: git clone https://github.com/SixMission/YTDL.git
+
+History:
+20250220 - v0.1
