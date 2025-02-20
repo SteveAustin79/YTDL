@@ -1,50 +1,82 @@
+import os
+import ffmpeg
 from pytubefix import YouTube
 from pytubefix.cli import on_progress
 
+
+def find_media_files():
+    """Search for the first MP4 and M4A files in the current directory."""
+    video_file = None
+    audio_file = None
+
+    for file in os.listdir("."):
+        if file.endswith(".mp4") and video_file is None:
+            video_file = file
+        elif file.endswith(".m4a") and audio_file is None:
+            audio_file = file
+
+        if video_file and audio_file:
+            break  # Stop searching once both files are found
+
+    return video_file, audio_file
+
+def merge_video_audio(output_file="merged_output.mp4"):
+    video_file, audio_file = find_media_files()
+
+    if not video_file or not audio_file:
+        print("❌ No MP4 or M4A files found in the current directory.")
+        return
+
+    """Merge video and audio into a single MP4 file using FFmpeg."""
+    try:
+        print(f"🎬 Merging Video: {video_file}")
+        print(f"🎵 Merging Audio: {audio_file}")
+
+        # Input video and audio streams
+        video = ffmpeg.input(video_file)
+        audio = ffmpeg.input(audio_file)
+
+        # Merge video and audio
+        output = ffmpeg.output(video, audio, output_file, vcodec="copy", acodec="aac", strict="experimental")
+
+        # Run FFmpeg command
+        ffmpeg.run(output, overwrite_output=True)
+        print(f"✅ Merged file saved as: {output_file}")
+
+    except Exception as e:
+        print(f"❌ Error merging files: {e}")
+
 try:
+    print("\n")
     # Ask the user to input the YouTube URL
     url = input("Enter the YouTube URL: ")
 
     yt = YouTube(url, on_progress_callback = on_progress)
 
-    print("\n")
     print("Title:", yt.title)
     print("Views:", yt.views)
     print("\n")
-    #print(yt.streams.filter(file_extension='mp4'))
-    #print(yt.streams)
-    #print("\n")
 
-    #videoVersion = input ("Enter itag: ")
     res = input("Enter wanted resolution (1080p): ")
-
     dlpath = input("Enter path to download: ")
-
-    # Get the highest resolution stream
-    #yd = yt.streams.get_by_itag(videoVersion)
-    #yd = yt.streams.get_highest_resolution()
-
-    # Download the video to the current directory
-    #yd.download(output_path=dlpath)
 
     for idx, i in enumerate(yt.streams):
         if i.resolution == res:
-            #print(idx)
-            #print(i.resolution)
             break
-    #print(yt.streams[idx])
-    yt.streams[idx].download(output_path=dlpath)
+    print("Download VIDEO")
+    #yt.streams[idx].download(output_path=dlpath)
+    yt.streams[idx].download()
 
-    print("Download VIDEO complete.")
+    print("Download VIDEO complete. Downloading AUDIO...")
 
     for idx, i in enumerate(yt.streams):
         if i.bitrate == "128kbps":
-            #print(idx)
-            #print(i.resolution)
             break
-    #print(yt.streams[idx])
-    yt.streams[idx].download(output_path=dlpath)
+    yt.streams[idx].download()
 
-    print("Download AUDIO complete.")
+    print("Download AUDIO complete. Merging now...")
+
+    merge_video_audio()
+
 except Exception as e:
     print("An error occurred:", str(e))
