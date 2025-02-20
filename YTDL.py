@@ -5,7 +5,7 @@ try:
     # Ask the user to input the YouTube URL
     url = input("Enter the YouTube URL: ")
 
-    yt = YouTube(url, on_progress_callback = on_progres)
+    yt = YouTube(url, on_progress_callback = on_progress)
 
     print("\n")
     print("Title:", yt.title)
