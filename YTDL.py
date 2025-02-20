@@ -43,8 +43,9 @@ def merge_video_audio():
 
         # Run FFmpeg command
         ffmpeg.run(output, overwrite_output=True)
-        print(f"✅ Merged file saved as: {output_file}")
+        print(f"✅ Merged file saved as: {output_file}, have a great day!")
 
+        # remove video and audio streams
         os.remove(video_file)
         os.remove(audio_file)
 
@@ -53,25 +54,24 @@ def merge_video_audio():
 
 try:
     print("\n")
-    # Ask the user to input the YouTube URL
     url = input("Enter the YouTube URL: ")
-
     yt = YouTube(url, on_progress_callback = on_progress)
 
     print("Title:", yt.title)
     print("Views:", yt.views)
 
-    res = input("Enter wanted resolution (1080p): ")
-    dlpath = input("Enter path to download: ")
+    res = input("Enter desired resolution (eg. 1080p): ")
+    dlpath = input("Enter path to download: (eg. d:)")
 
     for idx, i in enumerate(yt.streams):
         if i.resolution == res:
             break
-    print("Downloading VIDEO...")
-    #yt.streams[idx].download(output_path=dlpath)
+
+    print("Downloading VIDEO...\n")
+
     yt.streams[idx].download()
 
-    print("Download VIDEO complete. Downloading AUDIO...")
+    print("Download VIDEO complete. Downloading AUDIO...\n")
 
     for idx, i in enumerate(yt.streams):
         if i.bitrate == "128kbps":
