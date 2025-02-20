@@ -3,7 +3,7 @@ import ffmpeg
 from pytubefix import YouTube, request
 from pytubefix.cli import on_progress
 import browser_cookie3
-
+import requests
 
 # ✅ Function to Load Cookies from cookies.txt
 def load_cookies_from_file(filename):
@@ -83,7 +83,7 @@ try:
 
     # 🔹 Fetch the video page manually using `requests`
     headers = {"User-Agent": "Mozilla/5.0"}
-    response = requests.get(video_url, headers=headers, cookies=cookie_dict)
+    response = requests.get(url, headers=headers, cookies=cookie_dict)
 
     # 🔹 Ensure the request was successful
     if response.status_code != 200:
