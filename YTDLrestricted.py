@@ -1,8 +1,21 @@
 import os
 import ffmpeg
-from pytubefix import YouTube
+from pytubefix import YouTube, request
 from pytubefix.cli import on_progress
 import browser_cookie3
+
+
+# ✅ Function to Load Cookies from cookies.txt
+def load_cookies_from_file(filename):
+    """Reads cookies from a cookies.txt file and returns them as a dictionary."""
+    cookies = {}
+    with open(filename, "r") as f:
+        for line in f:
+            if not line.startswith("#"):
+                parts = line.strip().split("\t")
+                if len(parts) >= 7:
+                    cookies[parts[5]] = parts[6]  # Extract name and value
+    return cookies
 
 
 def find_media_files():
@@ -20,6 +33,7 @@ def find_media_files():
             break  # Stop searching once both files are found
 
     return video_file, audio_file
+
 
 def merge_video_audio():
     video_file, audio_file = find_media_files()
@@ -58,11 +72,20 @@ try:
     cookies = browser_cookie3.firefox(domain_name="youtube.com")  # Change to firefox() or edge() if needed
 
     # Convert cookies into a dictionary format
-    cookie_dict = {cookie.name: cookie.value for cookie in cookies}
+    cookie_dict = load_cookies_from_file("cookies.txt")
+
+    # Manually set cookies in the PyTubeFix request session
+    session = request.default_session()
+    session.cookies.update(cookie_dict)
 
     print("\n")
     url = input("Enter the YouTube URL: ")
     yt = YouTube(url, cookies=cookie_dict)
+
+    yt.watch_html = request.get(url)  # Re-fetch the video page with cookies
+
+    # Perform age check (needed for restricted videos)
+    yt.age_check()
 
     print("Title:", yt.title)
     print("Views:", yt.views)
