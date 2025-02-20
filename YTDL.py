@@ -79,7 +79,6 @@ try:
     yt.streams[idx].download()
 
     print("Download AUDIO complete. Merging now...")
-
     merge_video_audio()
 
 except Exception as e:
