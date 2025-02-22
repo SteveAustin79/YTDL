@@ -4,6 +4,11 @@ from pytubefix import YouTube
 from pytubefix.cli import on_progress
 
 
+def smart_input(prompt, default_value):
+    user_input = input(f"{prompt} [{default_value}]: ").strip()
+    return user_input if user_input else default_value
+
+
 def find_media_files():
     """Search for the first MP4 and M4A files in the current directory."""
     video_file = None
@@ -62,8 +67,8 @@ try:
     print("Views:", yt.views)
     print("Length:", yt.length/60)
 
-    res = input("Enter desired resolution (eg. 1080p): 1080p")
-    dlpath = input("Enter path to download: (eg. d:): /mnt/G")
+    res = smart_input("Enter desired resolution (eg. 1080p): ", "1080p")
+    dlpath = smart_input("Enter path to download: (eg. d:): ", "/mnt/G")
 
     for idx, i in enumerate(yt.streams):
         if i.resolution == res:
