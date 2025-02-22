@@ -18,7 +18,7 @@ def find_media_files():
     # if 2160 selected --> webm file, not mp4!!!
 
     for file in os.listdir("."):
-        if (file.endswith(".mp4") or file.endswith(".webm")) and video_file is None:
+        if file.endswith(".mp4") and video_file is None:
             video_file = file
         elif file.endswith(".m4a") and audio_file is None:
             audio_file = file
@@ -86,6 +86,13 @@ try:
     print("\nAvailable Resolutions:", unique_resolutions)
 
     res = smart_input("\nEnter desired resolution (eg. 1080p): ", "1080p")
+
+    moreThan1080p = 0
+
+    if res == "2160p" or res == "1440p":
+        print("Higher resolutions than 1080p are saved as webm and cannot be merged with ffmpeg!!!")
+        moreThan1080p = 1
+
     dlpath = smart_input("Enter download path: (eg. d:): ", "/mnt/G")
 
     for idx, i in enumerate(yt.streams):
@@ -103,8 +110,10 @@ try:
             break
     yt.streams[idx].download()
 
-    print("Download AUDIO complete. Merging now...")
-    merge_video_audio()
+    print("Download AUDIO complete.")
+    if moreThan1080p==0:
+        print("\nMerging now...")
+        merge_video_audio()
 
 except Exception as e:
     print("An error occurred:", str(e))
