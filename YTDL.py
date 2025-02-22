@@ -60,7 +60,7 @@ try:
 
     print("Title:", yt.title)
     print("Views:", yt.views)
-    print("Length:", yt.length)
+    print("Length:", yt.length/60)
 
     res = input("Enter desired resolution (eg. 1080p): ")
     dlpath = input("Enter path to download: (eg. d:): ")
