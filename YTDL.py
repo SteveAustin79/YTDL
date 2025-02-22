@@ -114,6 +114,10 @@ try:
     if moreThan1080p==0:
         print("\nMerging now...")
         merge_video_audio()
+    else:
+        # move files to target dir
+        print("\nmoving files to target folder...")
+
 
 except Exception as e:
     print("An error occurred:", str(e))
