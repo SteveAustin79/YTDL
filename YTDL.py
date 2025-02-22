@@ -55,10 +55,11 @@ def merge_video_audio():
 try:
     print("\n")
     url = input("Enter the YouTube URL: ")
+
     yt = YouTube(url, on_progress_callback = on_progress)
 
     print("Title:", yt.title)
-    print("Views:", yt.views)
+    print("Views:", yt.description)
 
     res = input("Enter desired resolution (eg. 1080p): ")
     dlpath = input("Enter path to download: (eg. d:): ")
