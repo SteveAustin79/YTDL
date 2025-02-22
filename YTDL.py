@@ -31,6 +31,18 @@ def find_media_files():
 
     return video_file, audio_file
 
+def move_video_audio():
+    video_file, audio_file = find_media_files()
+    sourceVideo = video_file  # File to move
+    sourceAudio = audio_file
+    destinationVideo = dlpath + "/" + sourceVideo  # Destination path
+    destinationAudio = dlpath + "/" + sourceAudio  # Destination path
+
+    shutil.move(sourceVideo, destinationVideo)
+    shutil.move(sourceAudio, destinationAudio)
+
+    print(f"✅ Moved files to download path!")
+
 def merge_video_audio():
     video_file, audio_file = find_media_files()
 
@@ -117,16 +129,8 @@ try:
         print("\nMerging now...")
         merge_video_audio()
     else:
-        video_file, audio_file = find_media_files()
-        sourceVideo = video_file  # File to move
-        sourceAudio = audio_file
-        destinationVideo = dlpath + "/" + sourceVideo  # Destination path
-        destinationAudio = dlpath + "/" + sourceAudio  # Destination path
-
-        shutil.move(sourceVideo, destinationVideo)
-        shutil.move(sourceAudio, destinationAudio)
-
-        print(f"✅ Moved files to download path!")
+        print("\nMoving temp files now...")
+        move_video_audio()
 
 
 except Exception as e:
