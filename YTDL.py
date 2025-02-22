@@ -64,6 +64,7 @@ try:
 
     yt = YouTube(url, on_progress_callback = on_progress)
 
+    print("Channel:", yt.author)
     print("\nTitle:", yt.title)
     print("Views:", yt.views)
     print("Length:", yt.length/60)
