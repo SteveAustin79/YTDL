@@ -1,5 +1,7 @@
 import os
 import re
+import shutil
+
 import ffmpeg
 from pytubefix import YouTube
 from pytubefix.cli import on_progress
@@ -18,7 +20,8 @@ def find_media_files():
     # if 2160 selected --> webm file, not mp4!!!
 
     for file in os.listdir("."):
-        if file.endswith(".mp4") and video_file is None:
+        #if file.endswith(".mp4") and video_file is None:
+        if file.endswith((".mp4", ".webm")) and video_file is None:
             video_file = file
         elif file.endswith(".m4a") and audio_file is None:
             audio_file = file
@@ -115,8 +118,16 @@ try:
         print("\nMerging now...")
         merge_video_audio()
     else:
-        # move files to target dir
-        print("\nmoving files to target folder...")
+        video_file, audio_file = find_media_files()
+        sourceVideo = video_file  # File to move
+        sourceAudio = audio_file
+        destinationVideo = dlpath + "/" + sourceVideo  # Destination path
+        destinationAudio = dlpath + "/" + sourceAudio  # Destination path
+
+        shutil.move(sourceVideo, destinationVideo)
+        shutil.move(sourceAudio, destinationAudio)
+
+        print(f"✅ Moved files to download path!")
 
 
 except Exception as e:
