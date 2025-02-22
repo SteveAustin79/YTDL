@@ -82,7 +82,7 @@ try:
     # Print results
     print("Available Resolutions:", unique_resolutions)
 
-    res = smart_input("Enter desired resolution (eg. 1080p): ", "1080p")
+    res = smart_input("\nEnter desired resolution (eg. 1080p): ", "1080p")
     dlpath = smart_input("Enter path to download: (eg. d:): ", "/mnt/G")
 
     for idx, i in enumerate(yt.streams):
