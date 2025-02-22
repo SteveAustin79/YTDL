@@ -11,8 +11,8 @@ Prerequisites:
 - FFMPG (https://ffmpeg.org)
 
 Installation/Start: 
-1. Clone repo: <code>git clone https://github.com/SixMission/YTDL.git</code>
-2. Build venv: <code>python3 -m venv venv</code>
+1. Clone git repository: <code>git clone https://github.com/SixMission/YTDL.git</code>
+2. Build Python environment: <code>python3 -m venv venv</code>
 3. Install depedencies: <code>sudo venv/bin/python3 -m pip install pytubefix ffmpeg-python</code>
 4. Start app: <code>venv/bin/python3 YTDL.py</code>
 
