@@ -15,8 +15,10 @@ def find_media_files():
     video_file = None
     audio_file = None
 
+    # if 2160 selected --> webm file, not mp4!!!
+
     for file in os.listdir("."):
-        if file.endswith(".mp4") and video_file is None:
+        if (file.endswith(".mp4") or file.endswith(".webm")) and video_file is None:
             video_file = file
         elif file.endswith(".m4a") and audio_file is None:
             audio_file = file
