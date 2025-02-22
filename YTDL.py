@@ -64,8 +64,8 @@ try:
 
     yt = YouTube(url, on_progress_callback = on_progress)
 
-    print("Channel:", yt.author)
-    print("\nTitle:", yt.title)
+    print("\nChannel:", yt.author)
+    print("Title:", yt.title)
     print("Views:", yt.views)
     print("Length:", yt.length/60)
 
@@ -81,7 +81,7 @@ try:
     unique_resolutions = sorted(set(resolutions), key=lambda x: int(x[:-1]), reverse=True)
 
     # Print results
-    print("Available Resolutions:", unique_resolutions)
+    print("\nAvailable Resolutions:", unique_resolutions)
 
     res = smart_input("\nEnter desired resolution (eg. 1080p): ", "1080p")
     dlpath = smart_input("Enter path to download: (eg. d:): ", "/mnt/G")
