@@ -88,11 +88,11 @@ try:
     # Print results
     print("\nAvailable Resolutions:", unique_resolutions)
 
-    res = smart_input("\nEnter desired resolution (eg. 1080p): ", "1080p")
+    res = smart_input("\nEnter desired resolution: ", "1080p")
 
     moreThan1080p = 0
 
-    dlpath = smart_input("Enter download path: (eg. d:): ", "/mnt/G")
+    dlpath = smart_input("Enter download path:  ", "/mnt/G")
 
     if res == "2160p" or res == "1440p":
         print("\nATTENTION: Higher resolutions than 1080p are saved as webm and cannot be merged with ffmpeg!!! Moving source files to download path instead!\n")
@@ -130,8 +130,8 @@ try:
 
 
 except Exception as e:
-    print("An error occurred:", str(e))
     # remove video and audio streams
     video_file, audio_file = find_media_files()
     os.remove(video_file)
     os.remove(audio_file)
+    print("An error occurred:", str(e))
