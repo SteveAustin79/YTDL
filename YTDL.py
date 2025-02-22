@@ -1,4 +1,6 @@
 import os
+from datetime import datetime
+
 import ffmpeg
 from pytubefix import YouTube
 from pytubefix.cli import on_progress
@@ -58,7 +60,8 @@ try:
 
     yt = YouTube(url, on_progress_callback = on_progress)
 
-    print("Title:", yt.title + "\nLength:", yt.length + "\nPublish date:", yt.publish_date)
+    print("Title: " + yt.title + "\nLength: " + str(yt.length)
+          + "\nPublish date: " + datetime(yt.publish_date).strftime("%Y-%m-%d"))
 
     res = input("Enter desired resolution (eg. 1080p): ")
     dlpath = input("Enter path to download: (eg. d:): ")
