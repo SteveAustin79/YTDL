@@ -92,21 +92,20 @@ try:
 
     moreThan1080p = 0
 
+    dlpath = smart_input("Enter download path: (eg. d:): ", "/mnt/G")
+
     if res == "2160p" or res == "1440p":
-        print("Higher resolutions than 1080p are saved as webm and cannot be merged with ffmpeg!!!")
+        print("\nATTENTION: Higher resolutions than 1080p are saved as webm and cannot be merged with ffmpeg!!! Moving source files to download path instead!\n")
         moreThan1080p = 1
 
-    dlpath = smart_input("Enter download path: (eg. d:): ", "/mnt/G")
+    print("Downloading VIDEO...\n")
 
     for idx, i in enumerate(yt.streams):
         if i.resolution == res:
             break
-
-    print("Downloading VIDEO...\n")
-
     yt.streams[idx].download()
 
-    print("Download VIDEO complete. Downloading AUDIO...\n")
+    print("\nDownload VIDEO complete. Downloading AUDIO...\n")
 
     for idx, i in enumerate(yt.streams):
         if i.bitrate == "128kbps":
