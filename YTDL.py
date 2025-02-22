@@ -67,7 +67,7 @@ try:
     print("\nChannel:", yt.author)
     print("Title:", yt.title)
     print("Views:", yt.views)
-    print("Length:", yt.length/60)
+    print("Length:", str(int(yt.length/60)) + "m")
 
     streams = yt.streams.filter(file_extension='mp4')  # StreamQuery object
 
