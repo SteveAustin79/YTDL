@@ -1,4 +1,5 @@
 import os
+import re
 import ffmpeg
 from pytubefix import YouTube
 from pytubefix.cli import on_progress
@@ -67,7 +68,14 @@ try:
     print("Views:", yt.views)
     print("Length:", yt.length/60)
 
-    print(yt.streams.filter(file_extension='mp4'))
+    # Extract resolutions using regex
+    resolutions = re.findall(r'res="(\d+p)"', yt.streams.filter(file_extension='mp4'))
+
+    # Remove duplicates and sort in descending order
+    unique_resolutions = sorted(set(resolutions), key=lambda x: int(x[:-1]), reverse=True)
+
+    # Print results
+    print("Available Resolutions:", unique_resolutions)
 
     res = smart_input("Enter desired resolution (eg. 1080p): ", "1080p")
     dlpath = smart_input("Enter path to download: (eg. d:): ", "/mnt/G")
