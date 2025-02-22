@@ -67,6 +67,8 @@ try:
     print("Views:", yt.views)
     print("Length:", yt.length/60)
 
+    print(yt.streams.filter(file_extension='mp4'))
+
     res = smart_input("Enter desired resolution (eg. 1080p): ", "1080p")
     dlpath = smart_input("Enter path to download: (eg. d:): ", "/mnt/G")
 
