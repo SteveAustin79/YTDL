@@ -58,8 +58,7 @@ try:
 
     yt = YouTube(url, on_progress_callback = on_progress)
 
-    print("Title:", yt.title)
-    print("Views:", yt.length)
+    print("Title:", yt.title + "\nLength:", yt.length + "\nPublish date:", yt.publish_date)
 
     res = input("Enter desired resolution (eg. 1080p): ")
     dlpath = input("Enter path to download: (eg. d:): ")
