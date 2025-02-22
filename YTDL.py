@@ -85,3 +85,7 @@ try:
 
 except Exception as e:
     print("An error occurred:", str(e))
+    # remove video and audio streams
+    video_file, audio_file = find_media_files()
+    os.remove(video_file)
+    os.remove(audio_file)
