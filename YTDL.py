@@ -68,27 +68,19 @@ try:
     print("Views:", yt.views)
     print("Length:", yt.length/60)
 
-
-
-
-    streams = yt.streams  # StreamQuery object
+    streams = yt.streams.filter(file_extension='mp4')  # StreamQuery object
 
     # Convert StreamQuery to a formatted string
     stream_string = "\n".join([str(stream) for stream in streams])
 
-    # Print or store as a string
-    print(stream_string)
-
-
-
     # Extract resolutions using regex
-    #resolutions = re.findall(r'res="(\d+p)"', yt.streams.filter(file_extension='mp4'))
+    resolutions = re.findall(r'res="(\d+p)"', stream_string)
 
     # Remove duplicates and sort in descending order
-    #unique_resolutions = sorted(set(resolutions), key=lambda x: int(x[:-1]), reverse=True)
+    unique_resolutions = sorted(set(resolutions), key=lambda x: int(x[:-1]), reverse=True)
 
     # Print results
-    #print("Available Resolutions:", unique_resolutions)
+    print("Available Resolutions:", unique_resolutions)
 
     res = smart_input("Enter desired resolution (eg. 1080p): ", "1080p")
     dlpath = smart_input("Enter path to download: (eg. d:): ", "/mnt/G")
