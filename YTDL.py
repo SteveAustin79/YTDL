@@ -159,3 +159,7 @@ try:
 except Exception as e:
     deletTempFiles()
     print("An error occurred:", str(e))
+
+except KeyboardInterrupt:
+    deletTempFiles()
+    print("Good Bye...")
