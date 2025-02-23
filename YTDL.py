@@ -32,7 +32,7 @@ def convert_m4a_to_opus_and_merge():
 
 def merge_webm_opus():
     video_file, audio_file = find_media_files()
-    output_file = dlpath + "/" + video_file
+    output_file = "tmp/" + video_file
     """Merge WebM video with Opus audio."""
     command = [
         "ffmpeg", "-i", video_file, "-i", "audio.opus",
@@ -44,6 +44,20 @@ def merge_webm_opus():
     os.remove(audio_file)
     os.remove("audio.opus")
     print(f"✅ Merged WebM video with Opus audio into {output_file}")
+    convert_webm_to_mp4(output_file, dlpath + "/" + video_file)
+
+
+def convert_webm_to_mp4(input_file, output_file):
+    """Convert a WebM file to MP4 (H.264/AAC)."""
+    command = [
+        "ffmpeg", "-i", input_file,
+        "-c:v", "libx264", "-preset", "fast", "-crf", "23",  # H.264 video encoding
+        "-c:a", "aac", "-b:a", "128k",  # AAC audio encoding
+        "-movflags", "+faststart",  # Optimize MP4 for streaming
+        output_file
+    ]
+    subprocess.run(command, check=True)
+    print(f"✅ Converted {input_file} to {output_file}")
 
 
 def deletTempFiles():
