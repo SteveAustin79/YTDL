@@ -162,4 +162,4 @@ except Exception as e:
 
 except KeyboardInterrupt:
     deletTempFiles()
-    print("Good Bye...")
+    print("\n\nGood Bye...\n")
