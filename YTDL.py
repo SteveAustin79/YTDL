@@ -131,21 +131,21 @@ try:
         print("\nATTENTION: Higher resolutions than 1080p are saved as webm and cannot be merged with ffmpeg!!! Moving source files to download path instead!\n")
         moreThan1080p = 1
 
-    print("Downloading VIDEO...\n")
+    print("\nDownloading VIDEO...")
 
     for idx, i in enumerate(yt.streams):
         if i.resolution == res:
             break
     yt.streams[idx].download()
 
-    print("\nDownload VIDEO complete.\nDownloading AUDIO...\n")
+    print("\nDownload VIDEO complete.\n\nDownloading AUDIO...\n")
 
     for idx, i in enumerate(yt.streams):
         if i.bitrate == "128kbps":
             break
     yt.streams[idx].download()
 
-    print("Download AUDIO complete.")
+    print("\nDownload AUDIO complete.")
 
     if moreThan1080p==0:
         print("\nMerging now...")
