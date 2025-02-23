@@ -27,6 +27,19 @@ def convert_m4a_to_opus():
     ]
     subprocess.run(command, check=True)
     print(f"✅ Converted {audio_file} to audio.opus")
+    merge_webm_opus()
+
+
+def merge_webm_opus():
+    video_file, audio_file = find_media_files()
+    output_file = dlpath + "/" + video_file
+    """Merge WebM video with Opus audio."""
+    command = [
+        "ffmpeg", "-i", video_file, "-i", "audio.opus",
+        "-c:v", "copy", "-c:a", "copy", output_file
+    ]
+    subprocess.run(command, check=True)
+    print(f"✅ Merged WebM video with Opus audio into {output_file}")
 
 
 def deletTempFiles():
