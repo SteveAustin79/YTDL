@@ -44,7 +44,7 @@ def merge_webm_opus():
     os.remove(audio_file)
     os.remove("audio.opus")
     print(f"✅ Merged WebM video with Opus audio into {output_file}")
-    convert_webm_to_mp4(output_file, dlpath + "/" + video_file)
+    convert_webm_to_mp4(output_file, dlpath + "/output.mp4")
 
 
 def convert_webm_to_mp4(input_file, output_file):
