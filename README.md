@@ -5,16 +5,16 @@ A command line YouTube video downloader, downloading a specific video resolution
 20250220 - v0.1
     initial version
 
-Prerequisites:
+# Prerequisites:
 - Python (https://www.python.org)
 - Git (https://git-scm.com/downloads)
 - FFMPG (https://ffmpeg.org)
 
-Installation/Start: 
-1. Clone git repository: <code>git clone https://github.com/SteveAustin79/YTDL.git</code>
-2. Build Python environment: <code>python3 -m venv venv</code>
-3. Install depedencies: <code>sudo venv/bin/python3 -m pip install pytubefix ffmpeg-python</code>
-4. Start app: <code>venv/bin/python3 YTDL.py</code>
+# Installation/Start: 
+1. <code>git clone https://github.com/SteveAustin79/YTDL.git</code>
+2. <code>python3 -m venv venv</code>
+3. <code>sudo venv/bin/python3 -m pip install pytubefix ffmpeg-python</code>
+4. <code>venv/bin/python3 YTDL.py</code>
 
-Update:
+# Update:
 1. <code>git pull https://github.com/SteveAustin79/YTDL.git</code>
