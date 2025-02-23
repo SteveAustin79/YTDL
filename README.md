@@ -2,8 +2,7 @@
 A command line YouTube video downloader, downloading a specific video resolution file and a 128kps audio stream, finally merged into a single file. Use of ffmpg and pytubefix.
 
 # History
-20250220 - v0.1
-    initial version
+20250220 - v0.1 - initial version
 
 # Prerequisites
 - Python (https://www.python.org)
