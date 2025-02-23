@@ -12,9 +12,21 @@ https://github.com/SteveAustin79
 import os
 import re
 import shutil
+import subprocess
 import ffmpeg
 from pytubefix import YouTube
 from pytubefix.cli import on_progress
+
+
+
+def convert_m4a_to_opus():
+    video_file, audio_file = find_media_files()
+    """Convert M4A to Opus format (WebM-compatible)."""
+    command = [
+        "ffmpeg", "-i", audio_file, "-c:a", "libopus", "audio.opus"
+    ]
+    subprocess.run(command, check=True)
+    print(f"✅ Converted {audio_file} to audio.opus")
 
 
 def deletTempFiles():
@@ -153,7 +165,7 @@ try:
     else:
         print("\nMoving temp files...")
         #move_video_audio()
-        merge_video_audio()
+        convert_m4a_to_opus()
 
 except Exception as e:
     deletTempFiles()
