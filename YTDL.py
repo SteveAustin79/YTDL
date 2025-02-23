@@ -39,6 +39,10 @@ def merge_webm_opus():
         "-c:v", "copy", "-c:a", "copy", output_file
     ]
     subprocess.run(command, check=True)
+    # remove video and audio streams
+    os.remove(video_file)
+    os.remove(audio_file)
+    os.remove("audio.opus")
     print(f"✅ Merged WebM video with Opus audio into {output_file}")
 
 
