@@ -20,7 +20,7 @@ from pytubefix.cli import on_progress
 
 
 version = 0.2
-print("YTDL " + str(version) + "\n")
+print("\nYTDL " + str(version))
 
 def convert_m4a_to_opus_and_merge():
     video_file, audio_file = find_media_files()
