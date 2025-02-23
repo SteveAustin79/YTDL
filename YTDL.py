@@ -138,7 +138,7 @@ try:
             break
     yt.streams[idx].download()
 
-    print("\nDownload VIDEO complete. Downloading AUDIO...\n")
+    print("\nDownload VIDEO complete.\nDownloading AUDIO...\n")
 
     for idx, i in enumerate(yt.streams):
         if i.bitrate == "128kbps":
