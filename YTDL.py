@@ -19,7 +19,7 @@ from pytubefix.cli import on_progress
 
 
 
-def convert_m4a_to_opus():
+def convert_m4a_to_opus_and_merge():
     video_file, audio_file = find_media_files()
     """Convert M4A to Opus format (WebM-compatible)."""
     command = [
@@ -157,7 +157,7 @@ try:
     dlpath = smart_input("Download Path:  ", "/mnt/G")
 
     if res == "2160p" or res == "1440p":
-        print("\nATTENTION: >1080p is stored as webm and cannot be merged by ffmpeg! Moving source files to download path instead!\n")
+        #print("\nATTENTION: >1080p is stored as webm and cannot be merged by ffmpeg! Moving source files to download path instead!\n")
         moreThan1080p = 1
 
     print("\nDownloading VIDEO...")
@@ -182,7 +182,7 @@ try:
     else:
         print("\nMoving temp files...")
         #move_video_audio()
-        convert_m4a_to_opus()
+        convert_m4a_to_opus_and_merge()
 
 except Exception as e:
     deletTempFiles()
