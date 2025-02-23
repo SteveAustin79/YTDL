@@ -98,7 +98,7 @@ try:
     #cleanup directory
     deletTempFiles();
     print("\n")
-    url = input("Enter the YouTube URL: ")
+    url = input("YouTube Video URL: ")
 
     yt = YouTube(url, on_progress_callback = on_progress)
 
@@ -121,14 +121,14 @@ try:
     # Print results
     print("\nAvailable Resolutions:", unique_resolutions)
 
-    res = smart_input("\nEnter desired resolution: ", "1080p")
+    res = smart_input("\nResolution: ", "1080p")
 
     moreThan1080p = 0
 
-    dlpath = smart_input("Enter download path:  ", "/mnt/G")
+    dlpath = smart_input("Download Path:  ", "/mnt/G")
 
     if res == "2160p" or res == "1440p":
-        print("\nATTENTION: Higher resolutions than 1080p are saved as webm and cannot be merged with ffmpeg!!! Moving source files to download path instead!\n")
+        print("\nATTENTION: >1080p is stored as webm and cannot be merged with ffmpeg! Moving source files to download path instead!\n")
         moreThan1080p = 1
 
     print("\nDownloading VIDEO...")
