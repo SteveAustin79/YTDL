@@ -58,7 +58,7 @@ def convert_webm_to_mp4(input_file, output_file):
     ]
     subprocess.run(command, check=True)
     os.remove(input_file)
-    print(f"✅ Converted {input_file} to {output_file}")
+    print(f"✅ Converted {input_file} to {output_file}\nHave a great day!!!\n")
 
 
 def deletTempFiles():
