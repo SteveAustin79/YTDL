@@ -6,8 +6,8 @@ A command line YouTube video downloader, downloading a specific video resolution
 - 20250220 - v0.1 - initial version
 
 # Prerequisites
-- Python (https://www.python.org)
 - Git (https://git-scm.com/downloads)
+- Python (https://www.python.org)
 - FFMPG (https://ffmpeg.org)
 
 # Installation/Start
