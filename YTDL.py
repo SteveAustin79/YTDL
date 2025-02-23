@@ -20,7 +20,7 @@ from pytubefix.cli import on_progress
 
 
 version = 0.2
-print("\n\nYTDL " + str(version))
+print("\nYTDL " + str(version))
 print("********")
 
 def convert_m4a_to_opus_and_merge():
@@ -145,7 +145,6 @@ def merge_video_audio():
 try:
     #cleanup directory
     deletTempFiles();
-    print("\n")
     url = input("YouTube Video URL: ")
 
     yt = YouTube(url, on_progress_callback = on_progress)
