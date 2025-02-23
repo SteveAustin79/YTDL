@@ -54,13 +54,11 @@ def find_media_files():
 
 def move_video_audio():
     video_file, audio_file = find_media_files()
-    sourceVideo = video_file  # File to move
-    sourceAudio = audio_file
-    destinationVideo = dlpath + "/" + sourceVideo  # Destination path
-    destinationAudio = dlpath + "/" + sourceAudio  # Destination path
+    destinationVideo = dlpath + "/" + video_file  # Destination path
+    destinationAudio = dlpath + "/" + audio_file  # Destination path
 
-    shutil.move(sourceVideo, destinationVideo)
-    shutil.move(sourceAudio, destinationAudio)
+    shutil.move(video_file, destinationVideo)
+    shutil.move(audio_file, destinationAudio)
 
     print(f"✅ Moved files to download path!")
 
