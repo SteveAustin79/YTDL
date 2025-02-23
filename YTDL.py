@@ -20,8 +20,18 @@ from pytubefix.cli import on_progress
 def deletTempFiles():
     # remove video and audio streams
     video_file, audio_file = find_media_files()
-    os.remove(video_file)
-    os.remove(audio_file)
+    # Check if files exist before deleting
+    if video_file and os.path.exists(video_file):
+        os.remove(video_file)
+        print(f"✅ Deleted: {video_file}")
+    else:
+        print("❌ Video file not found!")
+
+    if audio_file and os.path.exists(audio_file):
+        os.remove(audio_file)
+        print(f"✅ Deleted: {audio_file}")
+    else:
+        print("❌ Audio file not found!")
 
 
 def smart_input(prompt, default_value):
