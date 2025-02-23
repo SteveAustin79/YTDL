@@ -17,4 +17,4 @@ A command line YouTube video downloader, downloading a specific video resolution
 - <code>venv/bin/python3 YTDL.py</code>
 
 # Update
-1. <code>git pull https://github.com/SteveAustin79/YTDL.git</code>
+- <code>git pull https://github.com/SteveAustin79/YTDL.git</code>
