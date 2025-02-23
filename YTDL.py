@@ -128,7 +128,7 @@ try:
     dlpath = smart_input("Download Path:  ", "/mnt/G")
 
     if res == "2160p" or res == "1440p":
-        print("\nATTENTION: >1080p is stored as webm and cannot be merged with ffmpeg! Moving source files to download path instead!\n")
+        print("\nATTENTION: >1080p is stored as webm and cannot be merged by ffmpeg! Moving source files to download path instead!\n")
         moreThan1080p = 1
 
     print("\nDownloading VIDEO...")
@@ -148,10 +148,10 @@ try:
     print("\nDownload AUDIO complete.")
 
     if moreThan1080p==0:
-        print("\nMerging now...")
+        print("\nMerging...")
         merge_video_audio()
     else:
-        print("\nMoving temp files now...")
+        print("\nMoving temp files...")
         move_video_audio()
 
 except Exception as e:
