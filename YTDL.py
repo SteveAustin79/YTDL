@@ -152,7 +152,8 @@ try:
         merge_video_audio()
     else:
         print("\nMoving temp files...")
-        move_video_audio()
+        #move_video_audio()
+        merge_video_audio()
 
 except Exception as e:
     deletTempFiles()
