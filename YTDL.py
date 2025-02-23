@@ -17,6 +17,13 @@ from pytubefix import YouTube
 from pytubefix.cli import on_progress
 
 
+def deletTempFiles():
+    # remove video and audio streams
+    video_file, audio_file = find_media_files()
+    os.remove(video_file)
+    os.remove(audio_file)
+
+
 def smart_input(prompt, default_value):
     user_input = input(f"{prompt} [{default_value}]: ").strip()
     return user_input if user_input else default_value
@@ -86,6 +93,8 @@ def merge_video_audio():
         print(f"❌ Error merging files: {e}")
 
 try:
+    #cleanup directory
+    deletTempFiles();
     print("\n")
     url = input("Enter the YouTube URL: ")
 
@@ -135,6 +144,7 @@ try:
     yt.streams[idx].download()
 
     print("Download AUDIO complete.")
+
     if moreThan1080p==0:
         print("\nMerging now...")
         merge_video_audio()
@@ -142,10 +152,6 @@ try:
         print("\nMoving temp files now...")
         move_video_audio()
 
-
 except Exception as e:
-    # remove video and audio streams
-    video_file, audio_file = find_media_files()
-    os.remove(video_file)
-    os.remove(audio_file)
+    deletTempFiles()
     print("An error occurred:", str(e))
