@@ -10,7 +10,6 @@ and a 128kps audio stream, finally merged into a single file. Use of ffmpeg and 
 import os
 import re
 import shutil
-
 import ffmpeg
 from pytubefix import YouTube
 from pytubefix.cli import on_progress
