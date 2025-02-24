@@ -29,4 +29,4 @@ for video in c.videos:
         break
     break
 
-print("Total Videos: " + str(i) + ", NAR videos: " + str(video_list.count(video_list)))
+#print("Total Videos: " + str(i) + ", NAR videos: " + str(video_list.count(video_list)))
