@@ -144,7 +144,8 @@ def merge_video_audio():
 while True:
     try:
         print("\nYTDL " + str(version))
-        print("********\n")
+        print("********")
+        print("YouTube Video/Audio Downloader (Exit App with Ctrl + C)\n")
         #cleanup directory
         deletTempFiles();
         url = input("YouTube Video URL: ")
