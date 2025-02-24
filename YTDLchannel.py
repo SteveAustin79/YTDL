@@ -25,5 +25,7 @@ for video in c.videos:
     else:
         video_list_restricted.append(video.video_id)
         print("\033[31m" + str(i) + " - " + video.video_id + " - " + video.title + "\033[0m")
+    if i==10:
+        break
 
 print("Total Videos: " + i + ", NAR videos: " + str(video_list.count))
