@@ -141,72 +141,73 @@ def merge_video_audio():
     except Exception as e:
         print(f"❌ Error merging files: {e}")
 
-try:
-    print("\nYTDL " + str(version))
-    print("********\n")
-    #cleanup directory
-    deletTempFiles();
-    url = input("YouTube Video URL: ")
+while true:
+    try:
+        print("\nYTDL " + str(version))
+        print("********\n")
+        #cleanup directory
+        deletTempFiles();
+        url = input("YouTube Video URL: ")
 
-    yt = YouTube(url, on_progress_callback = on_progress)
+        yt = YouTube(url, on_progress_callback = on_progress)
 
-    print("\nChannel:", yt.author)
-    print("Title:", yt.title)
-    print("Views:", str(int(yt.views/1000)) + "K")
-    print("Length:", str(int(yt.length/60)) + "m")
+        print("\nChannel:", yt.author)
+        print("Title:", yt.title)
+        print("Views:", str(int(yt.views/1000)) + "K")
+        print("Length:", str(int(yt.length/60)) + "m")
 
-    streams = yt.streams.filter(file_extension='mp4')  # StreamQuery object
+        streams = yt.streams.filter(file_extension='mp4')  # StreamQuery object
 
-    # Convert StreamQuery to a formatted string
-    stream_string = "\n".join([str(stream) for stream in streams])
+        # Convert StreamQuery to a formatted string
+        stream_string = "\n".join([str(stream) for stream in streams])
 
-    # Extract resolutions using regex
-    resolutions = re.findall(r'res="(\d+p)"', stream_string)
+        # Extract resolutions using regex
+        resolutions = re.findall(r'res="(\d+p)"', stream_string)
 
-    # Remove duplicates and sort in descending order
-    unique_resolutions = sorted(set(resolutions), key=lambda x: int(x[:-1]), reverse=True)
+        # Remove duplicates and sort in descending order
+        unique_resolutions = sorted(set(resolutions), key=lambda x: int(x[:-1]), reverse=True)
 
-    # Print results
-    print("\nAvailable Resolutions:", unique_resolutions)
+        # Print results
+        print("\nAvailable Resolutions:", unique_resolutions)
 
-    res = smart_input("\nResolution: ", "1080p")
+        res = smart_input("\nResolution: ", "1080p")
 
-    moreThan1080p = 0
+        moreThan1080p = 0
 
-    dlpath = smart_input("Download Path:  ", "/mnt/G")
+        dlpath = smart_input("Download Path:  ", "/mnt/G")
 
-    if res == "2160p" or res == "1440p":
-        #print("\nATTENTION: >1080p is stored as webm and cannot be merged by ffmpeg! Moving source files to download path instead!\n")
-        moreThan1080p = 1
+        if res == "2160p" or res == "1440p":
+            #print("\nATTENTION: >1080p is stored as webm and cannot be merged by ffmpeg! Moving source files to download path instead!\n")
+            moreThan1080p = 1
 
-    print("\nDownloading VIDEO...")
+        print("\nDownloading VIDEO...")
 
-    for idx, i in enumerate(yt.streams):
-        if i.resolution == res:
-            break
-    yt.streams[idx].download()
+        for idx, i in enumerate(yt.streams):
+            if i.resolution == res:
+                break
+        yt.streams[idx].download()
 
-    print("\nDownload VIDEO complete.\n\nDownloading AUDIO...")
+        print("\nDownload VIDEO complete.\n\nDownloading AUDIO...")
 
-    for idx, i in enumerate(yt.streams):
-        if i.bitrate == "128kbps":
-            break
-    yt.streams[idx].download()
+        for idx, i in enumerate(yt.streams):
+            if i.bitrate == "128kbps":
+                break
+        yt.streams[idx].download()
 
-    print("\nDownload AUDIO complete.")
+        print("\nDownload AUDIO complete.")
 
-    if moreThan1080p==0:
-        print("\nMerging...")
-        merge_video_audio()
-    else:
-        print("\nMoving temp files...")
-        #move_video_audio()
-        convert_m4a_to_opus_and_merge()
+        if moreThan1080p==0:
+            print("\nMerging...")
+            merge_video_audio()
+        else:
+            print("\nMoving temp files...")
+            #move_video_audio()
+            convert_m4a_to_opus_and_merge()
 
-except Exception as e:
-    deletTempFiles()
-    print("An error occurred:", str(e))
+    except Exception as e:
+        deletTempFiles()
+        print("An error occurred:", str(e))
 
-except KeyboardInterrupt:
-    deletTempFiles()
-    print("\n\nGood Bye...\n")
+    except KeyboardInterrupt:
+        deletTempFiles()
+        print("\n\nGood Bye...\n")
