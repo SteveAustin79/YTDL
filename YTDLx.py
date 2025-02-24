@@ -4,7 +4,7 @@ YTDL 0.2b
 A command line YouTube video downloader, downloading a specific video resolution file
 and a 128kps audio stream, finally merged into a single file. Use of ffmpeg and pytubefix.
 
-20250223 - v0.3 - auth
+20250223 - v0.2b - auth
 20250223 - v0.2 - added webm support (>1080p)
 20250220 - v0.1 - initial version
 
@@ -20,7 +20,7 @@ from pytubefix import YouTube
 from pytubefix.cli import on_progress
 
 
-version = 0.3
+version = 0.2
 
 
 def convert_m4a_to_opus_and_merge():
