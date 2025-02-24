@@ -141,7 +141,7 @@ def merge_video_audio():
     except Exception as e:
         print(f"❌ Error merging files: {e}")
 
-while true:
+while True:
     try:
         print("\nYTDL " + str(version))
         print("********\n")
