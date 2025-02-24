@@ -15,17 +15,22 @@ YTchannel = input("YouTube Channel URL: ")
 c = Channel(YTchannel)
 print(f'\nListing videos by: {c.channel_name}')
 
-i = 0
+count_total_videos = 0
+count_restricted_videos = 0
+count_ok_videos = 0
 
 for video in c.videos:
-    i = i+1
+    count_total_videos = count_total_videos+1
     if video.age_restricted == False:
+        count_ok_videos = count_ok_videos + 1
         video_list.append(video.video_id)
-        print(str(i) + " - " + video.video_id + " - " + video.title)
+        print(str(count_total_videos) + " - " + video.video_id + " - " + video.title)
     else:
+        count_restricted_videos = count_restricted_videos+1
         video_list_restricted.append(video.video_id)
-        print("\033[31m" + str(i) + " - " + video.video_id + " - " + video.title + "\033[0m")
-    if i==10:
+        print("\033[31m" + str(count_total_videos) + " - " + video.video_id + " - " + video.title + "\033[0m")
+    if count_total_videos==10:
         break
 
-#print("Total Videos: " + str(i) + ", NAR videos: " + str(video_list.count(video_list)))
+print("Total Videos: " + str(count_total_videos) + ", OK Videos: " + str(count_ok_videos)
+      + ", Restricted Videos: " + count_restricted_videos)
