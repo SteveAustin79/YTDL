@@ -11,6 +11,7 @@ print("***************")
 print("YouTube Channel Downloader (Exit App with Ctrl + C)\n")
 
 YTchannel = input("YouTube Channel URL: ")
+count_fetch_video = input("Fetch x latest Videos: ")
 
 c = Channel(YTchannel)
 print(f'\nListing videos by: {c.channel_name}')
@@ -29,8 +30,8 @@ for video in c.videos:
         count_restricted_videos = count_restricted_videos+1
         video_list_restricted.append(video.video_id)
         print("\033[31m" + str(count_total_videos) + " - " + video.video_id + " - " + video.title + "\033[0m")
-    if count_total_videos==10:
+    if count_total_videos==count_fetch_video:
         break
 
 print("Total Videos: " + str(count_total_videos) + ", OK Videos: " + str(count_ok_videos)
-      + ", Restricted Videos: " + count_restricted_videos)
+      + ", Restricted Videos: " + str(count_restricted_videos))
