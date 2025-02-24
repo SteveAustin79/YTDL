@@ -32,7 +32,7 @@ for video in c.videos:
         video_list_restricted.append(video.video_id)
         print("\033[31m" + str(count_total_videos) + " - " + video.video_id + " - " + video.title + "\033[0m")
 
-    if count_total_videos == count_fetch_videos:
+    if count_total_videos >= count_fetch_videos:
         break
 
 
