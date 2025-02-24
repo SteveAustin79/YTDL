@@ -9,6 +9,6 @@ i = 0
 
 for video in c.videos:
     i = i+1
-    print(str(i) + " - " + video.title + " - " + str(video.age_restricted) + " - " + video.video_id)
+    print(str(i) + " - " + str(video.age_restricted) + " - " + video.video_id + " - " + video.title)
 
 print("Total Videos: ", i)
