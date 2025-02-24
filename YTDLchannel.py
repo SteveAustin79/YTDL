@@ -14,7 +14,7 @@ print("YouTube Channel Downloader (Exit App with Ctrl + C)\n")
 YTchannel = input("YouTube Channel URL: ")
 
 c = Channel(YTchannel)
-print(f'Listing videos by: {c.channel_name}')
+print(f'\nListing videos by: {c.channel_name}')
 
 i = 0
 
