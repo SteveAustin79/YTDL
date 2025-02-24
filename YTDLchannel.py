@@ -1,7 +1,15 @@
 from pytubefix import Channel
 
+
+version = 0.1
+
+
 # Create an empty list
 video_list = []
+
+print("\nYTDLchannel " + str(version))
+print("***************")
+print("YouTube Channel Downloader (Exit App with Ctrl + C)\n")
 
 YTchannel = input("YouTube Channel URL: ")
 
