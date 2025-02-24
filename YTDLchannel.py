@@ -1,11 +1,13 @@
 from pytubefix import Channel
 
-c = Channel("https://www.youtube.com/@NetworkChuck")
+YTchannel = input("YouTube Channel URL: ")
 
-print(f'Lsiting videos by: {c.channel_name}')
+c = Channel(YTchannel)
+
+print(f'Listing videos by: {c.channel_name}')
 
 i = 0
 
 for video in c.videos:
     i = i+1
-    print(str(i) + " - " + video.title + " - " + video.age_restricted + " - " + video.video_id)
+    print(str(i) + " - " + video.title + " - " + str(video.age_restricted) + " - " + video.video_id)
