@@ -8,4 +8,4 @@ i = 0
 
 for video in c.videos:
     i = i+1
-    print(str(i) + " - " + video.title)
+    print(str(i) + " - " + video.title + " - " + video.age_restricted + " - " + video.video_id)
