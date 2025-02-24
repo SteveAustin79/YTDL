@@ -27,5 +27,6 @@ for video in c.videos:
         print("\033[31m" + str(i) + " - " + video.video_id + " - " + video.title + "\033[0m")
     if i==10:
         break
+    break
 
 print("Total Videos: " + i + ", NAR videos: " + str(video_list.count))
