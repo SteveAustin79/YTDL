@@ -21,6 +21,7 @@ i = 0
 for video in c.videos:
     i = i+1
     print(str(i) + " - " + str(video.age_restricted) + " - " + video.video_id + " - " + video.title)
-    video_list.append(video.video_id)
+    if video.age_restricted == False:
+        video_list.append(video.video_id)
 
-print("Total Videos: ", video_list.count)
+print("Total Videos: " + i + ", NAR videos: " + str(video_list.count))
