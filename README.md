@@ -16,6 +16,7 @@ A command line YouTube video downloader, downloading a specific video resolution
 - <code>cd YTDL</code>
 - <code>python3 -m venv venv</code>
 - <code>sudo venv/bin/python3 -m pip install pytubefix ffmpeg-python</code>
+- modify config.json
 - <code>venv/bin/python3 YTDL.py</code>
 
 # Update
