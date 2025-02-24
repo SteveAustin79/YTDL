@@ -15,11 +15,19 @@ import re
 import shutil
 import subprocess
 import ffmpeg
+import json
 from pytubefix import YouTube
 from pytubefix.cli import on_progress
 
 
 version = 0.2
+
+
+def load_config():
+    """Load settings from config.json."""
+    with open("config.json", "r") as file:
+        config = json.load(file)
+    return config
 
 
 def convert_m4a_to_opus_and_merge():
@@ -143,6 +151,12 @@ def merge_video_audio():
 
 while True:
     try:
+        # Load config
+        config = load_config()
+        # Access settings
+        output_dir = config["output_directory"]
+        resolution = config["default_resolution"]
+
         print("\nYTDL " + str(version))
         print("********")
         print("YouTube Video/Audio Downloader (Exit App with Ctrl + C)\n")
@@ -171,11 +185,11 @@ while True:
         # Print results
         print("\nAvailable Resolutions:", unique_resolutions)
 
-        res = smart_input("\nResolution: ", "1080p")
+        res = smart_input("\nResolution: ", "{resolution}")
 
         moreThan1080p = 0
 
-        dlpath = smart_input("Download Path:  ", "/mnt/G")
+        dlpath = smart_input("Download Path:  ", "{output_dir}")
 
         if res == "2160p" or res == "1440p":
             #print("\nATTENTION: >1080p is stored as webm and cannot be merged by ffmpeg! Moving source files to download path instead!\n")
