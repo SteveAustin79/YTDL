@@ -23,4 +23,4 @@ for video in c.videos:
     print(str(i) + " - " + str(video.age_restricted) + " - " + video.video_id + " - " + video.title)
     video_list.append(video.video_id)
 
-print("Total Videos: ", video_list.count())
+print("Total Videos: ", video_list.count)
