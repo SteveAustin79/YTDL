@@ -211,3 +211,4 @@ while True:
     except KeyboardInterrupt:
         deletTempFiles()
         print("\n\nGood Bye...\n")
+        break
