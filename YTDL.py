@@ -147,7 +147,7 @@ while True:
         print("********")
         print("YouTube Video/Audio Downloader (Exit App with Ctrl + C)\n")
         #cleanup directory
-        deletTempFiles();
+        deletTempFiles()
         url = input("YouTube Video URL: ")
 
         yt = YouTube(url, on_progress_callback = on_progress)
