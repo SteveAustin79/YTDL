@@ -177,9 +177,8 @@ while True:
             count_total_videos += 1
             yt = YouTube("https://www.youtube.com/watch?v=" + video.video_id, on_progress_callback=on_progress)
 
-            print(video.vid_info)
-
-            if video.age_restricted == False:
+            if (video.age_restricted == False and
+                    video.vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE'):
                 count_ok_videos += 1
                 video_list.append(video.video_id)
                 print(str(count_total_videos) + " - " + video.video_id + " - " + video.title)
