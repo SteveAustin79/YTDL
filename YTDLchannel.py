@@ -161,7 +161,7 @@ def downloadVideo(videoid):
     # res = smart_input("\nResolution: ", resolution)
     res = max(print_resolutions(), key=lambda x: int(x.rstrip('p')))
 
-    publishingDate = datetime.strptime(yt.publish_date[:10], "%Y-%m-%d")
+    publishingDate = yt.publish_date.strftime("%Y-%m-%d")
 
     print("Resolution: ", res)
     # check if file was already downloaded
