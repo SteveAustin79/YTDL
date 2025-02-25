@@ -32,9 +32,9 @@ def merge_webm_opus():
     """Merge WebM video with Opus audio."""
     command = [
         "ffmpeg", "-i", video_file, "-i", "audio.opus",
-        "-c:v", "copy", "-c:a", "copy", output_file
+        "-c:v", "copy", "-c:a", "copy", output_file, "loglevel quiet"
     ]
-    subprocess.run(command, check=True, capture_output=False)
+    subprocess.run(command, check=True)
     # remove video and audio streams
     os.remove(video_file)
     os.remove(audio_file)
@@ -51,7 +51,7 @@ def convert_webm_to_mp4(input_file, output_file):
         "-movflags", "+faststart",  # Optimize MP4 for streaming
         output_file
     ]
-    subprocess.run(command, check=True, capture_output=False)
+    subprocess.run(command, check=True)
     os.remove(input_file)
     print(f"✅ \033[92mConverted {input_file} to {output_file}\033[0m\n")
 
