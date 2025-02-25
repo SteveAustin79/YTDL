@@ -163,7 +163,7 @@ while True:
         print("***************")
         print("YouTube Channel Downloader (Exit App with Ctrl + C)\n")
 
-        YTchannel = smart_input("YouTube Channel URL: ", "https://www.youtube.com/@NetworkChuck")
+        YTchannel = input("YouTube Channel URL: ")
         count_fetch_videos = int(input("Fetch x latest Videos: "))
 
         c = Channel(YTchannel)
