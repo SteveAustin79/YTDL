@@ -124,7 +124,7 @@ def merge_video_audio():
 
         # Run FFmpeg command
         ffmpeg.run(output, overwrite_output=True, quiet=True)
-        print(f"\n✅ Merged file saved as: {output_file}.\n")
+        print(f"\n✅ \033[92mMerged file saved as: {output_file}.\033[0m\n")
 
         # remove video and audio streams
         os.remove(video_file)
