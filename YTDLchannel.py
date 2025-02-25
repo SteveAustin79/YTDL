@@ -146,8 +146,8 @@ def print_resolutions():
     #print("Available Resolutions:", unique_resolutions, "\n")
     return unique_resolutions
 
-def downloadVideo(video):
-    yt = YouTube("https://www.youtube.com/watch?v=" + video, on_progress_callback=on_progress)
+def downloadVideo(videoid):
+    yt = YouTube("https://www.youtube.com/watch?v=" + videoid.video_id, on_progress_callback=on_progress)
 
     print("\n******************************************************************************")
     print("Channel:", yt.author)
