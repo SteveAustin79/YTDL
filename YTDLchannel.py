@@ -148,10 +148,10 @@ def print_resolutions():
     #print("Available Resolutions:", unique_resolutions, "\n")
     return unique_resolutions
 
-def downloadVideo(videoid):
+def downloadVideo(videoid, counterid):
     yt = YouTube("https://www.youtube.com/watch?v=" + videoid, on_progress_callback=on_progress)
 
-    print("\n***********************************************************************************")
+    print("\n***" + str(counterid) + "********************************************************************************")
     #print("Channel:    ", yt.author)
     print("Title:      \033[96m", yt.title, "\033[0m")
     print("Views:      ", str(int(yt.views / 1000)) + "K")
@@ -236,7 +236,7 @@ while True:
                 video_list.append(video.video_id)
                 #print(str(count_total_videos) + " - " + video.video_id + " - " + video.title)
                 #print_resolutions()
-                downloadVideo(video.video_id)
+                downloadVideo(video.video_id, count_ok_videos)
             else:
                 count_restricted_videos += 1
                 video_list_restricted.append(video.video_id)
@@ -246,60 +246,6 @@ while True:
             if count_fetch_videos != "all":
                 if count_total_videos == count_fetch_videos:
                     break
-
-        #print("Total Videos: " + str(count_total_videos) + ", OK Videos: " + str(count_ok_videos)
-        #      + ", Restricted Videos: " + str(count_restricted_videos) + "\n")
-
-
-        # DOWNLOAD VIDEOS
-        #################
-        #dlpath = smart_input("Download Path:  ", output_dir)
-        #res = smart_input("Resolution: ", resolution)
-
-        # for video in video_list:
-        #     yt = YouTube("https://www.youtube.com/watch?v=" + video, on_progress_callback=on_progress)
-        #
-        #     print("\n******************************************************************************")
-        #     print("Channel:", yt.author)
-        #     print("Title:", yt.title)
-        #     print("Views:", str(int(yt.views / 1000)) + "K")
-        #     print("Length:", str(int(yt.length / 60)) + "m")
-        #
-        #     #print_resolutions()
-        #     #res = smart_input("\nResolution: ", resolution)
-        #     res = max(print_resolutions(), key=lambda x: int(x.rstrip('p')))
-        #
-        #     moreThan1080p = 0
-        #
-        #     if res == "2160p" or res == "1440p":
-        #         # print("\nATTENTION: >1080p is stored as webm and cannot be merged by ffmpeg! Moving source files to download path instead!\n")
-        #         moreThan1080p = 1
-        #
-        #     print("\nDownloading VIDEO...")
-        #
-        #     for idx, i in enumerate(yt.streams):
-        #         if i.resolution == res:
-        #             break
-        #     yt.streams[idx].download()
-        #
-        #     print("\nDownload VIDEO complete.\n\nDownloading AUDIO...")
-        #
-        #     for idx, i in enumerate(yt.streams):
-        #         if i.bitrate == "128kbps":
-        #             break
-        #     yt.streams[idx].download()
-        #
-        #     print("\nDownload AUDIO complete.")
-        #
-        #     if moreThan1080p == 0:
-        #         print("\nMerging...")
-        #         merge_video_audio()
-        #     else:
-        #         print("\nMoving temp files...")
-        #         # move_video_audio()
-        #         convert_m4a_to_opus_and_merge()
-        #
-        # print("Have a great day!!!\n")
 
 
     except Exception as e:
