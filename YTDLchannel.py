@@ -124,7 +124,7 @@ def merge_video_audio():
 
         # Run FFmpeg command
         ffmpeg.run(output, overwrite_output=True)
-        print(f"\n✅ Merged file saved as: {output_file}.\nHave a great day!!!\n")
+        print(f"\n✅ Merged file saved as: {output_file}.\n")
 
         # remove video and audio streams
         os.remove(video_file)
@@ -241,6 +241,8 @@ while True:
                 print("\nMoving temp files...")
                 # move_video_audio()
                 convert_m4a_to_opus_and_merge()
+
+            print("Have a great day!!!\n")
 
 
     except Exception as e:
