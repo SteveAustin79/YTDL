@@ -201,6 +201,7 @@ while True:
         # Access settings
         output_dir = config["output_directory"]
         resolution = config["default_resolution"]
+        youtube_base_url = config["youtube_base_url"]
 
         # Create an empty list
         video_list = []
@@ -223,7 +224,7 @@ while True:
 
         for video in c.videos:
             count_total_videos += 1
-            yt = YouTube("https://www.youtube.com/watch?v=" + video.video_id, on_progress_callback=on_progress)
+            yt = YouTube(youtube_base_url + video.video_id, on_progress_callback=on_progress)
 
             if (video.age_restricted == False and
                     video.vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE'):
