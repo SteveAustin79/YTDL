@@ -151,7 +151,7 @@ def downloadVideo(videoid):
 
     print("\n***********************************************************************************")
     #print("Channel:    ", yt.author)
-    print("Title:      \033[94m", yt.title, "\033[0m")
+    print("Title:      \033[96m", yt.title, "\033[0m")
     print("Views:      ", str(int(yt.views / 1000)) + "K")
     print("Length:     ", str(int(yt.length / 60)) + "m")
 
