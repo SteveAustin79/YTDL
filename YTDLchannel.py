@@ -40,7 +40,7 @@ def merge_webm_opus(videoid):
     os.remove(audio_file)
     os.remove("audio.opus")
     print(f"Converting to MP4... (this may take a while)")
-    convert_webm_to_mp4(output_file, dlpath + "/" + os.path.splitext(video_file)[0] + "_"+ videoid.video_id + ".mp4")
+    convert_webm_to_mp4(output_file, dlpath + "/" + os.path.splitext(video_file)[0] + "_"+ videoid + ".mp4")
 
 def convert_webm_to_mp4(input_file, output_file):
     """Convert a WebM file to MP4 (H.264/AAC)."""
@@ -108,7 +108,7 @@ def merge_video_audio(videoid):
     if not os.path.exists(dlpath):
         os.makedirs(dlpath)
 
-    output_file = dlpath + "/" + video_file + "_"+ videoid.video_id
+    output_file = dlpath + "/" + video_file + "_"+ videoid
 
     """Merge video and audio into a single MP4 file using FFmpeg."""
     try:
@@ -187,10 +187,10 @@ def downloadVideo(videoid):
 
         print("\nMerging...")
         if moreThan1080p == 0:
-            merge_video_audio(videoid)
+            merge_video_audio(videoid.video_id)
         else:
             # move_video_audio()
-            convert_m4a_to_opus_and_merge(videoid)
+            convert_m4a_to_opus_and_merge(videoid.video_id)
 
 
 while True:
