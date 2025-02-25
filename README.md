@@ -6,6 +6,15 @@ A command line YouTube video downloader, downloading a specific video resolution
 - 20250223 - v0.2 - added webm support (>1080p)
 - 20250220 - v0.1 - initial version
 
+# YTDLchannel.py (v0.1):
+Download all videos from a specific YouTube channel.
+
+Features:
+- highest available resolution will be downloaded automatically
+- sub directory structure will be suggested
+- already downloaded files will be skipped
+
+
 # Prerequisites
 - Git (https://git-scm.com/downloads)
 - Python (https://www.python.org)
@@ -21,12 +30,3 @@ A command line YouTube video downloader, downloading a specific video resolution
 
 # Update
 - <code>git pull https://github.com/SteveAustin79/YTDL.git</code>
-
-
-# YTDLchannel.py (v0.1):
-Download all videos from a specific YouTube channel.
-
-Features:
-- highest available resolution will be downloaded automatically
-- sub directory structure will be suggested
-- already downloaded files will be skipped
