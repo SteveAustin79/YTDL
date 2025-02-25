@@ -39,8 +39,8 @@ def merge_webm_opus():
     os.remove(video_file)
     os.remove(audio_file)
     os.remove("audio.opus")
-    print(f"Merged. Converting into MP4...")
-    convert_webm_to_mp4(output_file, dlpath + "/" + video_file + ".mp4")
+    print(f"Merged. Converting to MP4... (this can take a while)")
+    convert_webm_to_mp4(output_file, dlpath + "/" + os.path.splitext(video_file)[0] + ".mp4")
 
 def convert_webm_to_mp4(input_file, output_file):
     """Convert a WebM file to MP4 (H.264/AAC)."""
