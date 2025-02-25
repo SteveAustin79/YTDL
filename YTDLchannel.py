@@ -162,7 +162,7 @@ def downloadVideo(videoid):
     print("Resolution: ", res)
     # check if file was already downloaded
     if os.path.exists(dlpath + "/" + yt.title + ".mp4"):
-        print("\n\033[92mVideo already downloaded :-)\033[0m")
+        print("\n\033[92mVideo already downloaded 😊\033[0m")
     else:
         moreThan1080p = 0
 
