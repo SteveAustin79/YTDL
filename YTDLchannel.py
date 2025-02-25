@@ -229,7 +229,7 @@ while True:
                     video.vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE'):
                 count_ok_videos += 1
                 video_list.append(video.video_id)
-                print(str(count_total_videos) + " - " + video.video_id + " - " + video.title)
+                #print(str(count_total_videos) + " - " + video.video_id + " - " + video.title)
                 #print_resolutions()
                 downloadVideo(video)
             else:
