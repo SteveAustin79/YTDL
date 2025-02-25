@@ -9,18 +9,18 @@ A command line YouTube video downloader, downloading a specific video resolution
 # YTDLchannel.py (v0.1)
 Download all videos from a specific YouTube channel.
 
-###Features:
+### Features
 - highest available resolution will be downloaded automatically
 - sub directory structure will be suggested
 - already downloaded files will be skipped
 
 
-# Prerequisites
+## Prerequisites
 - Git (https://git-scm.com/downloads)
 - Python (https://www.python.org)
 - FFMPG (https://ffmpeg.org)
 
-# Installation/Start
+## Installation/Start
 - <code>git clone https://github.com/SteveAustin79/YTDL.git</code>
 - <code>cd YTDL</code>
 - <code>python3 -m venv venv</code>
@@ -28,5 +28,5 @@ Download all videos from a specific YouTube channel.
 - modify config.json
 - <code>venv/bin/python3 YTDL.py</code> or <code>venv/bin/python3 YTDLchannel.py</code>
 
-# Update
+## Update
 - <code>git pull https://github.com/SteveAustin79/YTDL.git</code>
