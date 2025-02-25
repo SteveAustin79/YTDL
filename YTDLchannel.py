@@ -143,7 +143,7 @@ def print_resolutions():
     unique_resolutions = sorted(set(resolutions), key=lambda x: int(x[:-1]), reverse=True)
 
     # Print results
-    print("\nAvailable Resolutions:", unique_resolutions)
+    print("Available Resolutions:", unique_resolutions, "\n")
 
 while True:
     try:
