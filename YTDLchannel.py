@@ -49,7 +49,7 @@ def convert_webm_to_mp4(input_file, output_file):
         "-c:v", "libx264", "-preset", "fast", "-crf", "23",  # H.264 video encoding
         "-c:a", "aac", "-b:a", "128k",  # AAC audio encoding
         "-movflags", "+faststart",  # Optimize MP4 for streaming
-        output_file
+        output_file, "loglevel quiet"
     ]
     subprocess.run(command, check=True)
     os.remove(input_file)
