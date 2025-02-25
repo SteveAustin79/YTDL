@@ -11,7 +11,7 @@ from datetime import datetime
 version = 0.1
 
 
-def format_header(counter, width=84):
+def format_header(counter, width):
     counter_str = f" \033[96m{counter}\033[0m "  # Add spaces around the number
     total_length = width - 2  # Exclude parentheses ()
 
@@ -159,7 +159,7 @@ def downloadVideo(videoid, counterid):
     yt = YouTube("https://www.youtube.com/watch?v=" + videoid, on_progress_callback=on_progress)
 
     #print("\n***" + str(counterid) + "********************************************************************************")
-    print("\n" + format_header(counterid, 84))
+    print("\n" + format_header(counterid, 100))
     #print("Channel:    ", yt.author)
     print("Title:      \033[96m", yt.title, "\033[0m")
     print("Date:       ", yt.publish_date.strftime("%Y-%m-%d"))
