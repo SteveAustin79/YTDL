@@ -159,6 +159,8 @@ def downloadVideo(videoid):
     # res = smart_input("\nResolution: ", resolution)
     res = max(print_resolutions(), key=lambda x: int(x.rstrip('p')))
 
+    print("Resolution: ", res)
+
     moreThan1080p = 0
 
     if res == "2160p" or res == "1440p":
