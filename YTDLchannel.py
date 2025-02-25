@@ -203,8 +203,8 @@ while True:
         for video in video_list:
             yt = YouTube("https://www.youtube.com/watch?v=" + video, on_progress_callback=on_progress)
 
-            print("******************************************************************************")
-            print("\nChannel:", yt.author)
+            print("\n******************************************************************************")
+            print("Channel:", yt.author)
             print("Title:", yt.title)
             print("Views:", str(int(yt.views / 1000)) + "K")
             print("Length:", str(int(yt.length / 60)) + "m")
