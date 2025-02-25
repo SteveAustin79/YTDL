@@ -19,7 +19,7 @@ YTDLchannel.py: Download all videos from a specific YouTube channel
 - <code>python3 -m venv venv</code>
 - <code>sudo venv/bin/python3 -m pip install pytubefix ffmpeg-python</code>
 - modify config.json
-- <code>venv/bin/python3 YTDL.py</code>
+- <code>venv/bin/python3 YTDL.py</code> or <code>venv/bin/python3 YTDLchannel.py</code>
 
 # Update
 - <code>git pull https://github.com/SteveAustin79/YTDL.git</code>
