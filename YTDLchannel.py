@@ -217,7 +217,7 @@ while True:
         dlpath = smart_input("Download Path:  ", output_dir)
 
         c = Channel(YTchannel)
-        print(f'\nDownloading videos by: {c.channel_name}')
+        print(f'\nDownloading videos by: \033[96m{c.channel_name}\033[0m')
 
         count_total_videos = 0
         count_restricted_videos = 0
