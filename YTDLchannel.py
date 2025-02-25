@@ -124,7 +124,7 @@ def merge_video_audio():
 
         # Run FFmpeg command
         ffmpeg.run(output, overwrite_output=True, quiet=True)
-        print(f"\n✅ \033[92mMerged file saved as: {output_file}.\033[0m\n")
+        print(f"\n✅ \033[92mMerged file saved as: {output_file}.\033[0m")
 
         # remove video and audio streams
         os.remove(video_file)
@@ -177,14 +177,12 @@ def downloadVideo(videoid):
                 break
         yt.streams[idx].download()
 
-        print("\nDownload VIDEO complete.\n\nDownloading AUDIO...")
+        print("\nDownloading AUDIO...")
 
         for idx, i in enumerate(yt.streams):
             if i.bitrate == "128kbps":
                 break
         yt.streams[idx].download()
-
-        print("\nDownload AUDIO complete.")
 
         if moreThan1080p == 0:
             print("\nMerging...")
