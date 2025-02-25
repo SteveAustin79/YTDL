@@ -184,6 +184,11 @@ while True:
             print("https://www.youtube.com/watch?v=" + video)
             yt = YouTube("https://www.youtube.com/watch?v=" + video, on_progress_callback=on_progress)
 
+            print("\nChannel:", yt.author)
+            print("Title:", yt.title)
+            print("Views:", str(int(yt.views / 1000)) + "K")
+            print("Length:", str(int(yt.length / 60)) + "m")
+
             streams = yt.streams.filter(file_extension='mp4')  # StreamQuery object
             # Convert StreamQuery to a formatted string
             stream_string = "\n".join([str(stream) for stream in streams])
