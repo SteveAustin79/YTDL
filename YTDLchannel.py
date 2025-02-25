@@ -216,7 +216,6 @@ while True:
         config = load_config()
         # Access settings
         output_dir = config["output_directory"]
-        resolution = config["default_resolution"]
         youtube_base_url = config["youtube_base_url"]
 
         # Create an empty list
