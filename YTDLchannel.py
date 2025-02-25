@@ -105,6 +105,9 @@ def merge_video_audio():
         print("❌ No MP4 or M4A files found in the current directory.")
         return
 
+    if not os.path.exists(dlpath):
+        os.makedirs(dlpath)
+
     output_file = dlpath + "/" + video_file
 
     """Merge video and audio into a single MP4 file using FFmpeg."""
@@ -226,8 +229,10 @@ while True:
 
 
     except Exception as e:
+        deletTempFiles()
         print("An error occurred:", str(e))
 
     except KeyboardInterrupt:
+        deletTempFiles()
         print("\n\nGood Bye...\n")
         break
