@@ -167,6 +167,8 @@ def downloadVideo(videoid, counterid):
     # res = smart_input("\nResolution: ", resolution)
     #res = max(print_resolutions(), key=lambda x: int(x.rstrip('p')))
 
+    publishingDate = yt.publish_date.strftime("%Y-%m-%d")
+
     #print("Resolution: ", res)
     # check if file was already downloaded
     if os.path.exists(dlpath + "/" + str(publishingDate) + "_" + yt.title + "_"+ videoid + ".mp4"):
@@ -174,7 +176,6 @@ def downloadVideo(videoid, counterid):
     else:
         moreThan1080p = 0
 
-        publishingDate = yt.publish_date.strftime("%Y-%m-%d")
         print("Date:       ", yt.publish_date.strftime("%Y-%m-%d"))
         print("Views:      ", str(int(yt.views / 1000)) + "K")
         print("Length:     ", str(int(yt.length / 60)) + "m")
