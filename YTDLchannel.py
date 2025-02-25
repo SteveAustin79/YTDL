@@ -37,8 +37,7 @@ def merge_webm_opus(videoid, publishdate):
     ]
     subprocess.run(command, check=True)
     # remove video and audio streams
-    os.remove(video_file)
-    os.remove(audio_file)
+    deletTempFiles()
     os.remove("audio.opus")
     print(f"Converting to MP4... (this may take a while)")
     convert_webm_to_mp4(output_file, dlpath + "/" + publishdate + "_" + os.path.splitext(video_file)[0] + "_"+ videoid + ".mp4")
@@ -129,8 +128,7 @@ def merge_video_audio(videoid, publishdate):
         print(f"\n\033[92mVideo download completed\033[0m")
 
         # remove video and audio streams
-        os.remove(video_file)
-        os.remove(audio_file)
+        deletTempFiles()
 
     except Exception as e:
         print(f"❌ Error merging files: {e}")
