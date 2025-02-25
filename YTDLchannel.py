@@ -185,7 +185,7 @@ while True:
             else:
                 count_restricted_videos += 1
                 video_list_restricted.append(video.video_id)
-                print("\033[31m" + str(count_total_videos) + " - " + video.video_id + " - " + video.title + "\033[0m")
+                print("\033[31m" + str(count_total_videos) + " - " + video.video_id + " - " + video.title + "\n\033[0m")
                 #print_resolutions()
 
             if count_fetch_videos != "All":
