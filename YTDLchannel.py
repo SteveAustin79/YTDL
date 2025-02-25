@@ -39,7 +39,7 @@ def merge_webm_opus():
     os.remove(video_file)
     os.remove(audio_file)
     os.remove("audio.opus")
-    print(f"Merged. Converting to MP4... (this can take a while)")
+    print(f"Merged. Converting to MP4... (this may take a while)")
     convert_webm_to_mp4(output_file, dlpath + "/" + os.path.splitext(video_file)[0] + ".mp4")
 
 def convert_webm_to_mp4(input_file, output_file):
@@ -151,7 +151,7 @@ def downloadVideo(videoid):
 
     print("\n***********************************************************************************")
     #print("Channel:    ", yt.author)
-    print("Title:      ", yt.title)
+    print("Title:      \033[94m", yt.title, "\033[0m")
     print("Views:      ", str(int(yt.views / 1000)) + "K")
     print("Length:     ", str(int(yt.length / 60)) + "m")
 
