@@ -164,7 +164,7 @@ while True:
         print("YouTube Channel Downloader (Exit App with Ctrl + C)\n")
 
         YTchannel = input("YouTube Channel URL: ")
-        count_fetch_videos = str(input("Fetch x latest Videos (for all unrestricted Videos use: All): "))
+        count_fetch_videos = str(input("Fetch x latest Videos (for all unrestricted Videos use: all): "))
 
         c = Channel(YTchannel)
         print(f'\nListing videos by: {c.channel_name}\n')
@@ -189,7 +189,7 @@ while True:
                 print("\033[31m" + str(count_total_videos) + " - " + video.video_id + " - " + video.title + "\n\033[0m")
                 #print_resolutions()
 
-            if count_fetch_videos != "All":
+            if count_fetch_videos != "all":
                 if count_total_videos == count_fetch_videos:
                     break
 
