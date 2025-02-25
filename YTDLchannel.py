@@ -159,7 +159,7 @@ def downloadVideo(videoid, counterid):
     yt = YouTube("https://www.youtube.com/watch?v=" + videoid, on_progress_callback=on_progress)
 
     #print("\n***" + str(counterid) + "********************************************************************************")
-    format_header(counterid, 84)
+    print(format_header(counterid, 84))
     #print("Channel:    ", yt.author)
     print("Title:      \033[96m", yt.title, "\033[0m")
     print("Views:      ", str(int(yt.views / 1000)) + "K")
