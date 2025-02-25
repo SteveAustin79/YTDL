@@ -173,13 +173,10 @@ while True:
         print("Length:", str(int(yt.length/60)) + "m")
 
         streams = yt.streams.filter(file_extension='mp4')  # StreamQuery object
-
         # Convert StreamQuery to a formatted string
         stream_string = "\n".join([str(stream) for stream in streams])
-
         # Extract resolutions using regex
         resolutions = re.findall(r'res="(\d+p)"', stream_string)
-
         # Remove duplicates and sort in descending order
         unique_resolutions = sorted(set(resolutions), key=lambda x: int(x[:-1]), reverse=True)
 
