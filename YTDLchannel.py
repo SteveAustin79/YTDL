@@ -16,7 +16,7 @@ def load_config():
         config = json.load(file)
     return config
 
-def convert_m4a_to_opus_and_merge():
+def convert_m4a_to_opus_and_merge(videoid):
     video_file, audio_file = find_media_files()
     """Convert M4A to Opus format (WebM-compatible)."""
     command = [
@@ -24,9 +24,9 @@ def convert_m4a_to_opus_and_merge():
     ]
     subprocess.run(command, check=True)
     #print(f"✅ Converted {audio_file} to audio.opus")
-    merge_webm_opus()
+    merge_webm_opus(videoid)
 
-def merge_webm_opus():
+def merge_webm_opus(videoid):
     video_file, audio_file = find_media_files()
     output_file = "tmp/" + video_file
     """Merge WebM video with Opus audio."""
@@ -40,7 +40,7 @@ def merge_webm_opus():
     os.remove(audio_file)
     os.remove("audio.opus")
     print(f"Converting to MP4... (this may take a while)")
-    convert_webm_to_mp4(output_file, dlpath + "/" + os.path.splitext(video_file)[0] + ".mp4")
+    convert_webm_to_mp4(output_file, dlpath + "/" + os.path.splitext(video_file)[0] + "_"+ videoid.video_id + ".mp4")
 
 def convert_webm_to_mp4(input_file, output_file):
     """Convert a WebM file to MP4 (H.264/AAC)."""
@@ -98,7 +98,7 @@ def move_video_audio():
 
     print(f"✅ Moved files to download path!")
 
-def merge_video_audio():
+def merge_video_audio(videoid):
     video_file, audio_file = find_media_files()
 
     if not video_file or not audio_file:
@@ -108,7 +108,7 @@ def merge_video_audio():
     if not os.path.exists(dlpath):
         os.makedirs(dlpath)
 
-    output_file = dlpath + "/" + video_file
+    output_file = dlpath + "/" + video_file + "_"+ videoid.video_id
 
     """Merge video and audio into a single MP4 file using FFmpeg."""
     try:
@@ -162,7 +162,7 @@ def downloadVideo(videoid):
 
     print("Resolution: ", res)
     # check if file was already downloaded
-    if os.path.exists(dlpath + "/" + yt.title + ".mp4"):
+    if os.path.exists(dlpath + "/" + yt.title + "_"+ videoid.video_id + ".mp4"):
         print("\n\033[92mVideo already downloaded 😊\033[0m")
     else:
         moreThan1080p = 0
@@ -187,10 +187,10 @@ def downloadVideo(videoid):
 
         print("\nMerging...")
         if moreThan1080p == 0:
-            merge_video_audio()
+            merge_video_audio(videoid)
         else:
             # move_video_audio()
-            convert_m4a_to_opus_and_merge()
+            convert_m4a_to_opus_and_merge(videoid)
 
 
 while True:
