@@ -162,6 +162,9 @@ def downloadVideo(videoid, counterid):
     print("\n" + format_header(counterid, 100))
     #print("Channel:    ", yt.author)
     print("Title:      \033[96m", yt.title, "\033[0m")
+    print("Date:       ", yt.publish_date.strftime("%Y-%m-%d"))
+    print("Views:      ", str(int(yt.views / 1000)) + "K")
+    print("Length:     ", str(int(yt.length / 60)) + "m")
 
     # print_resolutions()
     # res = smart_input("\nResolution: ", resolution)
@@ -175,10 +178,6 @@ def downloadVideo(videoid, counterid):
         print("\n\033[92mVideo already downloaded 😊\033[0m")
     else:
         moreThan1080p = 0
-
-        print("Date:       ", yt.publish_date.strftime("%Y-%m-%d"))
-        print("Views:      ", str(int(yt.views / 1000)) + "K")
-        print("Length:     ", str(int(yt.length / 60)) + "m")
 
         res = max(print_resolutions(), key=lambda x: int(x.rstrip('p')))
         print("Resolution: ", res)
