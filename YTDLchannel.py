@@ -51,8 +51,8 @@ while True:
             if count_total_videos == count_fetch_videos:
                 break
 
-        print("Total Videos: " + str(count_total_videos) + ", OK Videos: " + str(count_ok_videos)
-              + ", Restricted Videos: " + str(count_restricted_videos))
+        print("\nTotal Videos: " + str(count_total_videos) + ", OK Videos: " + str(count_ok_videos)
+              + ", Restricted Videos: " + str(count_restricted_videos) + "\n")
 
         for video in video_list:
             print("https://www.youtube.com/watch?v=" + video)
