@@ -108,7 +108,7 @@ def merge_video_audio(videoid):
     if not os.path.exists(dlpath):
         os.makedirs(dlpath)
 
-    output_file = dlpath + "/" + video_file + "_"+ videoid
+    output_file = dlpath + "/" + os.path.splitext(video_file)[0] + "_" + videoid + ".mp4"
 
     """Merge video and audio into a single MP4 file using FFmpeg."""
     try:
