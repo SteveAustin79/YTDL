@@ -11,6 +11,10 @@ def load_config():
         config = json.load(file)
     return config
 
+def smart_input(prompt, default_value):
+    user_input = input(f"{prompt} [{default_value}]: ").strip()
+    return user_input if user_input else default_value
+
 
 while True:
     try:
@@ -22,7 +26,7 @@ while True:
         print("***************")
         print("YouTube Channel Downloader (Exit App with Ctrl + C)\n")
 
-        YTchannel = input("YouTube Channel URL: ")
+        YTchannel = smart_input("YouTube Channel URL: ", "https://www.youtube.com/@NetworkChuck")
         count_fetch_videos = int(input("Fetch x latest Videos: "))
 
         c = Channel(YTchannel)
