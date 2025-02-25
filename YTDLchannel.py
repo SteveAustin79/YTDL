@@ -161,9 +161,11 @@ def downloadVideo(videoid):
     # res = smart_input("\nResolution: ", resolution)
     res = max(print_resolutions(), key=lambda x: int(x.rstrip('p')))
 
+    publishingDate = datetime.strptime(str(yt.publish_date), "%Y%m%d")
+
     print("Resolution: ", res)
     # check if file was already downloaded
-    if os.path.exists(dlpath + "/" + str(datetime.strptime(str(yt.publish_date), "%Y%m%d")) + "_" + yt.title + "_"+ videoid + ".mp4"):
+    if os.path.exists(dlpath + "/" + str(publishingDate[:10], "%Y-%m-%d") + "_" + yt.title + "_"+ videoid + ".mp4"):
         print("\n\033[92mVideo already downloaded 😊\033[0m")
     else:
         moreThan1080p = 0
@@ -188,10 +190,10 @@ def downloadVideo(videoid):
 
         print("\nMerging...")
         if moreThan1080p == 0:
-            merge_video_audio(videoid, str(datetime.strptime(str(yt.publish_date), "%Y%m%d")))
+            merge_video_audio(videoid, str(publishingDate[:10], "%Y-%m-%d"))
         else:
             # move_video_audio()
-            convert_m4a_to_opus_and_merge(videoid, str(datetime.strptime(str(yt.publish_date), "%Y%m%d")))
+            convert_m4a_to_opus_and_merge(videoid, str(publishingDate[:10], "%Y-%m-%d"))
 
 
 while True:
@@ -232,7 +234,6 @@ while True:
                     video.vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE'):
                 count_ok_videos += 1
                 video_list.append(video.video_id)
-                print(video.publish_date)
                 #print(str(count_total_videos) + " - " + video.video_id + " - " + video.title)
                 #print_resolutions()
                 downloadVideo(video.video_id)
