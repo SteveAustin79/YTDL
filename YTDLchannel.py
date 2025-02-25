@@ -168,16 +168,19 @@ def downloadVideo(videoid, counterid):
 
     # print_resolutions()
     # res = smart_input("\nResolution: ", resolution)
-    res = max(print_resolutions(), key=lambda x: int(x.rstrip('p')))
+    #res = max(print_resolutions(), key=lambda x: int(x.rstrip('p')))
 
     publishingDate = yt.publish_date.strftime("%Y-%m-%d")
 
-    print("Resolution: ", res)
+    #print("Resolution: ", res)
     # check if file was already downloaded
     if os.path.exists(dlpath + "/" + str(publishingDate) + "_" + yt.title + "_"+ videoid + ".mp4"):
         print("\n\033[92mVideo already downloaded 😊\033[0m")
     else:
         moreThan1080p = 0
+
+        res = max(print_resolutions(), key=lambda x: int(x.rstrip('p')))
+        print("Resolution: ", res)
 
         if res == "2160p" or res == "1440p":
             # print("\nATTENTION: >1080p is stored as webm and cannot be merged by ffmpeg! Moving source files to download path instead!\n")
