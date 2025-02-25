@@ -133,6 +133,17 @@ def merge_video_audio():
     except Exception as e:
         print(f"❌ Error merging files: {e}")
 
+def print_resolutions():
+    streams = yt.streams.filter(file_extension='mp4')  # StreamQuery object
+    # Convert StreamQuery to a formatted string
+    stream_string = "\n".join([str(stream) for stream in streams])
+    # Extract resolutions using regex
+    resolutions = re.findall(r'res="(\d+p)"', stream_string)
+    # Remove duplicates and sort in descending order
+    unique_resolutions = sorted(set(resolutions), key=lambda x: int(x[:-1]), reverse=True)
+
+    # Print results
+    print("\nAvailable Resolutions:", unique_resolutions)
 
 while True:
     try:
@@ -168,21 +179,12 @@ while True:
                 count_ok_videos += 1
                 video_list.append(video.video_id)
                 print(str(count_total_videos) + " - " + video.video_id + " - " + video.title)
+                print_resolutions()
             else:
                 count_restricted_videos += 1
                 video_list_restricted.append(video.video_id)
                 print("\033[31m" + str(count_total_videos) + " - " + video.video_id + " - " + video.title + "\033[0m")
-
-            streams = yt.streams.filter(file_extension='mp4')  # StreamQuery object
-            # Convert StreamQuery to a formatted string
-            stream_string = "\n".join([str(stream) for stream in streams])
-            # Extract resolutions using regex
-            resolutions = re.findall(r'res="(\d+p)"', stream_string)
-            # Remove duplicates and sort in descending order
-            unique_resolutions = sorted(set(resolutions), key=lambda x: int(x[:-1]), reverse=True)
-
-            # Print results
-            print("\nAvailable Resolutions:", unique_resolutions)
+                print_resolutions()
 
             if count_total_videos == count_fetch_videos:
                 break
