@@ -12,7 +12,7 @@ version = 0.1
 
 
 def format_header(counter, width=84):
-    counter_str = f" {counter} "  # Add spaces around the number
+    counter_str = f" \033[96m{counter}\033[0m "  # Add spaces around the number
     total_length = width - 2  # Exclude parentheses ()
 
     # Center the counter with asterisks
@@ -162,7 +162,7 @@ def downloadVideo(videoid, counterid):
     print("\n" + format_header(counterid, 84))
     #print("Channel:    ", yt.author)
     print("Title:      \033[96m", yt.title, "\033[0m")
-    print("Date:       \033[96m", yt.publish_date.strftime("%Y-%m-%d"), "\033[0m")
+    print("Date:       ", yt.publish_date.strftime("%Y-%m-%d"))
     print("Views:      ", str(int(yt.views / 1000)) + "K")
     print("Length:     ", str(int(yt.length / 60)) + "m")
 
