@@ -147,6 +147,8 @@ def print_resolutions():
 
 while True:
     try:
+        # CHECK VIDEOSL
+        ##############
         # Load config
         config = load_config()
         # Access settings
@@ -192,6 +194,9 @@ while True:
         print("\nTotal Videos: " + str(count_total_videos) + ", OK Videos: " + str(count_ok_videos)
               + ", Restricted Videos: " + str(count_restricted_videos) + "\n")
 
+
+        # DOWNLOAD VIDEOS
+        #################
         dlpath = smart_input("Download Path:  ", output_dir)
         res = smart_input("Resolution: ", resolution)
 
