@@ -242,7 +242,7 @@ while True:
                 # move_video_audio()
                 convert_m4a_to_opus_and_merge()
 
-            print("Have a great day!!!\n")
+        print("Have a great day!!!\n")
 
 
     except Exception as e:
