@@ -1,3 +1,19 @@
+"""
+YTDLchannel 0.1
+
+Download all videos from a specific YouTube channel.
+
+Features:
+- highest available resolution will be downloaded automatically
+- sub directory structure will be suggested
+- already downloaded videos will be skipped
+
+20250226 - v0.1 - initial version
+
+https://github.com/SteveAustin79
+"""
+
+
 import os
 import re
 import shutil
@@ -7,6 +23,7 @@ import json
 from pytubefix import Channel, YouTube
 from pytubefix.cli import on_progress
 from datetime import datetime
+
 
 version = 0.1
 
