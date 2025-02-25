@@ -162,6 +162,7 @@ while True:
 
         for video in c.videos:
             count_total_videos += 1
+            yt = YouTube("https://www.youtube.com/watch?v=" + video.video_id, on_progress_callback=on_progress)
 
             if video.age_restricted == False:
                 count_ok_videos += 1
@@ -172,6 +173,17 @@ while True:
                 video_list_restricted.append(video.video_id)
                 print("\033[31m" + str(count_total_videos) + " - " + video.video_id + " - " + video.title + "\033[0m")
 
+            streams = yt.streams.filter(file_extension='mp4')  # StreamQuery object
+            # Convert StreamQuery to a formatted string
+            stream_string = "\n".join([str(stream) for stream in streams])
+            # Extract resolutions using regex
+            resolutions = re.findall(r'res="(\d+p)"', stream_string)
+            # Remove duplicates and sort in descending order
+            unique_resolutions = sorted(set(resolutions), key=lambda x: int(x[:-1]), reverse=True)
+
+            # Print results
+            print("\nAvailable Resolutions:", unique_resolutions)
+
             if count_total_videos == count_fetch_videos:
                 break
 
@@ -179,9 +191,9 @@ while True:
               + ", Restricted Videos: " + str(count_restricted_videos) + "\n")
 
         dlpath = smart_input("Download Path:  ", output_dir)
+        res = smart_input("Resolution: ", resolution)
 
         for video in video_list:
-            print("https://www.youtube.com/watch?v=" + video)
             yt = YouTube("https://www.youtube.com/watch?v=" + video, on_progress_callback=on_progress)
 
             print("\nChannel:", yt.author)
@@ -200,7 +212,7 @@ while True:
             # Print results
             print("\nAvailable Resolutions:", unique_resolutions)
 
-            res = smart_input("\nResolution: ", resolution)
+            #res = smart_input("\nResolution: ", resolution)
 
             moreThan1080p = 0
 
