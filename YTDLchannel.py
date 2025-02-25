@@ -162,6 +162,7 @@ def downloadVideo(videoid, counterid):
     print("\n" + format_header(counterid, 84))
     #print("Channel:    ", yt.author)
     print("Title:      \033[96m", yt.title, "\033[0m")
+    print("Date:       \033[96m", yt.publish_date.strftime("%Y-%m-%d"), "\033[0m")
     print("Views:      ", str(int(yt.views / 1000)) + "K")
     print("Length:     ", str(int(yt.length / 60)) + "m")
 
