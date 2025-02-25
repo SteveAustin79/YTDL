@@ -191,7 +191,7 @@ while True:
             if count_total_videos == count_fetch_videos:
                 break
 
-        print("\nTotal Videos: " + str(count_total_videos) + ", OK Videos: " + str(count_ok_videos)
+        print("Total Videos: " + str(count_total_videos) + ", OK Videos: " + str(count_ok_videos)
               + ", Restricted Videos: " + str(count_restricted_videos) + "\n")
 
 
@@ -203,6 +203,7 @@ while True:
         for video in video_list:
             yt = YouTube("https://www.youtube.com/watch?v=" + video, on_progress_callback=on_progress)
 
+            print("******************************************************************************")
             print("\nChannel:", yt.author)
             print("Title:", yt.title)
             print("Views:", str(int(yt.views / 1000)) + "K")
