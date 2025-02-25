@@ -12,11 +12,11 @@ version = 0.1
 
 
 def format_header(counter, width=84):
-    counter_str = str(counter)
-    total_length = width - 2  # Excluding parentheses ()
+    counter_str = f" {counter} "  # Add spaces around the number
+    total_length = width - 2  # Exclude parentheses ()
 
-    # Center the counter within asterisks
-    formatted = f" {counter_str.center(total_length, '*')} "
+    # Center the counter with asterisks
+    formatted = f"({counter_str.center(total_length, '*')})"
 
     return formatted
 
@@ -159,7 +159,7 @@ def downloadVideo(videoid, counterid):
     yt = YouTube("https://www.youtube.com/watch?v=" + videoid, on_progress_callback=on_progress)
 
     #print("\n***" + str(counterid) + "********************************************************************************")
-    print(format_header(counterid, 84))
+    print("\n" + format_header(counterid, 84))
     #print("Channel:    ", yt.author)
     print("Title:      \033[96m", yt.title, "\033[0m")
     print("Views:      ", str(int(yt.views / 1000)) + "K")
