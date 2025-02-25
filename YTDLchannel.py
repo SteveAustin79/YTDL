@@ -160,36 +160,39 @@ def downloadVideo(videoid):
     res = max(print_resolutions(), key=lambda x: int(x.rstrip('p')))
 
     print("Resolution: ", res)
-
-    moreThan1080p = 0
-
-    if res == "2160p" or res == "1440p":
-        # print("\nATTENTION: >1080p is stored as webm and cannot be merged by ffmpeg! Moving source files to download path instead!\n")
-        moreThan1080p = 1
-
-    print("\nDownloading VIDEO...")
-
-    for idx, i in enumerate(yt.streams):
-        if i.resolution == res:
-            break
-    yt.streams[idx].download()
-
-    print("\nDownload VIDEO complete.\n\nDownloading AUDIO...")
-
-    for idx, i in enumerate(yt.streams):
-        if i.bitrate == "128kbps":
-            break
-    yt.streams[idx].download()
-
-    print("\nDownload AUDIO complete.")
-
-    if moreThan1080p == 0:
-        print("\nMerging...")
-        merge_video_audio()
+    # check if file was already downloaded
+    if os.path.exists(dlpath + "/" + yt.title + ".mp4"):
+        print("File already downloaded! Skipping...")
     else:
-        print("\nMoving temp files...")
-        # move_video_audio()
-        convert_m4a_to_opus_and_merge()
+        moreThan1080p = 0
+
+        if res == "2160p" or res == "1440p":
+            # print("\nATTENTION: >1080p is stored as webm and cannot be merged by ffmpeg! Moving source files to download path instead!\n")
+            moreThan1080p = 1
+
+        print("\nDownloading VIDEO...")
+
+        for idx, i in enumerate(yt.streams):
+            if i.resolution == res:
+                break
+        yt.streams[idx].download()
+
+        print("\nDownload VIDEO complete.\n\nDownloading AUDIO...")
+
+        for idx, i in enumerate(yt.streams):
+            if i.bitrate == "128kbps":
+                break
+        yt.streams[idx].download()
+
+        print("\nDownload AUDIO complete.")
+
+        if moreThan1080p == 0:
+            print("\nMerging...")
+            merge_video_audio()
+        else:
+            print("\nMoving temp files...")
+            # move_video_audio()
+            convert_m4a_to_opus_and_merge()
 
 
 while True:
