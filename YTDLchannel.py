@@ -39,7 +39,7 @@ def merge_webm_opus():
     os.remove(video_file)
     os.remove(audio_file)
     os.remove("audio.opus")
-    print(f"Merged. Converting to MP4... (this may take a while)")
+    print(f"Converting to MP4... (this may take a while)")
     convert_webm_to_mp4(output_file, dlpath + "/" + os.path.splitext(video_file)[0] + ".mp4")
 
 def convert_webm_to_mp4(input_file, output_file):
@@ -112,8 +112,8 @@ def merge_video_audio():
 
     """Merge video and audio into a single MP4 file using FFmpeg."""
     try:
-        print(f"🎬 Merging Video: {video_file}")
-        print(f"🎵 Merging Audio: {audio_file}")
+        #print(f"🎬 Merging Video: {video_file}")
+        #print(f"🎵 Merging Audio: {audio_file}")
 
         # Input video and audio streams
         video = ffmpeg.input(video_file)
@@ -124,7 +124,8 @@ def merge_video_audio():
 
         # Run FFmpeg command
         ffmpeg.run(output, overwrite_output=True, quiet=True)
-        print(f"\n✅ \033[92mMerged file saved as: {output_file}.\033[0m")
+        #print(f"\n✅ \033[92mMerged file saved as: {output_file}.\033[0m")
+        print(f"\033[92mVideo download complete 😊\033[0m")
 
         # remove video and audio streams
         os.remove(video_file)
