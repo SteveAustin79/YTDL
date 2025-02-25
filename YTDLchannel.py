@@ -34,7 +34,7 @@ def merge_webm_opus():
         "ffmpeg", "-i", video_file, "-i", "audio.opus",
         "-c:v", "copy", "-c:a", "copy", output_file
     ]
-    subprocess.run(command, check=True)
+    subprocess.run(command, check=True, capture_output=False)
     # remove video and audio streams
     os.remove(video_file)
     os.remove(audio_file)
@@ -51,9 +51,9 @@ def convert_webm_to_mp4(input_file, output_file):
         "-movflags", "+faststart",  # Optimize MP4 for streaming
         output_file
     ]
-    subprocess.run(command, check=True)
+    subprocess.run(command, check=True, capture_output=False)
     os.remove(input_file)
-    print(f"✅ Converted {input_file} to {output_file}\nHave a great day!!!\n")
+    print(f"✅ \033[92mConverted {input_file} to {output_file}\033[0m\n")
 
 def deletTempFiles():
     # remove video and audio streams
@@ -162,7 +162,7 @@ def downloadVideo(videoid):
     print("Resolution: ", res)
     # check if file was already downloaded
     if os.path.exists(dlpath + "/" + yt.title + ".mp4"):
-        print("\n\033[92mVideo already downloaded! Skipping...\033[0m")
+        print("\n\033[92mVideo already downloaded :-)\033[0m")
     else:
         moreThan1080p = 0
 
@@ -216,7 +216,7 @@ while True:
         dlpath = smart_input("Download Path:  ", output_dir)
 
         c = Channel(YTchannel)
-        print(f'\nDownloading videos by: {c.channel_name}\n')
+        print(f'\nDownloading videos by: {c.channel_name}')
 
         count_total_videos = 0
         count_restricted_videos = 0
