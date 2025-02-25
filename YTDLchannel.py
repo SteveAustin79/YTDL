@@ -149,7 +149,7 @@ def print_resolutions():
 def downloadVideo(videoid):
     yt = YouTube("https://www.youtube.com/watch?v=" + videoid.video_id, on_progress_callback=on_progress)
 
-    print("\n******************************************************************************")
+    print("\n***********************************************************************************")
     #print("Channel:    ", yt.author)
     print("Title:      ", yt.title)
     print("Views:      ", str(int(yt.views / 1000)) + "K")
