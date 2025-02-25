@@ -12,7 +12,7 @@ Download all videos from a specific YouTube channel.
 ### Features
 - highest available resolution will be downloaded automatically
 - sub directory structure will be suggested
-- already downloaded files will be skipped
+- already downloaded videos will be skipped
 
 ### History
 - 20250226 - v0.1 - initial version
