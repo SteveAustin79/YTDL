@@ -149,6 +149,7 @@ def merge_video_audio():
     except Exception as e:
         print(f"❌ Error merging files: {e}")
 
+
 while True:
     try:
         # Load config

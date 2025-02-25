@@ -30,7 +30,7 @@ while True:
         count_fetch_videos = int(input("Fetch x latest Videos: "))
 
         c = Channel(YTchannel)
-        print(f'\nListing videos by: {c.channel_name}')
+        print(f'\nListing videos by: {c.channel_name}\n')
 
         count_total_videos = 0
         count_restricted_videos = 0
@@ -53,6 +53,10 @@ while True:
 
         print("Total Videos: " + str(count_total_videos) + ", OK Videos: " + str(count_ok_videos)
               + ", Restricted Videos: " + str(count_restricted_videos))
+
+        for video in video_list:
+            print("https://www.youtube.com/watch?v=" + video)
+
 
     except Exception as e:
         print("An error occurred:", str(e))
