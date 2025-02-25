@@ -148,7 +148,7 @@ def print_resolutions():
     return unique_resolutions
 
 def downloadVideo(videoid):
-    yt = YouTube("https://www.youtube.com/watch?v=" + videoid.video_id, on_progress_callback=on_progress)
+    yt = YouTube("https://www.youtube.com/watch?v=" + videoid, on_progress_callback=on_progress)
 
     print("\n***********************************************************************************")
     #print("Channel:    ", yt.author)
@@ -162,7 +162,7 @@ def downloadVideo(videoid):
 
     print("Resolution: ", res)
     # check if file was already downloaded
-    if os.path.exists(dlpath + "/" + yt.title + "_"+ videoid.video_id + ".mp4"):
+    if os.path.exists(dlpath + "/" + yt.title + "_"+ videoid + ".mp4"):
         print("\n\033[92mVideo already downloaded 😊\033[0m")
     else:
         moreThan1080p = 0
@@ -187,10 +187,10 @@ def downloadVideo(videoid):
 
         print("\nMerging...")
         if moreThan1080p == 0:
-            merge_video_audio(videoid.video_id)
+            merge_video_audio(videoid)
         else:
             # move_video_audio()
-            convert_m4a_to_opus_and_merge(videoid.video_id)
+            convert_m4a_to_opus_and_merge(videoid)
 
 
 while True:
@@ -233,7 +233,7 @@ while True:
                 video_list.append(video.video_id)
                 #print(str(count_total_videos) + " - " + video.video_id + " - " + video.title)
                 #print_resolutions()
-                downloadVideo(video)
+                downloadVideo(video.video_id)
             else:
                 count_restricted_videos += 1
                 video_list_restricted.append(video.video_id)
