@@ -147,7 +147,7 @@ def print_resolutions():
 
 while True:
     try:
-        # CHECK VIDEOSL
+        # CHECK VIDEOS
         ##############
         # Load config
         config = load_config()
@@ -176,6 +176,8 @@ while True:
         for video in c.videos:
             count_total_videos += 1
             yt = YouTube("https://www.youtube.com/watch?v=" + video.video_id, on_progress_callback=on_progress)
+
+            print(video.check_availability())
 
             if video.age_restricted == False:
                 count_ok_videos += 1
