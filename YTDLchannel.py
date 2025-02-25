@@ -227,10 +227,10 @@ while True:
         print("YouTube Channel Downloader (Exit App with Ctrl + C)\n")
 
         YTchannel = input("YouTube Channel URL: ")
-        count_fetch_videos = str(smart_input("Fetch x latest Videos (for all playable/unrestricted Videos use: all): ", "all"))
-        dlpath = smart_input("Download Path:  ", output_dir)
+        count_fetch_videos = str(smart_input("Fetch x latest Videos (to download all playable/unrestricted videos use 'all'): ", "all"))
 
         c = Channel(YTchannel)
+        dlpath = smart_input("Download Path:  ", output_dir + "/YTDLchannel/" + c.channel_name)
         print(f'\nDownloading videos by: \033[96m{c.channel_name}\033[0m')
 
         count_total_videos = 0
