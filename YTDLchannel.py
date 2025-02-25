@@ -175,6 +175,8 @@ while True:
         print("\nTotal Videos: " + str(count_total_videos) + ", OK Videos: " + str(count_ok_videos)
               + ", Restricted Videos: " + str(count_restricted_videos) + "\n")
 
+        dlpath = smart_input("Download Path:  ", output_dir)
+
         for video in video_list:
             print("https://www.youtube.com/watch?v=" + video)
             yt = YouTube("https://www.youtube.com/watch?v=" + video, on_progress_callback=on_progress)
@@ -193,8 +195,6 @@ while True:
             res = smart_input("\nResolution: ", resolution)
 
             moreThan1080p = 0
-
-            dlpath = smart_input("Download Path:  ", output_dir)
 
             if res == "2160p" or res == "1440p":
                 # print("\nATTENTION: >1080p is stored as webm and cannot be merged by ffmpeg! Moving source files to download path instead!\n")
