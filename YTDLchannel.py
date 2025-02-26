@@ -28,6 +28,18 @@ from datetime import datetime
 version = 0.1
 
 
+def clean_string_regex(text):
+    """
+    Removes characters that do NOT match the given pattern.
+
+    :param text: The input string to clean.
+    :param pattern: Regular expression pattern for allowed characters.
+    :return: The cleaned string.
+    """
+    pattern = r"[^a-zA-Z0-9 ]"
+
+    return re.sub(pattern, "", text)
+
 def format_header(counter, width):
     counter_str = f" \033[96m{counter}\033[0m "  # Add spaces around the number
     total_length = width - 2  # Exclude parentheses ()
@@ -42,44 +54,6 @@ def load_config():
     with open("config.json", "r") as file:
         config = json.load(file)
     return config
-
-def convert_m4a_to_opus_and_merge(videoid, publishdate):
-    video_file, audio_file = find_media_files()
-    """Convert M4A to Opus format (WebM-compatible)."""
-    command = [
-        "ffmpeg", "-loglevel", "quiet", "-i", audio_file, "-c:a", "libopus", "audio.opus"
-    ]
-    subprocess.run(command, check=True)
-    #print(f"✅ Converted {audio_file} to audio.opus")
-    merge_webm_opus(videoid, publishdate)
-
-def merge_webm_opus(videoid, publishdate):
-    video_file, audio_file = find_media_files()
-    output_file = "tmp/" + video_file
-    """Merge WebM video with Opus audio."""
-    command = [
-        "ffmpeg", "-loglevel", "quiet", "-i", video_file, "-i", "audio.opus",
-        "-c:v", "copy", "-c:a", "copy", output_file
-    ]
-    subprocess.run(command, check=True)
-    # remove video and audio streams
-    deletTempFiles()
-    os.remove("audio.opus")
-    print(f"Converting to MP4... (this may take a while)")
-    convert_webm_to_mp4(output_file, dlpath + "/" + publishdate + "_" + os.path.splitext(video_file)[0] + "_"+ videoid + ".mp4")
-
-def convert_webm_to_mp4(input_file, output_file):
-    """Convert a WebM file to MP4 (H.264/AAC)."""
-    command = [
-        "ffmpeg", "-loglevel", "quiet", "-i", input_file,
-        "-c:v", "libx264", "-preset", "fast", "-crf", "23",  # H.264 video encoding
-        "-c:a", "aac", "-b:a", "128k",  # AAC audio encoding
-        "-movflags", "+faststart",  # Optimize MP4 for streaming
-        output_file
-    ]
-    subprocess.run(command, check=True)
-    os.remove(input_file)
-    print(f"\n\033[92mVideo download completed\033[0m")
 
 def deletTempFiles():
     # remove video and audio streams
@@ -124,41 +98,6 @@ def move_video_audio():
 
     print(f"✅ Moved files to download path!")
 
-def merge_video_audio(videoid, publishdate):
-    video_file, audio_file = find_media_files()
-
-    if not video_file or not audio_file:
-        print("❌ No MP4 or M4A files found in the current directory.")
-        return
-
-    if not os.path.exists(dlpath):
-        os.makedirs(dlpath)
-
-    output_file = dlpath + "/" + publishdate + "_" + os.path.splitext(video_file)[0] + "_" + videoid + ".mp4"
-
-    """Merge video and audio into a single MP4 file using FFmpeg."""
-    try:
-        #print(f"🎬 Merging Video: {video_file}")
-        #print(f"🎵 Merging Audio: {audio_file}")
-
-        # Input video and audio streams
-        video = ffmpeg.input(video_file)
-        audio = ffmpeg.input(audio_file)
-
-        # Merge video and audio
-        output = ffmpeg.output(video, audio, output_file, vcodec="copy", acodec="aac", strict="experimental")
-
-        # Run FFmpeg command
-        ffmpeg.run(output, overwrite_output=True, quiet=True)
-        #print(f"\n✅ \033[92mMerged file saved as: {output_file}.\033[0m")
-        print(f"\n\033[92mVideo download completed\033[0m")
-
-        # remove video and audio streams
-        deletTempFiles()
-
-    except Exception as e:
-        print(f"❌ Error merging files: {e}")
-
 def print_resolutions():
     streams = yt.streams.filter(file_extension='mp4')  # StreamQuery object
     # Convert StreamQuery to a formatted string
@@ -173,7 +112,7 @@ def print_resolutions():
     return unique_resolutions
 
 def downloadVideo(videoid, counterid):
-    yt = YouTube("https://www.youtube.com/watch?v=" + videoid, on_progress_callback=on_progress)
+    yt = YouTube(youtube_base_url + videoid, on_progress_callback=on_progress)
 
     #print("\n***" + str(counterid) + "********************************************************************************")
     print("\n" + format_header(counterid, 96))
@@ -223,6 +162,79 @@ def downloadVideo(videoid, counterid):
         else:
             # move_video_audio()
             convert_m4a_to_opus_and_merge(videoid, str(publishingDate))
+
+def merge_video_audio(videoid, publishdate):
+    video_file, audio_file = find_media_files()
+
+    if not video_file or not audio_file:
+        print("❌ No MP4 or M4A files found in the current directory.")
+        return
+
+    if not os.path.exists(dlpath):
+        os.makedirs(dlpath)
+
+    output_file = dlpath + "/" + publishdate + "_" + clean_string_regex(os.path.splitext(video_file)[0]) + "_" + videoid + ".mp4"
+
+    """Merge video and audio into a single MP4 file using FFmpeg."""
+    try:
+        #print(f"🎬 Merging Video: {video_file}")
+        #print(f"🎵 Merging Audio: {audio_file}")
+
+        # Input video and audio streams
+        video = ffmpeg.input(video_file)
+        audio = ffmpeg.input(audio_file)
+
+        # Merge video and audio
+        output = ffmpeg.output(video, audio, output_file, vcodec="copy", acodec="aac", strict="experimental")
+
+        # Run FFmpeg command
+        ffmpeg.run(output, overwrite_output=True, quiet=True)
+        #print(f"\n✅ \033[92mMerged file saved as: {output_file}.\033[0m")
+        print(f"\n\033[92mVideo download completed\033[0m")
+
+        # remove video and audio streams
+        deletTempFiles()
+
+    except Exception as e:
+        print(f"❌ Error merging files: {e}")
+
+def convert_m4a_to_opus_and_merge(videoid, publishdate):
+    video_file, audio_file = find_media_files()
+    """Convert M4A to Opus format (WebM-compatible)."""
+    command = [
+        "ffmpeg", "-loglevel", "quiet", "-i", audio_file, "-c:a", "libopus", "audio.opus"
+    ]
+    subprocess.run(command, check=True)
+    #print(f"✅ Converted {audio_file} to audio.opus")
+    merge_webm_opus(videoid, publishdate)
+
+def merge_webm_opus(videoid, publishdate):
+    video_file, audio_file = find_media_files()
+    output_file = "tmp/" + video_file
+    """Merge WebM video with Opus audio."""
+    command = [
+        "ffmpeg", "-loglevel", "quiet", "-i", video_file, "-i", "audio.opus",
+        "-c:v", "copy", "-c:a", "copy", output_file
+    ]
+    subprocess.run(command, check=True)
+    # remove video and audio streams
+    deletTempFiles()
+    os.remove("audio.opus")
+    print(f"Converting to MP4... (this may take a while)")
+    convert_webm_to_mp4(output_file, dlpath + "/" + publishdate + "_" + clean_string_regex(os.path.splitext(video_file)[0]) + "_"+ videoid + ".mp4")
+
+def convert_webm_to_mp4(input_file, output_file):
+    """Convert a WebM file to MP4 (H.264/AAC)."""
+    command = [
+        "ffmpeg", "-loglevel", "quiet", "-i", input_file,
+        "-c:v", "libx264", "-preset", "fast", "-crf", "23",  # H.264 video encoding
+        "-c:a", "aac", "-b:a", "128k",  # AAC audio encoding
+        "-movflags", "+faststart",  # Optimize MP4 for streaming
+        output_file
+    ]
+    subprocess.run(command, check=True)
+    os.remove(input_file)
+    print(f"\n\033[92mVideo download completed\033[0m")
 
 
 while True:
