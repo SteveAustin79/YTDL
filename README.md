@@ -1,4 +1,4 @@
-## YTDL - YouTubeDownLoader 0.3
+# YTDL - YouTubeDownLoader 0.3
 A command line YouTube video downloader, downloading a specific video resolution file and a 128kps audio stream, finally merged into a single file. Use of ffmpeg and pytubefix.
 
 #### Note: Member, ageRestricted or unplayable videos cannot be downloaded with YTDL or YTDLchannel!
@@ -10,7 +10,7 @@ A command line YouTube video downloader, downloading a specific video resolution
 
 </br>
 
-## YTDLchannel - YouTubeChannelDownloader 0.1
+# YTDLchannel - YouTubeChannelDownloader 0.1
 Download all videos from a specific YouTube channel.
 
 ### Features
