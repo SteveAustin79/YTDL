@@ -115,7 +115,7 @@ def downloadVideo(videoid, counterid):
     yt = YouTube(youtube_base_url + videoid, on_progress_callback=on_progress)
 
     #print("\n***" + str(counterid) + "********************************************************************************")
-    print("\n\n" + format_header(counterid, 96))
+    print("\n\n" + format_header(yt.author + " - " + counterid, 96))
     #print("Channel:    ", yt.author)
     print("Title:      \033[96m", yt.title, "\033[0m")
     print("Date:       ", yt.publish_date.strftime("%Y-%m-%d"))
