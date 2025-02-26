@@ -15,7 +15,7 @@ Download all videos from a specific YouTube channel.
 - already downloaded videos will be skipped
 
 ### History
-- 20250226 - v0.1 - initial version
+- 20250226 - v0.1 - initial version, based on YTDL v0.3
 
 
 ## Prerequisites
