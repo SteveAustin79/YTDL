@@ -253,7 +253,8 @@ while True:
 
         print("\nYTDLchannel " + str(version))
         print("***************")
-        print("YouTube Channel Downloader (Exit App with Ctrl + C)\n")
+        print("YouTube Channel Downloader (Exit App with Ctrl + C)")
+        print("https://github.com/SteveAustin79\n")
 
         YTchannel = input("YouTube Channel URL: ")
         count_fetch_videos = str(smart_input("Fetch x latest Videos (to download all playable/unrestricted videos use 'all'): ", "all"))
