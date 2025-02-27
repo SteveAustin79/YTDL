@@ -242,7 +242,7 @@ while True:
         yt = YouTube(url, on_progress_callback = on_progress)
         dlpath = smart_input("\nDownload Path:  ", output_dir + "/YTDLchannel/" + yt.author)
 
-        print("\n" + format_header("*", 96))
+        print("\n" + format_header("*", 87))
         print("Channel:    ", print_colored_text(yt.author, bcolors.OKBLUE))
         print("Title:      ", print_colored_text(yt.title, bcolors.OKBLUE))
         print("Views:      ", format_view_count(yt.views))
