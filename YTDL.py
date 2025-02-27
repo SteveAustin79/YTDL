@@ -23,6 +23,31 @@ from pytubefix.cli import on_progress
 version = 0.2
 
 
+def clean_string_regex(text):
+    """
+    Removes characters that do NOT match the given pattern.
+
+    :param text: The input string to clean.
+    :param pattern: Regular expression pattern for allowed characters.
+    :return: The cleaned string.
+    """
+    pattern = r"[^a-zA-Z0-9 ]"
+
+    return re.sub(pattern, "", text)
+
+def print_resolutions():
+    streams = yt.streams.filter(file_extension='mp4')  # StreamQuery object
+    # Convert StreamQuery to a formatted string
+    stream_string = "\n".join([str(stream) for stream in streams])
+    # Extract resolutions using regex
+    resolutions = re.findall(r'res="(\d+p)"', stream_string)
+    # Remove duplicates and sort in descending order
+    unique_resolutions = sorted(set(resolutions), key=lambda x: int(x[:-1]), reverse=True)
+
+    # Print results
+    #print("Available Resolutions:", unique_resolutions, "\n")
+    return unique_resolutions
+
 def load_config():
     """Load settings from config.json."""
     with open("config.json", "r") as file:
@@ -173,50 +198,49 @@ while True:
         print("Views:      ", str(int(yt.views/1000)) + "K")
         print("Length:     ", str(int(yt.length/60)) + "m")
 
-        streams = yt.streams.filter(file_extension='mp4')  # StreamQuery object
-        # Convert StreamQuery to a formatted string
-        stream_string = "\n".join([str(stream) for stream in streams])
-        # Extract resolutions using regex
-        resolutions = re.findall(r'res="(\d+p)"', stream_string)
-        # Remove duplicates and sort in descending order
-        unique_resolutions = sorted(set(resolutions), key=lambda x: int(x[:-1]), reverse=True)
+        publishingDate = yt.publish_date.strftime("%Y-%m-%d")
 
         # Print results
-        print("\nAvailable Resolutions:", unique_resolutions)
+        #print("\nAvailable Resolutions:", unique_resolutions)
 
-        res = smart_input("\nResolution: ", resolution)
-
-        moreThan1080p = 0
-
+        #res = smart_input("\nResolution: ", resolution)
         dlpath = smart_input("Download Path:  ", output_dir)
 
-        if res == "2160p" or res == "1440p":
-            #print("\nATTENTION: >1080p is stored as webm and cannot be merged by ffmpeg! Moving source files to download path instead!\n")
-            moreThan1080p = 1
+        res = max(print_resolutions(), key=lambda x: int(x.rstrip('p')))
 
-        print("\nDownloading VIDEO...")
-
-        for idx, i in enumerate(yt.streams):
-            if i.resolution == res:
-                break
-        yt.streams[idx].download()
-
-        print("\nDownload VIDEO complete.\n\nDownloading AUDIO...")
-
-        for idx, i in enumerate(yt.streams):
-            if i.bitrate == "128kbps":
-                break
-        yt.streams[idx].download()
-
-        print("\nDownload AUDIO complete.")
-
-        if moreThan1080p==0:
-            print("\nMerging...")
-            merge_video_audio()
+        if os.path.exists(
+                dlpath + "/" + str(publishingDate) + " - " + clean_string_regex(yt.title) + " - " + yt.video_id + ".mp4"):
+            print("\n\033[92mVideo already downloaded\033[0m")
         else:
-            print("\nMoving temp files...")
-            #move_video_audio()
-            convert_m4a_to_opus_and_merge()
+            moreThan1080p = 0
+
+            if res == "2160p" or res == "1440p":
+                #print("\nATTENTION: >1080p is stored as webm and cannot be merged by ffmpeg! Moving source files to download path instead!\n")
+                moreThan1080p = 1
+
+            print("\nDownloading VIDEO...")
+
+            for idx, i in enumerate(yt.streams):
+                if i.resolution == res:
+                    break
+            yt.streams[idx].download()
+
+            print("\nDownload VIDEO complete.\n\nDownloading AUDIO...")
+
+            for idx, i in enumerate(yt.streams):
+                if i.bitrate == "128kbps":
+                    break
+            yt.streams[idx].download()
+
+            print("\nDownload AUDIO complete.")
+
+            if moreThan1080p==0:
+                print("\nMerging...")
+                merge_video_audio()
+            else:
+                print("\nMoving temp files...")
+                #move_video_audio()
+                convert_m4a_to_opus_and_merge()
 
     except Exception as e:
         deletTempFiles()
