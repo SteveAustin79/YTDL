@@ -252,7 +252,7 @@ while True:
         publishingDate = yt.publish_date.strftime("%Y-%m-%d")
 
         # Print results
-        print("\nAvailable Resolutions:", print_resolutions())
+        print(print_colored_text("\nAvailable Resolutions:", print_resolutions()), bcolors.WARNING)
         max_res = max(print_resolutions(), key=lambda x: int(x.rstrip('p')))
 
         res = smart_input("\nResolution: ", max_res)
