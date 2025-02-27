@@ -36,12 +36,8 @@ class bcolors:
     ENDC       = "\033[0m"
 
 
-def format_message(message, color):
-    return f'{color}{message}{bcolors.ENDC}'
-
-
 def print_colored_text(message_text, color):
-    print(format_message(message_text, color))
+    return f'{color}{message_text}{bcolors.ENDC}'
 
 
 def format_view_count(number):
