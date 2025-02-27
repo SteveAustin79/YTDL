@@ -1,9 +1,11 @@
 """
-YTDL 0.2
+YTDL 0.4
 
 A command line YouTube video downloader, downloading a specific video resolution file
 and a 128kps audio stream, finally merged into a single file. Use of ffmpeg and pytubefix.
 
+20250227 - v0.4 - download path structure based on YTDLchannel v0.1
+20250224 - v0.3 - config file support
 20250223 - v0.2 - added webm support (>1080p)
 20250220 - v0.1 - initial version
 
@@ -20,7 +22,7 @@ from pytubefix import YouTube
 from pytubefix.cli import on_progress
 
 
-version = 0.2
+version = 0.4
 
 
 def clean_string_regex(text):
@@ -156,8 +158,8 @@ def merge_video_audio(videoid, publishdate):
 
     """Merge video and audio into a single MP4 file using FFmpeg."""
     try:
-        print(f"🎬 Merging Video: {video_file}")
-        print(f"🎵 Merging Audio: {audio_file}")
+        #print(f"🎬 Merging Video: {video_file}")
+        #print(f"🎵 Merging Audio: {audio_file}")
 
         # Input video and audio streams
         video = ffmpeg.input(video_file)
@@ -187,7 +189,7 @@ while True:
         output_dir = config["output_directory"]
         #resolution = config["default_resolution"]
 
-        print("\nYTDL " + str(version))
+        print("\n\nYTDL " + str(version))
         print("********")
         print("YouTube Video/Audio Downloader (Exit App with Ctrl + C)\n")
         #cleanup directory
