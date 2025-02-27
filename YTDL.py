@@ -194,6 +194,9 @@ def merge_video_audio(videoid, publishdate, video_resolution):
         print("❌ No MP4 or M4A files found in the current directory.")
         return
 
+    if not os.path.exists(dlpath):
+        os.makedirs(dlpath)
+
     #output_file = dlpath + "/" + video_file
     output_file = dlpath + "/" + publishdate + " - " + video_resolution + " - " + clean_string_regex(
         os.path.splitext(video_file)[0]) + " - " + videoid + ".mp4"
