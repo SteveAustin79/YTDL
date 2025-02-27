@@ -1,9 +1,10 @@
-# YTDL - YouTubeDownLoader 0.3
+# YTDL - YouTubeDownLoader 0.4
 A command line YouTube video downloader, downloading a specific video resolution file and a 128kps audio stream, finally merged into a single file. Use of ffmpeg and pytubefix.
 
 #### Note: Member, ageRestricted or unplayable videos cannot be downloaded with YTDL or YTDLchannel!
 
 ### History
+- 20250227 - v0.4 - download path structure based on YTDLchannel v0.1
 - 20250224 - v0.3 - config file support
 - 20250223 - v0.2 - added webm support (>1080p)
 - 20250220 - v0.1 - initial version
