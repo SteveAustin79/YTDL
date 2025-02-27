@@ -34,7 +34,8 @@ def rename_videos_in_folder(folder_path):
     for file_path in mp4_files:
         resolution = get_video_resolution(file_path)
         if resolution:
-            print(resolution)
+            width, height = resolution.split("x")
+            print(file_path + " - " + height + "p")
             #directory, filename = os.path.split(file_path)
             #name, ext = os.path.splitext(filename)
             #new_filename = f"{name}_{resolution}{ext}"
