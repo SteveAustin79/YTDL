@@ -40,8 +40,8 @@ def format_message(message, color):
     return f'{color}{message}{bcolors.ENDC}'
 
 
-def print_colored_text(message_text):
-    print(format_message(message_text, bcolors.OKGREEN))
+def print_colored_text(message_text, color):
+    print(format_message(message_text, color))
 
 
 def format_view_count(number):
