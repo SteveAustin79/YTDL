@@ -282,6 +282,9 @@ while True:
                     break
             yt.streams[idx].download()
 
+            if not os.path.exists(dlpath):
+                os.makedirs(dlpath)
+
             if moreThan1080p==0:
                 print("\nMerging...\n")
                 merge_video_audio(yt.video_id, publishingDate, res)
