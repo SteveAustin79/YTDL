@@ -1,5 +1,5 @@
 """
-YTDLchannel 0.1
+YTDLchannel 0.2
 
 Download all videos from a specific YouTube channel.
 
@@ -8,6 +8,7 @@ Features:
 - sub-directory structure will be suggested
 - already downloaded videos will be skipped
 
+20250227 - v0.2 - enhanced file support (checks if already downloaded etc)
 20250226 - v0.1 - initial version, based on YTDL v0.3
 
 https://github.com/SteveAustin79
@@ -25,9 +26,19 @@ from pytubefix.cli import on_progress
 from datetime import datetime
 
 
-version = 0.1
+version = 0.2
 
 
+def format_view_count(number):
+    """Formats a number into a human-readable view count."""
+    if number >= 1_000_000_000:  # Billions
+        return f"{number / 1_000_000_000:.1f}B"
+    elif number >= 1_000_000:  # Millions
+        return f"{number / 1_000_000:.1f}M"
+    elif number >= 1_000:  # Thousands
+        return f"{number / 1_000:.1f}K"
+    else:
+        return str(number)
 
 
 def clean_string_regex(text):
@@ -42,6 +53,7 @@ def clean_string_regex(text):
 
     return re.sub(pattern, "", text)
 
+
 def format_header(counter, width):
     counter_str = f" \033[96m{counter}\033[0m "  # Add spaces around the number
     total_length = width - 2  # Exclude parentheses ()
@@ -51,11 +63,13 @@ def format_header(counter, width):
 
     return formatted
 
+
 def load_config():
     """Load settings from config.json."""
     with open("config.json", "r") as file:
         config = json.load(file)
     return config
+
 
 def deletTempFiles():
     # remove video and audio streams
@@ -67,9 +81,11 @@ def deletTempFiles():
     if audio_file and os.path.exists(audio_file):
         os.remove(audio_file)
 
+
 def smart_input(prompt, default_value):
     user_input = input(f"{prompt} [{default_value}]: ").strip()
     return user_input if user_input else default_value
+
 
 def find_media_files():
     """Search for the first MP4 and M4A files in the current directory."""
@@ -90,6 +106,7 @@ def find_media_files():
 
     return video_file, audio_file
 
+
 def move_video_audio():
     video_file, audio_file = find_media_files()
     destinationVideo = dlpath + "/" + video_file  # Destination path
@@ -99,6 +116,7 @@ def move_video_audio():
     shutil.move(audio_file, destinationAudio)
 
     print(f"✅ Moved files to download path!")
+
 
 def print_resolutions():
     streams = yt.streams.filter(file_extension='mp4')  # StreamQuery object
@@ -113,6 +131,7 @@ def print_resolutions():
     #print("Available Resolutions:", unique_resolutions, "\n")
     return unique_resolutions
 
+
 def downloadVideo(videoid, counterid):
     global count_already_downloaded
     global  count_downloading
@@ -124,7 +143,7 @@ def downloadVideo(videoid, counterid):
     #print("Channel:    ", yt.author)
     print("Title:      \033[96m", yt.title, "\033[0m")
     print("Date:       ", yt.publish_date.strftime("%Y-%m-%d"))
-    print("Views:      ", str(int(yt.views / 1000)) + "K")
+    print("Views:      ", format_view_count(yt.views))
     print("Length:     ", str(int(yt.length / 60)) + "m")
 
     # print_resolutions()
@@ -170,6 +189,7 @@ def downloadVideo(videoid, counterid):
             # move_video_audio()
             convert_m4a_to_opus_and_merge(videoid, str(publishingDate), res)
 
+
 def merge_video_audio(videoid, publishdate, video_resolution):
     video_file, audio_file = find_media_files()
 
@@ -205,6 +225,7 @@ def merge_video_audio(videoid, publishdate, video_resolution):
     except Exception as e:
         print(f"❌ Error merging files: {e}")
 
+
 def convert_m4a_to_opus_and_merge(videoid, publishdate, video_resolution):
     video_file, audio_file = find_media_files()
     """Convert M4A to Opus format (WebM-compatible)."""
@@ -214,6 +235,7 @@ def convert_m4a_to_opus_and_merge(videoid, publishdate, video_resolution):
     subprocess.run(command, check=True)
     #print(f"✅ Converted {audio_file} to audio.opus")
     merge_webm_opus(videoid, publishdate, video_resolution)
+
 
 def merge_webm_opus(videoid, publishdate, video_resolution):
     video_file, audio_file = find_media_files()
@@ -229,6 +251,7 @@ def merge_webm_opus(videoid, publishdate, video_resolution):
     os.remove("audio.opus")
     print(f"Converting to MP4... (this may take a while)")
     convert_webm_to_mp4(output_file, dlpath + "/" + publishdate + " - " + video_resolution + " - " + clean_string_regex(os.path.splitext(video_file)[0]) + " - "+ videoid + ".mp4")
+
 
 def convert_webm_to_mp4(input_file, output_file):
     """Convert a WebM file to MP4 (H.264/AAC)."""

@@ -25,6 +25,17 @@ from pytubefix.cli import on_progress
 version = 0.4
 
 
+def format_view_count(number):
+    """Formats a number into a human-readable view count."""
+    if number >= 1_000_000_000:  # Billions
+        return f"{number / 1_000_000_000:.1f}B"
+    elif number >= 1_000_000:  # Millions
+        return f"{number / 1_000_000:.1f}M"
+    elif number >= 1_000:  # Thousands
+        return f"{number / 1_000:.1f}K"
+    else:
+        return str(number)
+
 def format_header(counter, width):
     counter_str = f"{counter}"  # Add spaces around the number
     total_length = width - 2  # Exclude parentheses ()
@@ -213,7 +224,7 @@ while True:
         print("Channel:    ", yt.author)
         print("Title:      ", yt.title)
         print("Date:       ", yt.publish_date.strftime("%Y-%m-%d"))
-        print("Views:      ", str(int(yt.views/1000)) + "K")
+        print("Views:      ", format_view_count(yt.views))
         print("Length:     ", str(int(yt.length/60)) + "m")
 
         publishingDate = yt.publish_date.strftime("%Y-%m-%d")
