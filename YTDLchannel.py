@@ -5,7 +5,7 @@ Download all videos from a specific YouTube channel.
 
 Features:
 - highest available resolution will be downloaded automatically
-- sub directory structure will be suggested
+- sub-directory structure will be suggested
 - already downloaded videos will be skipped
 
 20250226 - v0.1 - initial version, based on YTDL v0.3
