@@ -28,6 +28,8 @@ from datetime import datetime
 version = 0.1
 
 
+
+
 def clean_string_regex(text):
     """
     Removes characters that do NOT match the given pattern.
@@ -112,6 +114,9 @@ def print_resolutions():
     return unique_resolutions
 
 def downloadVideo(videoid, counterid):
+    global count_already_downloaded
+    global  count_downloading
+
     yt = YouTube(youtube_base_url + videoid, on_progress_callback=on_progress)
 
     #print("\n***" + str(counterid) + "********************************************************************************")
@@ -134,7 +139,10 @@ def downloadVideo(videoid, counterid):
     # check if file was already downloaded
     if os.path.exists(dlpath + "/" + str(publishingDate) + " - " + res + " - " + clean_string_regex(yt.title) + " - "+ videoid + ".mp4"):
         print("\n\033[92mVideo already downloaded\033[0m")
+        count_already_downloaded += count_already_downloaded
     else:
+        count_downloading += count_downloading
+
         moreThan1080p = 0
 
         if res == "2160p" or res == "1440p":
@@ -265,6 +273,8 @@ while True:
         count_total_videos = 0
         count_restricted_videos = 0
         count_ok_videos = 0
+        count_already_downloaded = 0
+        count_downloading = 0
 
         for video in c.videos:
             count_total_videos += 1
@@ -286,7 +296,9 @@ while True:
             if count_fetch_videos != "all":
                 if count_total_videos == count_fetch_videos:
                     break
-
+        print("Downloads finished.")
+        print("Already downloaded: " + str(count_already_downloaded))
+        print("Downloaded:         " + str(count_downloading))
 
     except Exception as e:
         deletTempFiles()
