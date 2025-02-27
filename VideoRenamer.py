@@ -48,7 +48,7 @@ def rename_videos_in_folder(folder_path):
             #    print(f"Skipped (already renamed): {filename}")
 
 
-if __name__ == "__main__":
+try:
     # Load config
     config = load_config()
     # Access settings
@@ -60,3 +60,8 @@ if __name__ == "__main__":
     else:
         print("Invalid folder path. Please try again.")
 
+except Exception as e:
+    print("An error occurred:", str(e))
+
+except KeyboardInterrupt:
+    print("\n\nGood Bye...\n")
