@@ -209,7 +209,7 @@ while True:
         yt = YouTube(url, on_progress_callback = on_progress)
         dlpath = smart_input("\nDownload Path:  ", output_dir + "/YTDLchannel/" + yt.author)
 
-        print(format_header("*", 96))
+        print("\n" + format_header("*", 96))
         print("\nChannel:    ", yt.author)
         print("Title:      ", yt.title)
         print("Date:       ", yt.publish_date.strftime("%Y-%m-%d"))
