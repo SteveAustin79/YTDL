@@ -25,6 +25,15 @@ from pytubefix.cli import on_progress
 version = 0.4
 
 
+def format_header(counter, width):
+    counter_str = f"{counter}"  # Add spaces around the number
+    total_length = width - 2  # Exclude parentheses ()
+
+    # Center the counter with asterisks
+    formatted = f"{counter_str.center(total_length, '*')}"
+
+    return formatted
+
 def clean_string_regex(text):
     """
     Removes characters that do NOT match the given pattern.
@@ -200,6 +209,7 @@ while True:
         yt = YouTube(url, on_progress_callback = on_progress)
         dlpath = smart_input("\nDownload Path:  ", output_dir + "/YTDLchannel/" + yt.author)
 
+        print(format_header("*", 96))
         print("\nChannel:    ", yt.author)
         print("Title:      ", yt.title)
         print("Date:       ", yt.publish_date.strftime("%Y-%m-%d"))
