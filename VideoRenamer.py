@@ -54,7 +54,7 @@ try:
     # Access settings
     output_dir = config["output_directory"]
 
-    folder = smart_input("\nFolder Path:  ", output_dir)
+    folder = smart_input("\nFolder Path:  ", output_dir + "/YTDLchannel/")
     if os.path.exists(folder):
         rename_videos_in_folder(folder)
     else:
