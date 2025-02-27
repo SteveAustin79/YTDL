@@ -25,6 +25,25 @@ from pytubefix.cli import on_progress
 version = 0.4
 
 
+class bcolors:
+    HEADER     = "\033[95m"
+    OKBLUE     = "\033[94m"
+    OKGREEN    = "\033[92m"
+    WARNING    = "\033[93m"
+    FAIL       = "\033[91m"
+    BOLD       = "\033[1m"
+    UNDERLINE  = "\033[4m"
+    ENDC       = "\033[0m"
+
+
+def format_message(message, color):
+    return f'{color}{message}{bcolors.ENDC}'
+
+
+def print_colored_text(message_text):
+    print(format_message(message_text, bcolors.OKGREEN))
+
+
 def format_view_count(number):
     """Formats a number into a human-readable view count."""
     if number >= 1_000_000_000:  # Billions
@@ -121,7 +140,8 @@ def convert_webm_to_mp4(input_file, output_file):
     subprocess.run(command, check=True)
     os.remove(input_file)
     #print(f"✅ Converted {input_file} to {output_file}\nHave a great day!!!\n")
-    print(f"\n\033[92mVideo downloaded\033[0m")
+    #print(f"\n\033[92mVideo downloaded\033[0m")
+    print_colored_text("Video downloaded", bcolors.OKGREEN)
 
 
 def deletTempFiles():
@@ -197,7 +217,7 @@ def merge_video_audio(videoid, publishdate, video_resolution):
         # Run FFmpeg command
         ffmpeg.run(output, overwrite_output=True, quiet=True)
         #print(f"\n✅ Merged file saved as: {output_file}.\nHave a great day!!!\n")
-        print(f"\n\033[92mVideo downloaded\033[0m")
+        print_colored_text("Video downloaded", bcolors.OKGREEN)
 
         # remove video and audio streams
         os.remove(video_file)
@@ -244,7 +264,8 @@ while True:
 
         if os.path.exists(
                 dlpath + "/" + str(publishingDate) + " - " + res + " - " + clean_string_regex(yt.title) + " - " + yt.video_id + ".mp4"):
-            print("\n\033[92mVideo already downloaded\033[0m")
+            #print("\n\033[92mVideo already downloaded\033[0m")
+            print_colored_text("Video already downloaded", bcolors.OKGREEN)
         else:
             moreThan1080p = 0
 
