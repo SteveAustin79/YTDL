@@ -204,7 +204,8 @@ while True:
         #print("\nAvailable Resolutions:", unique_resolutions)
 
         #res = smart_input("\nResolution: ", resolution)
-        dlpath = smart_input("Download Path:  ", output_dir)
+        #dlpath = smart_input("Download Path:  ", output_dir)
+        dlpath = smart_input("Download Path:  ", output_dir + "/YTDLchannel/" + yt.author)
 
         res = max(print_resolutions(), key=lambda x: int(x.rstrip('p')))
 
