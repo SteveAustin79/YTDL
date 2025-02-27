@@ -253,10 +253,10 @@ while True:
 
         # Print results
         print("\n")
-        print(print_colored_text("Available Resolutions:", print_resolutions()), bcolors.WARNING)
+        print("Available Resolutions:", print_resolutions())
         max_res = max(print_resolutions(), key=lambda x: int(x.rstrip('p')))
 
-        res = smart_input("\nResolution: ", max_res)
+        res = smart_input("\n" + print_colored_text("Resolution: ", bcolors.WARNING), max_res)
         #dlpath = smart_input("Download Path:  ", output_dir)
 
         if os.path.exists(
