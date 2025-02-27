@@ -208,6 +208,7 @@ while True:
         dlpath = smart_input("Download Path:  ", output_dir + "/YTDLchannel/" + yt.author)
 
         res = max(print_resolutions(), key=lambda x: int(x.rstrip('p')))
+        print("Resolution: ", res)
 
         if os.path.exists(
                 dlpath + "/" + str(publishingDate) + " - " + clean_string_regex(yt.title) + " - " + yt.video_id + ".mp4"):
