@@ -127,16 +127,15 @@ def downloadVideo(videoid, counterid):
     #res = max(print_resolutions(), key=lambda x: int(x.rstrip('p')))
 
     publishingDate = yt.publish_date.strftime("%Y-%m-%d")
+    res = max(print_resolutions(), key=lambda x: int(x.rstrip('p')))
+    print("Resolution: ", res)
 
     #print("Resolution: ", res)
     # check if file was already downloaded
-    if os.path.exists(dlpath + "/" + str(publishingDate) + " - " + clean_string_regex(yt.title) + " - "+ videoid + ".mp4"):
+    if os.path.exists(dlpath + "/" + str(publishingDate) + " - " + res + " - " + clean_string_regex(yt.title) + " - "+ videoid + ".mp4"):
         print("\n\033[92mVideo already downloaded\033[0m")
     else:
         moreThan1080p = 0
-
-        res = max(print_resolutions(), key=lambda x: int(x.rstrip('p')))
-        print("Resolution: ", res)
 
         if res == "2160p" or res == "1440p":
             # print("\nATTENTION: >1080p is stored as webm and cannot be merged by ffmpeg! Moving source files to download path instead!\n")
@@ -158,12 +157,12 @@ def downloadVideo(videoid, counterid):
 
         print("\nMerging...")
         if moreThan1080p == 0:
-            merge_video_audio(videoid, str(publishingDate))
+            merge_video_audio(videoid, str(publishingDate), res)
         else:
             # move_video_audio()
-            convert_m4a_to_opus_and_merge(videoid, str(publishingDate))
+            convert_m4a_to_opus_and_merge(videoid, str(publishingDate), res)
 
-def merge_video_audio(videoid, publishdate):
+def merge_video_audio(videoid, publishdate, video_resolution):
     video_file, audio_file = find_media_files()
 
     if not video_file or not audio_file:
@@ -173,7 +172,7 @@ def merge_video_audio(videoid, publishdate):
     if not os.path.exists(dlpath):
         os.makedirs(dlpath)
 
-    output_file = dlpath + "/" + publishdate + " - " + clean_string_regex(os.path.splitext(video_file)[0]) + " - " + videoid + ".mp4"
+    output_file = dlpath + "/" + publishdate + " - " + video_resolution + " - " + clean_string_regex(os.path.splitext(video_file)[0]) + " - " + videoid + ".mp4"
 
     """Merge video and audio into a single MP4 file using FFmpeg."""
     try:
@@ -198,7 +197,7 @@ def merge_video_audio(videoid, publishdate):
     except Exception as e:
         print(f"❌ Error merging files: {e}")
 
-def convert_m4a_to_opus_and_merge(videoid, publishdate):
+def convert_m4a_to_opus_and_merge(videoid, publishdate, video_resolution):
     video_file, audio_file = find_media_files()
     """Convert M4A to Opus format (WebM-compatible)."""
     command = [
@@ -206,9 +205,9 @@ def convert_m4a_to_opus_and_merge(videoid, publishdate):
     ]
     subprocess.run(command, check=True)
     #print(f"✅ Converted {audio_file} to audio.opus")
-    merge_webm_opus(videoid, publishdate)
+    merge_webm_opus(videoid, publishdate, video_resolution)
 
-def merge_webm_opus(videoid, publishdate):
+def merge_webm_opus(videoid, publishdate, video_resolution):
     video_file, audio_file = find_media_files()
     output_file = "tmp/" + video_file
     """Merge WebM video with Opus audio."""
@@ -221,7 +220,7 @@ def merge_webm_opus(videoid, publishdate):
     deletTempFiles()
     os.remove("audio.opus")
     print(f"Converting to MP4... (this may take a while)")
-    convert_webm_to_mp4(output_file, dlpath + "/" + publishdate + " - " + clean_string_regex(os.path.splitext(video_file)[0]) + " - "+ videoid + ".mp4")
+    convert_webm_to_mp4(output_file, dlpath + "/" + publishdate + " - " + video_resolution + " - " + clean_string_regex(os.path.splitext(video_file)[0]) + " - "+ videoid + ".mp4")
 
 def convert_webm_to_mp4(input_file, output_file):
     """Convert a WebM file to MP4 (H.264/AAC)."""
