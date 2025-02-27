@@ -211,7 +211,7 @@ def merge_video_audio(videoid, publishdate, video_resolution):
         output = ffmpeg.output(video, audio, output_file, vcodec="copy", acodec="aac", strict="experimental")
 
         # Run FFmpeg command
-        ffmpeg.run(output, overwrite_output=True, quiet=True)
+        ffmpeg.run(output, overwrite_output=True)
         #print(f"\n✅ Merged file saved as: {output_file}.\nHave a great day!!!\n")
         print(print_colored_text("Video downloaded", bcolors.OKGREEN))
 
