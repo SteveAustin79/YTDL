@@ -55,7 +55,7 @@ def load_config():
     return config
 
 
-def convert_m4a_to_opus_and_merge():
+def convert_m4a_to_opus_and_merge(videoid, publishdate):
     video_file, audio_file = find_media_files()
     """Convert M4A to Opus format (WebM-compatible)."""
     command = [
@@ -63,10 +63,10 @@ def convert_m4a_to_opus_and_merge():
     ]
     subprocess.run(command, check=True)
     print(f"✅ Converted {audio_file} to audio.opus")
-    merge_webm_opus()
+    merge_webm_opus(videoid, publishdate)
 
 
-def merge_webm_opus():
+def merge_webm_opus(videoid, publishdate):
     video_file, audio_file = find_media_files()
     output_file = "tmp/" + video_file
     """Merge WebM video with Opus audio."""
@@ -80,7 +80,7 @@ def merge_webm_opus():
     os.remove(audio_file)
     os.remove("audio.opus")
     print(f"✅ Merged WebM video with Opus audio into {output_file}")
-    convert_webm_to_mp4(output_file, dlpath + "/" + video_file + ".mp4")
+    convert_webm_to_mp4(output_file, dlpath + "/" + publishdate + " - " + clean_string_regex(os.path.splitext(video_file)[0]) + " - "+ videoid + ".mp4")
 
 
 def convert_webm_to_mp4(input_file, output_file):
@@ -142,14 +142,16 @@ def move_video_audio():
 
     print(f"✅ Moved files to download path!")
 
-def merge_video_audio():
+def merge_video_audio(videoid, publishdate):
     video_file, audio_file = find_media_files()
 
     if not video_file or not audio_file:
         print("❌ No MP4 or M4A files found in the current directory.")
         return
 
-    output_file = dlpath + "/" + video_file
+    #output_file = dlpath + "/" + video_file
+    output_file = dlpath + "/" + publishdate + " - " + clean_string_regex(
+        os.path.splitext(video_file)[0]) + " - " + videoid + ".mp4"
 
     """Merge video and audio into a single MP4 file using FFmpeg."""
     try:
@@ -189,6 +191,7 @@ while True:
         #cleanup directory
         deletTempFiles()
         url = input("YouTube Video URL: ")
+        dlpath = smart_input("Download Path:  ", output_dir + "/YTDLchannel/" + yt.author)
 
         yt = YouTube(url, on_progress_callback = on_progress)
 
@@ -205,7 +208,6 @@ while True:
 
         #res = smart_input("\nResolution: ", resolution)
         #dlpath = smart_input("Download Path:  ", output_dir)
-        dlpath = smart_input("Download Path:  ", output_dir + "/YTDLchannel/" + yt.author)
 
         res = max(print_resolutions(), key=lambda x: int(x.rstrip('p')))
         print("Resolution: ", res)
@@ -238,11 +240,11 @@ while True:
 
             if moreThan1080p==0:
                 print("\nMerging...")
-                merge_video_audio()
+                merge_video_audio(yt.video_id, publishingDate)
             else:
                 print("\nMoving temp files...")
                 #move_video_audio()
-                convert_m4a_to_opus_and_merge()
+                convert_m4a_to_opus_and_merge(yt.video_id, publishingDate)
 
     except Exception as e:
         deletTempFiles()
