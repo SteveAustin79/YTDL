@@ -11,7 +11,7 @@ A command line YouTube video downloader, downloading a specific video resolution
 
 <br/>
 
-# YTDLchannel - YouTubeChannelDownloader 0.1
+# YTDLchannel - YouTubeChannelDownloader 0.2
 Download all videos from a specific YouTube channel.
 
 ### Features
@@ -20,6 +20,7 @@ Download all videos from a specific YouTube channel.
 - already downloaded videos will be skipped
 
 ### History
+- 20250227 - v0.2 - enhanced file support (checks if already downloaded etc)
 - 20250226 - v0.1 - initial version, based on YTDL v0.3
 
 <br/>
