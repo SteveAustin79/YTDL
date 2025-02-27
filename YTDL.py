@@ -100,7 +100,7 @@ def convert_m4a_to_opus_and_merge(videoid, publishdate):
     video_file, audio_file = find_media_files()
     """Convert M4A to Opus format (WebM-compatible)."""
     command = [
-        "ffmpeg", "-loglevel", "quiet", "-i", audio_file, "-c:a", "libopus", "audio.opus"
+        "ffmpeg", "-i", audio_file, "-c:a", "libopus", "audio.opus"
     ]
     subprocess.run(command, check=True)
     print(f"✅ Converted {audio_file} to audio.opus")
@@ -112,7 +112,7 @@ def merge_webm_opus(videoid, publishdate, video_resolution):
     output_file = "tmp/" + video_file
     """Merge WebM video with Opus audio."""
     command = [
-        "ffmpeg", "-loglevel", "quiet", "-i", video_file, "-i", "audio.opus",
+        "ffmpeg", "-i", video_file, "-i", "audio.opus",
         "-c:v", "copy", "-c:a", "copy", output_file
     ]
     subprocess.run(command, check=True)
@@ -127,7 +127,7 @@ def merge_webm_opus(videoid, publishdate, video_resolution):
 def convert_webm_to_mp4(input_file, output_file):
     """Convert a WebM file to MP4 (H.264/AAC)."""
     command = [
-        "ffmpeg", "-loglevel", "quiet", "-i", input_file,
+        "ffmpeg", "-i", input_file,
         "-c:v", "libx264", "-preset", "fast", "-crf", "23",  # H.264 video encoding
         "-c:a", "aac", "-b:a", "128k",  # AAC audio encoding
         "-movflags", "+faststart",  # Optimize MP4 for streaming
