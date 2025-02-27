@@ -252,7 +252,6 @@ while True:
         publishingDate = yt.publish_date.strftime("%Y-%m-%d")
 
         # Print results
-        print("\n")
         print("Available Resolutions:", print_resolutions())
         max_res = max(print_resolutions(), key=lambda x: int(x.rstrip('p')))
 
