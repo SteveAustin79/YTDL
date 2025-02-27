@@ -65,7 +65,7 @@ def rename_videos_in_folder(folder_path):
 
                 # Rename the file if necessary
                 if file_path != new_file_path:
-                    #os.rename(file_path, new_file_path)
+                    os.rename(file_path, new_file_path)
                     print(f"Renamed: {filename} → {new_filename}")
                 else:
                     print(f"Skipped (already renamed): {filename}")
