@@ -4,6 +4,15 @@ import cv2
 import json
 
 
+# Define resolution mapping
+RESOLUTION_MAPPING = {
+    1280: "720p",
+    1920: "1080p",
+    2560: "1440p",
+    3840: "2160p"
+}
+
+
 def load_config():
     """Load settings from config.json."""
     with open("config.json", "r") as file:
@@ -40,7 +49,7 @@ def rename_videos_in_folder(folder_path):
             width, height = resolution.split("x")
             filename = os.path.basename(file_path)
 
-            print(filename + " - " + width + "p")
+            print(width + "p - " + filename)
             #directory, filename = os.path.split(file_path)
             #name, ext = os.path.splitext(filename)
             #new_filename = f"{name}_{resolution}{ext}"
