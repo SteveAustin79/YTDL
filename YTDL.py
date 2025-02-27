@@ -229,8 +229,8 @@ while True:
         print("\n" + format_header("*", 96))
         print("Channel:    ", yt.author)
         print("Title:      ", yt.title)
-        print("Date:       ", yt.publish_date.strftime("%Y-%m-%d"))
         print("Views:      ", format_view_count(yt.views))
+        print("Date:       ", yt.publish_date.strftime("%Y-%m-%d"))
         print("Length:     ", str(int(yt.length/60)) + "m")
 
         publishingDate = yt.publish_date.strftime("%Y-%m-%d")
