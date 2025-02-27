@@ -32,7 +32,7 @@ def get_video_resolution(video_path):
         return None
     width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
     height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
-    if width<height:
+    if width < height:
         width = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
         height = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
     cap.release()
