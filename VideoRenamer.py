@@ -44,23 +44,33 @@ def rename_videos_in_folder(folder_path):
     mp4_files = glob.glob(os.path.join(folder_path, "*.mp4"))
 
     for file_path in mp4_files:
-        resolution = get_video_resolution(file_path)
-        if resolution:
-            width, height = resolution.split("x")
-            filename = os.path.basename(file_path)
+        width, height = get_video_resolution(file_path)
 
-            print(width + "p - " + filename)
-            #directory, filename = os.path.split(file_path)
-            #name, ext = os.path.splitext(filename)
-            #new_filename = f"{name}_{resolution}{ext}"
-            #new_file_path = os.path.join(directory, new_filename)
+        if width in RESOLUTION_MAPPING:
+            resolution_str = RESOLUTION_MAPPING[width]
 
-            # Rename the file if the new name is different
-            #if file_path != new_file_path:
-            #    os.rename(file_path, new_file_path)
-            #    print(f"Renamed: {filename} → {new_filename}")
-            #else:
-            #    print(f"Skipped (already renamed): {filename}")
+            directory, filename = os.path.split(file_path)
+            name, ext = os.path.splitext(filename)
+
+            # Extract the parts of the filename
+            parts = filename.split(" - ")
+            if len(parts) >= 3:
+                date_part = parts[0]
+                video_name = " - ".join(parts[1:-1])
+                unique_id = parts[-1].replace(ext, "")  # Remove extension from last part
+
+                # Construct new filename
+                new_filename = f"{date_part} - {resolution_str} - {video_name} - {unique_id}{ext}"
+                new_file_path = os.path.join(directory, new_filename)
+
+                # Rename the file if necessary
+                if file_path != new_file_path:
+                    #os.rename(file_path, new_file_path)
+                    print(f"Renamed: {filename} → {new_filename}")
+                else:
+                    print(f"Skipped (already renamed): {filename}")
+            else:
+                print(f"Skipping file (unexpected format): {filename}")
 
 
 try:
