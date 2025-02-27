@@ -100,7 +100,7 @@ def convert_m4a_to_opus_and_merge(videoid, publishdate):
     video_file, audio_file = find_media_files()
     """Convert M4A to Opus format (WebM-compatible)."""
     command = [
-        "ffmpeg", "-i", audio_file, "-c:a", "libopus", "audio.opus"
+        "ffmpeg", "-loglevel", "quiet", "-i", audio_file, "-c:a", "libopus", "audio.opus"
     ]
     subprocess.run(command, check=True)
     print(f"✅ Converted {audio_file} to audio.opus")
@@ -112,7 +112,7 @@ def merge_webm_opus(videoid, publishdate, video_resolution):
     output_file = "tmp/" + video_file
     """Merge WebM video with Opus audio."""
     command = [
-        "ffmpeg", "-i", video_file, "-i", "audio.opus",
+        "ffmpeg", "-loglevel", "quiet", "-i", video_file, "-i", "audio.opus",
         "-c:v", "copy", "-c:a", "copy", output_file
     ]
     subprocess.run(command, check=True)
@@ -127,7 +127,7 @@ def merge_webm_opus(videoid, publishdate, video_resolution):
 def convert_webm_to_mp4(input_file, output_file):
     """Convert a WebM file to MP4 (H.264/AAC)."""
     command = [
-        "ffmpeg", "-i", input_file,
+        "ffmpeg", "-loglevel", "quiet", "-i", input_file,
         "-c:v", "libx264", "-preset", "fast", "-crf", "23",  # H.264 video encoding
         "-c:a", "aac", "-b:a", "128k",  # AAC audio encoding
         "-movflags", "+faststart",  # Optimize MP4 for streaming
@@ -194,9 +194,6 @@ def merge_video_audio(videoid, publishdate, video_resolution):
         print("❌ No MP4 or M4A files found in the current directory.")
         return
 
-    if not os.path.exists(dlpath):
-        os.makedirs(dlpath)
-
     #output_file = dlpath + "/" + video_file
     output_file = dlpath + "/" + publishdate + " - " + video_resolution + " - " + clean_string_regex(
         os.path.splitext(video_file)[0]) + " - " + videoid + ".mp4"
@@ -214,7 +211,7 @@ def merge_video_audio(videoid, publishdate, video_resolution):
         output = ffmpeg.output(video, audio, output_file, vcodec="copy", acodec="aac", strict="experimental")
 
         # Run FFmpeg command
-        ffmpeg.run(output, overwrite_output=True)
+        ffmpeg.run(output, overwrite_output=True, quiet=True)
         #print(f"\n✅ Merged file saved as: {output_file}.\nHave a great day!!!\n")
         print(print_colored_text("Video downloaded", bcolors.OKGREEN))
 
