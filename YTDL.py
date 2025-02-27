@@ -137,7 +137,7 @@ def convert_webm_to_mp4(input_file, output_file):
     os.remove(input_file)
     #print(f"✅ Converted {input_file} to {output_file}\nHave a great day!!!\n")
     #print(f"\n\033[92mVideo downloaded\033[0m")
-    print_colored_text("Video downloaded", bcolors.OKGREEN)
+    print(print_colored_text("Video downloaded", bcolors.OKGREEN))
 
 
 def deletTempFiles():
@@ -213,7 +213,7 @@ def merge_video_audio(videoid, publishdate, video_resolution):
         # Run FFmpeg command
         ffmpeg.run(output, overwrite_output=True, quiet=True)
         #print(f"\n✅ Merged file saved as: {output_file}.\nHave a great day!!!\n")
-        print_colored_text("Video downloaded", bcolors.OKGREEN)
+        print(print_colored_text("Video downloaded", bcolors.OKGREEN))
 
         # remove video and audio streams
         os.remove(video_file)
@@ -244,7 +244,7 @@ while True:
 
         print("\n" + format_header("*", 96))
         print("Channel:    ", yt.author)
-        print("Title:      ", yt.title)
+        print("Title:      ", print_colored_text(yt.title, bcolors.OKBLUE))
         print("Views:      ", format_view_count(yt.views))
         print("Date:       ", yt.publish_date.strftime("%Y-%m-%d"))
         print("Length:     ", str(int(yt.length/60)) + "m")
@@ -260,7 +260,7 @@ while True:
 
         if os.path.exists(
                 dlpath + "/" + str(publishingDate) + " - " + res + " - " + clean_string_regex(yt.title) + " - " + yt.video_id + ".mp4"):
-            print_colored_text("Video already downloaded", bcolors.OKGREEN)
+            print(print_colored_text("Video already downloaded", bcolors.OKGREEN))
         else:
             moreThan1080p = 0
 
