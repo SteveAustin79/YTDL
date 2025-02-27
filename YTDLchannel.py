@@ -230,7 +230,7 @@ def merge_video_audio(videoid, publishdate, video_resolution):
         # Run FFmpeg command
         ffmpeg.run(output, overwrite_output=True, quiet=True)
         #print(f"\n✅ \033[92mMerged file saved as: {output_file}.\033[0m")
-        print(print_colored_text("Video downloaded", bcolors.OKGREEN))
+        print(print_colored_text("\nVideo downloaded", bcolors.OKGREEN))
 
         # remove video and audio streams
         deletTempFiles()
