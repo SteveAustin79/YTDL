@@ -149,9 +149,6 @@ def print_resolutions():
 
 
 def downloadVideo(videoid, counterid):
-    global count_already_downloaded
-    global  count_downloading
-
     yt = YouTube(youtube_base_url + videoid, on_progress_callback=on_progress)
 
     #print("\n***" + str(counterid) + "********************************************************************************")
@@ -174,9 +171,9 @@ def downloadVideo(videoid, counterid):
     # check if file was already downloaded
     if os.path.exists(dlpath + "/" + str(publishingDate) + " - " + res + " - " + clean_string_regex(yt.title) + " - "+ videoid + ".mp4"):
         print(print_colored_text("\nVideo already downloaded", bcolors.OKGREEN))
-        count_already_downloaded += count_already_downloaded
+        #count_already_downloaded += count_already_downloaded
     else:
-        count_downloading += count_downloading
+        #count_downloading += count_downloading
 
         moreThan1080p = 0
 
@@ -312,8 +309,6 @@ while True:
         count_total_videos = 0
         count_restricted_videos = 0
         count_ok_videos = 0
-        count_already_downloaded = 0
-        count_downloading = 0
 
         for video in c.videos:
             count_total_videos += 1
@@ -336,9 +331,9 @@ while True:
                 if count_total_videos == count_fetch_videos:
                     break
 
-        print("Downloads finished.")
-        print("Already downloaded: " + str(count_already_downloaded))
-        print("Downloaded:         " + str(count_downloading))
+        print("\n\nDownloads finished.\n\n")
+        #print("Already downloaded: " + str(count_already_downloaded))
+        #print("Downloaded:         " + str(count_downloading))
 
     except Exception as e:
         deletTempFiles()
