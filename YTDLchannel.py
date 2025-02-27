@@ -335,6 +335,7 @@ while True:
             if count_fetch_videos != "all":
                 if count_total_videos == count_fetch_videos:
                     break
+
         print("Downloads finished.")
         print("Already downloaded: " + str(count_already_downloaded))
         print("Downloaded:         " + str(count_downloading))

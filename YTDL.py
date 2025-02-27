@@ -276,14 +276,12 @@ while True:
                     break
             yt.streams[idx].download()
 
-            print("\nDownload VIDEO complete.\n\nDownloading AUDIO...")
+            print("\nDownloading AUDIO...")
 
             for idx, i in enumerate(yt.streams):
                 if i.bitrate == "128kbps":
                     break
             yt.streams[idx].download()
-
-            print("\nDownload AUDIO complete.")
 
             if moreThan1080p==0:
                 print("\nMerging...")
