@@ -28,13 +28,14 @@ version = 0.4
 def format_view_count(number):
     """Formats a number into a human-readable view count."""
     if number >= 1_000_000_000:  # Billions
-        return f"{number / 1_000_000_000:.1f}B"
+        return f"{number / 1_000_000_000:.0f}B"
     elif number >= 1_000_000:  # Millions
-        return f"{number / 1_000_000:.1f}M"
+        return f"{number / 1_000_000:.0f}M"
     elif number >= 1_000:  # Thousands
-        return f"{number / 1_000:.1f}K"
+        return f"{number / 1_000:.0f}K"
     else:
         return str(number)
+
 
 def format_header(counter, width):
     counter_str = f"{counter}"  # Add spaces around the number
@@ -44,6 +45,7 @@ def format_header(counter, width):
     formatted = f"{counter_str.center(total_length, '*')}"
 
     return formatted
+
 
 def clean_string_regex(text):
     """
@@ -57,6 +59,7 @@ def clean_string_regex(text):
 
     return re.sub(pattern, "", text)
 
+
 def print_resolutions():
     streams = yt.streams.filter(file_extension='mp4')  # StreamQuery object
     # Convert StreamQuery to a formatted string
@@ -69,6 +72,7 @@ def print_resolutions():
     # Print results
     #print("Available Resolutions:", unique_resolutions, "\n")
     return unique_resolutions
+
 
 def load_config():
     """Load settings from config.json."""
@@ -155,6 +159,7 @@ def find_media_files():
 
     return video_file, audio_file
 
+
 def move_video_audio():
     video_file, audio_file = find_media_files()
     destinationVideo = dlpath + "/" + video_file  # Destination path
@@ -164,6 +169,7 @@ def move_video_audio():
     shutil.move(audio_file, destinationAudio)
 
     print(f"✅ Moved files to download path!")
+
 
 def merge_video_audio(videoid, publishdate, video_resolution):
     video_file, audio_file = find_media_files()
@@ -269,6 +275,7 @@ while True:
                 print("\nMoving temp files...")
                 #move_video_audio()
                 convert_m4a_to_opus_and_merge(yt.video_id, publishingDate, res)
+
 
     except Exception as e:
         deletTempFiles()

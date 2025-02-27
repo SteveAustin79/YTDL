@@ -32,11 +32,11 @@ version = 0.2
 def format_view_count(number):
     """Formats a number into a human-readable view count."""
     if number >= 1_000_000_000:  # Billions
-        return f"{number / 1_000_000_000:.1f}B"
+        return f"{number / 1_000_000_000:.0f}B"
     elif number >= 1_000_000:  # Millions
-        return f"{number / 1_000_000:.1f}M"
+        return f"{number / 1_000_000:.0f}M"
     elif number >= 1_000:  # Thousands
-        return f"{number / 1_000:.1f}K"
+        return f"{number / 1_000:.0f}K"
     else:
         return str(number)
 
