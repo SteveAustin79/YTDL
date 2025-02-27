@@ -284,7 +284,7 @@ while True:
             yt.streams[idx].download()
 
             if moreThan1080p==0:
-                print("\nMerging...")
+                print("\nMerging...\n")
                 merge_video_audio(yt.video_id, publishingDate, res)
             else:
                 print("\nMoving temp files...")
