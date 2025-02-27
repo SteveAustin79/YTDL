@@ -36,7 +36,7 @@ def get_video_resolution(video_path):
         width = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
         height = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
     cap.release()
-    return f"{width}x{height}"
+    return width, height
 
 
 def rename_videos_in_folder(folder_path):
