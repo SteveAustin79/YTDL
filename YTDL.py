@@ -226,7 +226,7 @@ while True:
         #dlpath = smart_input("Download Path:  ", output_dir)
 
         if os.path.exists(
-                dlpath + "/" + str(publishingDate) + " - " + clean_string_regex(yt.title) + " - " + yt.video_id + ".mp4"):
+                dlpath + "/" + str(publishingDate) + " - " + res + " - " + clean_string_regex(yt.title) + " - " + yt.video_id + ".mp4"):
             print("\n\033[92mVideo already downloaded\033[0m")
         else:
             moreThan1080p = 0
