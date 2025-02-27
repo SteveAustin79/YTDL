@@ -192,7 +192,7 @@ while True:
         print("\n\nYTDL " + str(version))
         print("********")
         print("YouTube Video/Audio Downloader (Exit App with Ctrl + C)")
-        print("https://github.com/SteveAustin79/YTDL\n")
+        print("https://github.com/SteveAustin79/YTDL\n\n")
         #cleanup directory
         deletTempFiles()
         url = input("YouTube Video URL: ")
