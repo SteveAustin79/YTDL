@@ -191,9 +191,9 @@ while True:
         #cleanup directory
         deletTempFiles()
         url = input("YouTube Video URL: ")
-        dlpath = smart_input("Download Path:  ", output_dir + "/YTDLchannel/" + yt.author)
 
         yt = YouTube(url, on_progress_callback = on_progress)
+        dlpath = smart_input("Download Path:  ", output_dir + "/YTDLchannel/" + yt.author)
 
         print("\nChannel:    ", yt.author)
         print("Title:      ", yt.title)
