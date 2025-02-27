@@ -185,7 +185,7 @@ while True:
         config = load_config()
         # Access settings
         output_dir = config["output_directory"]
-        resolution = config["default_resolution"]
+        #resolution = config["default_resolution"]
 
         print("\nYTDL " + str(version))
         print("********")
@@ -195,7 +195,7 @@ while True:
         url = input("YouTube Video URL: ")
 
         yt = YouTube(url, on_progress_callback = on_progress)
-        dlpath = smart_input("Download Path:  ", output_dir + "/YTDLchannel/" + yt.author)
+        dlpath = smart_input("\nDownload Path:  ", output_dir + "/YTDLchannel/" + yt.author)
 
         print("\nChannel:    ", yt.author)
         print("Title:      ", yt.title)
@@ -206,12 +206,13 @@ while True:
         publishingDate = yt.publish_date.strftime("%Y-%m-%d")
 
         # Print results
-        #print("\nAvailable Resolutions:", unique_resolutions)
+        print("\nAvailable Resolutions:", print_resolutions())
+        max_res = max(print_resolutions(), key=lambda x: int(x.rstrip('p')))
 
-        #res = smart_input("\nResolution: ", resolution)
+        res = smart_input("\nResolution: ", max_res)
         #dlpath = smart_input("Download Path:  ", output_dir)
 
-        res = max(print_resolutions(), key=lambda x: int(x.rstrip('p')))
+
         print("Resolution: ", res)
 
         if os.path.exists(
