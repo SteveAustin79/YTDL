@@ -260,7 +260,7 @@ while True:
 
         if os.path.exists(
                 dlpath + "/" + str(publishingDate) + " - " + res + " - " + clean_string_regex(yt.title) + " - " + yt.video_id + ".mp4"):
-            print(print_colored_text("Video already downloaded", bcolors.OKGREEN))
+            print(print_colored_text("\nVideo already downloaded", bcolors.OKGREEN))
         else:
             moreThan1080p = 0
 
