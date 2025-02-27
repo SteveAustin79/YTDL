@@ -173,7 +173,7 @@ def downloadVideo(videoid, counterid):
     #print("Resolution: ", res)
     # check if file was already downloaded
     if os.path.exists(dlpath + "/" + str(publishingDate) + " - " + res + " - " + clean_string_regex(yt.title) + " - "+ videoid + ".mp4"):
-        print(print_colored_text("Video already downloaded", bcolors.OKGREEN))
+        print(print_colored_text("\nVideo already downloaded", bcolors.OKGREEN))
         count_already_downloaded += count_already_downloaded
     else:
         count_downloading += count_downloading
