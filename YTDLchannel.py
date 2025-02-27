@@ -29,6 +29,32 @@ from datetime import datetime
 version = 0.2
 
 
+class bcolors:
+    HEADER     = "\033[95m"
+    OKBLUE     = "\033[96m"
+    OKGREEN    = "\033[92m"
+    WARNING    = "\033[93m"
+    FAIL       = "\033[91m"
+    BOLD       = "\033[1m"
+    UNDERLINE  = "\033[4m"
+    ENDC       = "\033[0m"
+
+
+def print_colored_text(message_text, color):
+    return f'{color}{message_text}{bcolors.ENDC}'
+
+
+def format_header(counter, width):
+    #counter_str = f" \033[96m{counter}\033[0m "  # Add spaces around the number
+    counter_str = print_colored_text(f" {counter} ", bcolors.OKBLUE)
+    total_length = width - 2  # Exclude parentheses ()
+
+    # Center the counter with asterisks
+    formatted = f"{counter_str.center(total_length, '*')}"
+
+    return formatted
+
+
 def format_view_count(number):
     """Formats a number into a human-readable view count."""
     if number >= 1_000_000_000:  # Billions
@@ -52,16 +78,6 @@ def clean_string_regex(text):
     pattern = r"[^a-zA-Z0-9 ]"
 
     return re.sub(pattern, "", text)
-
-
-def format_header(counter, width):
-    counter_str = f" \033[96m{counter}\033[0m "  # Add spaces around the number
-    total_length = width - 2  # Exclude parentheses ()
-
-    # Center the counter with asterisks
-    formatted = f"{counter_str.center(total_length, '*')}"
-
-    return formatted
 
 
 def load_config():
@@ -141,7 +157,7 @@ def downloadVideo(videoid, counterid):
     #print("\n***" + str(counterid) + "********************************************************************************")
     print("\n\n" + format_header(yt.author + " - " + str(counterid), 96))
     #print("Channel:    ", yt.author)
-    print("Title:      \033[96m", yt.title, "\033[0m")
+    print("Title:      ", print_colored_text(yt.title, bcolors.OKBLUE))
     print("Views:      ", format_view_count(yt.views))
     print("Date:       ", yt.publish_date.strftime("%Y-%m-%d"))
     print("Length:     ", str(int(yt.length / 60)) + "m")

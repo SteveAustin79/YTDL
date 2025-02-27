@@ -243,7 +243,7 @@ while True:
         dlpath = smart_input("\nDownload Path:  ", output_dir + "/YTDLchannel/" + yt.author)
 
         print("\n" + format_header("*", 96))
-        print("Channel:    ", yt.author)
+        print("Channel:    ", print_colored_text(yt.author, bcolors.OKBLUE))
         print("Title:      ", print_colored_text(yt.title, bcolors.OKBLUE))
         print("Views:      ", format_view_count(yt.views))
         print("Date:       ", yt.publish_date.strftime("%Y-%m-%d"))
