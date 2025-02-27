@@ -210,7 +210,7 @@ while True:
         dlpath = smart_input("\nDownload Path:  ", output_dir + "/YTDLchannel/" + yt.author)
 
         print("\n" + format_header("*", 96))
-        print("\nChannel:    ", yt.author)
+        print("Channel:    ", yt.author)
         print("Title:      ", yt.title)
         print("Date:       ", yt.publish_date.strftime("%Y-%m-%d"))
         print("Views:      ", str(int(yt.views/1000)) + "K")
