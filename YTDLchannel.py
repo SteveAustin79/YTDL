@@ -120,6 +120,7 @@ def read_file_lines(filename):
     try:
         with open(filename, "r", encoding="utf-8") as file:
             lines = [line.strip() for line in file.readlines()]  # Remove newlines
+        lines.append("Enter custom channel URL")
         return lines
     except FileNotFoundError:
         print("❌ Error: File not found.")
