@@ -275,6 +275,7 @@ while True:
         print("********")
         print("YouTube Video/Audio Downloader (Exit App with Ctrl + C)")
         print("https://github.com/SteveAustin79/YTDL\n\n")
+        print("***********************************************")
         print("CONFIGURATION (change in config.json):")
         if year_subfolders:
             year_subfolders_colored = print_colored_text(year_subfolders, bcolors.OKBLUE)
