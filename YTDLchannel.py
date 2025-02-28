@@ -344,7 +344,19 @@ while True:
             #print(youtube_base_url + only_video_id)
             if find_file_by_string(dlpath, only_video_id)==None:
                 print(only_video_id)
-
+                video = YouTube(youtube_base_url + only_video_id, on_progress_callback=on_progress)
+                if (video.age_restricted == False and
+                    video.vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE'):
+                    count_ok_videos += 1
+                    video_list.append(video.video_id)
+                    #print(str(count_total_videos) + " - " + video.video_id + " - " + video.title)
+                    #print_resolutions()
+                    downloadVideo(video.video_id, count_ok_videos)
+                else:
+                    count_restricted_videos += 1
+                    video_list_restricted.append(video.video_id)
+                    #print("\033[31m" + str(count_total_videos) + " - " + video.video_id + " - " + video.title + "\n\033[0m")
+                    #print_resolutions()
 
         # for video in c.videos:
         #     count_total_videos += 1
