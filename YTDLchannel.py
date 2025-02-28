@@ -438,7 +438,10 @@ while True:
         for url in c.video_urls:
             video_ids.append(url.watch_url)
 
-        print(f'\n\nDownloading {len(video_ids)} Videos by: \033[96m{c.channel_name}\033[0m\n')
+        if ignore_max_duration_bool== True:
+            print(f'\n\nDownloading {len(video_ids)} Videos (- ignored) by: \033[96m{c.channel_name}\033[0m\n')
+        else:
+            print(f'\n\nDownloading {len(video_ids)} Videos by: \033[96m{c.channel_name}\033[0m\n')
 
         count_total_videos = 0
         count_restricted_videos = 0
@@ -463,10 +466,9 @@ while True:
                     video_duration = int(video.length/60)
                     if video_duration > int(max_duration):
                         do_not_download = 1
-                        count_skipped += 1
-                        count_ok_videos += 1
-                        print(print_colored_text(f"\rSkipping {count_skipped} Videos", bcolors.FAIL), end="",
-                              flush=True)
+                        #count_skipped += 1
+                        #count_ok_videos += 1
+                        #print(print_colored_text(f"\rSkipping {count_skipped} Videos", bcolors.FAIL), end="", flush=True)
                 if (video.age_restricted == False and
                         video.vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
                         do_not_download == 0):
