@@ -324,7 +324,7 @@ while True:
         print("https://github.com/SteveAustin79/YTDL\n\n")
 
         YTchannel = input("YouTube Channel URL: ")
-        count_fetch_videos = str(smart_input("Fetch x latest Videos (to download all playable/unrestricted videos use 'all'): ", "all"))
+        #count_fetch_videos = str(smart_input("Fetch x latest Videos (to download all playable/unrestricted videos use 'all'): ", "all"))
         #skip_x_videos = int(smart_input("Skip x videos: ", "0"))
 
         c = Channel(YTchannel)
@@ -343,7 +343,7 @@ while True:
             #video_ids.append(only_video_id)
             #print(youtube_base_url + only_video_id)
             if find_file_by_string(dlpath, only_video_id)==None:
-                print(only_video_id)
+                #print(only_video_id)
                 video = YouTube(youtube_base_url + only_video_id, on_progress_callback=on_progress)
                 if (video.age_restricted == False and
                     video.vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE'):
