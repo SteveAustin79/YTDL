@@ -172,6 +172,15 @@ def find_file_by_string(directory, search_string):
     return None  # Return None if no file is found
 
 
+def limit_resolution(resolution, limit):
+    if limit=="max" or resolution < limit:
+        max_resolution = resolution
+    else:
+        max_resolution = limit
+
+    return max_resolution
+
+
 def downloadVideo(videoid, counterid):
     yt = YouTube(youtube_base_url + videoid, on_progress_callback=on_progress)
 
@@ -190,6 +199,8 @@ def downloadVideo(videoid, counterid):
     publishingDate = yt.publish_date.strftime("%Y-%m-%d")
     res = max(print_resolutions(yt), key=lambda x: int(x.rstrip('p')))
     print("Resolution: ", print_colored_text(res, bcolors.WARNING))
+
+    res = limit_resolution(res, limit_resolution_to)
 
     #print("Resolution: ", res)
     # check if file was already downloaded
@@ -330,6 +341,7 @@ while True:
         c = Channel(YTchannel)
 
         dlpath = smart_input("Download Path:  ", output_dir + "/YTDLchannel/" + c.channel_name)
+        limit_resolution_to = smart_input("Max. Resolution: ", "max")
         print(f'\n\nDownloading videos by: \033[96m{c.channel_name}\033[0m\n')
 
         count_total_videos = 0
