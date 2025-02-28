@@ -158,7 +158,7 @@ def find_file_by_string(directory, search_string):
     Returns the filename if found, otherwise returns None.
     """
     if not os.path.exists(directory):
-        print("Error: Directory does not exist!")
+        #print("Error: Directory does not exist!")
         return None
 
     # Iterate over each file in the directory
