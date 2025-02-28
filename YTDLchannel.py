@@ -84,11 +84,11 @@ def clean_string_regex(text):
     :param pattern: Regular expression pattern for allowed characters.
     :return: The cleaned string.
     """
-    text = text.replace(":", "")
+    new_text = text.replace(":", "")
 
     pattern = r"[^a-zA-Z0-9 ]"
 
-    return re.sub(pattern, "", text)
+    return re.sub(pattern, "", new_text)
 
 
 def load_config():
