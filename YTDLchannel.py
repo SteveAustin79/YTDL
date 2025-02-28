@@ -134,8 +134,8 @@ def move_video_audio():
     print(f"✅ Moved files to download path!")
 
 
-def print_resolutions():
-    yt = YouTube(youtube_base_url + video.video_id, on_progress_callback=on_progress)
+def print_resolutions(yt):
+    #yt = YouTube(youtube_base_url + video.video_id, on_progress_callback=on_progress)
     streams = yt.streams.filter(file_extension='mp4')  # StreamQuery object
     # Convert StreamQuery to a formatted string
     stream_string = "\n".join([str(stream) for stream in streams])
@@ -165,7 +165,7 @@ def downloadVideo(videoid, counterid):
     #res = max(print_resolutions(), key=lambda x: int(x.rstrip('p')))
 
     publishingDate = yt.publish_date.strftime("%Y-%m-%d")
-    res = max(print_resolutions(), key=lambda x: int(x.rstrip('p')))
+    res = max(print_resolutions(yt), key=lambda x: int(x.rstrip('p')))
     print("Resolution: ", print_colored_text(res, bcolors.WARNING))
 
     #print("Resolution: ", res)
