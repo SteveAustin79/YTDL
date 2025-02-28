@@ -91,6 +91,23 @@ def clean_string_regex(text):
     return re.sub(pattern, "", new_text)
 
 
+def rename_files_in_temp_directory():
+    """Removes ':' from filenames in a given directory."""
+    directory = os.getcwd()
+    if not os.path.exists(directory):
+        print("Error: Directory does not exist!")
+        return
+
+    for filename in os.listdir(directory):
+        if ":" in filename:  # Check if filename contains ':'
+            sanitized_name = filename.replace(":", "")
+            old_path = os.path.join(directory, filename)
+            new_path = os.path.join(directory, sanitized_name)
+
+            os.rename(old_path, new_path)
+            #print(f"Renamed: {filename} → {sanitized_name}")
+
+
 def load_config():
     """Load settings from config.json."""
     with open("config.json", "r") as file:
@@ -244,6 +261,8 @@ def downloadVideo(videoid, counterid):
             if i.bitrate == "128kbps":
                 break
         yt.streams[idx].download()
+
+        rename_files_in_temp_directory()
 
         print("\nMerging...")
         if moreThan1080p == 0:

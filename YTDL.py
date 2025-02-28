@@ -72,11 +72,26 @@ def clean_string_regex(text):
     :param pattern: Regular expression pattern for allowed characters.
     :return: The cleaned string.
     """
-    new_text = text.replace(":", "")
-
     pattern = r"[^a-zA-Z0-9 ]"
 
-    return re.sub(pattern, "", new_text)
+    return re.sub(pattern, "", text)
+
+
+def rename_files_in_temp_directory():
+    """Removes ':' from filenames in a given directory."""
+    directory = os.getcwd()
+    if not os.path.exists(directory):
+        print("Error: Directory does not exist!")
+        return
+
+    for filename in os.listdir(directory):
+        if ":" in filename:  # Check if filename contains ':'
+            sanitized_name = filename.replace(":", "")
+            old_path = os.path.join(directory, filename)
+            new_path = os.path.join(directory, sanitized_name)
+
+            os.rename(old_path, new_path)
+            #print(f"Renamed: {filename} → {sanitized_name}")
 
 
 def print_resolutions():
@@ -310,6 +325,8 @@ while True:
 
             if not os.path.exists(dlpath):
                 os.makedirs(dlpath)
+
+            rename_files_in_temp_directory()
 
             if moreThan1080p==0:
                 print("\nMerging...\n")
