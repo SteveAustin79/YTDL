@@ -380,7 +380,7 @@ while True:
         video_ids = []
         for url in c.video_urls:
             video_ids.append(url.watch_url)
-        print(f'\n\nDownloading {len(video_ids)} videos by: \033[96m{c.channel_name}\033[0m\n')
+        print(f'\n\nDownloading {len(video_ids)} Videos by: \033[96m{c.channel_name}\033[0m\n')
 
         count_total_videos = 0
         count_restricted_videos = 0
