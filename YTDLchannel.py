@@ -53,9 +53,9 @@ def get_free_space(path):
 
     # Convert bytes to GB or MB for readability
     if free >= 1_000_000_000:  # If space is at least 1GB
-        formatted_space = f"{free / 1_000_000_000:.2f} GB"
+        formatted_space = f"{free / 1_073_741_824:.2f} GB"
     else:
-        formatted_space = f"{free / 1_000_000:.2f} MB"  # Otherwise, use MB
+        formatted_space = f"{free / 1_048_576:.2f} MB"  # Otherwise, use MB
 
     return formatted_space
 
@@ -261,7 +261,7 @@ def downloadVideo(videoid, counterid, video_total_count):
     yt = YouTube(youtube_base_url + videoid, on_progress_callback=on_progress)
 
     #print("\n***" + str(counterid) + "********************************************************************************")
-    print(format_header(yt.author + " - " + str(counterid) + "/" + str(video_total_count)) + " * " + get_free_space(dlpath) + " free")
+    print(format_header(yt.author + " - " + str(counterid) + "/" + str(video_total_count) + " * " + get_free_space(dlpath) + " free"))
     #print("Channel:    ", yt.author)
     print("Title:      ", print_colored_text(yt.title, bcolors.OKBLUE))
     print("Views:      ", format_view_count(yt.views))
