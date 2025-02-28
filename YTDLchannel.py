@@ -346,7 +346,8 @@ while True:
             only_video_id = pytubefix.extract.video_id(url.watch_url)
             video_ids.append(only_video_id)
             #print(youtube_base_url + only_video_id)
-            search_files_by_video_id(dlpath, video_ids)
+
+        search_files_by_video_id(dlpath, video_ids)
 
         # for video in c.videos:
         #     count_total_videos += 1
