@@ -166,7 +166,9 @@ def check_files_in_directory(directory, search_string):
         # Check if it's a file (not a folder)
         if os.path.isfile(file_path):
             if search_string in filename:
-                print(f"Found: {filename}")
+                #print(f"Found: {filename}")
+            else:
+                print(f"Not found: {filename}")
 
 
 def downloadVideo(videoid, counterid):
