@@ -201,7 +201,8 @@ def downloadVideo(videoid, counterid):
 
     publishingDate = yt.publish_date.strftime("%Y-%m-%d")
     res = max(print_resolutions(yt), key=lambda x: int(x.rstrip('p')))
-    res = limit_resolution(res, limit_resolution_to)
+    if limit_resolution_to != "max":
+        res = limit_resolution(res, limit_resolution_to)
 
     print("Resolution: ", print_colored_text(res, bcolors.WARNING))
 
