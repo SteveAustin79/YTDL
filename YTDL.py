@@ -55,7 +55,7 @@ def format_view_count(number):
 def format_header(counter):
     width = 95
     #counter_str = f" \033[96m{counter}\033[0m "  # Add spaces around the number
-    counter_str = print_colored_text(f" {counter} ", bcolors.OKBLUE)
+    counter_str = f"{counter}"
     total_length = width - 2  # Exclude parentheses ()
 
     # Center the counter with asterisks
@@ -101,9 +101,12 @@ def load_config():
 def convert_m4a_to_opus_and_merge(videoid, publishdate):
     video_file, audio_file = find_media_files()
     """Convert M4A to Opus format (WebM-compatible)."""
-    command = [
-        "ffmpeg", "-loglevel", "quiet", "-i", audio_file, "-c:a", "libopus", "audio.opus"
-    ]
+    if quiet_on=="y":
+        command = [
+            "ffmpeg", "-loglevel", "quiet", "-i", audio_file, "-c:a", "libopus", "audio.opus"
+        ]
+    elif quiet_on=="n":
+        command = ["ffmpeg", "-i", audio_file, "-c:a", "libopus", "audio.opus"]
     subprocess.run(command, check=True)
     print(f"✅ Converted {audio_file} to audio.opus")
     merge_webm_opus(videoid, publishdate)
@@ -113,10 +116,16 @@ def merge_webm_opus(videoid, publishdate, video_resolution):
     video_file, audio_file = find_media_files()
     output_file = "tmp/" + video_file
     """Merge WebM video with Opus audio."""
-    command = [
-        "ffmpeg", "-loglevel", "quiet", "-i", video_file, "-i", "audio.opus",
-        "-c:v", "copy", "-c:a", "copy", output_file
-    ]
+    if quiet_on == "y":
+        command = [
+            "ffmpeg", "-loglevel", "quiet", "-i", video_file, "-i", "audio.opus",
+            "-c:v", "copy", "-c:a", "copy", output_file
+        ]
+    elif quiet_on == "n":
+        command = [
+            "ffmpeg", "-i", video_file, "-i", "audio.opus",
+            "-c:v", "copy", "-c:a", "copy", output_file
+        ]
     subprocess.run(command, check=True)
     # remove video and audio streams
     os.remove(video_file)
@@ -128,13 +137,22 @@ def merge_webm_opus(videoid, publishdate, video_resolution):
 
 def convert_webm_to_mp4(input_file, output_file):
     """Convert a WebM file to MP4 (H.264/AAC)."""
-    command = [
-        "ffmpeg", "-loglevel", "quiet", "-i", input_file,
-        "-c:v", "libx264", "-preset", "fast", "-crf", "23",  # H.264 video encoding
-        "-c:a", "aac", "-b:a", "128k",  # AAC audio encoding
-        "-movflags", "+faststart",  # Optimize MP4 for streaming
-        output_file
-    ]
+    if quiet_on == "y":
+        command = [
+            "ffmpeg", "-loglevel", "quiet", "-i", input_file,
+            "-c:v", "libx264", "-preset", "fast", "-crf", "23",  # H.264 video encoding
+            "-c:a", "aac", "-b:a", "128k",  # AAC audio encoding
+            "-movflags", "+faststart",  # Optimize MP4 for streaming
+            output_file
+        ]
+    elif quiet_on == "n":
+        command = [
+            "ffmpeg", "-i", input_file,
+            "-c:v", "libx264", "-preset", "fast", "-crf", "23",  # H.264 video encoding
+            "-c:a", "aac", "-b:a", "128k",  # AAC audio encoding
+            "-movflags", "+faststart",  # Optimize MP4 for streaming
+            output_file
+        ]
     subprocess.run(command, check=True)
     os.remove(input_file)
     #print(f"✅ Converted {input_file} to {output_file}\nHave a great day!!!\n")
@@ -213,7 +231,10 @@ def merge_video_audio(videoid, publishdate, video_resolution):
         output = ffmpeg.output(video, audio, output_file, vcodec="copy", acodec="aac", strict="experimental")
 
         # Run FFmpeg command
-        ffmpeg.run(output, overwrite_output=True, quiet=True)
+        if quiet_on=="y":
+            ffmpeg.run(output, overwrite_output=True, quiet=True)
+        elif quiet_on=="n":
+            ffmpeg.run(output, overwrite_output=True, quiet=False)
         #print(f"\n✅ Merged file saved as: {output_file}.\nHave a great day!!!\n")
         print(print_colored_text("Video downloaded", bcolors.OKGREEN))
 
@@ -243,6 +264,7 @@ while True:
 
         yt = YouTube(url, on_progress_callback = on_progress)
         dlpath = smart_input("\nDownload Path:  ", output_dir + "/YTDLchannel/" + yt.author)
+        quiet_on = smart_input("Quiet output? Y/n: ", "y")
 
         print("\n" + format_header("*"))
         print("Channel:    ", print_colored_text(yt.author, bcolors.OKBLUE))
