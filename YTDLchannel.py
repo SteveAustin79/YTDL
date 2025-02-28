@@ -348,7 +348,8 @@ while True:
             if find_file_by_string(dlpath, only_video_id)!=None:
                 count_ok_videos += 1
                 count_skipped += 1
-                print(f"\rSkipping {count_skipped} videos (Already downloaded)\n", end="", flush=True)
+                print(f"\rSkipping {count_skipped} videos (Already downloaded)", end="", flush=True)
+                print("\n")
             else:
                 #print(only_video_id)
                 video = YouTube(youtube_base_url + only_video_id, on_progress_callback=on_progress)
