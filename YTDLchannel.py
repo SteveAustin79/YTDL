@@ -135,6 +135,7 @@ def move_video_audio():
 
 
 def print_resolutions():
+    yt = YouTube(youtube_base_url + video.video_id, on_progress_callback=on_progress)
     streams = yt.streams.filter(file_extension='mp4')  # StreamQuery object
     # Convert StreamQuery to a formatted string
     stream_string = "\n".join([str(stream) for stream in streams])
@@ -301,7 +302,7 @@ while True:
 
         YTchannel = input("YouTube Channel URL: ")
         count_fetch_videos = str(smart_input("Fetch x latest Videos (to download all playable/unrestricted videos use 'all'): ", "all"))
-        skip_x_videos = int(smart_input("Skip x videos: ", "0"))
+        #skip_x_videos = int(smart_input("Skip x videos: ", "0"))
 
         c = Channel(YTchannel)
         dlpath = smart_input("Download Path:  ", output_dir + "/YTDLchannel/" + c.channel_name)
@@ -311,9 +312,9 @@ while True:
         count_restricted_videos = 0
         count_ok_videos = 0
 
-        for video in c.videos[skip_x_videos]:
+        for video in c.videos:
             count_total_videos += 1
-            yt = YouTube(youtube_base_url + video.video_id, on_progress_callback=on_progress)
+            #yt = YouTube(youtube_base_url + video.video_id, on_progress_callback=on_progress)
 
             if (video.age_restricted == False and
                     video.vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE'):
