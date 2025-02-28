@@ -504,27 +504,6 @@ while True:
                     #print("\033[31m" + str(count_total_videos) + " - " + video.video_id + " - " + video.title + "\n\033[0m")
                     #print_resolutions()
 
-        # for video in c.videos:
-        #     count_total_videos += 1
-        #     #yt = YouTube(youtube_base_url + video.video_id, on_progress_callback=on_progress)
-        #
-        #     if (video.age_restricted == False and
-        #             video.vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE'):
-        #         count_ok_videos += 1
-        #         video_list.append(video.video_id)
-        #         #print(str(count_total_videos) + " - " + video.video_id + " - " + video.title)
-        #         #print_resolutions()
-        #         downloadVideo(video.video_id, count_ok_videos)
-        #     else:
-        #         count_restricted_videos += 1
-        #         video_list_restricted.append(video.video_id)
-        #         #print("\033[31m" + str(count_total_videos) + " - " + video.video_id + " - " + video.title + "\n\033[0m")
-        #         #print_resolutions()
-        #
-        #     if count_fetch_videos != "all":
-        #         if count_total_videos == count_fetch_videos:
-        #             break
-
         print(f"\n\nDownloads finished. Total Videos: {count_ok_videos} (ignored: {len(video_ids)-count_ok_videos}), Downloaded in this session: {count_this_run}\n\n")
         #print("Already downloaded: " + str(count_already_downloaded))
         #print("Downloaded:         " + str(count_downloading))
