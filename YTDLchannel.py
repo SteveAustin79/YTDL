@@ -20,6 +20,8 @@ import os
 import re
 import shutil
 import subprocess
+from operator import truediv
+
 import ffmpeg
 import json
 import sys
@@ -404,6 +406,7 @@ while True:
         # Access settings
         output_dir = config["output_directory"]
         youtube_base_url = config["youtube_base_url"]
+        max_duration = config["max_duration_in_minutes"]
 
         # Create an empty list
         video_list = []
@@ -426,9 +429,15 @@ while True:
 
         dlpath = smart_input("Download Path:  ", output_dir + "/" + c.channel_name)
         limit_resolution_to = smart_input("Max. Resolution:  ", "max")
+        ignore_max_duration = smart_input("Ignore max_duration?  Y/n", "n")
+        if ignore_max_duration== "y":
+            ignore_max_duration_bool = True
+        elif ignore_max_duration=="n":
+            ignore_max_duration_bool = False
         video_ids = []
         for url in c.video_urls:
             video_ids.append(url.watch_url)
+
         print(f'\n\nDownloading {len(video_ids)} Videos by: \033[96m{c.channel_name}\033[0m\n')
 
         count_total_videos = 0
@@ -448,10 +457,16 @@ while True:
                 print(print_colored_text(f"\rSkipping {count_skipped} Videos (Already downloaded)", bcolors.FAIL), end="", flush=True)
             else:
                 #print(only_video_id)
-
+                do_not_download = 0
                 video = YouTube(youtube_base_url + only_video_id, on_progress_callback=on_progress)
+                if ignore_max_duration_bool:
+                    video_duration = int(video.length/60)
+                    if video_duration > max_duration:
+                        do_not_download = 1
+
                 if (video.age_restricted == False and
-                    video.vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE'):
+                        video.vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
+                        do_not_download == 0):
                     print("\n")
                     count_ok_videos += 1
                     count_this_run += 1
