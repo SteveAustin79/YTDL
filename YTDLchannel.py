@@ -270,6 +270,8 @@ def downloadVideo(videoid, counterid, video_total_count):
     print("Date:       ", yt.publish_date.strftime("%Y-%m-%d"))
     print("Length:     ", str(int(yt.length / 60)) + "m")
 
+    year = yt.publish_date.strftime("%Y")
+
     # print_resolutions()
     # res = smart_input("\nResolution: ", resolution)
     #res = max(print_resolutions(), key=lambda x: int(x.rstrip('p')))
@@ -283,7 +285,7 @@ def downloadVideo(videoid, counterid, video_total_count):
 
     #print("Resolution: ", res)
     # check if file was already downloaded
-    if os.path.exists(dlpath + "/" + str(publishingDate) + " - " + res + " - " + clean_string_regex(yt.title) + " - "+ videoid + ".mp4"):
+    if os.path.exists(dlpath + "/{year}/" + str(publishingDate) + " - " + res + " - " + clean_string_regex(yt.title) + " - "+ videoid + ".mp4"):
         print(print_colored_text("\nVideo already downloaded\n", bcolors.OKGREEN))
         #count_already_downloaded += count_already_downloaded
     else:
@@ -313,13 +315,13 @@ def downloadVideo(videoid, counterid, video_total_count):
 
         print("\nMerging...")
         if moreThan1080p == 0:
-            merge_video_audio(videoid, str(publishingDate), res)
+            merge_video_audio(videoid, str(publishingDate), res, year)
         else:
             # move_video_audio()
-            convert_m4a_to_opus_and_merge(videoid, str(publishingDate), res)
+            convert_m4a_to_opus_and_merge(videoid, str(publishingDate), res, year)
 
 
-def merge_video_audio(videoid, publishdate, video_resolution):
+def merge_video_audio(videoid, publishdate, video_resolution, year):
     video_file, audio_file = find_media_files()
 
     if not video_file or not audio_file:
@@ -329,7 +331,7 @@ def merge_video_audio(videoid, publishdate, video_resolution):
     if not os.path.exists(dlpath):
         os.makedirs(dlpath)
 
-    output_file = dlpath + "/" + publishdate + " - " + video_resolution + " - " + clean_string_regex(os.path.splitext(video_file)[0]) + " - " + videoid + ".mp4"
+    output_file = dlpath + "/"+ str(year) + "/" + publishdate + " - " + video_resolution + " - " + clean_string_regex(os.path.splitext(video_file)[0]) + " - " + videoid + ".mp4"
 
     """Merge video and audio into a single MP4 file using FFmpeg."""
     try:
@@ -356,7 +358,7 @@ def merge_video_audio(videoid, publishdate, video_resolution):
         write_textfile_failed_downloads("errors.txt", output_file)
         sys.exit(1)
 
-def convert_m4a_to_opus_and_merge(videoid, publishdate, video_resolution):
+def convert_m4a_to_opus_and_merge(videoid, publishdate, video_resolution, year):
     video_file, audio_file = find_media_files()
     """Convert M4A to Opus format (WebM-compatible)."""
     command = [
@@ -364,10 +366,10 @@ def convert_m4a_to_opus_and_merge(videoid, publishdate, video_resolution):
     ]
     subprocess.run(command, check=True)
     #print(f"✅ Converted {audio_file} to audio.opus")
-    merge_webm_opus(videoid, publishdate, video_resolution)
+    merge_webm_opus(videoid, publishdate, video_resolution, year)
 
 
-def merge_webm_opus(videoid, publishdate, video_resolution):
+def merge_webm_opus(videoid, publishdate, video_resolution, year):
     video_file, audio_file = find_media_files()
     output_file = "tmp/" + video_file
     """Merge WebM video with Opus audio."""
@@ -380,7 +382,7 @@ def merge_webm_opus(videoid, publishdate, video_resolution):
     deletTempFiles()
     os.remove("audio.opus")
     print(f"Converting to MP4... (this may take a while)")
-    convert_webm_to_mp4(output_file, dlpath + "/" + publishdate + " - " + video_resolution + " - " + clean_string_regex(os.path.splitext(video_file)[0]) + " - "+ videoid + ".mp4")
+    convert_webm_to_mp4(output_file, dlpath + "/" + str(year) + "/" + publishdate + " - " + video_resolution + " - " + clean_string_regex(os.path.splitext(video_file)[0]) + " - "+ videoid + ".mp4")
 
 
 def convert_webm_to_mp4(input_file, output_file):

@@ -149,7 +149,7 @@ def merge_webm_opus(videoid, publishdate, video_resolution):
     os.remove(audio_file)
     os.remove("audio.opus")
     print(f"✅ Merged WebM video with Opus audio into {output_file}")
-    convert_webm_to_mp4(output_file, dlpath + "/" + publishdate + " - " + video_resolution + " - " + clean_string_regex(os.path.splitext(video_file)[0]) + " - "+ videoid + ".mp4")
+    convert_webm_to_mp4(output_file, dlpath + "/" + str(year) + "/" + publishdate + " - " + video_resolution + " - " + clean_string_regex(os.path.splitext(video_file)[0]) + " - "+ videoid + ".mp4")
 
 
 def convert_webm_to_mp4(input_file, output_file):
@@ -224,7 +224,7 @@ def move_video_audio():
     print(f"✅ Moved files to download path!")
 
 
-def merge_video_audio(videoid, publishdate, video_resolution):
+def merge_video_audio(videoid, publishdate, video_resolution, year):
     video_file, audio_file = find_media_files()
 
     if not video_file or not audio_file:
@@ -232,7 +232,7 @@ def merge_video_audio(videoid, publishdate, video_resolution):
         return
 
     #output_file = dlpath + "/" + video_file
-    output_file = dlpath + "/" + publishdate + " - " + video_resolution + " - " + clean_string_regex(
+    output_file = dlpath + "/" + str(year) + "/" + publishdate + " - " + video_resolution + " - " + clean_string_regex(
         os.path.splitext(video_file)[0]) + " - " + videoid + ".mp4"
 
     """Merge video and audio into a single MP4 file using FFmpeg."""
@@ -291,7 +291,7 @@ while True:
         print("Length:     ", str(int(yt.length/60)) + "m")
 
         publishingDate = yt.publish_date.strftime("%Y-%m-%d")
-
+        year = yt.publish_date.strftime("%Y")
         # Print results
         print("\nAvailable Resolutions:", print_resolutions())
         max_res = max(print_resolutions(), key=lambda x: int(x.rstrip('p')))
@@ -300,7 +300,7 @@ while True:
         #dlpath = smart_input("Download Path:  ", output_dir)
 
         if os.path.exists(
-                dlpath + "/" + str(publishingDate) + " - " + res + " - " + clean_string_regex(yt.title) + " - " + yt.video_id + ".mp4"):
+                dlpath + "/" + str(year) + "/" + str(publishingDate) + " - " + res + " - " + clean_string_regex(yt.title) + " - " + yt.video_id + ".mp4"):
             print(print_colored_text("\nVideo already downloaded", bcolors.OKGREEN))
         else:
             moreThan1080p = 0
