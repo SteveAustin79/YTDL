@@ -454,7 +454,7 @@ while True:
             if find_file_by_string(dlpath, only_video_id, limit_resolution_to)!=None:
                 count_ok_videos += 1
                 count_skipped += 1
-                print(print_colored_text(f"\rSkipping {count_skipped} Videos (Already downloaded)", bcolors.FAIL), end="", flush=True)
+                print(print_colored_text(f"\rSkipping {count_skipped} Videos", bcolors.FAIL), end="", flush=True)
             else:
                 #print(only_video_id)
                 do_not_download = 0
@@ -463,6 +463,7 @@ while True:
                     video_duration = int(video.length/60)
                     if video_duration > int(max_duration):
                         do_not_download = 1
+                        count_skipped += 1
 
                 if (video.age_restricted == False and
                         video.vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
