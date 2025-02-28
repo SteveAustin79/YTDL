@@ -115,7 +115,7 @@ def convert_m4a_to_opus_and_merge(videoid, publishdate):
 def merge_webm_opus(videoid, publishdate, video_resolution):
     video_file, audio_file = find_media_files()
     output_file = "tmp/" + video_file
-    """Merge WebM video with Opus audio."""
+    """Merge WebM video with Opus audio. """
     if quiet_on == "y":
         command = [
             "ffmpeg", "-loglevel", "quiet", "-i", video_file, "-i", "audio.opus",
