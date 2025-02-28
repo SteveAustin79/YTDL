@@ -342,7 +342,7 @@ while True:
             only_video_id = pytubefix.extract.video_id(url.watch_url)
             #video_ids.append(only_video_id)
             #print(youtube_base_url + only_video_id)
-            if find_file_by_string(dlpath, only_video_id)=="None":
+            if find_file_by_string(dlpath, only_video_id)==None:
                 print(only_video_id)
 
 
