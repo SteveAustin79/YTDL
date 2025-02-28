@@ -434,6 +434,7 @@ while True:
             ignore_max_duration_bool = True
         elif ignore_max_duration=="n":
             ignore_max_duration_bool = False
+            print("Ignoring Videos > " + str(max_duration) + " Minutes!")
         video_ids = []
         for url in c.video_urls:
             video_ids.append(url.watch_url)
