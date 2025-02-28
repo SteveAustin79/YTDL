@@ -438,7 +438,7 @@ while True:
         for url in c.video_urls:
             video_ids.append(url.watch_url)
 
-        if ignore_max_duration_bool== True:
+        if ignore_max_duration_bool== False:
             print(f'\n\nDownloading {len(video_ids)} Videos (- ignored) by: \033[96m{c.channel_name}\033[0m\n')
         else:
             print(f'\n\nDownloading {len(video_ids)} Videos by: \033[96m{c.channel_name}\033[0m\n')
