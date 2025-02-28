@@ -461,7 +461,7 @@ while True:
                 video = YouTube(youtube_base_url + only_video_id, on_progress_callback=on_progress)
                 if ignore_max_duration_bool==False:
                     video_duration = int(video.length/60)
-                    if video_duration > max_duration:
+                    if video_duration > int(max_duration):
                         do_not_download = 1
 
                 if (video.age_restricted == False and
