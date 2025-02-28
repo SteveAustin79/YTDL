@@ -275,7 +275,7 @@ while True:
         print("********")
         print("YouTube Video/Audio Downloader (Exit App with Ctrl + C)")
         print("https://github.com/SteveAustin79/YTDL\n\n")
-        print("CONFIGURATION:")
+        print("CONFIGURATION (change in config.json):")
         print("Year Subfolder-Structure: ", year_subfolders, "\n")
         #cleanup directory
         deletTempFiles()
