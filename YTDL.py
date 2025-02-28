@@ -55,11 +55,11 @@ def format_view_count(number):
 def format_header(counter):
     width = 95
     #counter_str = f" \033[96m{counter}\033[0m "  # Add spaces around the number
-    counter_str = f"{counter}"
+    counter_str = f"*** {counter} "
     total_length = width - 2  # Exclude parentheses ()
 
     # Center the counter with asterisks
-    formatted = f"{counter_str.center(total_length, '*')}"
+    formatted = f"{counter_str.ljust(total_length, '*')}"
 
     return formatted
 
