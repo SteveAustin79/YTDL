@@ -283,7 +283,7 @@ def downloadVideo(videoid, counterid, video_total_count):
 
     #print("Resolution: ", res)
     # check if file was already downloaded
-    if os.path.exists(dlpath + "/{year}/" + str(publishingDate) + " - " + res + " - " + clean_string_regex(yt.title) + " - "+ videoid + ".mp4"):
+    if os.path.exists(dlpath + "/" + year + "/" + str(publishingDate) + " - " + res + " - " + clean_string_regex(yt.title) + " - "+ videoid + ".mp4"):
         print(print_colored_text("\nVideo already downloaded\n", bcolors.OKGREEN))
         #count_already_downloaded += count_already_downloaded
     else:
@@ -326,8 +326,8 @@ def merge_video_audio(videoid, publishdate, video_resolution, year):
         print("❌ No MP4 or M4A files found in the current directory.")
         return
 
-    if not os.path.exists(dlpath):
-        os.makedirs(dlpath)
+    if not os.path.exists(dlpath + f"/{year}"):
+        os.makedirs(dlpath + f"/{year}")
 
     output_file = dlpath + "/"+ str(year) + "/" + publishdate + " - " + video_resolution + " - " + clean_string_regex(os.path.splitext(video_file)[0]) + " - " + videoid + ".mp4"
 

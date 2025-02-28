@@ -323,8 +323,8 @@ while True:
                     break
             yt.streams[idx].download()
 
-            if not os.path.exists(dlpath):
-                os.makedirs(dlpath)
+            if not os.path.exists(dlpath + f"/{year}"):
+                os.makedirs(dlpath + f"/{year}")
 
             rename_files_in_temp_directory()
 
