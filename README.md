@@ -24,6 +24,9 @@ Download all videos from a specific YouTube channel.
 - 20250227 - v0.2 - enhanced file support (checks if already downloaded etc)
 - 20250226 - v0.1 - initial version, based on YTDL v0.3
 
+### 2do
+- check /tmp dir for merged file to prevent downloading again
+
 <br/>
 
 ## Prerequisites
