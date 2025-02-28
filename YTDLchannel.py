@@ -175,7 +175,6 @@ def find_file_by_string(directory, search_string):
 def limit_resolution(resolution, limit):
     num_resolution = int(''.join(filter(str.isdigit, resolution)))  # Extract number from first resolution
     num_limit = int(''.join(filter(str.isdigit, limit)))  # Extract number from second resolution
-    print(str(num_resolution) + " - " + str(num_limit))
     if str(limit)=="max" or num_resolution <= num_limit:
         max_resolution = resolution
     else:
