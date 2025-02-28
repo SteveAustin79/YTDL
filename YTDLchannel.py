@@ -152,7 +152,7 @@ def print_resolutions(yt):
     return unique_resolutions
 
 
-def find_file_by_string(directory, search_string):
+def find_file_by_string(directory, search_string, resolution):
     """Searches a directory for a file containing a specific string in its filename.
 
     Returns the filename if found, otherwise returns None.
@@ -166,7 +166,7 @@ def find_file_by_string(directory, search_string):
         file_path = os.path.join(directory, filename)
 
         # Ensure it's a file (not a folder)
-        if os.path.isfile(file_path) and search_string in filename:
+        if os.path.isfile(file_path) and search_string in filename and resolution in filename:
             return filename  # Return the first match
 
     return None  # Return None if no file is found
@@ -361,7 +361,7 @@ while True:
             #video_ids.append(only_video_id)
             #print(youtube_base_url + only_video_id)
 
-            if find_file_by_string(dlpath, only_video_id)!=None:
+            if find_file_by_string(dlpath, only_video_id, limit_resolution_to)!=None:
                 count_ok_videos += 1
                 count_skipped += 1
                 print(f"\rSkipping {count_skipped} Videos (Already downloaded)", end="", flush=True)
