@@ -118,6 +118,7 @@ def load_config():
 def read_file_lines(filename):
     """Reads all lines from a file and returns a list of lines."""
     try:
+        lines = []
         lines.append("Enter CUSTOM channel URL")
         with open(filename, "r", encoding="utf-8") as file:
             lines = [line.strip() for line in file.readlines()]  # Remove newlines
