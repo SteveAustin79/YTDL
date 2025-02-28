@@ -72,6 +72,8 @@ def clean_string_regex(text):
     :param pattern: Regular expression pattern for allowed characters.
     :return: The cleaned string.
     """
+    text = text.replace(":", "")
+
     pattern = r"[^a-zA-Z0-9 ]"
 
     return re.sub(pattern, "", text)

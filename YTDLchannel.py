@@ -47,6 +47,11 @@ def print_colored_text(message_text, color):
     return f'{color}{message_text}{bcolors.ENDC}'
 
 
+def write_textfile_failed_downloads(file, text):
+    with open(file, "a", encoding="utf-8") as file:
+        file.write("{text}}\n")
+
+
 def format_header(counter):
     width = 95
     #counter_str = f" \033[96m{counter}\033[0m "  # Add spaces around the number
@@ -79,6 +84,8 @@ def clean_string_regex(text):
     :param pattern: Regular expression pattern for allowed characters.
     :return: The cleaned string.
     """
+    text = text.replace(":", "")
+
     pattern = r"[^a-zA-Z0-9 ]"
 
     return re.sub(pattern, "", text)
@@ -280,6 +287,7 @@ def merge_video_audio(videoid, publishdate, video_resolution):
 
     except Exception as e:
         print(f"❌ Error merging files: {e}")
+        write_textfile_failed_downloads("errors.txt", output_file)
         sys.exit(1)
 
 def convert_m4a_to_opus_and_merge(videoid, publishdate, video_resolution):
