@@ -68,7 +68,7 @@ def write_textfile_failed_downloads(file, text):
 def format_header(counter):
     width = 95
     #counter_str = f" \033[96m{counter}\033[0m "  # Add spaces around the number
-    counter_str = "************" + print_colored_text(f" {counter} ", bcolors.OKBLUE)
+    counter_str = "************" + print_colored_text(f" {counter} ", bcolors.OKBLUE) + get_free_space(dlpath) + " free"
     total_length = width - 2  # Exclude parentheses ()
 
     # Center the counter with asterisks
@@ -261,7 +261,7 @@ def downloadVideo(videoid, counterid, video_total_count):
     yt = YouTube(youtube_base_url + videoid, on_progress_callback=on_progress)
 
     #print("\n***" + str(counterid) + "********************************************************************************")
-    print(format_header(yt.author + " - " + str(counterid) + "/" + str(video_total_count) + " * " + get_free_space(dlpath) + " free"))
+    print(format_header(yt.author + " - " + str(counterid) + "/" + str(video_total_count)))
     #print("Channel:    ", yt.author)
     print("Title:      ", print_colored_text(yt.title, bcolors.OKBLUE))
     print("Views:      ", format_view_count(yt.views))
