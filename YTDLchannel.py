@@ -21,6 +21,8 @@ import shutil
 import subprocess
 import ffmpeg
 import json
+
+import pytubefix.extract
 from pytubefix import Channel, YouTube
 from pytubefix.cli import on_progress
 from datetime import datetime
@@ -315,7 +317,7 @@ while True:
         count_ok_videos = 0
 
         for url in c.video_urls:
-            print(url.watch_url)
+            print(pytubefix.extract.video_id(url))
         # for video in c.videos:
         #     count_total_videos += 1
         #     #yt = YouTube(youtube_base_url + video.video_id, on_progress_callback=on_progress)
