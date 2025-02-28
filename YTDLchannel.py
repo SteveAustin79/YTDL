@@ -173,6 +173,7 @@ def find_file_by_string(directory, search_string):
 
 
 def limit_resolution(resolution, limit):
+    print(resolution + " - " + limit)
     if str(limit)=="max" or resolution <= limit:
         max_resolution = resolution
     else:
