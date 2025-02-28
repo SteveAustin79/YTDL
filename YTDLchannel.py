@@ -55,12 +55,13 @@ def load_config():
 def print_configuration():
     print("***********************************************")
     print("* CONFIGURATION (change in config.json):")
-    print("* Max Video Duration in Minutes: ", print_colored_text(max_duration, bcolors.OKBLUE))
+    print("***********************************************")
+    print("* Max Video Duration in Minutes:         ", print_colored_text(max_duration, bcolors.OKBLUE))
     if year_subfolders:
         year_subfolders_colored = print_colored_text(year_subfolders, bcolors.OKBLUE)
     else:
         year_subfolders_colored = print_colored_text(year_subfolders, bcolors.FAIL)
-    print("* Year Subfolder-Structure:      ", year_subfolders_colored)
+    print("* Year Subfolder-Structure:              ", year_subfolders_colored)
     print("***********************************************\n")
 
 
