@@ -212,11 +212,11 @@ def limit_resolution(resolution, limit):
     return max_resolution
 
 
-def downloadVideo(videoid, counterid):
+def downloadVideo(videoid, counterid, video_total_count):
     yt = YouTube(youtube_base_url + videoid, on_progress_callback=on_progress)
 
     #print("\n***" + str(counterid) + "********************************************************************************")
-    print(format_header(yt.author + " - " + str(counterid)))
+    print(format_header(yt.author + " - " + str(counterid) + "/" + video_total_count))
     #print("Channel:    ", yt.author)
     print("Title:      ", print_colored_text(yt.title, bcolors.OKBLUE))
     print("Views:      ", format_view_count(yt.views))
@@ -410,7 +410,7 @@ while True:
                     video_list.append(video.video_id)
                     #print(str(count_total_videos) + " - " + video.video_id + " - " + video.title)
                     #print_resolutions()
-                    downloadVideo(video.video_id, count_ok_videos)
+                    downloadVideo(video.video_id, count_ok_videos, len(video_ids))
                 else:
                     count_restricted_videos += 1
                     video_list_restricted.append(video.video_id)
