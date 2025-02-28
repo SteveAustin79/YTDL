@@ -59,7 +59,7 @@ def format_header(counter):
     total_length = width - 2  # Exclude parentheses ()
 
     # Center the counter with asterisks
-    formatted = f"{counter_str.center(total_length, '*')}"
+    formatted = f"{counter_str.ljust(total_length, '*')}"
 
     return formatted
 
