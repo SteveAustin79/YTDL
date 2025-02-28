@@ -115,6 +115,37 @@ def load_config():
     return config
 
 
+def read_file_lines(filename):
+    """Reads all lines from a file and returns a list of lines."""
+    try:
+        with open(filename, "r", encoding="utf-8") as file:
+            lines = [line.strip() for line in file.readlines()]  # Remove newlines
+        return lines
+    except FileNotFoundError:
+        print("❌ Error: File not found.")
+        return []
+
+def user_selection(lines):
+    """Displays the lines as a selection menu and gets user input."""
+    if not lines:
+        print("No lines available for selection.")
+        return None
+
+    print("\nSelect a line:")
+    for index, line in enumerate(lines, start=1):
+        print(f"{index}. {line}")
+
+    while True:
+        try:
+            choice = int(input("\nEnter the number of your choice: "))
+            if 1 <= choice <= len(lines):
+                return lines[choice - 1]  # Return selected line
+            else:
+                print("⚠️ Invalid selection. Choose a valid number.")
+        except ValueError:
+            print("⚠️ Invalid input. Please enter a number.")
+
+
 def deletTempFiles():
     # remove video and audio streams
     video_file, audio_file = find_media_files()
@@ -368,6 +399,10 @@ while True:
         print("***************")
         print("YouTube Channel Downloader\nExit App with Ctrl + C")
         print("https://github.com/SteveAustin79/YTDL\n\n")
+
+        lines = read_file_lines("channels.txt")
+        if lines:
+            selected_line = user_selection(lines)
 
         YTchannel = input("YouTube Channel URL:  ")
         #count_fetch_videos = str(smart_input("Fetch x latest Videos (to download all playable/unrestricted videos use 'all'): ", "all"))
