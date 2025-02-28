@@ -60,7 +60,7 @@ def print_configuration():
         year_subfolders_colored = print_colored_text(year_subfolders, bcolors.OKBLUE)
     else:
         year_subfolders_colored = print_colored_text(year_subfolders, bcolors.FAIL)
-    print("Year Subfolder-Structure: ", year_subfolders_colored, "\n")
+    print("Year Subfolder-Structure:      ", year_subfolders_colored, "\n")
 
 
 def print_colored_text(message_text, color):
