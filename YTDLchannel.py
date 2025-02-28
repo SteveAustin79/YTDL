@@ -157,6 +157,10 @@ def find_file_by_string(directory, search_string, resolution):
 
     Returns the filename if found, otherwise returns None.
     """
+
+    if resolution=="max":
+        resolution = ""
+
     if not os.path.exists(directory):
         #print("Error: Directory does not exist!")
         return None
