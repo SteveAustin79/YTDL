@@ -20,7 +20,7 @@ Download all videos from a specific YouTube channel.
 - already downloaded videos will be skipped
 
 ### History
-- 20250228 - v0.3 - added limit for max resolution
+- 20250228 - v0.3 - added optional limit for max resolution, channels.txt as suggestions
 - 20250227 - v0.2 - enhanced file support (checks if already downloaded etc)
 - 20250226 - v0.1 - initial version, based on YTDL v0.3
 
