@@ -420,7 +420,7 @@ while True:
         print("YouTube Channel Downloader\nExit App with Ctrl + C")
         print("https://github.com/SteveAustin79/YTDL\n\n")
         deletTempFiles()
-        print("Year Subfolder-Structure: ", year_subfolders, "\n\n")
+        print("Year Subfolder-Structure: ", year_subfolders, "\n")
 
         lines = read_file_lines("channels.txt")
         if lines:
