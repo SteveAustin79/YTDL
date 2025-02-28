@@ -254,7 +254,7 @@ def merge_video_audio(videoid, publishdate, video_resolution):
         # Run FFmpeg command
         ffmpeg.run(output, overwrite_output=True, quiet=True)
         #print(f"\n✅ \033[92mMerged file saved as: {output_file}.\033[0m")
-        print(print_colored_text("\nVideo downloaded\n", bcolors.OKGREEN))
+        print(print_colored_text("\nVideo downloaded", bcolors.OKGREEN))
 
         # remove video and audio streams
         deletTempFiles()
@@ -301,7 +301,7 @@ def convert_webm_to_mp4(input_file, output_file):
     ]
     subprocess.run(command, check=True)
     os.remove(input_file)
-    print(print_colored_text("Video downloaded\n", bcolors.OKGREEN))
+    print(print_colored_text("\nVideo downloaded", bcolors.OKGREEN))
 
 
 while True:
