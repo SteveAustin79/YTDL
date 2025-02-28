@@ -421,7 +421,11 @@ while True:
         print("https://github.com/SteveAustin79/YTDL\n\n")
         deletTempFiles()
         print("CONFIGURATION (change in config.json):")
-        print("Year Subfolder-Structure: ", year_subfolders, "\n")
+        if year_subfolders:
+            year_subfolders_colored = print_colored_text(year_subfolders, bcolors.OKBLUE)
+        else:
+            year_subfolders_colored = print_colored_text(year_subfolders, bcolors.FAIL)
+        print("Year Subfolder-Structure: ", year_subfolders_colored, "\n")
 
         lines = read_file_lines("channels.txt")
         if lines:
