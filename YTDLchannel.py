@@ -152,23 +152,28 @@ def print_resolutions(yt):
     return unique_resolutions
 
 
-def check_files_in_directory(directory, search_string):
-    """Scans the given directory for files and checks if their names contain a specific string."""
+def search_files_by_video_id(directory, video_ids):
+    """Searches for files in a directory that contain any of the given video IDs in their filename."""
 
     if not os.path.exists(directory):
-        print("Directory does not exist!")
+        print("Error: Directory does not exist!")
         return
 
-    # List all files in the directory
-    for filename in os.listdir(directory):
+    # Get all files in the directory
+    files = os.listdir(directory)
+
+    # Iterate over each file in the directory
+    for filename in files:
         file_path = os.path.join(directory, filename)
 
-        # Check if it's a file (not a folder)
+        # Ensure it's a file (not a folder)
         if os.path.isfile(file_path):
-            if search_string in filename:
-                print(f"Found: {filename}")
-            else:
-                print(f"Not found: {filename}")
+            # Check if the filename contains any video ID
+            for video_id in video_ids:
+                if video_id in filename:
+                    print(f"Matched: {filename} (contains video_id: {video_id})")
+                else:
+                    print(f"Not found: {filename} (contains video_id: {video_id})")
 
 
 def downloadVideo(videoid, counterid):
@@ -335,10 +340,13 @@ while True:
         count_restricted_videos = 0
         count_ok_videos = 0
 
+        video_ids = []
+
         for url in c.video_urls:
             only_video_id = pytubefix.extract.video_id(url.watch_url)
+            video_ids.append(only_video_id)
             #print(youtube_base_url + only_video_id)
-            check_files_in_directory(dlpath, only_video_id)
+            check_files_in_directory(dlpath, video_ids)
 
         # for video in c.videos:
         #     count_total_videos += 1
