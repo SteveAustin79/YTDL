@@ -45,6 +45,24 @@ class bcolors:
     ENDC       = "\033[0m"
 
 
+def load_config():
+    """Load settings from config.json."""
+    with open("config.json", "r") as file:
+        config = json.load(file)
+    return config
+
+
+def print_configuration():
+    print("***********************************************")
+    print("CONFIGURATION (change in config.json):")
+    print("Max Video Duration in Minutes: ", print_colored_text(max_duration, bcolors.OKBLUE))
+    if year_subfolders:
+        year_subfolders_colored = print_colored_text(year_subfolders, bcolors.OKBLUE)
+    else:
+        year_subfolders_colored = print_colored_text(year_subfolders, bcolors.FAIL)
+    print("Year Subfolder-Structure: ", year_subfolders_colored, "\n")
+
+
 def print_colored_text(message_text, color):
     return f'{color}{message_text}{bcolors.ENDC}'
 
@@ -123,13 +141,6 @@ def rename_files_in_temp_directory():
             #print(f"Renamed: {filename} → {sanitized_name}")
 
 
-def load_config():
-    """Load settings from config.json."""
-    with open("config.json", "r") as file:
-        config = json.load(file)
-    return config
-
-
 def read_file_lines(filename):
     """Reads all lines from a file and returns a list of lines."""
     try:
@@ -140,6 +151,7 @@ def read_file_lines(filename):
     except FileNotFoundError:
         print("❌ Error: File not found.")
         return []
+
 
 def user_selection(lines):
     """Displays the lines as a selection menu and gets user input."""
@@ -420,13 +432,7 @@ while True:
         print("YouTube Channel Downloader\nExit App with Ctrl + C")
         print("https://github.com/SteveAustin79/YTDL\n\n")
         deletTempFiles()
-        print("***********************************************")
-        print("CONFIGURATION (change in config.json):")
-        if year_subfolders:
-            year_subfolders_colored = print_colored_text(year_subfolders, bcolors.OKBLUE)
-        else:
-            year_subfolders_colored = print_colored_text(year_subfolders, bcolors.FAIL)
-        print("Year Subfolder-Structure: ", year_subfolders_colored, "\n")
+        print_configuration()
 
         lines = read_file_lines("channels.txt")
         if lines:

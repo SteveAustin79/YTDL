@@ -36,6 +36,24 @@ class bcolors:
     ENDC       = "\033[0m"
 
 
+def load_config():
+    """Load settings from config.json."""
+    with open("config.json", "r") as file:
+        config = json.load(file)
+    return config
+
+
+def print_configuration():
+    print("***********************************************")
+    print("CONFIGURATION (change in config.json):")
+    print("Max Video Duration in Minutes: ", print_colored_text(max_duration, bcolors.OKBLUE))
+    if year_subfolders:
+        year_subfolders_colored = print_colored_text(year_subfolders, bcolors.OKBLUE)
+    else:
+        year_subfolders_colored = print_colored_text(year_subfolders, bcolors.FAIL)
+    print("Year Subfolder-Structure: ", year_subfolders_colored, "\n")
+
+
 def print_colored_text(message_text, color):
     return f'{color}{message_text}{bcolors.ENDC}'
 
@@ -106,13 +124,6 @@ def print_resolutions():
     # Print results
     #print("Available Resolutions:", unique_resolutions, "\n")
     return unique_resolutions
-
-
-def load_config():
-    """Load settings from config.json."""
-    with open("config.json", "r") as file:
-        config = json.load(file)
-    return config
 
 
 def convert_m4a_to_opus_and_merge(videoid, publishdate):
@@ -275,13 +286,7 @@ while True:
         print("********")
         print("YouTube Video/Audio Downloader (Exit App with Ctrl + C)")
         print("https://github.com/SteveAustin79/YTDL\n\n")
-        print("***********************************************")
-        print("CONFIGURATION (change in config.json):")
-        if year_subfolders:
-            year_subfolders_colored = print_colored_text(year_subfolders, bcolors.OKBLUE)
-        else:
-            year_subfolders_colored = print_colored_text(year_subfolders, bcolors.FAIL)
-        print("Year Subfolder-Structure: ", year_subfolders_colored, "\n")
+        print_configuration()
         #cleanup directory
         deletTempFiles()
         url = input("YouTube Video URL: ")
