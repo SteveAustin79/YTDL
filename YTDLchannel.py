@@ -349,9 +349,9 @@ while True:
                 count_ok_videos += 1
                 count_skipped += 1
                 print(f"\rSkipping {count_skipped} videos (Already downloaded)", end="", flush=True)
-                print("\n")
             else:
                 #print(only_video_id)
+                print("\n")
                 video = YouTube(youtube_base_url + only_video_id, on_progress_callback=on_progress)
                 if (video.age_restricted == False and
                     video.vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE'):
