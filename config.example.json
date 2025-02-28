@@ -1,6 +1,6 @@
 {
     "output_directory": "/mnt/G/YTDLchannel",
-    "default_resolution": "1080p",
     "youtube_base_url": "https://www.youtube.com/watch?v=",
-    "max_duration_in_minutes": "60"
+    "max_duration_in_minutes": "60",
+    "year_subfolders": false
 }
