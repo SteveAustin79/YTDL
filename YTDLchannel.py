@@ -330,7 +330,7 @@ while True:
         c = Channel(YTchannel)
 
         dlpath = smart_input("Download Path:  ", output_dir + "/YTDLchannel/" + c.channel_name)
-        print(f'\n\nDownloading videos by: \033[96m{c.channel_name}\033[0m')
+        print(f'\n\nDownloading videos by: \033[96m{c.channel_name}\033[0m\n')
 
         count_total_videos = 0
         count_restricted_videos = 0
@@ -345,7 +345,7 @@ while True:
 
             if find_file_by_string(dlpath, only_video_id)!=None:
                 count_ok_videos += 1
-                print(f"\r{count_ok_videos}", end="", flush=True)
+                print(f"\rAlready downloaded. Skipped {count_ok_videos} videos.", end="", flush=True)
             else:
                 #print(only_video_id)
                 video = YouTube(youtube_base_url + only_video_id, on_progress_callback=on_progress)
