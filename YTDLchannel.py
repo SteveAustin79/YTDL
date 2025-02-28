@@ -27,7 +27,6 @@ import pytubefix.extract
 from pytubefix import Channel, YouTube
 from pytubefix.cli import on_progress
 from datetime import datetime
-from collections import Counter
 
 
 version = 0.3
@@ -375,13 +374,13 @@ while True:
         #skip_x_videos = int(smart_input("Skip x videos: ", "0"))
 
         c = Channel(YTchannel)
-        video_ids = []
-        for url in c.video_urls:
-            video_ids.append(url.watch_url)
 
         dlpath = smart_input("Download Path:  ", output_dir + "/YTDLchannel/" + c.channel_name)
         limit_resolution_to = smart_input("Max. Resolution:  ", "max")
-        print(f'\n\nDownloading {Counter(video_ids)} videos by: \033[96m{c.channel_name}\033[0m\n')
+        video_ids = []
+        for url in c.video_urls:
+            video_ids.append(url.watch_url)
+        print(f'\n\nDownloading {len(video_ids)} videos by: \033[96m{c.channel_name}\033[0m\n')
 
         count_total_videos = 0
         count_restricted_videos = 0
