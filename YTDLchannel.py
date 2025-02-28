@@ -464,7 +464,8 @@ while True:
                     if video_duration > int(max_duration):
                         do_not_download = 1
                         count_skipped += 1
-
+                        print(print_colored_text(f"\rSkipping {count_skipped} Videos", bcolors.FAIL), end="",
+                              flush=True)
                 if (video.age_restricted == False and
                         video.vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
                         do_not_download == 0):
