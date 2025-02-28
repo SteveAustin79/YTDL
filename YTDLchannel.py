@@ -420,6 +420,7 @@ while True:
         print("YouTube Channel Downloader\nExit App with Ctrl + C")
         print("https://github.com/SteveAustin79/YTDL\n\n")
         deletTempFiles()
+        print("***********************************************")
         print("CONFIGURATION (change in config.json):")
         if year_subfolders:
             year_subfolders_colored = print_colored_text(year_subfolders, bcolors.OKBLUE)
