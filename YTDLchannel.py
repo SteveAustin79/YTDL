@@ -336,6 +336,7 @@ while True:
         count_restricted_videos = 0
         count_ok_videos = 0
         count_this_run = 0
+        count_skipped = 0
 
         #video_ids = []
 
@@ -346,7 +347,8 @@ while True:
 
             if find_file_by_string(dlpath, only_video_id)!=None:
                 count_ok_videos += 1
-                print(f"\rSkipping {count_ok_videos} videos. Already downloaded.", end="", flush=True)
+                count_skipped += 1
+                print(f"\rSkipping {count_skipped} videos. Already downloaded.", end="", flush=True)
             else:
                 #print(only_video_id)
                 video = YouTube(youtube_base_url + only_video_id, on_progress_callback=on_progress)
@@ -354,6 +356,7 @@ while True:
                     video.vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE'):
                     count_ok_videos += 1
                     count_this_run += 1
+                    count_skipped = 0
                     video_list.append(video.video_id)
                     #print(str(count_total_videos) + " - " + video.video_id + " - " + video.title)
                     #print_resolutions()
