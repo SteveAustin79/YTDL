@@ -314,7 +314,7 @@ while True:
         count_restricted_videos = 0
         count_ok_videos = 0
 
-        for url in c.video_urls
+        for url in c.video_urls:
             print(url)
         # for video in c.videos:
         #     count_total_videos += 1
