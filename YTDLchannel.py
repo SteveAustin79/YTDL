@@ -507,7 +507,7 @@ while True:
         #         if count_total_videos == count_fetch_videos:
         #             break
 
-        print(f"\n\nDownloads finished. Total Videos: {count_ok_videos}, Downloaded in this session: {count_this_run}\n\n")
+        print(f"\n\nDownloads finished. Total Videos: {count_ok_videos} (ignored: {len(video_ids)-count_ok_videos}), Downloaded in this session: {count_this_run}\n\n")
         #print("Already downloaded: " + str(count_already_downloaded))
         #print("Downloaded:         " + str(count_downloading))
 
