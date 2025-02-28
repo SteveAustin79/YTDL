@@ -118,10 +118,9 @@ def load_config():
 def read_file_lines(filename):
     """Reads all lines from a file and returns a list of lines."""
     try:
-        lines = []
-        lines.append("Enter CUSTOM channel URL")
         with open(filename, "r", encoding="utf-8") as file:
             lines = [line.strip() for line in file.readlines()]  # Remove newlines
+        lines.append("Enter CUSTOM channel URL")
         return lines
     except FileNotFoundError:
         print("❌ Error: File not found.")
@@ -404,9 +403,9 @@ while True:
 
         lines = read_file_lines("channels.txt")
         if lines:
-            selected_line = user_selection(lines)
-
-        YTchannel = input("YouTube Channel URL:  ")
+            YTchannel = user_selection(lines)
+        if "Enter CUSTOM channel URL" in YTchannel:
+            YTchannel = input("YouTube Channel URL:  ")
         #count_fetch_videos = str(smart_input("Fetch x latest Videos (to download all playable/unrestricted videos use 'all'): ", "all"))
         #skip_x_videos = int(smart_input("Skip x videos: ", "0"))
 
