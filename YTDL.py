@@ -52,8 +52,10 @@ def format_view_count(number):
         return str(number)
 
 
-def format_header(counter, width):
-    counter_str = f"{counter}"  # Add spaces around the number
+def format_header(counter):
+    width = 96
+    #counter_str = f" \033[96m{counter}\033[0m "  # Add spaces around the number
+    counter_str = print_colored_text(f" {counter} ", bcolors.OKBLUE)
     total_length = width - 2  # Exclude parentheses ()
 
     # Center the counter with asterisks
@@ -242,7 +244,7 @@ while True:
         yt = YouTube(url, on_progress_callback = on_progress)
         dlpath = smart_input("\nDownload Path:  ", output_dir + "/YTDLchannel/" + yt.author)
 
-        print("\n" + format_header("*", 87))
+        print("\n" + format_header("*"))
         print("Channel:    ", print_colored_text(yt.author, bcolors.OKBLUE))
         print("Title:      ", print_colored_text(yt.title, bcolors.OKBLUE))
         print("Views:      ", format_view_count(yt.views))

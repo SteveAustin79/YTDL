@@ -44,7 +44,8 @@ def print_colored_text(message_text, color):
     return f'{color}{message_text}{bcolors.ENDC}'
 
 
-def format_header(counter, width):
+def format_header(counter):
+    width = 96
     #counter_str = f" \033[96m{counter}\033[0m "  # Add spaces around the number
     counter_str = print_colored_text(f" {counter} ", bcolors.OKBLUE)
     total_length = width - 2  # Exclude parentheses ()
@@ -153,7 +154,7 @@ def downloadVideo(videoid, counterid):
     yt = YouTube(youtube_base_url + videoid, on_progress_callback=on_progress)
 
     #print("\n***" + str(counterid) + "********************************************************************************")
-    print("\n\n" + format_header(yt.author + " - " + str(counterid), 87))
+    print("\n\n" + format_header(yt.author + " - " + str(counterid)))
     #print("Channel:    ", yt.author)
     print("Title:      ", print_colored_text(yt.title, bcolors.OKBLUE))
     print("Views:      ", format_view_count(yt.views))
