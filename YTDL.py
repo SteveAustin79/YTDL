@@ -224,7 +224,7 @@ def move_video_audio():
     print(f"✅ Moved files to download path!")
 
 
-def merge_video_audio(videoid, publishdate, video_resolution, year):
+def merge_video_audio(videoid, publishdate, video_resolution):
     video_file, audio_file = find_media_files()
 
     if not video_file or not audio_file:
