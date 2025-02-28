@@ -1,5 +1,5 @@
 """
-YTDLchannel 0.2
+YTDLchannel 0.3
 
 Download all videos from a specific YouTube channel.
 
@@ -8,6 +8,7 @@ Features:
 - sub-directory structure will be suggested
 - already downloaded videos will be skipped
 
+20250228 - v0.3 - added limit for max resolution
 20250227 - v0.2 - enhanced file support (checks if already downloaded etc)
 20250226 - v0.1 - initial version, based on YTDL v0.3
 
@@ -28,7 +29,7 @@ from pytubefix.cli import on_progress
 from datetime import datetime
 
 
-version = 0.2
+version = 0.3
 
 
 class bcolors:
