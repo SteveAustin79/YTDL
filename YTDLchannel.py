@@ -22,7 +22,7 @@ import shutil
 import subprocess
 import ffmpeg
 import json
-
+import sys
 import pytubefix.extract
 from pytubefix import Channel, YouTube
 from pytubefix.cli import on_progress
@@ -280,7 +280,7 @@ def merge_video_audio(videoid, publishdate, video_resolution):
 
     except Exception as e:
         print(f"❌ Error merging files: {e}")
-        break
+        sys.exit(1)
 
 def convert_m4a_to_opus_and_merge(videoid, publishdate, video_resolution):
     video_file, audio_file = find_media_files()
