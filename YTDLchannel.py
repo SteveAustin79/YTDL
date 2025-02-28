@@ -342,13 +342,15 @@ while True:
             only_video_id = pytubefix.extract.video_id(url.watch_url)
             #video_ids.append(only_video_id)
             #print(youtube_base_url + only_video_id)
-            count_ok_videos += 1
-            if find_file_by_string(dlpath, only_video_id)==None:
+
+            if find_file_by_string(dlpath, only_video_id)!=None:
+                count_ok_videos += 1
+            else:
                 #print(only_video_id)
                 video = YouTube(youtube_base_url + only_video_id, on_progress_callback=on_progress)
                 if (video.age_restricted == False and
                     video.vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE'):
-                    #count_ok_videos += 1
+                    count_ok_videos += 1
                     video_list.append(video.video_id)
                     #print(str(count_total_videos) + " - " + video.video_id + " - " + video.title)
                     #print_resolutions()
