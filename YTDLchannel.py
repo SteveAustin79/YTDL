@@ -429,7 +429,7 @@ while True:
 
         dlpath = smart_input("Download Path:  ", output_dir + "/" + c.channel_name)
         limit_resolution_to = smart_input("Max. Resolution:  ", "max")
-        ignore_max_duration = smart_input("Ignore max_duration?  Y/n", "n")
+        ignore_max_duration = smart_input("Ignore max_duration?  Y/n", "y")
         if ignore_max_duration== "y":
             ignore_max_duration_bool = True
         elif ignore_max_duration=="n":
