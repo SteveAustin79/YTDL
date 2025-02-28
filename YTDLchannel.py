@@ -68,7 +68,7 @@ def write_textfile_failed_downloads(file, text):
 def format_header(counter):
     width = 95
     #counter_str = f" \033[96m{counter}\033[0m "  # Add spaces around the number
-    counter_str = "************" + print_colored_text(f" {counter} ", bcolors.OKBLUE) + get_free_space(dlpath) + " free"
+    counter_str = "************" + print_colored_text(f" {counter} ", bcolors.OKBLUE) + " *** " + get_free_space(dlpath) + " free "
     total_length = width - 2  # Exclude parentheses ()
 
     # Center the counter with asterisks
