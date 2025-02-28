@@ -341,14 +341,14 @@ while True:
         print("YouTube Channel Downloader\nExit App with Ctrl + C")
         print("https://github.com/SteveAustin79/YTDL\n\n")
 
-        YTchannel =                          input("YouTube Channel URL: ")
+        YTchannel = input("YouTube Channel URL:  ")
         #count_fetch_videos = str(smart_input("Fetch x latest Videos (to download all playable/unrestricted videos use 'all'): ", "all"))
         #skip_x_videos = int(smart_input("Skip x videos: ", "0"))
 
         c = Channel(YTchannel)
 
-        dlpath =                smart_input("Download Path:       ", output_dir + "/YTDLchannel/" + c.channel_name)
-        limit_resolution_to =   smart_input("Max. Resolution:     ", "max")
+        dlpath = smart_input("Download Path:  ", output_dir + "/YTDLchannel/" + c.channel_name)
+        limit_resolution_to = smart_input("Max. Resolution:  ", "max")
         print(f'\n\nDownloading videos by: \033[96m{c.channel_name}\033[0m\n')
 
         count_total_videos = 0
