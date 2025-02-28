@@ -335,6 +335,7 @@ while True:
         count_total_videos = 0
         count_restricted_videos = 0
         count_ok_videos = 0
+        count_this_run = 0
 
         #video_ids = []
 
@@ -345,13 +346,14 @@ while True:
 
             if find_file_by_string(dlpath, only_video_id)!=None:
                 count_ok_videos += 1
-                print(f"\rAlready downloaded. Skipped {count_ok_videos} videos.", end="", flush=True)
+                print(f"\rSkipping {count_ok_videos} videos. Already downloaded.", end="", flush=True)
             else:
                 #print(only_video_id)
                 video = YouTube(youtube_base_url + only_video_id, on_progress_callback=on_progress)
                 if (video.age_restricted == False and
                     video.vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE'):
                     count_ok_videos += 1
+                    count_this_run += 1
                     video_list.append(video.video_id)
                     #print(str(count_total_videos) + " - " + video.video_id + " - " + video.title)
                     #print_resolutions()
@@ -383,7 +385,7 @@ while True:
         #         if count_total_videos == count_fetch_videos:
         #             break
 
-        print("\n\nDownloads finished.\n\n")
+        print(f"\n\nDownloads finished. Total Videos: {count_total_videos}, Downloaded in this session: {count_this_run}\n\n")
         #print("Already downloaded: " + str(count_already_downloaded))
         #print("Downloaded:         " + str(count_downloading))
 
