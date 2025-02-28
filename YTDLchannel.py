@@ -152,6 +152,23 @@ def print_resolutions(yt):
     return unique_resolutions
 
 
+def check_files_in_directory(directory, search_string):
+    """Scans the given directory for files and checks if their names contain a specific string."""
+
+    if not os.path.exists(directory):
+        print("Directory does not exist!")
+        return
+
+    # List all files in the directory
+    for filename in os.listdir(directory):
+        file_path = os.path.join(directory, filename)
+
+        # Check if it's a file (not a folder)
+        if os.path.isfile(file_path):
+            if search_string in filename:
+                print(f"Found: {filename}")
+
+
 def downloadVideo(videoid, counterid):
     yt = YouTube(youtube_base_url + videoid, on_progress_callback=on_progress)
 
@@ -317,7 +334,10 @@ while True:
         count_ok_videos = 0
 
         for url in c.video_urls:
-            print(pytubefix.extract.video_id(url.watch_url))
+            only_video_id = pytubefix.extract.video_id(url.watch_url)
+            #print(youtube_base_url + only_video_id)
+            check_files_in_directory(dlpath, only_video_id)
+
         # for video in c.videos:
         #     count_total_videos += 1
         #     #yt = YouTube(youtube_base_url + video.video_id, on_progress_callback=on_progress)
