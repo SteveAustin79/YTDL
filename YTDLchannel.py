@@ -207,7 +207,7 @@ def downloadVideo(videoid, counterid):
     if limit_resolution_to != "max":
         res = limit_resolution(res, limit_resolution_to)
 
-    print("Resolution: ", print_colored_text(res, bcolors.WARNING), "(" + limit_resolution_to + ")")
+    print("Resolution: ", print_colored_text(res, bcolors.WARNING), " (" + limit_resolution_to + ")")
 
     #print("Resolution: ", res)
     # check if file was already downloaded
