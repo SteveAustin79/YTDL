@@ -237,12 +237,10 @@ def find_file_by_string(directory, search_string, resolution):
         return None
 
     # Iterate over each file in the directory
-    for filename in os.listdir(directory):
-        file_path = os.path.join(directory, filename)
-
-        # Ensure it's a file (not a folder)
-        if os.path.isfile(file_path) and search_string in filename and resolution in filename:
-            return filename  # Return the first match
+    for root, _, files in os.walk(directory):  # os.walk() traverses all subdirectories
+        for filename in files:
+            if search_string in filename and resolution in filename:
+                return os.path.join(root, filename)  # Return full file path of the first match
 
     return None  # Return None if no file is found
 
