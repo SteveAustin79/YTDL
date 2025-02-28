@@ -159,7 +159,7 @@ def user_selection(lines):
         print("No lines available for selection.")
         return None
 
-    print("\nSelect YouTube channel:")
+    print("\nSelect channel:")
     for index, line in enumerate(lines, start=1):
         print(f"{index}. {line}")
 
