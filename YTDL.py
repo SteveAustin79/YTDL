@@ -53,7 +53,7 @@ def format_view_count(number):
 
 
 def format_header(counter):
-    width = 96
+    width = 94
     #counter_str = f" \033[96m{counter}\033[0m "  # Add spaces around the number
     counter_str = print_colored_text(f" {counter} ", bcolors.OKBLUE)
     total_length = width - 2  # Exclude parentheses ()
