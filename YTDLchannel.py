@@ -198,9 +198,9 @@ def downloadVideo(videoid, counterid):
 
     publishingDate = yt.publish_date.strftime("%Y-%m-%d")
     res = max(print_resolutions(yt), key=lambda x: int(x.rstrip('p')))
-    print("Resolution: ", print_colored_text(res, bcolors.WARNING))
-
     res = limit_resolution(res, limit_resolution_to)
+
+    print("Resolution: ", print_colored_text(res, bcolors.WARNING))
 
     #print("Resolution: ", res)
     # check if file was already downloaded
