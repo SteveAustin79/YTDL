@@ -375,7 +375,7 @@ while True:
 
         c = Channel(YTchannel)
 
-        dlpath = smart_input("Download Path:  ", output_dir + "/YTDLchannel/" + c.channel_name)
+        dlpath = smart_input("Download Path:  ", output_dir + "/" + c.channel_name)
         limit_resolution_to = smart_input("Max. Resolution:  ", "max")
         video_ids = []
         for url in c.video_urls:

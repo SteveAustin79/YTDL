@@ -280,7 +280,7 @@ while True:
         url = input("YouTube Video URL: ")
 
         yt = YouTube(url, on_progress_callback = on_progress)
-        dlpath = smart_input("\nDownload Path:  ", output_dir + "/YTDLchannel/" + yt.author)
+        dlpath = smart_input("\nDownload Path:  ", output_dir + "/" + yt.author)
         quiet_on = smart_input("Quiet output? Y/n: ", "y")
 
         print("\n" + format_header("*"))
