@@ -44,15 +44,15 @@ def load_config():
 
 
 def print_configuration():
-    print("***********************************************")
+    print("************************************************")
     print("* CONFIGURATION (change in config.json):")
-    print("***********************************************")
+    print("************************************************")
     if year_subfolders:
         year_subfolders_colored = print_colored_text(year_subfolders, bcolors.OKBLUE)
     else:
         year_subfolders_colored = print_colored_text(year_subfolders, bcolors.FAIL)
-    print("* Year Subfolder-Structure:              ", year_subfolders_colored)
-    print("***********************************************\n")
+    print("* Year Subfolder-Structure:             ", year_subfolders_colored)
+    print("************************************************\n")
 
 
 def print_colored_text(message_text, color):
