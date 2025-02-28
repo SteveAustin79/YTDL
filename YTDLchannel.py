@@ -317,7 +317,7 @@ while True:
         count_ok_videos = 0
 
         for url in c.video_urls:
-            print(pytubefix.extract.video_id(url))
+            print(pytubefix.extract.video_id(url.watch_url))
         # for video in c.videos:
         #     count_total_videos += 1
         #     #yt = YouTube(youtube_base_url + video.video_id, on_progress_callback=on_progress)
