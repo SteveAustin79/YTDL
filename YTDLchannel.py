@@ -53,9 +53,9 @@ def get_free_space(path):
 
     # Convert bytes to GB or MB for readability
     if free >= 1_000_000_000:  # If space is at least 1GB
-        formatted_space = f"{free / 1_073_741_824:.2f} GB"
+        formatted_space = f"{free / 1_073_741_824:.1f} GB"
     else:
-        formatted_space = f"{free / 1_048_576:.2f} MB"  # Otherwise, use MB
+        formatted_space = f"{free / 1_048_576:.0f} MB"  # Otherwise, use MB
 
     return formatted_space
 
