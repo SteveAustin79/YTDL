@@ -538,7 +538,7 @@ while True:
             ignore_min_duration_bool = True
         elif ignore_min_duration == "n":
             ignore_min_duration_bool = False
-            print(print_colored_text("Ignoring Videos < " + str(min_duration) + " Minutes!", bcolors.FAIL))
+            print(print_colored_text("Ignoring Videos < " + str(min_duration) + " Minutes! ", bcolors.FAIL))
 
         ignore_max_duration = smart_input("Ignore max_duration?  Y/n", "y")
         if ignore_max_duration== "y":
