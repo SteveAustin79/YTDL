@@ -268,7 +268,7 @@ def limit_resolution(resolution, limit):
 
     return max_resolution
 
-def print_video_infos(yt):
+def print_video_infos(yt, res):
     print("Title:          ", print_colored_text(yt.title, bcolors.OKBLUE))
     print("Date:           ", yt.publish_date.strftime("%Y-%m-%d"))
     if ignore_max_duration_bool and ignore_min_duration_bool:
@@ -327,7 +327,7 @@ def downloadVideoRestricted(videoid, counterid, video_total_count, channelName):
     if limit_resolution_to != "max":
         res = limit_resolution(res, limit_resolution_to)
 
-    print_video_infos(yt)
+    print_video_infos(yt, res)
 
     #res = smart_input("\n" + print_colored_text("Resolution: ", bcolors.WARNING), max_res)
     # dlpath = smart_input("Download Path:  ", output_dir)
@@ -414,7 +414,7 @@ def downloadVideo(videoid, counterid, video_total_count):
     if limit_resolution_to != "max":
         res = limit_resolution(res, limit_resolution_to)
 
-    print_video_infos(yt)
+    print_video_infos(yt, res)
 
     #print("Resolution: ", res)
     # check if file was already downloaded
