@@ -316,6 +316,8 @@ def downloadVideoRestricted(videoid, counterid, video_total_count, channelName):
     else:
         moreThan1080p = 0
 
+        # here check if /temp/file already exists
+
         if res == "2160p" or res == "1440p":
             # print("\nATTENTION: >1080p is stored as webm and cannot be merged by ffmpeg! Moving source files to download path instead!\n")
             moreThan1080p = 1
@@ -343,7 +345,7 @@ def downloadVideoRestricted(videoid, counterid, video_total_count, channelName):
             print("\nMerging...\n")
             merge_video_audio(yt.video_id, publishingDate, res, year, True)
         else:
-            print("\nMoving temp files...")
+            print("\nMerging...")
             # move_video_audio()
             convert_m4a_to_opus_and_merge(yt.video_id, publishingDate, res, year, True)
 
