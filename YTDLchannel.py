@@ -324,8 +324,8 @@ def downloadVideoRestricted(videoid, channelName):
                 break
         yt.streams[idx].download()
 
-        if not os.path.exists(dlpath + f"{year}"):
-            os.makedirs(dlpath + f"{year}")
+        if not os.path.exists(dlpath + f"{year}/restricted"):
+            os.makedirs(dlpath + f"{year}/restricted")
 
         rename_files_in_temp_directory()
 
