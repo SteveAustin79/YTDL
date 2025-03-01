@@ -275,13 +275,14 @@ def limit_resolution(resolution, limit):
     return max_resolution
 
 
-def downloadVideoRestricted(videoid, channelName):
+def downloadVideoRestricted(videoid, counterid, video_total_count, channelName):
     yt = YouTube(youtube_base_url + videoid, use_oauth=True, allow_oauth_cache=True, on_progress_callback = on_progress)
     dlpath = output_dir + "/" + channelName
 
     print("\n\n" + print_colored_text("Downloading restricted video...\n", bcolors.FAIL))
     #print("\n" + format_header("*"))
-    print("Channel:    ", print_colored_text(channelName, bcolors.OKBLUE))
+    print(format_header(channelName + " - " + str(counterid) + "/" + str(video_total_count)))
+    #print("Channel:    ", print_colored_text(channelName, bcolors.OKBLUE))
     print("Title:      ", print_colored_text(yt.title, bcolors.OKBLUE))
     # print("Views:      ", format_view_count(yt.views))
     print("Date:       ", yt.publish_date.strftime("%Y-%m-%d"))
@@ -578,8 +579,9 @@ while True:
                     if (video.vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE'):
                         count_restricted_videos += 1
                         count_ok_videos += 1
+                        count_this_run += 1
                         video_list_restricted.append(video.video_id)
-                        downloadVideoRestricted(video.video_id, c.channel_name)
+                        downloadVideoRestricted(video.video_id, count_ok_videos, len(video_ids), c.channel_name)
                     #print("\033[31m" + str(count_total_videos) + " - " + video.video_id + " - " + video.title + "\n\033[0m")
                     #print_resolutions()
 
