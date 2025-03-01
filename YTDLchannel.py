@@ -274,12 +274,12 @@ def downloadVideoRestricted(videoid, counterid, video_total_count, channelName):
     print("\n\n" + print_colored_text("Downloading restricted video...\n", bcolors.FAIL))
 
     print(format_header(videoid + " - " + channelName + " - " + str(counterid) + "/" + str(video_total_count)))
-    #print("Channel:       ", print_colored_text(channelName, bcolors.OKBLUE))
-    print("Title:         ", print_colored_text(yt.title, bcolors.OKBLUE))
-    #print("ID:            ", videoid)
-    #print("Views:         ", format_view_count(yt.views))
-    print("Date:          ", yt.publish_date.strftime("%Y-%m-%d"))
-    print("Length:        ", str(int(yt.length / 60)) + "m")
+    #print("Channel:        ", print_colored_text(channelName, bcolors.OKBLUE))
+    print("Title:          ", print_colored_text(yt.title, bcolors.OKBLUE))
+    #print("ID:             ", videoid)
+    #print("Views:          ", format_view_count(yt.views))
+    print("Date:           ", yt.publish_date.strftime("%Y-%m-%d"))
+    print("Length:         ", str(int(yt.length / 60)) + "m")
 
     publishingDate = yt.publish_date.strftime("%Y-%m-%d")
     if year_subfolders == True:
