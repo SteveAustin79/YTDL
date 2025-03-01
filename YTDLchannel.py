@@ -269,10 +269,7 @@ def limit_resolution(resolution, limit):
     return max_resolution
 
 def print_video_infos(yt):
-    # print("Channel:        ", print_colored_text(channelName, bcolors.OKBLUE))
     print("Title:          ", print_colored_text(yt.title, bcolors.OKBLUE))
-    # print("ID:             ", videoid)
-    # print("Views:          ", format_view_count(yt.views))
     print("Date:           ", yt.publish_date.strftime("%Y-%m-%d"))
     if ignore_max_duration_bool and ignore_min_duration_bool:
         print("Length:         ", str(int(yt.length / 60)) + "m")
@@ -283,16 +280,6 @@ def print_video_infos(yt):
     else:
         print("Length:         ", str(int(yt.length / 60)) + "m", " (" + min_duration + " < " + max_duration + "m)")
 
-    publishingDate = yt.publish_date.strftime("%Y-%m-%d")
-    if year_subfolders == True:
-        year = yt.publish_date.strftime("%Y")
-    else:
-        year = ""
-    # Print results
-    # print("\nAvailable Resolutions:", print_resolutions(yt))
-    res = max(print_resolutions(yt), key=lambda x: int(x.rstrip('p')))
-    if limit_resolution_to != "max":
-        res = limit_resolution(res, limit_resolution_to)
     print("Resolution:     ", print_colored_text(res, bcolors.WARNING), " (" + limit_resolution_to + ")")
 
 
@@ -329,6 +316,17 @@ def downloadVideoRestricted(videoid, counterid, video_total_count, channelName):
     # if limit_resolution_to != "max":
     #     res = limit_resolution(res, limit_resolution_to)
     # print("Resolution:     ", print_colored_text(res, bcolors.WARNING), " (" + limit_resolution_to + ")")
+
+    publishingDate = yt.publish_date.strftime("%Y-%m-%d")
+    if year_subfolders == True:
+        year = yt.publish_date.strftime("%Y")
+    else:
+        year = ""
+
+    res = max(print_resolutions(yt), key=lambda x: int(x.rstrip('p')))
+    if limit_resolution_to != "max":
+        res = limit_resolution(res, limit_resolution_to)
+
     print_video_infos(yt)
 
     #res = smart_input("\n" + print_colored_text("Resolution: ", bcolors.WARNING), max_res)
@@ -405,6 +403,17 @@ def downloadVideo(videoid, counterid, video_total_count):
     #     res = limit_resolution(res, limit_resolution_to)
     #
     # print("Resolution:     ", print_colored_text(res, bcolors.WARNING), " (" + limit_resolution_to + ")")
+
+    publishingDate = yt.publish_date.strftime("%Y-%m-%d")
+    if year_subfolders == True:
+        year = yt.publish_date.strftime("%Y")
+    else:
+        year = ""
+
+    res = max(print_resolutions(yt), key=lambda x: int(x.rstrip('p')))
+    if limit_resolution_to != "max":
+        res = limit_resolution(res, limit_resolution_to)
+
     print_video_infos(yt)
 
     #print("Resolution: ", res)
