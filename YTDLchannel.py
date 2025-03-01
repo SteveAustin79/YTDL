@@ -293,7 +293,7 @@ def downloadVideoRestricted(videoid, channelName):
     else:
         year = ""
     # Print results
-    print("\nAvailable Resolutions:", print_resolutions(yt))
+    #print("\nAvailable Resolutions:", print_resolutions(yt))
     res = max(print_resolutions(yt), key=lambda x: int(x.rstrip('p')))
 
     #res = smart_input("\n" + print_colored_text("Resolution: ", bcolors.WARNING), max_res)
