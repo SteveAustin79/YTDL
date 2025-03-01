@@ -82,6 +82,11 @@ def get_free_space(path):
     return formatted_space
 
 
+def string_to_list(input_string):
+    """Transforms a comma-separated string into a list of strings, removing extra spaces."""
+    return [item.strip() for item in input_string.split(",")]
+
+
 def write_textfile_failed_downloads(file, text):
     with open(file, "a", encoding="utf-8") as file:
         file.write("{text}}\n")
@@ -536,9 +541,15 @@ while True:
         elif skip_restricted=="n":
             skip_restricted_bool = False
 
+        exclude_video_ids = input("Exclude Video ID's? (comma separated list): ")
+        if exclude_video_ids!="":
+            exclude_list = string_to_list(exclude_video_ids)
+
+
         video_ids = []
         for url in c.video_urls:
-            video_ids.append(url.watch_url)
+            if(url.watch_url not in exclude_list):
+                video_ids.append(url.watch_url)
 
         if ignore_max_duration_bool== False:
             print(f'\n\nDownloading {len(video_ids)} Videos (-ignored) by: \033[96m{c.channel_name}\033[0m\n')
@@ -551,7 +562,8 @@ while True:
         count_this_run = 0
         count_skipped = 0
 
-        for url in c.video_urls:
+        #for url in c.video_urls:
+        for url in video_ids:
             only_video_id = pytubefix.extract.video_id(url.watch_url)
             #video_ids.append(only_video_id)
             #print(youtube_base_url + only_video_id)
