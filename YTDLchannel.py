@@ -568,9 +568,9 @@ while True:
                 video_watch_urls.append(url.watch_url)
 
         if ignore_max_duration_bool== False:
-            print(f'\n\nDownloading {len(video_watch_urls)} Videos (-ignored) by: \033[96m{c.channel_name}\033[0m\n')
+            print(f'\n\n{len(video_watch_urls)} Videos (-ignored) by: \033[96m{c.channel_name}\033[0m\n')
         else:
-            print(f'\n\nDownloading {len(video_watch_urls)} Videos by: \033[96m{c.channel_name}\033[0m\n')
+            print(f'\n\n{len(video_watch_urls)} Videos by: \033[96m{c.channel_name}\033[0m\n')
 
         count_total_videos = 0
         count_restricted_videos = 0
