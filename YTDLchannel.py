@@ -277,10 +277,11 @@ def limit_resolution(resolution, limit):
 
 def downloadVideoRestricted(videoid, channelName):
     yt = YouTube(youtube_base_url + videoid, use_oauth=True, allow_oauth_cache=True, on_progress_callback = on_progress)
-    dlpath = smart_input("\nDownload Path:  ", output_dir + "/" + channelName + "/restricted")
+    dlpath = output_dir + "/" + channelName + "/restricted"
     quiet_on = smart_input("Quiet output? Y/n: ", "y")
 
-   #print("\n" + format_header("*"))
+    print("Downloading restricted video...")
+    #print("\n" + format_header("*"))
     print("Channel:    ", print_colored_text(channelName, bcolors.OKBLUE))
     print("Title:      ", print_colored_text(yt.title, bcolors.OKBLUE))
     # print("Views:      ", format_view_count(yt.views))
