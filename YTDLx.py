@@ -294,7 +294,7 @@ while True:
         url = smart_input("YouTube Video URL: ", youtube_base_url)
 
         yt = YouTube(url, use_oauth=True, allow_oauth_cache=True, on_progress_callback = on_progress)
-        dlpath = smart_input("\nDownload Path:  ", output_dir + "/" + yt.author)
+        dlpath = smart_input("\nDownload Path:  ", output_dir + "/" + clean_string_regex(yt.author))
         quiet_on = smart_input("Quiet output? Y/n: ", "y")
 
         print("\n" + format_header("*"))
