@@ -54,6 +54,21 @@ def print_configuration():
     print("************************************************************************************\n")
 
 
+def print_video_infos(yt, res):
+    print("Title:          ", print_colored_text(yt.title, bcolors.OKBLUE))
+    print("Date:           ", yt.publish_date.strftime("%Y-%m-%d"))
+    if ignore_max_duration_bool and ignore_min_duration_bool:
+        print("Length:         ", str(int(yt.length / 60)) + "m")
+    elif ignore_max_duration_bool:
+        print("Length:         ", str(int(yt.length / 60)) + "m", " (" + min_duration + "m <")
+    elif ignore_min_duration_bool:
+        print("Length:         ", str(int(yt.length / 60)) + "m", " (< " + max_duration + "m")
+    else:
+        print("Length:         ", str(int(yt.length / 60)) + "m", " (" + min_duration + "m < " + max_duration + "m)")
+
+    print("Resolution:     ", print_colored_text(res, bcolors.WARNING), " (" + limit_resolution_to + ")")
+
+
 def print_colored_text(message_text, color):
     return f"{color}{message_text}{bcolors.ENDC}"
 
@@ -267,20 +282,6 @@ def limit_resolution(resolution, limit):
         max_resolution = limit
 
     return max_resolution
-
-def print_video_infos(yt, res):
-    print("Title:          ", print_colored_text(yt.title, bcolors.OKBLUE))
-    print("Date:           ", yt.publish_date.strftime("%Y-%m-%d"))
-    if ignore_max_duration_bool and ignore_min_duration_bool:
-        print("Length:         ", str(int(yt.length / 60)) + "m")
-    elif ignore_max_duration_bool:
-        print("Length:         ", str(int(yt.length / 60)) + "m", " (" + min_duration + "m <")
-    elif ignore_min_duration_bool:
-        print("Length:         ", str(int(yt.length / 60)) + "m", " (< " + max_duration + "m")
-    else:
-        print("Length:         ", str(int(yt.length / 60)) + "m", " (" + min_duration + " < " + max_duration + "m)")
-
-    print("Resolution:     ", print_colored_text(res, bcolors.WARNING), " (" + limit_resolution_to + ")")
 
 
 def downloadVideoRestricted(videoid, counterid, video_total_count, channelName):
