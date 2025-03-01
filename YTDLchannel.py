@@ -560,6 +560,7 @@ while True:
             exclude_list = string_to_list(exclude_video_ids)
 
         video_name_filter = str(input("Enter filter word: "))
+        video_name_filter_list = string_to_list(video_name_filter)
 
         video_watch_urls = []
         for url in c.video_urls:
@@ -595,7 +596,7 @@ while True:
                 do_not_download = 0
                 video = YouTube(youtube_base_url + only_video_id, on_progress_callback=on_progress)
 
-                if video_name_filter=="" or video_name_filter in video.title:
+                if video_name_filter=="" or video.title in video_name_filter_list:
                     if ignore_max_duration_bool==False:
                         video_duration = int(video.length/60)
                         if video_duration > int(max_duration):
