@@ -296,6 +296,9 @@ def downloadVideoRestricted(videoid, counterid, video_total_count, channelName):
     # Print results
     #print("\nAvailable Resolutions:", print_resolutions(yt))
     res = max(print_resolutions(yt), key=lambda x: int(x.rstrip('p')))
+    if limit_resolution_to != "max":
+        res = limit_resolution(res, limit_resolution_to)
+    print("Resolution: ", print_colored_text(res, bcolors.WARNING), " (" + limit_resolution_to + ")")
 
     #res = smart_input("\n" + print_colored_text("Resolution: ", bcolors.WARNING), max_res)
     # dlpath = smart_input("Download Path:  ", output_dir)
