@@ -282,6 +282,7 @@ while True:
         # Access settings
         output_dir = config["output_directory"]
         year_subfolders = config["year_subfolders"]
+        youtube_base_url = config["youtube_base_url"]
 
         print("\n\nYTDL " + str(version))
         print("********")
@@ -290,7 +291,7 @@ while True:
         print_configuration()
         #cleanup directory
         deletTempFiles()
-        url = input("YouTube Video URL: ")
+        url = smart_input("YouTube Video URL: ", youtube_base_url)
 
         yt = YouTube(url, use_oauth=True, allow_oauth_cache=True, on_progress_callback = on_progress)
         dlpath = smart_input("\nDownload Path:  ", output_dir + "/" + yt.author)
