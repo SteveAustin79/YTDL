@@ -597,7 +597,7 @@ while True:
                     video_list.append(video.video_id)
                     #print(str(count_total_videos) + " - " + video.video_id + " - " + video.title)
                     #print_resolutions()
-                    downloadVideo(video.video_id, count_ok_videos, len(video_ids))
+                    downloadVideo(video.video_id, count_ok_videos, len(video_watch_urls))
                 else:
                     if skip_restricted_bool == False:
                         if (video.vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
