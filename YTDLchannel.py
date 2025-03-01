@@ -588,8 +588,11 @@ while True:
                     #print("\033[31m" + str(count_total_videos) + " - " + video.video_id + " - " + video.title + "\n\033[0m")
                     #print_resolutions()
 
-        done_string = f"\n\nDONE! Total Videos: {count_ok_videos} (restricted: {len(video_list_restricted)} / ignored: {len(video_ids)-count_ok_videos}), Downloaded in this session: {count_this_run}\n\n"
-        print(print_colored_text(done_string, bcolors.OKGREEN))
+        if count_this_run == 0:
+            print("noting to do...")
+        else:
+            done_string = f"\n\nDONE! Total Videos: {count_ok_videos} (restricted: {len(video_list_restricted)} / ignored: {len(video_ids)-count_ok_videos}), Downloaded in this session: {count_this_run}\n\n"
+            print(print_colored_text(done_string, bcolors.OKGREEN))
         #for restricted_video in video_list_restricted:
         #    print(youtube_base_url + restricted_video)
         #print("Already downloaded: " + str(count_already_downloaded))
