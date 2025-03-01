@@ -549,7 +549,8 @@ while True:
 
         video_watch_urls = []
         for url in c.video_urls:
-            if(str(url.watch_url) not in exclude_list):
+            hae = url.watch_url
+            if(hae not in exclude_list):
                 video_watch_urls.append(url.watch_url)
 
         if ignore_max_duration_bool== False:
