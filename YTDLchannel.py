@@ -26,7 +26,7 @@ import ffmpeg
 import json
 import sys
 import pytubefix.extract
-from pytubefix import Channel, YouTube
+from pytubefix import YouTube, Channel
 from pytubefix.cli import on_progress
 from datetime import datetime
 
