@@ -43,6 +43,7 @@ def print_configuration():
     print("************************************************")
     print("* CONFIGURATION (change in config.json):")
     print("************************************************")
+    print("* Output directory:                     ", print_colored_text(output_dir, bcolors.OKBLUE))
     print("* Min Video Duration in Minutes:        ", print_colored_text(min_duration, bcolors.OKBLUE))
     print("* Max Video Duration in Minutes:        ", print_colored_text(max_duration, bcolors.OKBLUE))
     if year_subfolders:
