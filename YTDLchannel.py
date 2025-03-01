@@ -275,8 +275,8 @@ def limit_resolution(resolution, limit):
     return max_resolution
 
 
-def downloadVideoRestricted():
-    yt = YouTube(url, use_oauth=True, allow_oauth_cache=True, on_progress_callback = on_progress)
+def downloadVideoRestricted(videoid):
+    yt = YouTube(videoid, use_oauth=True, allow_oauth_cache=True, on_progress_callback = on_progress)
     dlpath = smart_input("\nDownload Path:  ", output_dir + "/" + yt.author)
     quiet_on = smart_input("Quiet output? Y/n: ", "y")
 
@@ -573,7 +573,7 @@ while True:
                 else:
                     count_restricted_videos += 1
                     video_list_restricted.append(video.video_id)
-                    #downloadVideoRestricted()
+                    downloadVideoRestricted(video.video_id)
                     #print("\033[31m" + str(count_total_videos) + " - " + video.video_id + " - " + video.title + "\n\033[0m")
                     #print_resolutions()
 
