@@ -559,6 +559,8 @@ while True:
         if exclude_video_ids!="":
             exclude_list = string_to_list(exclude_video_ids)
 
+        video_name_filter = str(input("Enter filter word: "))
+
         video_watch_urls = []
         for url in c.video_urls:
             if(url.video_id not in exclude_list):
@@ -592,36 +594,38 @@ while True:
                 #print(only_video_id)
                 do_not_download = 0
                 video = YouTube(youtube_base_url + only_video_id, on_progress_callback=on_progress)
-                if ignore_max_duration_bool==False:
-                    video_duration = int(video.length/60)
-                    if video_duration > int(max_duration):
-                        do_not_download = 1
-                        #count_skipped += 1
-                        #count_ok_videos += 1
-                        #print(print_colored_text(f"\rSkipping {count_skipped} Videos", bcolors.FAIL), end="", flush=True)
-                if (video.age_restricted == False and
-                        video.vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
-                        do_not_download == 0):
-                    print("\n")
-                    count_ok_videos += 1
-                    count_this_run += 1
-                    count_skipped = 0
-                    video_list.append(video.video_id)
-                    #print(str(count_total_videos) + " - " + video.video_id + " - " + video.title)
-                    #print_resolutions()
-                    downloadVideo(video.video_id, count_ok_videos, len(video_watch_urls))
-                else:
-                    if skip_restricted_bool == False:
-                        if (video.vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
-                                do_not_download == 0):
-                            count_restricted_videos += 1
-                            count_ok_videos += 1
-                            count_this_run += 1
-                            video_list_restricted.append(video.video_id)
-                            downloadVideoRestricted(video.video_id, count_ok_videos, len(video_watch_urls),
-                                                    clean_string_regex(c.channel_name).rstrip())
-                    #print("\033[31m" + str(count_total_videos) + " - " + video.video_id + " - " + video.title + "\n\033[0m")
-                    #print_resolutions()
+
+                if video_name_filter=="" or video_name_filter in video.title:
+                    if ignore_max_duration_bool==False:
+                        video_duration = int(video.length/60)
+                        if video_duration > int(max_duration):
+                            do_not_download = 1
+                            #count_skipped += 1
+                            #count_ok_videos += 1
+
+                    if (video.age_restricted == False and
+                            video.vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
+                            do_not_download == 0):
+                        print("\n")
+                        count_ok_videos += 1
+                        count_this_run += 1
+                        count_skipped = 0
+                        video_list.append(video.video_id)
+                        #print(str(count_total_videos) + " - " + video.video_id + " - " + video.title)
+                        #print_resolutions()
+                        downloadVideo(video.video_id, count_ok_videos, len(video_watch_urls))
+                    else:
+                        if skip_restricted_bool == False:
+                            if (video.vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
+                                    do_not_download == 0):
+                                count_restricted_videos += 1
+                                count_ok_videos += 1
+                                count_this_run += 1
+                                video_list_restricted.append(video.video_id)
+                                downloadVideoRestricted(video.video_id, count_ok_videos, len(video_watch_urls),
+                                                        clean_string_regex(c.channel_name).rstrip())
+                        #print("\033[31m" + str(count_total_videos) + " - " + video.video_id + " - " + video.title + "\n\033[0m")
+                        #print_resolutions()
 
         if count_this_run == 0:
             print("\n\n" + print_colored_text("nothing to do...\n\n", bcolors.OKGREEN))
