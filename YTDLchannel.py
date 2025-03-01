@@ -283,7 +283,7 @@ def downloadVideoRestricted(videoid, counterid, video_total_count, channelName):
     print(format_header(channelName + " - " + str(counterid) + "/" + str(video_total_count)))
     #print("Channel:    ", print_colored_text(channelName, bcolors.OKBLUE))
     print("Title:      ", print_colored_text(yt.title, bcolors.OKBLUE))
-    print("Views:      ", format_view_count(yt.views))
+    print("Views:      ", format_view_count(str(yt.views)))
     print("Date:       ", yt.publish_date.strftime("%Y-%m-%d"))
     print("Length:     ", str(int(yt.length / 60)) + "m")
 
@@ -532,9 +532,9 @@ while True:
         skip_restricted = smart_input("Skip restricted Videos? Y/n ", "n")
         if skip_restricted== "y":
             skip_restricted_bool = True
+            print(print_colored_text("Skipping restricted Videos!", bcolors.FAIL))
         elif skip_restricted=="n":
             skip_restricted_bool = False
-            print(print_colored_text("Skipping restricted Videos!", bcolors.FAIL))
 
         video_ids = []
         for url in c.video_urls:
