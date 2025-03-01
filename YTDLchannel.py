@@ -559,7 +559,7 @@ while True:
         if exclude_video_ids!="":
             exclude_list = string_to_list(exclude_video_ids)
 
-        video_name_filter = str(input("Enter filter word: "))
+        video_name_filter = str(input("\nEnter filter word(s) (comma separated list): "))
         video_name_filter_list = string_to_list(video_name_filter)
 
         video_watch_urls = []
