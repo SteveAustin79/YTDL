@@ -329,9 +329,6 @@ def downloadVideo(videoid, counterid, video_total_count):
                 break
         yt.streams[idx].download()
 
-        if not os.path.exists(dlpath + f"{year}"):
-            os.makedirs(dlpath + f"{year}")
-
         rename_files_in_temp_directory()
 
         print("\nMerging...")
@@ -480,6 +477,9 @@ while True:
             only_video_id = pytubefix.extract.video_id(url.watch_url)
             #video_ids.append(only_video_id)
             #print(youtube_base_url + only_video_id)
+
+            if not os.path.exists(dlpath):
+                os.makedirs(dlpath)
 
             if find_file_by_string(dlpath, only_video_id, limit_resolution_to)!=None:
                 count_ok_videos += 1
