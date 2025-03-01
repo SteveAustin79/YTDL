@@ -280,11 +280,10 @@ def downloadVideoRestricted(videoid, counterid, video_total_count, channelName):
     dlpath = output_dir + "/" + channelName
 
     print("\n\n" + print_colored_text("Downloading restricted video...\n", bcolors.FAIL))
-    #print("\n" + format_header("*"))
     print(format_header(channelName + " - " + str(counterid) + "/" + str(video_total_count)))
     #print("Channel:    ", print_colored_text(channelName, bcolors.OKBLUE))
     print("Title:      ", print_colored_text(yt.title, bcolors.OKBLUE))
-    # print("Views:      ", format_view_count(yt.views))
+    print("Views:      ", format_view_count(yt.views))
     print("Date:       ", yt.publish_date.strftime("%Y-%m-%d"))
     print("Length:     ", str(int(yt.length / 60)) + "m")
 
@@ -529,6 +528,14 @@ while True:
         elif ignore_max_duration=="n":
             ignore_max_duration_bool = False
             print(print_colored_text("Ignoring Videos > " + str(max_duration) + " Minutes!", bcolors.FAIL))
+
+        skip_restricted = smart_input("Skip restricted Videos? Y/n ", "n")
+        if skip_restricted== "y":
+            skip_restricted_bool = True
+        elif skip_restricted=="n":
+            skip_restricted_bool = False
+            print(print_colored_text("Skipping restricted Videos!", bcolors.FAIL))
+
         video_ids = []
         for url in c.video_urls:
             video_ids.append(url.watch_url)
@@ -579,12 +586,14 @@ while True:
                     #print_resolutions()
                     downloadVideo(video.video_id, count_ok_videos, len(video_ids))
                 else:
-                    if (video.vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE'):
-                        count_restricted_videos += 1
-                        count_ok_videos += 1
-                        count_this_run += 1
-                        video_list_restricted.append(video.video_id)
-                        downloadVideoRestricted(video.video_id, count_ok_videos, len(video_ids), c.channel_name)
+                    if skip_restricted_bool == False:
+                        if (video.vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
+                                do_not_download == 0):
+                            count_restricted_videos += 1
+                            count_ok_videos += 1
+                            count_this_run += 1
+                            video_list_restricted.append(video.video_id)
+                            downloadVideoRestricted(video.video_id, count_ok_videos, len(video_ids), c.channel_name)
                     #print("\033[31m" + str(count_total_videos) + " - " + video.video_id + " - " + video.title + "\n\033[0m")
                     #print_resolutions()
 
