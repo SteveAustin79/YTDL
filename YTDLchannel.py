@@ -40,9 +40,9 @@ def load_config():
 
 
 def print_configuration():
-    print("***************************************************************************")
+    print("************************************************************************************")
     print("* CONFIGURATION (change in config.json):")
-    print("***************************************************************************")
+    print("************************************************************************************")
     print("* Output directory:                     ", print_colored_text(output_dir, bcolors.OKBLUE))
     print("* Min Video Duration in Minutes:        ", print_colored_text(min_duration, bcolors.OKBLUE))
     print("* Max Video Duration in Minutes:        ", print_colored_text(max_duration, bcolors.OKBLUE))
@@ -51,7 +51,7 @@ def print_configuration():
     else:
         year_subfolders_colored = print_colored_text(year_subfolders, bcolors.FAIL)
     print("* Year Subfolder-Structure:             ", year_subfolders_colored)
-    print("***************************************************************************\n")
+    print("************************************************************************************\n")
 
 
 def print_colored_text(message_text, color):
@@ -268,6 +268,33 @@ def limit_resolution(resolution, limit):
 
     return max_resolution
 
+def print_video_infos(yt):
+    # print("Channel:        ", print_colored_text(channelName, bcolors.OKBLUE))
+    print("Title:          ", print_colored_text(yt.title, bcolors.OKBLUE))
+    # print("ID:             ", videoid)
+    # print("Views:          ", format_view_count(yt.views))
+    print("Date:           ", yt.publish_date.strftime("%Y-%m-%d"))
+    if ignore_max_duration_bool and ignore_min_duration_bool:
+        print("Length:         ", str(int(yt.length / 60)) + "m")
+    elif ignore_max_duration_bool:
+        print("Length:         ", str(int(yt.length / 60)) + "m", " (" + min_duration + "m <")
+    elif ignore_min_duration_bool:
+        print("Length:         ", str(int(yt.length / 60)) + "m", " (< " + max_duration + "m")
+    else:
+        print("Length:         ", str(int(yt.length / 60)) + "m", " (" + min_duration + " < " + max_duration + "m)")
+
+    publishingDate = yt.publish_date.strftime("%Y-%m-%d")
+    if year_subfolders == True:
+        year = yt.publish_date.strftime("%Y")
+    else:
+        year = ""
+    # Print results
+    # print("\nAvailable Resolutions:", print_resolutions(yt))
+    res = max(print_resolutions(yt), key=lambda x: int(x.rstrip('p')))
+    if limit_resolution_to != "max":
+        res = limit_resolution(res, limit_resolution_to)
+    print("Resolution:     ", print_colored_text(res, bcolors.WARNING), " (" + limit_resolution_to + ")")
+
 
 def downloadVideoRestricted(videoid, counterid, video_total_count, channelName):
     yt = YouTube(youtube_base_url + videoid, use_oauth=True, allow_oauth_cache=True, on_progress_callback = on_progress)
@@ -276,27 +303,33 @@ def downloadVideoRestricted(videoid, counterid, video_total_count, channelName):
     #print("\n\n" + print_colored_text("Downloading age_restricted video...\n", bcolors.FAIL))
     print("\n")
     print(format_header(print_colored_text(videoid, bcolors.FAIL) + " - " + channelName + " - " + str(counterid) + "/" + str(video_total_count)))
-    #print("Channel:        ", print_colored_text(channelName, bcolors.OKBLUE))
-    print("Title:          ", print_colored_text(yt.title, bcolors.OKBLUE))
-    #print("ID:             ", videoid)
-    #print("Views:          ", format_view_count(yt.views))
-    print("Date:           ", yt.publish_date.strftime("%Y-%m-%d"))
-    if ignore_max_duration_bool:
-        print("Length:         ", str(int(yt.length / 60)) + "m")
-    else:
-        print("Length:         ", str(int(yt.length / 60)) + "m", " (<" + max_duration + "m)")
 
-    publishingDate = yt.publish_date.strftime("%Y-%m-%d")
-    if year_subfolders == True:
-        year = yt.publish_date.strftime("%Y")
-    else:
-        year = ""
-    # Print results
-    #print("\nAvailable Resolutions:", print_resolutions(yt))
-    res = max(print_resolutions(yt), key=lambda x: int(x.rstrip('p')))
-    if limit_resolution_to != "max":
-        res = limit_resolution(res, limit_resolution_to)
-    print("Resolution:     ", print_colored_text(res, bcolors.WARNING), " (" + limit_resolution_to + ")")
+    # #print("Channel:        ", print_colored_text(channelName, bcolors.OKBLUE))
+    # print("Title:          ", print_colored_text(yt.title, bcolors.OKBLUE))
+    # #print("ID:             ", videoid)
+    # #print("Views:          ", format_view_count(yt.views))
+    # print("Date:           ", yt.publish_date.strftime("%Y-%m-%d"))
+    # if ignore_max_duration_bool and ignore_min_duration_bool:
+    #     print("Length:         ", str(int(yt.length / 60)) + "m")
+    # elif ignore_max_duration_bool:
+    #     print("Length:         ", str(int(yt.length / 60)) + "m", " (" + min_duration + "m <")
+    # elif ignore_min_duration_bool:
+    #     print("Length:         ", str(int(yt.length / 60)) + "m", " (< " + max_duration + "m")
+    # else:
+    #     print("Length:         ", str(int(yt.length / 60)) + "m", " (" + min_duration + " < " + max_duration + "m)")
+    #
+    # publishingDate = yt.publish_date.strftime("%Y-%m-%d")
+    # if year_subfolders == True:
+    #     year = yt.publish_date.strftime("%Y")
+    # else:
+    #     year = ""
+    # # Print results
+    # #print("\nAvailable Resolutions:", print_resolutions(yt))
+    # res = max(print_resolutions(yt), key=lambda x: int(x.rstrip('p')))
+    # if limit_resolution_to != "max":
+    #     res = limit_resolution(res, limit_resolution_to)
+    # print("Resolution:     ", print_colored_text(res, bcolors.WARNING), " (" + limit_resolution_to + ")")
+    print_video_infos(yt)
 
     #res = smart_input("\n" + print_colored_text("Resolution: ", bcolors.WARNING), max_res)
     # dlpath = smart_input("Download Path:  ", output_dir)
@@ -347,30 +380,32 @@ def downloadVideo(videoid, counterid, video_total_count):
 
     #print("\n***" + str(counterid) + "********************************************************************************")
     print(format_header(videoid + " - " + yt.author + " - " + str(counterid) + "/" + str(video_total_count)))
-    #print("Channel:        ", yt.author)
-    print("Title:          ", print_colored_text(yt.title, bcolors.OKBLUE))
-    #print("ID:             ", videoid)
-    #print("Views:          ", format_view_count(yt.views))
-    print("Date:           ", yt.publish_date.strftime("%Y-%m-%d"))
-    if ignore_max_duration_bool:
-        print("Length:         ", str(int(yt.length / 60)) + "m")
-    else:
-        print("Length:         ", str(int(yt.length / 60)) + "m", " (<" + max_duration + "m)")
 
-    if year_subfolders == True:
-        year = "/" + str(yt.publish_date.strftime("%Y"))
-    else:
-        year = ""
-    # print_resolutions()
-    # res = smart_input("\nResolution: ", resolution)
-    #res = max(print_resolutions(), key=lambda x: int(x.rstrip('p')))
-
-    publishingDate = yt.publish_date.strftime("%Y-%m-%d")
-    res = max(print_resolutions(yt), key=lambda x: int(x.rstrip('p')))
-    if limit_resolution_to != "max":
-        res = limit_resolution(res, limit_resolution_to)
-
-    print("Resolution:     ", print_colored_text(res, bcolors.WARNING), " (" + limit_resolution_to + ")")
+    # #print("Channel:        ", yt.author)
+    # print("Title:          ", print_colored_text(yt.title, bcolors.OKBLUE))
+    # #print("ID:             ", videoid)
+    # #print("Views:          ", format_view_count(yt.views))
+    # print("Date:           ", yt.publish_date.strftime("%Y-%m-%d"))
+    # if ignore_max_duration_bool:
+    #     print("Length:         ", str(int(yt.length / 60)) + "m")
+    # else:
+    #     print("Length:         ", str(int(yt.length / 60)) + "m", " (<" + max_duration + "m)")
+    #
+    # if year_subfolders == True:
+    #     year = "/" + str(yt.publish_date.strftime("%Y"))
+    # else:
+    #     year = ""
+    # # print_resolutions()
+    # # res = smart_input("\nResolution: ", resolution)
+    # #res = max(print_resolutions(), key=lambda x: int(x.rstrip('p')))
+    #
+    # publishingDate = yt.publish_date.strftime("%Y-%m-%d")
+    # res = max(print_resolutions(yt), key=lambda x: int(x.rstrip('p')))
+    # if limit_resolution_to != "max":
+    #     res = limit_resolution(res, limit_resolution_to)
+    #
+    # print("Resolution:     ", print_colored_text(res, bcolors.WARNING), " (" + limit_resolution_to + ")")
+    print_video_infos(yt)
 
     #print("Resolution: ", res)
     # check if file was already downloaded
