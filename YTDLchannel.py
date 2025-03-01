@@ -547,15 +547,15 @@ while True:
             exclude_list = string_to_list(exclude_video_ids)
 
 
-        video_ids = []
+        video_watch_urls = []
         for url in c.video_urls:
             if(str(url.watch_url) not in exclude_list):
-                video_ids.append(url.watch_url)
+                video_watch_urls.append(url.watch_url)
 
         if ignore_max_duration_bool== False:
-            print(f'\n\nDownloading {len(video_ids)} Videos (-ignored) by: \033[96m{c.channel_name}\033[0m\n')
+            print(f'\n\nDownloading {len(video_watch_urls)} Videos (-ignored) by: \033[96m{c.channel_name}\033[0m\n')
         else:
-            print(f'\n\nDownloading {len(video_ids)} Videos by: \033[96m{c.channel_name}\033[0m\n')
+            print(f'\n\nDownloading {len(video_watch_urls)} Videos by: \033[96m{c.channel_name}\033[0m\n')
 
         count_total_videos = 0
         count_restricted_videos = 0
@@ -564,7 +564,7 @@ while True:
         count_skipped = 0
 
         #for url in c.video_urls:
-        for url in video_ids:
+        for url in video_watch_urls:
             only_video_id = pytubefix.extract.video_id(url)
             #video_ids.append(only_video_id)
             #print(youtube_base_url + only_video_id)
@@ -613,7 +613,7 @@ while True:
         if count_this_run == 0:
             print("\n\n" + print_colored_text("nothing to do...\n\n", bcolors.OKGREEN))
         else:
-            done_string = f"\n\nDONE! Total Videos: {count_ok_videos} (restricted: {len(video_list_restricted)} / ignored: {len(video_ids)-count_ok_videos}), Downloaded in this session: {count_this_run}\n\n"
+            done_string = f"\n\nDONE! Total Videos: {count_ok_videos} (restricted: {len(video_list_restricted)} / ignored: {len(video_watch_urls)-count_ok_videos}), Downloaded in this session: {count_this_run}\n\n"
             print(print_colored_text(done_string, bcolors.OKGREEN))
         #for restricted_video in video_list_restricted:
         #    print(youtube_base_url + restricted_video)
