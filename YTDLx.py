@@ -299,7 +299,7 @@ while True:
         print("\n" + format_header("*"))
         print("Channel:    ", print_colored_text(yt.author, bcolors.OKBLUE))
         print("Title:      ", print_colored_text(yt.title, bcolors.OKBLUE))
-        print("Views:      ", format_view_count(yt.views))
+        print("Views:      ", format_view_count(int(yt.views)))
         print("Date:       ", yt.publish_date.strftime("%Y-%m-%d"))
         print("Length:     ", str(int(yt.length/60)) + "m")
 
