@@ -280,7 +280,7 @@ def downloadVideoRestricted(videoid, channelName):
     dlpath = smart_input("\nDownload Path:  ", output_dir + "/" + channelName + "/restricted")
     quiet_on = smart_input("Quiet output? Y/n: ", "y")
 
-    print("\n" + format_header("*"))
+   #print("\n" + format_header("*"))
     print("Channel:    ", print_colored_text(channelName, bcolors.OKBLUE))
     print("Title:      ", print_colored_text(yt.title, bcolors.OKBLUE))
     # print("Views:      ", format_view_count(yt.views))
