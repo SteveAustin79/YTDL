@@ -565,7 +565,7 @@ while True:
 
         #for url in c.video_urls:
         for url in video_ids:
-            only_video_id = pytubefix.extract.video_id(url.watch_url)
+            only_video_id = pytubefix.extract.video_id(url)
             #video_ids.append(only_video_id)
             #print(youtube_base_url + only_video_id)
 
