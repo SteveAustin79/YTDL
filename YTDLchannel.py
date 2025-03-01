@@ -271,9 +271,9 @@ def downloadVideoRestricted(videoid, counterid, video_total_count, channelName):
     yt = YouTube(youtube_base_url + videoid, use_oauth=True, allow_oauth_cache=True, on_progress_callback = on_progress)
     dlpath = output_dir + "/" + channelName
 
-    print("\n\n" + print_colored_text("Downloading age_restricted video...\n", bcolors.FAIL))
+    #print("\n\n" + print_colored_text("Downloading age_restricted video...\n", bcolors.FAIL))
 
-    print(format_header(videoid + " - " + channelName + " - " + str(counterid) + "/" + str(video_total_count)))
+    print(format_header(print_colored_text(videoid, bcolors.FAIL) + " - " + channelName + " - " + str(counterid) + "/" + str(video_total_count)))
     #print("Channel:        ", print_colored_text(channelName, bcolors.OKBLUE))
     print("Title:          ", print_colored_text(yt.title, bcolors.OKBLUE))
     #print("ID:             ", videoid)
