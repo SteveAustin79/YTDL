@@ -275,6 +275,69 @@ def limit_resolution(resolution, limit):
     return max_resolution
 
 
+def downloadVideoRestricted():
+    yt = YouTube(url, use_oauth=True, allow_oauth_cache=True, on_progress_callback=on_progress)
+    dlpath = smart_input("\nDownload Path:  ", output_dir + "/" + yt.author)
+    quiet_on = smart_input("Quiet output? Y/n: ", "y")
+
+    print("\n" + format_header("*"))
+    print("Channel:    ", print_colored_text(yt.author, bcolors.OKBLUE))
+    print("Title:      ", print_colored_text(yt.title, bcolors.OKBLUE))
+    # print("Views:      ", format_view_count(yt.views))
+    print("Date:       ", yt.publish_date.strftime("%Y-%m-%d"))
+    print("Length:     ", str(int(yt.length / 60)) + "m")
+
+    publishingDate = yt.publish_date.strftime("%Y-%m-%d")
+    if year_subfolders == True:
+        year = yt.publish_date.strftime("%Y")
+    else:
+        year = ""
+    # Print results
+    print("\nAvailable Resolutions:", print_resolutions())
+    max_res = max(print_resolutions(), key=lambda x: int(x.rstrip('p')))
+
+    res = smart_input("\n" + print_colored_text("Resolution: ", bcolors.WARNING), max_res)
+    # dlpath = smart_input("Download Path:  ", output_dir)
+
+    if os.path.exists(
+            dlpath + str(year) + "/" + str(publishingDate) + " - " + res + " - " + clean_string_regex(
+                yt.title) + " - " + yt.video_id + ".mp4"):
+        print(print_colored_text("\nVideo already downloaded", bcolors.OKGREEN))
+    else:
+        moreThan1080p = 0
+
+        if res == "2160p" or res == "1440p":
+            # print("\nATTENTION: >1080p is stored as webm and cannot be merged by ffmpeg! Moving source files to download path instead!\n")
+            moreThan1080p = 1
+
+        print("\nDownloading VIDEO...")
+
+        for idx, i in enumerate(yt.streams):
+            if i.resolution == res:
+                break
+        yt.streams[idx].download()
+
+        print("\nDownloading AUDIO...")
+
+        for idx, i in enumerate(yt.streams):
+            if i.bitrate == "128kbps":
+                break
+        yt.streams[idx].download()
+
+        if not os.path.exists(dlpath + f"{year}"):
+            os.makedirs(dlpath + f"{year}")
+
+        rename_files_in_temp_directory()
+
+        if moreThan1080p == 0:
+            print("\nMerging...\n")
+            merge_video_audio(yt.video_id, publishingDate, res)
+        else:
+            print("\nMoving temp files...")
+            # move_video_audio()
+            convert_m4a_to_opus_and_merge(yt.video_id, publishingDate, res)
+
+
 def downloadVideo(videoid, counterid, video_total_count):
     yt = YouTube(youtube_base_url + videoid, on_progress_callback=on_progress)
 
@@ -510,6 +573,7 @@ while True:
                 else:
                     count_restricted_videos += 1
                     video_list_restricted.append(video.video_id)
+                    downloadVideoRestricted()
                     #print("\033[31m" + str(count_total_videos) + " - " + video.video_id + " - " + video.title + "\n\033[0m")
                     #print_resolutions()
 
