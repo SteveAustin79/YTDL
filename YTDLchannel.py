@@ -579,7 +579,7 @@ while True:
 
         print(f"\n\nDownloads finished. Total Videos: {count_ok_videos} (ignored: {len(video_ids)-count_ok_videos}), Downloaded in this session: {count_this_run}\n\n")
         for restricted_video in video_list_restricted:
-            print(restricted_video)
+            print(youtube_base_url + restricted_video)
         #print("Already downloaded: " + str(count_already_downloaded))
         #print("Downloaded:         " + str(count_downloading))
 
