@@ -288,12 +288,12 @@ def downloadVideoRestricted(videoid, counterid, video_total_count, channelName):
     print("\n\n" + print_colored_text("Downloading restricted video...\n", bcolors.FAIL))
 
     print(format_header(videoid + " - " + channelName + " - " + str(counterid) + "/" + str(video_total_count)))
-    #print("Channel:           ", print_colored_text(channelName, bcolors.OKBLUE))
-    print("Title:             ", print_colored_text(yt.title, bcolors.OKBLUE))
-    #print("ID:                ", videoid)
-    #print("Views:             ", format_view_count(yt.views))
-    print("Date:              ", yt.publish_date.strftime("%Y-%m-%d"))
-    print("Length:            ", str(int(yt.length / 60)) + "m")
+    #print("Channel:        ", print_colored_text(channelName, bcolors.OKBLUE))
+    print("Title:          ", print_colored_text(yt.title, bcolors.OKBLUE))
+    #print("ID:             ", videoid)
+    #print("Views:          ", format_view_count(yt.views))
+    print("Date:           ", yt.publish_date.strftime("%Y-%m-%d"))
+    print("Length:         ", str(int(yt.length / 60)) + "m")
 
     publishingDate = yt.publish_date.strftime("%Y-%m-%d")
     if year_subfolders == True:
@@ -305,7 +305,7 @@ def downloadVideoRestricted(videoid, counterid, video_total_count, channelName):
     res = max(print_resolutions(yt), key=lambda x: int(x.rstrip('p')))
     if limit_resolution_to != "max":
         res = limit_resolution(res, limit_resolution_to)
-    print("Resolution:     ", print_colored_text(res, bcolors.WARNING), " (" + limit_resolution_to + ")")
+    print("Resolution:       ", print_colored_text(res, bcolors.WARNING), " (" + limit_resolution_to + ")")
 
     #res = smart_input("\n" + print_colored_text("Resolution: ", bcolors.WARNING), max_res)
     # dlpath = smart_input("Download Path:  ", output_dir)
@@ -356,12 +356,12 @@ def downloadVideo(videoid, counterid, video_total_count):
 
     #print("\n***" + str(counterid) + "********************************************************************************")
     print(format_header(videoid + " - " + yt.author + " - " + str(counterid) + "/" + str(video_total_count)))
-    #print("Channel:           ", yt.author)
-    print("Title:             ", print_colored_text(yt.title, bcolors.OKBLUE))
-    #print("ID:                ", videoid)
-    #print("Views:             ", format_view_count(yt.views))
-    print("Date:              ", yt.publish_date.strftime("%Y-%m-%d"))
-    print("Length:            ", str(int(yt.length / 60)) + "m")
+    #print("Channel:         ", yt.author)
+    print("Title:           ", print_colored_text(yt.title, bcolors.OKBLUE))
+    #print("ID:              ", videoid)
+    #print("Views:           ", format_view_count(yt.views))
+    print("Date:            ", yt.publish_date.strftime("%Y-%m-%d"))
+    print("Length:          ", str(int(yt.length / 60)) + "m")
 
     if year_subfolders == True:
         year = "/" + str(yt.publish_date.strftime("%Y"))
@@ -376,7 +376,7 @@ def downloadVideo(videoid, counterid, video_total_count):
     if limit_resolution_to != "max":
         res = limit_resolution(res, limit_resolution_to)
 
-    print("Resolution:     ", print_colored_text(res, bcolors.WARNING), " (" + limit_resolution_to + ")")
+    print("Resolution:      ", print_colored_text(res, bcolors.WARNING), " (" + limit_resolution_to + ")")
 
     #print("Resolution: ", res)
     # check if file was already downloaded
