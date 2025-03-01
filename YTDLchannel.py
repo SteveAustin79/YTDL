@@ -533,7 +533,7 @@ while True:
 
         c = Channel(YTchannel)
 
-        dlpath = smart_input("Download Path:  ", output_dir + "/" + clean_string_regex(c.channel_name))
+        dlpath = smart_input("Download Path:  ", output_dir + "/" + clean_string_regex(c.channel_name).rstrip())
         limit_resolution_to = smart_input("Max. Resolution:  ", "max")
         ignore_max_duration = smart_input("Ignore max_duration?  Y/n", "y")
         if ignore_max_duration== "y":
