@@ -331,11 +331,11 @@ def downloadVideoRestricted(videoid, channelName):
 
         if moreThan1080p == 0:
             print("\nMerging...\n")
-            merge_video_audio(yt.video_id, publishingDate, res)
+            merge_video_audio(yt.video_id, publishingDate, res, year)
         else:
             print("\nMoving temp files...")
             # move_video_audio()
-            convert_m4a_to_opus_and_merge(yt.video_id, publishingDate, res)
+            convert_m4a_to_opus_and_merge(yt.video_id, publishingDate, res, year)
 
 
 def downloadVideo(videoid, counterid, video_total_count):
