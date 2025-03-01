@@ -66,7 +66,7 @@ def print_configuration():
 
 
 def print_colored_text(message_text, color):
-    return f'{color}{message_text}{bcolors.ENDC}'
+    return f"{color}{message_text}{bcolors.ENDC}"
 
 
 def get_free_space(path):
