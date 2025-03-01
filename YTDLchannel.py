@@ -549,7 +549,7 @@ while True:
 
         video_ids = []
         for url in c.video_urls:
-            if(url.watch_url not in exclude_list):
+            if(str(url.watch_url) not in exclude_list):
                 video_ids.append(url.watch_url)
 
         if ignore_max_duration_bool== False:
@@ -564,8 +564,8 @@ while True:
         count_skipped = 0
 
         #for url in c.video_urls:
-        for url in video_ids:
-            only_video_id = pytubefix.extract.video_id(url)
+        for only_video_id in video_ids:
+            #only_video_id = pytubefix.extract.video_id(url)
             #video_ids.append(only_video_id)
             #print(youtube_base_url + only_video_id)
 
