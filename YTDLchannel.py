@@ -99,8 +99,8 @@ def format_header(counter):
 
     counter_splitted = counter.split(" - ")
 
-    counter_str = ("*" + print_colored_text(f" {counter_splitted[0]} ", bcolors.OKBLUE)
-                   + "  " + counter_splitted[1] + " (" + get_free_space(dlpath) + " free) ")
+    counter_str = ("*" + counter_splitted[0] + "* " + print_colored_text(f" {counter_splitted[1]} ", bcolors.OKBLUE)
+                   + "  " + counter_splitted[2] + " (" + get_free_space(dlpath) + " free) ")
     total_length = width - 2  # Exclude parentheses ()
 
     # Center the counter with asterisks
@@ -287,7 +287,7 @@ def downloadVideoRestricted(videoid, counterid, video_total_count, channelName):
 
     print("\n\n" + print_colored_text("Downloading restricted video...\n", bcolors.FAIL))
 
-    print(format_header(videoid + " * " + channelName + " - " + str(counterid) + "/" + str(video_total_count)))
+    print(format_header(videoid + " - " + channelName + " - " + str(counterid) + "/" + str(video_total_count)))
     #print("Channel:    ", print_colored_text(channelName, bcolors.OKBLUE))
     print("Title:      ", print_colored_text(yt.title, bcolors.OKBLUE))
     #print("ID:         ", videoid)
@@ -355,7 +355,7 @@ def downloadVideo(videoid, counterid, video_total_count):
     yt = YouTube(youtube_base_url + videoid, on_progress_callback=on_progress)
 
     #print("\n***" + str(counterid) + "********************************************************************************")
-    print(format_header(videoid + " * " + yt.author + " - " + str(counterid) + "/" + str(video_total_count)))
+    print(format_header(videoid + " - " + yt.author + " - " + str(counterid) + "/" + str(video_total_count)))
     #print("Channel:    ", yt.author)
     print("Title:      ", print_colored_text(yt.title, bcolors.OKBLUE))
     #print("ID:         ", videoid)
