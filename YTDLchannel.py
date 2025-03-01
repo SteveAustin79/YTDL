@@ -99,7 +99,7 @@ def format_header(counter):
 
     counter_splitted = counter.split(" - ")
 
-    counter_str = ("** " + counter_splitted[0] + " |" + print_colored_text(f" {counter_splitted[1]} ", bcolors.OKBLUE)
+    counter_str = ("** " + counter_splitted[0] + " *" + print_colored_text(f" {counter_splitted[1]} ", bcolors.OKBLUE)
                    + "| " + counter_splitted[2] + " (" + get_free_space(dlpath) + " free) ")
     total_length = width - 2  # Exclude parentheses ()
 
