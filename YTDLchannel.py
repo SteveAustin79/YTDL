@@ -546,6 +546,7 @@ while True:
         if exclude_video_ids!="":
             exclude_list = string_to_list(exclude_video_ids)
 
+        print("exclude list len: " + str(len(exclude_list)))
 
         video_watch_urls = []
         for url in c.video_urls:
