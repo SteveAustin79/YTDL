@@ -276,7 +276,7 @@ def limit_resolution(resolution, limit):
 
 
 def downloadVideoRestricted(videoid, channelName):
-    yt = YouTube(videoid, use_oauth=True, allow_oauth_cache=True, on_progress_callback = on_progress)
+    yt = YouTube(youtube_base_url + videoid, use_oauth=True, allow_oauth_cache=True, on_progress_callback = on_progress)
     dlpath = smart_input("\nDownload Path:  ", output_dir + "/" + channelName)
     quiet_on = smart_input("Quiet output? Y/n: ", "y")
 
