@@ -624,7 +624,7 @@ while True:
         if count_this_run == 0:
             print("\n\n" + print_colored_text("nothing to do...\n\n", bcolors.OKGREEN))
         else:
-            done_string = f"\n\nDONE! Total Videos: {count_ok_videos} (restricted: {len(video_list_restricted)} / ignored: {len(video_watch_urls)-count_ok_videos}), Downloaded in this session: {count_this_run}\n\n"
+            done_string = f"\n\nDONE! Total Videos: {count_ok_videos}, Downloaded in this session: {count_this_run} (restricted: {len(video_list_restricted)} / ignored: {len(video_watch_urls)-count_ok_videos})\n\n"
             print(print_colored_text(done_string, bcolors.OKGREEN))
         #for restricted_video in video_list_restricted:
         #    print(youtube_base_url + restricted_video)
