@@ -300,7 +300,7 @@ def downloadVideoRestricted(videoid, channelName):
     # dlpath = smart_input("Download Path:  ", output_dir)
 
     if os.path.exists(
-            dlpath + str(year) + "/" + str(publishingDate) + " - " + res + " - " + clean_string_regex(
+            dlpath + str(year) + "/restricted/" + str(publishingDate) + " - " + res + " - " + clean_string_regex(
                 yt.title) + " - " + yt.video_id + ".mp4"):
         print(print_colored_text("\nVideo already downloaded", bcolors.OKGREEN))
     else:
@@ -412,7 +412,7 @@ def merge_video_audio(videoid, publishdate, video_resolution, year):
     if not os.path.exists(dlpath + f"{str(year)}"):
         os.makedirs(dlpath + f"{str(year)}")
 
-    output_file = dlpath + str(year) + "/" + publishdate + " - " + video_resolution + " - " + clean_string_regex(os.path.splitext(video_file)[0]) + " - " + videoid + ".mp4"
+    output_file = dlpath + str(year) + "/restricted/" + publishdate + " - " + video_resolution + " - " + clean_string_regex(os.path.splitext(video_file)[0]) + " - " + videoid + ".mp4"
 
     """Merge video and audio into a single MP4 file using FFmpeg."""
     try:
