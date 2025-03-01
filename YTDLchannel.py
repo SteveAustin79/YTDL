@@ -277,7 +277,7 @@ def limit_resolution(resolution, limit):
 
 def downloadVideoRestricted(videoid, channelName):
     yt = YouTube(youtube_base_url + videoid, use_oauth=True, allow_oauth_cache=True, on_progress_callback = on_progress)
-    dlpath = output_dir + "/" + channelName + "/restricted"
+    dlpath = output_dir + "/" + channelName
 
     print("\n\n" + print_colored_text("Downloading restricted video...\n", bcolors.FAIL))
     #print("\n" + format_header("*"))
@@ -331,7 +331,7 @@ def downloadVideoRestricted(videoid, channelName):
 
         if moreThan1080p == 0:
             print("\nMerging...\n")
-            merge_video_audio(yt.video_id, publishingDate, res, year)
+            merge_video_audio(yt.video_id, publishingDate, res, year, True)
         else:
             print("\nMoving temp files...")
             # move_video_audio()
@@ -396,13 +396,13 @@ def downloadVideo(videoid, counterid, video_total_count):
 
         print("\nMerging...")
         if moreThan1080p == 0:
-            merge_video_audio(videoid, str(publishingDate), res, year)
+            merge_video_audio(videoid, str(publishingDate), res, year, False)
         else:
             # move_video_audio()
             convert_m4a_to_opus_and_merge(videoid, str(publishingDate), res, year)
 
 
-def merge_video_audio(videoid, publishdate, video_resolution, year):
+def merge_video_audio(videoid, publishdate, video_resolution, year, restricted):
     video_file, audio_file = find_media_files()
 
     if not video_file or not audio_file:
@@ -412,7 +412,11 @@ def merge_video_audio(videoid, publishdate, video_resolution, year):
     if not os.path.exists(dlpath + f"{str(year)}"):
         os.makedirs(dlpath + f"{str(year)}")
 
-    output_file = dlpath + str(year) + "/restricted/" + publishdate + " - " + video_resolution + " - " + clean_string_regex(os.path.splitext(video_file)[0]) + " - " + videoid + ".mp4"
+    if restricted:
+        restricted_path = "/restricted/"
+    else:
+        restricted_path = "/"
+    output_file = dlpath + str(year) + restricted_path + publishdate + " - " + video_resolution + " - " + clean_string_regex(os.path.splitext(video_file)[0]) + " - " + videoid + ".mp4"
 
     """Merge video and audio into a single MP4 file using FFmpeg."""
     try:
