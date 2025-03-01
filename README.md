@@ -15,7 +15,7 @@ A command line YouTube video downloader, downloading a specific video resolution
 Download all videos from a specific YouTube channel.
 
 ### Features
-- video resolutions > 1080p only provided as webm -> converted to mp4 after downloading
+- video resolutions > 1080p only provided as webm by YT -> converted to mp4 after downloading
 - highest available resolution downloaded automatically
 - sub directory structure suggested
 - skipping already downloaded videos
