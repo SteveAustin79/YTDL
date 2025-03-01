@@ -505,6 +505,7 @@ while True:
         # Access settings
         output_dir = config["output_directory"]
         youtube_base_url = config["youtube_base_url"]
+        min_duration = config["min_duration_in_minutes"]
         max_duration = config["max_duration_in_minutes"]
         year_subfolders = config["year_subfolders"]
 
@@ -531,6 +532,14 @@ while True:
 
         dlpath = smart_input("\nDownload Path:  ", output_dir + "/" + clean_string_regex(c.channel_name).rstrip())
         limit_resolution_to = smart_input("Max. Resolution:  ", "max")
+
+        ignore_min_duration = smart_input("Ignore min_duration?  Y/n", "y")
+        if ignore_min_duration == "y":
+            ignore_min_duration_bool = True
+        elif ignore_min_duration == "n":
+            ignore_min_duration_bool = False
+            print(print_colored_text("Ignoring Videos < " + str(min_duration) + " Minutes!", bcolors.FAIL))
+
         ignore_max_duration = smart_input("Ignore max_duration?  Y/n", "y")
         if ignore_max_duration== "y":
             ignore_max_duration_bool = True
@@ -589,12 +598,15 @@ while True:
                 video = YouTube(youtube_base_url + only_video_id, on_progress_callback=on_progress)
 
                 if video_name_filter=="" or any(word in video.title for word in video_name_filter_list):
+                    if ignore_min_duration_bool==False:
+                        video_duration = int(video.length/60)
+                        if video_duration < int(min_duration):
+                            do_not_download = 1
+
                     if ignore_max_duration_bool==False:
                         video_duration = int(video.length/60)
                         if video_duration > int(max_duration):
                             do_not_download = 1
-                            #count_skipped += 1
-                            #count_ok_videos += 1
 
                     if (video.age_restricted == False and
                             video.vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
