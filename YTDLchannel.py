@@ -606,7 +606,7 @@ while True:
                             count_ok_videos += 1
                             count_this_run += 1
                             video_list_restricted.append(video.video_id)
-                            downloadVideoRestricted(video.video_id, count_ok_videos, len(video_ids), c.channel_name)
+                            downloadVideoRestricted(video.video_id, count_ok_videos, len(video_watch_urls), c.channel_name)
                     #print("\033[31m" + str(count_total_videos) + " - " + video.video_id + " - " + video.title + "\n\033[0m")
                     #print_resolutions()
 
