@@ -407,7 +407,7 @@ def downloadVideo(videoid, counterid, video_total_count):
 
     publishingDate = yt.publish_date.strftime("%Y-%m-%d")
     if year_subfolders == True:
-        year = yt.publish_date.strftime("%Y")
+        year = "/" + str(yt.publish_date.strftime("%Y"))
     else:
         year = ""
 
