@@ -550,7 +550,7 @@ while True:
         for url in c.video_urls:
             if(url.video_id not in exclude_list):
                 video_watch_urls.append(url.watch_url)
-                print("added")
+                #print("added")
             else:
                 print("not added ***********")
 
