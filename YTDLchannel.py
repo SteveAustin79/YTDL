@@ -576,7 +576,7 @@ while True:
             if find_file_by_string(dlpath, only_video_id, limit_resolution_to)!=None:
                 count_ok_videos += 1
                 count_skipped += 1
-                print(print_colored_text(f"\rSkipping {count_skipped} Videos", bcolors.FAIL), end="", flush=True)
+                print(print_colored_text(f"\rSkipping {count_skipped} Videos", bcolors.ENDC), end="", flush=True)
             else:
                 #print(only_video_id)
                 do_not_download = 0
