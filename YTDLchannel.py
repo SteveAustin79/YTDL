@@ -577,6 +577,7 @@ while True:
                 else:
                     if (video.vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE'):
                         count_restricted_videos += 1
+                        count_ok_videos += 1
                         video_list_restricted.append(video.video_id)
                         downloadVideoRestricted(video.video_id, c.channel_name)
                     #print("\033[31m" + str(count_total_videos) + " - " + video.video_id + " - " + video.title + "\n\033[0m")
