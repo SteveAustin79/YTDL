@@ -329,7 +329,7 @@ def downloadVideoRestricted(videoid, counterid, video_total_count, channelName):
         rename_files_in_temp_directory()
 
         if moreThan1080p == 0:
-            print("\nMerging...\n")
+            print("\nMerging...")
             merge_video_audio(yt.video_id, publishingDate, res, year, True)
         else:
             print("\nMerging...")
