@@ -279,7 +279,7 @@ def downloadVideoRestricted(videoid, counterid, video_total_count, channelName):
     #print("ID:             ", videoid)
     #print("Views:          ", format_view_count(yt.views))
     print("Date:           ", yt.publish_date.strftime("%Y-%m-%d"))
-    print("Length:         ", str(int(yt.length / 60)) + "m")
+    print("Length:         ", str(int(yt.length / 60)) + "m", " (<" + max_duration + "m)")
 
     publishingDate = yt.publish_date.strftime("%Y-%m-%d")
     if year_subfolders == True:
@@ -347,7 +347,7 @@ def downloadVideo(videoid, counterid, video_total_count):
     #print("ID:             ", videoid)
     #print("Views:          ", format_view_count(yt.views))
     print("Date:           ", yt.publish_date.strftime("%Y-%m-%d"))
-    print("Length:         ", str(int(yt.length / 60)) + "m")
+    print("Length:         ", str(int(yt.length / 60)) + "m", " (<" + max_duration + "m)")
 
     if year_subfolders == True:
         year = "/" + str(yt.publish_date.strftime("%Y"))
