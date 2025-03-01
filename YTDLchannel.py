@@ -279,7 +279,7 @@ def downloadVideoRestricted(videoid, channelName):
     yt = YouTube(youtube_base_url + videoid, use_oauth=True, allow_oauth_cache=True, on_progress_callback = on_progress)
     dlpath = output_dir + "/" + channelName + "/restricted"
 
-    print("\n\n" + print_colored_text("Downloading restricted video...\n", bcolors.WARNING))
+    print("\n\n" + print_colored_text("Downloading restricted video...\n", bcolors.FAIL))
     #print("\n" + format_header("*"))
     print("Channel:    ", print_colored_text(channelName, bcolors.OKBLUE))
     print("Title:      ", print_colored_text(yt.title, bcolors.OKBLUE))
