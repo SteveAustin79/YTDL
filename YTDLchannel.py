@@ -550,7 +550,7 @@ while True:
         video_ids = []
         for url in c.video_urls:
             if(str(url.watch_url) not in exclude_list):
-                video_ids.append(url.watch_url)
+                video_ids.append(url)
 
         if ignore_max_duration_bool== False:
             print(f'\n\nDownloading {len(video_ids)} Videos (-ignored) by: \033[96m{c.channel_name}\033[0m\n')
@@ -564,8 +564,8 @@ while True:
         count_skipped = 0
 
         #for url in c.video_urls:
-        for only_video_id in video_ids:
-            #only_video_id = pytubefix.extract.video_id(url)
+        for url in video_ids:
+            only_video_id = pytubefix.extract.video_id(url)
             #video_ids.append(only_video_id)
             #print(youtube_base_url + only_video_id)
 
