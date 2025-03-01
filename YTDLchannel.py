@@ -93,7 +93,7 @@ def format_header(counter):
 
     counter_splitted = counter.split(" - ")
 
-    counter_str = ("************" + print_colored_text(f" {counter_splitted[0]} ", bcolors.OKBLUE) + " ***** " + counter_splitted[1] + " ***** " + get_free_space(dlpath) + " free ")
+    counter_str = "************" + print_colored_text(f" {counter_splitted[0]} ", bcolors.OKBLUE) + " ***** " + counter_splitted[1] + " ***** " + get_free_space(dlpath) + " free "
     total_length = width - 2  # Exclude parentheses ()
 
     # Center the counter with asterisks
