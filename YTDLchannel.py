@@ -596,7 +596,7 @@ while True:
                 do_not_download = 0
                 video = YouTube(youtube_base_url + only_video_id, on_progress_callback=on_progress)
 
-                if video_name_filter=="" or video.title in video_name_filter_list:
+                if video_name_filter=="" or any(word in video.title for word in video_name_filter_list):
                     if ignore_max_duration_bool==False:
                         video_duration = int(video.length/60)
                         if video_duration > int(max_duration):
