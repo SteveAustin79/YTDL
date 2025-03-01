@@ -543,8 +543,7 @@ while True:
             skip_restricted_bool = False
 
         #exclude_video_ids_cache = ""
-        exclude_video_ids = smart_input("Exclude Video ID's? (comma separated list): ", exclude_video_ids_cache)
-        exclude_video_ids_cache = exclude_video_ids
+        exclude_video_ids = input("Exclude Video ID's? (comma separated list): ")
         exclude_list = []
         if exclude_video_ids!="":
             exclude_list = string_to_list(exclude_video_ids)
