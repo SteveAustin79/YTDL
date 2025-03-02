@@ -63,7 +63,7 @@ git pull https://github.com/SteveAustin79/YTDL.git
 ```
 <br/>
 
-## YTDL - YouTubeDownLoader 0.4
+## YTDL - YouTubeDownLoader 0.4 - DEPRECATED!
 
 ### Deprecated! --> YTDLchannel supports now also video URL's!
 
