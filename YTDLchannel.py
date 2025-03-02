@@ -631,6 +631,12 @@ while True:
         video_name_filter = str(input("\nEnter filter word(s) (comma separated list): "))
         video_name_filter_list = string_to_list(video_name_filter)
 
+        count_total_videos = 0
+        count_restricted_videos = 0
+        count_ok_videos = 0
+        count_this_run = 0
+        count_skipped = 0
+
         video_watch_urls = []
         for url in c.video_urls:
             if url.video_id not in exclude_list :
@@ -639,17 +645,12 @@ while True:
                         video_watch_urls.append(url.watch_url)
                 else:
                     video_watch_urls.append(url.watch_url)
+            count_total_videos += 1
 
         # if ignore_max_duration_bool== False:
         #     print(f'\n\n{len(video_watch_urls)} Videos (-ignored) by: \033[96m{c.channel_name}\033[0m\n')
         # else:
         print(f'\n\n{len(video_watch_urls)} Videos by: \033[96m{c.channel_name}\033[0m\n')
-
-        count_total_videos = 0
-        count_restricted_videos = 0
-        count_ok_videos = 0
-        count_this_run = 0
-        count_skipped = 0
 
         #for url in c.video_urls:
         for url in video_watch_urls:
@@ -711,7 +712,7 @@ while True:
         if count_this_run == 0:
             print("\n\n" + print_colored_text("nothing to do...\n\n", bcolors.OKGREEN))
         else:
-            print(print_colored_text(f"\n\nDONE! Total Video: {len(video_watch_urls)}, Selected Videos: {count_ok_videos}", bcolors.OKGREEN))
+            print(print_colored_text(f"\n\nDONE! Total Videos: {count_total_videos},Total Video filtered: {len(video_watch_urls)}, Selected Videos: {count_ok_videos}", bcolors.OKGREEN))
             print(print_colored_text(f"Downloaded in this session: {count_this_run}, (restricted: {len(video_list_restricted)} / ignored: {len(video_watch_urls)-count_ok_videos})\n", bcolors.OKGREEN))
 
         continue_ytdl = smart_input("Continue?  Y/n ", "y")
