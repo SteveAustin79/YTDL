@@ -504,9 +504,15 @@ while True:
         if lines and len(lines) > 1:
             YTchannel = user_selection(lines)
         else:
-            YTchannel = input("YouTube Channel URL:  ")
+            YTchannel = input("YouTube Channel or Video URL:  ")
         if "Enter CUSTOM channel URL" in YTchannel:
-            YTchannel = input("YouTube Channel URL:  ")
+            YTchannel = input("YouTube Channel or Video URL:  ")
+
+        video_id_from_single_video = ""
+        if youtube_base_url in YTchannel:
+            ytv = YouTube(YTchannel, on_progress_callback=on_progress)
+            YTchannel = ytv.channel_url
+            video_id_from_single_video = ytv.video_id
 
         #count_fetch_videos = str(smart_input("Fetch x latest Videos (to download all playable/unrestricted videos use 'all'): ", "all"))
         #skip_x_videos = int(smart_input("Skip x videos: ", "0"))
@@ -545,7 +551,7 @@ while True:
         if exclude_video_ids!="":
             exclude_list = string_to_list(exclude_video_ids)
 
-        include_video_ids = input("Include Video ID's (comma separated list): ")
+        include_video_ids = smart_input("Include Video ID's (comma separated list): ", video_id_from_single_video)
         include_list = []
         if include_video_ids!="":
             include_list = string_to_list(include_video_ids)
