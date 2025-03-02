@@ -1,9 +1,3 @@
-"""
-YTDLchannel 0.5
-https://github.com/SteveAustin79/YTDL
-"""
-
-
 import os
 import re
 import shutil
@@ -16,7 +10,7 @@ from pytubefix import YouTube, Channel
 from pytubefix.cli import on_progress
 
 
-version = 0.5
+version = 0.6
 
 
 class BCOLORS:
