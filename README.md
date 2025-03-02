@@ -1,6 +1,8 @@
 # YTDLchannel - YouTubeChannelDownloader 0.6
 Download one, multiple or all videos from a specific YouTube channel in any available resolution as mp4.
 
+Restricted video download possible, but requires authentication via accounts.google.com/device.
+
 ### Features
 - channel config file with default filters (file must be located in _config subfolder in target directory)
 - filters: video title name, minimum video views, video duration, exclude/include video ID's 
