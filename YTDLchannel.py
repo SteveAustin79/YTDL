@@ -533,25 +533,48 @@ while True:
         default_filter_words = ""
 
         if os.path.exists(dlpath + "/_config/config_channel.json"):
-            print(print_colored_text("\nFound channel config file!\n", BCOLORS.DARKBLUE))
+            incomplete_config = False
             # Load channel config
             channel_config = load_config(dlpath + "/_config/config_channel.json")
             # Access settings
             if "c_max_resolution" in channel_config and channel_config["c_max_resolution"] != "":
                 default_max_res = channel_config["c_max_resolution"]
+            else:
+                incomplete_config = True
+
             if "c_ignore_min_duration" in channel_config and channel_config["c_ignore_min_duration"] != "":
                 default_ignore_min_duration = channel_config["c_ignore_min_duration"]
+            else:
+                incomplete_config = True
+
             if "c_ignore_max_duration" in channel_config and channel_config["c_ignore_max_duration"] != "":
                 default_ignore_max_duration = channel_config["c_ignore_max_duration"]
+            else:
+                incomplete_config = True
+
             if "c_only_restricted" in channel_config and channel_config["c_only_restricted"] != "":
                 default_only_restricted = channel_config["c_only_restricted"]
+            else:
+                incomplete_config = True
+
             if "c_skip_restricted" in channel_config and channel_config["c_skip_restricted"] != "":
                 default_skip_restricted = channel_config["c_skip_restricted"]
+            else:
+                incomplete_config = True
+
             if "c_minimum_views" in channel_config and channel_config["c_minimum_views"] != "":
                 default_minimum_views = channel_config["c_minimum_views"]
+            else:
+                incomplete_config = True
+
             default_exclude_videos = channel_config["c_exclude_video_ids"]
             default_include_videos = channel_config["c_include_video_ids"]
             default_filter_words = channel_config["c_filter_words"]
+
+            if incomplete_config:
+                print(print_colored_text("\nFound incomplete channel config file!\n", BCOLORS.DARKBLUE))
+            else:
+                print(print_colored_text("\nFound channel config file!\n", BCOLORS.DARKBLUE))
 
         if video_id_from_single_video!="":
             default_include_videos = video_id_from_single_video
