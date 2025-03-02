@@ -21,7 +21,8 @@ version = 0.5
 
 class BCOLORS:
     CYAN       = "\033[96m"
-    PURPLE     = "\033[95m"
+    #PURPLE     = "\033[95m"
+    PURPLE = "\033[94m"
     YELLOW     = "\033[93m"
     GREEN      = "\033[92m"
     RED        = "\033[91m"
