@@ -2,6 +2,7 @@
     "c_max_resolution": "",
     "c_ignore_min_duration": "",
     "c_ignore_max_duration": "",
+    "c_only_restricted": "",
     "c_skip_restricted": "",
     "c_minimum_views": "",
 	"c_exclude_video_ids": "",

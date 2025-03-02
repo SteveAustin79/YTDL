@@ -525,6 +525,7 @@ while True:
         default_max_res = "max"
         default_ignore_min_duration = "y"
         default_ignore_max_duration = "y"
+        default_only_restricted = "n"
         default_skip_restricted = "n"
         default_minimum_views = "0"
         default_exclude_videos = ""
@@ -538,9 +539,14 @@ while True:
             # Access settings
             if channel_config["c_max_resolution"] != "":
                 default_max_res = channel_config["c_max_resolution"]
-            default_ignore_min_duration = channel_config["c_ignore_min_duration"]
-            default_ignore_max_duration = channel_config["c_ignore_max_duration"]
-            default_skip_restricted = channel_config["c_skip_restricted"]
+            if channel_config["c_ignore_min_duration"] != "":
+                default_ignore_min_duration = channel_config["c_ignore_min_duration"]
+            if channel_config["c_ignore_max_duration"] != "":
+                default_ignore_max_duration = channel_config["c_ignore_max_duration"]
+            if channel_config["c_only_restricted"] != "":
+                default_only_restricted = channel_config["c_only_restricted"]
+            if channel_config["c_skip_restricted"] != "":
+                default_skip_restricted = channel_config["c_skip_restricted"]
             if channel_config["c_minimum_views"] != "":
                 default_minimum_views = channel_config["c_minimum_views"]
             default_exclude_videos = channel_config["c_exclude_video_ids"]
