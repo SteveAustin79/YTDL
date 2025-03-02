@@ -26,8 +26,6 @@ A command line YouTube video downloader, downloading a specific video resolution
 <code>venv/bin/python3 YTDL.py</code>:  download unrestricted/playable videos<br/>
 <code>venv/bin/python3 YTDLx.py</code>: download restricted/playable videos
 
-#### Note: Member, ageRestricted or unplayable videos cannot be downloaded with YTDL or YTDLchannel!
-
 ### History
 - 20250227 - v0.4 - download path structure based on YTDLchannel v0.1
 - 20250224 - v0.3 - config file support
