@@ -1,5 +1,5 @@
 # YTDLchannel - YouTubeChannelDownloader 0.6
-Download one, multiple ar all videos from a specific YouTube channel in any available resolution as mp4.
+Download one, multiple or all videos from a specific YouTube channel in any available resolution as mp4.
 
 ### Features
 - channel config file with default filters (file must be located in _config subfolder in target directory)
