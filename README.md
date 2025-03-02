@@ -1,5 +1,5 @@
 # YTDLchannel - YouTubeChannelDownloader 0.5
-Download all videos as mp4 from a specific YouTube channel.
+Download one, multiple ar all videos from a specific YouTube channel in any available resolution as mp4.
 
 ### Features
 - filters: video title name, minimum video views, video duration, exclude/include video ID's 
@@ -21,7 +21,7 @@ Download all videos as mp4 from a specific YouTube channel.
 
 <br/>
 
-# YTDL - YouTubeDownLoader 0.4
+# YTDL - YouTubeDownLoader 0.4 - Deprecated! --> YTDLchannel supports now also video URL's!
 A command line YouTube video downloader, downloading a specific video resolution file and a 128kps audio stream, finally merged into a single file. Use of ffmpeg and pytubefix.
 
 Download unrestricted/playable videos:<br/>
