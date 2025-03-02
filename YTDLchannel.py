@@ -160,7 +160,7 @@ def read_channel_txt_lines(filename):
     try:
         with open(filename, "r", encoding="utf-8") as file:
             lines = [line.strip() for line in file.readlines()]  # Remove newlines
-        lines.append("Enter CUSTOM channel URL")
+        lines.append("Enter YouTube Channel or Video URL")
         return lines
     except FileNotFoundError:
         print("❌ Error: File not found.")
@@ -505,7 +505,7 @@ while True:
             YTchannel = user_selection(lines)
         else:
             YTchannel = input("\nYouTube Channel or Video URL:  ")
-        if "Enter CUSTOM channel URL" in YTchannel:
+        if "Enter YouTube Channel or Video URL" in YTchannel:
             YTchannel = input("\nYouTube Channel or Video URL:  ")
 
         video_id_from_single_video = ""
