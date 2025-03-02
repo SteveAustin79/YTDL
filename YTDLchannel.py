@@ -488,8 +488,6 @@ while True:
         max_duration = config["max_duration_in_minutes"]
         year_subfolders = config["year_subfolders"]
 
-
-
         # Create an empty list
         video_list = []
         video_list_restricted = []
