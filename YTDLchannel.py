@@ -8,20 +8,18 @@ import os
 import re
 import shutil
 import subprocess
-from operator import truediv
 import ffmpeg
 import json
 import sys
 import pytubefix.extract
 from pytubefix import YouTube, Channel
 from pytubefix.cli import on_progress
-from datetime import datetime
 
 
 version = 0.5
 
 
-class bcolors:
+class BCOLORS:
     HEADER     = "\033[95m"
     OKBLUE     = "\033[96m"
     OKGREEN    = "\033[92m"
@@ -43,19 +41,19 @@ def print_configuration():
     print("************************************************************************************")
     print("* CONFIGURATION (change in config.json):")
     print("************************************************************************************")
-    print("* Output directory:                     ", print_colored_text(output_dir, bcolors.OKBLUE))
-    print("* Minimum Video Duration in Minutes:    ", print_colored_text(min_duration, bcolors.OKBLUE))
-    print("* Maximum Video Duration in Minutes:    ", print_colored_text(max_duration, bcolors.OKBLUE))
+    print("* Output directory:                     ", print_colored_text(output_dir, BCOLORS.OKBLUE))
+    print("* Minimum Video Duration in Minutes:    ", print_colored_text(min_duration, BCOLORS.OKBLUE))
+    print("* Maximum Video Duration in Minutes:    ", print_colored_text(max_duration, BCOLORS.OKBLUE))
     if year_subfolders:
-        year_subfolders_colored = print_colored_text(year_subfolders, bcolors.OKGREEN)
+        year_subfolders_colored = print_colored_text(year_subfolders, BCOLORS.OKGREEN)
     else:
-        year_subfolders_colored = print_colored_text(year_subfolders, bcolors.FAIL)
+        year_subfolders_colored = print_colored_text(year_subfolders, BCOLORS.FAIL)
     print("* Year Subfolder-Structure:             ", year_subfolders_colored)
     print("************************************************************************************\n")
 
 
 def print_video_infos(yt, res, video_views):
-    print("Title:          ", print_colored_text(yt.title, bcolors.OKBLUE))
+    print("Title:          ", print_colored_text(yt.title, BCOLORS.OKBLUE))
     if min_video_views_bool:
         print("Views:          ", format_view_count(video_views), " (> " + format_view_count(min_video_views) + ")")
     else:
@@ -70,11 +68,11 @@ def print_video_infos(yt, res, video_views):
     else:
         print("Length:         ", str(int(yt.length / 60)) + "m", " (" + min_duration + "m < " + max_duration + "m)")
 
-    print("Resolution:     ", print_colored_text(res, bcolors.WARNING), " (" + limit_resolution_to + ")")
+    print("Resolution:     ", print_colored_text(res, BCOLORS.WARNING), " (" + limit_resolution_to + ")")
 
 
 def print_colored_text(message_text, color):
-    return f"{color}{message_text}{bcolors.ENDC}"
+    return f"{color}{message_text}{BCOLORS.ENDC}"
 
 
 def get_free_space(path):
@@ -97,7 +95,7 @@ def string_to_list(input_string):
 
 def write_textfile_failed_downloads(file, text):
     with open(file, "a", encoding="utf-8") as file:
-        file.write("{text}}\n")
+        file.write(f"{text}\n")
 
 
 def format_header(counter):
@@ -106,7 +104,7 @@ def format_header(counter):
 
     counter_splitted = counter.split(" - ")
 
-    counter_str = ("** " + counter_splitted[0] + " *" + print_colored_text(f" {counter_splitted[1]} ", bcolors.OKBLUE)
+    counter_str = ("** " + counter_splitted[0] + " *" + print_colored_text(f" {counter_splitted[1]} ", BCOLORS.OKBLUE)
                    + "| " + counter_splitted[2] + " (" + get_free_space(dlpath) + " free) ")
     total_length = width - 2  # Exclude parentheses ()
 
@@ -133,7 +131,6 @@ def clean_string_regex(text):
     Removes characters that do NOT match the given pattern.
 
     :param text: The input string to clean.
-    :param pattern: Regular expression pattern for allowed characters.
     :return: The cleaned string.
     """
     new_text = text.replace(":", "")
@@ -193,7 +190,7 @@ def user_selection(lines):
             print("⚠️ Invalid input. Please enter a number.")
 
 
-def deletTempFiles():
+def delete_temp_files():
     # remove video and audio streams
     video_file, audio_file = find_media_files()
     # Check if files exist before deleting
@@ -231,11 +228,11 @@ def find_media_files():
 
 def move_video_audio():
     video_file, audio_file = find_media_files()
-    destinationVideo = dlpath + "/" + video_file  # Destination path
-    destinationAudio = dlpath + "/" + audio_file  # Destination path
+    destination_video = dlpath + "/" + video_file  # Destination path
+    destination_audio = dlpath + "/" + audio_file  # Destination path
 
-    shutil.move(video_file, destinationVideo)
-    shutil.move(audio_file, destinationAudio)
+    shutil.move(video_file, destination_video)
+    shutil.move(audio_file, destination_audio)
 
     print(f"✅ Moved files to download path!")
 
@@ -288,16 +285,16 @@ def limit_resolution(resolution, limit):
     return max_resolution
 
 
-def downloadVideoRestricted(videoid, counterid, video_total_count, channelName, video_views):
+def download_video_restricted(videoid, counterid, video_total_count, channelName, video_views):
     yt = YouTube(youtube_base_url + videoid, use_oauth=True, allow_oauth_cache=True, on_progress_callback = on_progress)
     #dlpath = output_dir + "/" + channelName
 
-    #print("\n\n" + print_colored_text("Downloading age_restricted video...\n", bcolors.FAIL))
+    #print("\n\n" + print_colored_text("Downloading age_restricted video...\n", BCOLORS.FAIL))
     print("\n")
-    print(format_header(print_colored_text(videoid, bcolors.FAIL) + " - " + channelName + " - " + str(counterid) + "/" + str(video_total_count)))
+    print(format_header(print_colored_text(videoid, BCOLORS.FAIL) + " - " + channelName + " - " + str(counterid) + "/" + str(video_total_count)))
 
-    # #print("Channel:        ", print_colored_text(channelName, bcolors.OKBLUE))
-    # print("Title:          ", print_colored_text(yt.title, bcolors.OKBLUE))
+    # #print("Channel:        ", print_colored_text(channelName, BCOLORS.OKBLUE))
+    # print("Title:          ", print_colored_text(yt.title, BCOLORS.OKBLUE))
     # #print("ID:             ", videoid)
     # #print("Views:          ", format_view_count(yt.views))
     # print("Date:           ", yt.publish_date.strftime("%Y-%m-%d"))
@@ -334,13 +331,13 @@ def downloadVideoRestricted(videoid, counterid, video_total_count, channelName, 
 
     print_video_infos(yt, res, video_views)
 
-    #res = smart_input("\n" + print_colored_text("Resolution: ", bcolors.WARNING), max_res)
+    #res = smart_input("\n" + print_colored_text("Resolution: ", BCOLORS.WARNING), max_res)
     # dlpath = smart_input("Download Path:  ", output_dir)
 
     if os.path.exists(
             dlpath + str(year) + "/restricted/" + str(publishingDate) + " - " + res + " - " + clean_string_regex(
                 yt.title) + " - " + yt.video_id + ".mp4"):
-        print(print_colored_text("\nVideo already downloaded", bcolors.OKGREEN))
+        print(print_colored_text("\nVideo already downloaded", BCOLORS.OKGREEN))
     else:
         moreThan1080p = 0
 
@@ -378,7 +375,7 @@ def downloadVideoRestricted(videoid, counterid, video_total_count, channelName, 
             convert_m4a_to_opus_and_merge(yt.video_id, publishingDate, res, year, True)
 
 
-def downloadVideo(videoid, counterid, video_total_count, video_views):
+def download_video(videoid, counterid, video_total_count, video_views):
     yt = YouTube(youtube_base_url + videoid, on_progress_callback=on_progress)
 
     #print("\n***" + str(counterid) + "********************************************************************************")
@@ -424,7 +421,7 @@ def downloadVideo(videoid, counterid, video_total_count, video_views):
     #print("Resolution: ", res)
     # check if file was already downloaded
     if os.path.exists(dlpath + year + "/" + str(publishingDate) + " - " + res + " - " + clean_string_regex(yt.title) + " - "+ videoid + ".mp4"):
-        print(print_colored_text("\nVideo already downloaded\n", bcolors.OKGREEN))
+        print(print_colored_text("\nVideo already downloaded\n", BCOLORS.OKGREEN))
         #count_already_downloaded += count_already_downloaded
     else:
         #count_downloading += count_downloading
@@ -491,11 +488,11 @@ def merge_video_audio(videoid, publishdate, video_resolution, year, restricted):
         ffmpeg.run(output, overwrite_output=True, quiet=True)
         #print(f"\n✅ \033[92mMerged file saved as: {output_file}.\033[0m")
         if restricted:
-            print(print_colored_text("\nRestricted Video downloaded", bcolors.OKGREEN))
+            print(print_colored_text("\nRestricted Video downloaded", BCOLORS.OKGREEN))
         else:
-            print(print_colored_text("\nVideo downloaded", bcolors.OKGREEN))
+            print(print_colored_text("\nVideo downloaded", BCOLORS.OKGREEN))
         # remove video and audio streams
-        deletTempFiles()
+        delete_temp_files()
 
     except Exception as e:
         print(f"❌ Error merging files: {e}")
@@ -523,7 +520,7 @@ def merge_webm_opus(videoid, publishdate, video_resolution, year, restricted):
     ]
     subprocess.run(command, check=True)
     # remove video and audio streams
-    deletTempFiles()
+    delete_temp_files()
     os.remove("audio.opus")
     print(f"Converting to MP4... (this may take a while)")
     if restricted:
@@ -547,9 +544,9 @@ def convert_webm_to_mp4(input_file, output_file, restricted):
     subprocess.run(command, check=True)
     os.remove(input_file)
     if restricted:
-        print(print_colored_text("\nRestricted Video downloaded", bcolors.OKGREEN))
+        print(print_colored_text("\nRestricted Video downloaded", BCOLORS.OKGREEN))
     else:
-        print(print_colored_text("\nVideo downloaded", bcolors.OKGREEN))
+        print(print_colored_text("\nVideo downloaded", BCOLORS.OKGREEN))
 
 
 while True:
@@ -573,7 +570,7 @@ while True:
         print("***************")
         print("YouTube Channel Downloader\nExit App with Ctrl + C")
         print("https://github.com/SteveAustin79/YTDL\n\n")
-        deletTempFiles()
+        delete_temp_files()
         print_configuration()
 
         lines = read_channel_txt_lines("channels.txt")
@@ -592,25 +589,22 @@ while True:
         limit_resolution_to = smart_input("Max. Resolution:  ", "max")
 
         ignore_min_duration = smart_input("Ignore min_duration?  Y/n", "y")
-        if ignore_min_duration == "y":
-            ignore_min_duration_bool = True
-        elif ignore_min_duration == "n":
+        ignore_min_duration_bool = True
+        if ignore_min_duration == "n":
             ignore_min_duration_bool = False
-            print(print_colored_text("Ignoring Videos < " + str(min_duration) + " Minutes!", bcolors.FAIL))
+            print(print_colored_text("Ignoring Videos < " + str(min_duration) + " Minutes!", BCOLORS.FAIL))
 
         ignore_max_duration = smart_input("Ignore max_duration?  Y/n", "y")
-        if ignore_max_duration== "y":
-            ignore_max_duration_bool = True
-        elif ignore_max_duration=="n":
+        ignore_max_duration_bool = True
+        if ignore_max_duration=="n":
             ignore_max_duration_bool = False
-            print(print_colored_text("Ignoring Videos > " + str(max_duration) + " Minutes!", bcolors.FAIL))
+            print(print_colored_text("Ignoring Videos > " + str(max_duration) + " Minutes!", BCOLORS.FAIL))
 
         skip_restricted = smart_input("Skip restricted Videos?  Y/n ", "n")
+        skip_restricted_bool = False
         if skip_restricted== "y":
             skip_restricted_bool = True
-            print(print_colored_text("Skipping restricted Videos!", bcolors.FAIL))
-        elif skip_restricted=="n":
-            skip_restricted_bool = False
+            print(print_colored_text("Skipping restricted Videos!", BCOLORS.FAIL))
 
         exclude_video_ids = input("Exclude Video ID's (comma separated list): ")
         exclude_list = []
@@ -664,19 +658,19 @@ while True:
             if find_file_by_string(dlpath, only_video_id, limit_resolution_to)!=None:
                 count_ok_videos += 1
                 count_skipped += 1
-                print(print_colored_text(f"\rSkipping {count_skipped} Videos", bcolors.HEADER), end="", flush=True)
+                print(print_colored_text(f"\rSkipping {count_skipped} Videos", BCOLORS.HEADER), end="", flush=True)
             else:
                 #print(only_video_id)
                 do_not_download = 0
                 video = YouTube(youtube_base_url + only_video_id, on_progress_callback=on_progress)
 
                 if video_name_filter=="" or any(word.lower() in video.title.lower() for word in video_name_filter_list):
-                    if ignore_min_duration_bool==False:
+                    if not ignore_min_duration_bool:
                         video_duration = int(video.length/60)
                         if video_duration < int(min_duration):
                             do_not_download = 1
 
-                    if ignore_max_duration_bool==False:
+                    if not ignore_max_duration_bool:
                         video_duration = int(video.length/60)
                         if video_duration > int(max_duration):
                             do_not_download = 1
@@ -695,25 +689,25 @@ while True:
                         video_list.append(video.video_id)
                         #print(str(count_total_videos) + " - " + video.video_id + " - " + video.title)
                         #print_resolutions()
-                        downloadVideo(video.video_id, count_ok_videos, len(video_watch_urls), video.views)
+                        download_video(video.video_id, count_ok_videos, len(video_watch_urls), video.views)
                     else:
-                        if skip_restricted_bool == False:
+                        if not skip_restricted_bool:
                             if (video.vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
                                     do_not_download == 0):
                                 count_restricted_videos += 1
                                 count_ok_videos += 1
                                 count_this_run += 1
                                 video_list_restricted.append(video.video_id)
-                                downloadVideoRestricted(video.video_id, count_ok_videos, len(video_watch_urls),
+                                download_video_restricted(video.video_id, count_ok_videos, len(video_watch_urls),
                                                         clean_string_regex(c.channel_name).rstrip(), video.views)
                         #print("\033[31m" + str(count_total_videos) + " - " + video.video_id + " - " + video.title + "\n\033[0m")
                         #print_resolutions()
 
         if count_this_run == 0:
-            print("\n\n" + print_colored_text("nothing to do...\n\n", bcolors.OKGREEN))
+            print("\n\n" + print_colored_text("nothing to do...\n\n", BCOLORS.OKGREEN))
         else:
-            print(print_colored_text(f"\n\nDONE! Videos: {len(video_watch_urls)}, Selected Videos: {count_ok_videos}", bcolors.OKGREEN))
-            print(print_colored_text(f"Downloaded in this session: {count_this_run}, (restricted: {len(video_list_restricted)} / ignored: {len(video_watch_urls)-count_ok_videos})\n", bcolors.OKGREEN))
+            print(print_colored_text(f"\n\nDONE! Videos: {len(video_watch_urls)}, Selected Videos: {count_ok_videos}", BCOLORS.OKGREEN))
+            print(print_colored_text(f"Downloaded in this session: {count_this_run}, (restricted: {len(video_list_restricted)} / ignored: {len(video_watch_urls)-count_ok_videos})\n", BCOLORS.OKGREEN))
 
         continue_ytdl = smart_input("Continue?  Y/n ", "y")
         if continue_ytdl=="y":
@@ -726,13 +720,13 @@ while True:
         #print("Downloaded:         " + str(count_downloading))
 
     except Exception as e:
-        deletTempFiles()
+        delete_temp_files()
         #if e == "expected string or bytes-like object, got 'YouTube'":
         #downloadVideoRestricted()
         #else:
         print("An error occurred:", str(e))
 
     except KeyboardInterrupt:
-        deletTempFiles()
+        delete_temp_files()
         print("\n\nGood Bye...\n")
         break
