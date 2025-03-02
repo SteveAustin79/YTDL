@@ -628,7 +628,7 @@ while True:
                                                         clean_string_regex(c.channel_name).rstrip(), video.views)
 
         if count_this_run == 0:
-            print("\n\n" + print_colored_text("nothing to do...\n\n", BCOLORS.GREEN))
+            print("\n\n" + print_colored_text("Nothing to do...\n\n", BCOLORS.GREEN))
         else:
             print(print_colored_text(f"\n\nDONE!\n", BCOLORS.GREEN))
             print(print_colored_text(f"Videos: {count_total_videos}, Selected Videos: {count_ok_videos}",
