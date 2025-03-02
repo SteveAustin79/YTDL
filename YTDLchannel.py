@@ -31,9 +31,9 @@ class BCOLORS:
     ENDC       = "\033[0m"
 
 
-def load_config():
+def load_config(c_file):
     """Load settings from config.json."""
-    with open("config.json", "r") as file:
+    with open(c_file, "r") as file:
         config = json.load(file)
     return config
 
@@ -485,7 +485,7 @@ def convert_webm_to_mp4(input_file, output_file, restricted):
 while True:
     try:
         # Load config
-        config = load_config()
+        config = load_config("config.json")
         # Access settings
         output_dir = config["output_directory"]
         youtube_base_url = config["youtube_base_url"]
