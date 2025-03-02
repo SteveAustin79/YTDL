@@ -530,7 +530,7 @@ while True:
 
         if os.path.exists(dlpath + "/_config/config_channel.json"):
             # Load channel config
-            channel_config = load_config(dlpath + "_config/config_channel.json")
+            channel_config = load_config(dlpath + "/_config/config_channel.json")
             # Access settings
             c_max_resolution = channel_config["c_max_resolution"]
             c_ignore_min_duration = channel_config["c_ignore_min_duration"]
