@@ -116,7 +116,7 @@ def print_video_infos(yt, res, video_views):
     else:
         print("Length:         ", str(int(yt.length / 60)) + "m", " (" + min_duration + "m < " + max_duration + "m)")
 
-    print("Resolution:     ", print_colored_text(res, BCOLORS.YELLOW), " (" + limit_resolution_to + ")")
+    print("Resolution:     ", print_colored_text(res, BCOLORS.YELLOW), " (" + limit_resolution_to + ") Avail.: " + str(print_resolutions(yt)))
 
 
 def print_colored_text(message_text, color):
