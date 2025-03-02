@@ -486,8 +486,10 @@ def merge_video_audio(videoid, publishdate, video_resolution, year, restricted):
         # Run FFmpeg command
         ffmpeg.run(output, overwrite_output=True, quiet=True)
         #print(f"\n✅ \033[92mMerged file saved as: {output_file}.\033[0m")
-        print(print_colored_text("\nVideo downloaded", bcolors.OKGREEN))
-
+        if restricted:
+            print(print_colored_text("\nRestricted Video downloaded", bcolors.OKGREEN))
+        else
+            print(print_colored_text("\nVideo downloaded", bcolors.OKGREEN))
         # remove video and audio streams
         deletTempFiles()
 
@@ -526,10 +528,10 @@ def merge_webm_opus(videoid, publishdate, video_resolution, year, restricted):
     else:
         path = (dlpath + str(year) + "/" + publishdate + " - " + video_resolution + " - "
                 + clean_string_regex(os.path.splitext(video_file)[0]) + " - "+ videoid + ".mp4")
-    convert_webm_to_mp4(output_file, path)
+    convert_webm_to_mp4(output_file, path, restricted)
 
 
-def convert_webm_to_mp4(input_file, output_file):
+def convert_webm_to_mp4(input_file, output_file, restricted):
     """Convert a WebM file to MP4 (H.264/AAC)."""
     command = [
         "ffmpeg", "-loglevel", "quiet", "-i", input_file,
@@ -540,7 +542,10 @@ def convert_webm_to_mp4(input_file, output_file):
     ]
     subprocess.run(command, check=True)
     os.remove(input_file)
-    print(print_colored_text("\nVideo downloaded", bcolors.OKGREEN))
+    if restricted:
+        print(print_colored_text("\nRestricted Video downloaded", bcolors.OKGREEN))
+    else
+        print(print_colored_text("\nVideo downloaded", bcolors.OKGREEN))
 
 
 while True:
