@@ -56,7 +56,7 @@ def print_configuration():
 
 def print_video_infos(yt, res, video_views):
     print("Title:          ", print_colored_text(yt.title, bcolors.OKBLUE))
-    print("Views:          ", video_views)
+    print("Views:          ", format_view_count(video_views))
     print("Date:           ", yt.publish_date.strftime("%Y-%m-%d"))
     if ignore_max_duration_bool and ignore_min_duration_bool:
         print("Length:         ", str(int(yt.length / 60)) + "m")
