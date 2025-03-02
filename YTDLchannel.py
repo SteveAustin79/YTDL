@@ -577,6 +577,7 @@ while True:
         print_configuration()
 
         lines = read_file_lines("channels.txt")
+        print(len(lines))
         if lines and len(lines) > 0:
             YTchannel = user_selection(lines)
         if "Enter CUSTOM channel URL" in YTchannel or len(lines)==0:
