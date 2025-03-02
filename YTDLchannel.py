@@ -574,8 +574,8 @@ while True:
             skip_restricted_bool = True
             print(print_colored_text("Skipping restricted Video(s)!", BCOLORS.RED))
 
-        min_video_views = smart_input("Minimum Views (0=disabled): ", default_minimum_views)
-        if int(min_video_views) > 0:
+        min_video_views = int(smart_input("Minimum Views (0=disabled): ", default_minimum_views))
+        if min_video_views > 0:
             min_video_views_bool = True
         else:
             min_video_views_bool = False
