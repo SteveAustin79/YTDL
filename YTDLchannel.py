@@ -47,7 +47,7 @@ def print_configuration():
     print("* Minimum Video Duration in Minutes:    ", print_colored_text(min_duration, bcolors.OKBLUE))
     print("* Maximum Video Duration in Minutes:    ", print_colored_text(max_duration, bcolors.OKBLUE))
     if year_subfolders:
-        year_subfolders_colored = print_colored_text(year_subfolders, bcolors.OKBLUE)
+        year_subfolders_colored = print_colored_text(year_subfolders, bcolors.OKGREEN)
     else:
         year_subfolders_colored = print_colored_text(year_subfolders, bcolors.FAIL)
     print("* Year Subfolder-Structure:             ", year_subfolders_colored)
