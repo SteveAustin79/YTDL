@@ -657,8 +657,9 @@ while True:
                         if video_duration > int(max_duration):
                             do_not_download = 1
 
-                    if video.views < min_video_views:
-                        do_not_download = 1
+                    if min_video_views!="":
+                        if video.views < min_video_views:
+                            do_not_download = 1
 
                     if (video.age_restricted == False and
                             video.vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
