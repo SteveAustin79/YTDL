@@ -572,7 +572,7 @@ while True:
             default_filter_words = channel_config["c_filter_words"]
 
             if incomplete_config:
-                print(print_colored_text("\nFound incomplete channel config file!\n", BCOLORS.DARKBLUE))
+                print(print_colored_text("\nFound "+ print_colored_text("incomplete ", BCOLORS.RED) + "channel config file!\n", BCOLORS.DARKBLUE))
             else:
                 print(print_colored_text("\nFound channel config file!\n", BCOLORS.DARKBLUE))
 
