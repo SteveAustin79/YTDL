@@ -538,6 +538,7 @@ while True:
         default_filter_words = ""
 
         if os.path.exists(dlpath + "/_config/config_channel.json"):
+            print(print_colored_text("Found channel config file!", BCOLORS.DARKBLUE))
             # Load channel config
             channel_config = load_config(dlpath + "/_config/config_channel.json")
             # Access settings
