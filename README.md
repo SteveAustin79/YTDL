@@ -2,7 +2,7 @@
 Download all videos as mp4 from a specific YouTube channel.
 
 ### Features
-- filters: video title name, minimum video views
+- filters: video title name, minimum video views, video duration, exclude/include video ID's 
 - channels.txt: YouTube Channels list
 - video resolutions > 1080p only provided as webm by YouTube -> converted to mp4 after downloading
 - highest available resolution (limitable) downloaded automatically
