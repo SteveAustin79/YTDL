@@ -290,7 +290,7 @@ def limit_resolution(resolution, limit):
 
 def downloadVideoRestricted(videoid, counterid, video_total_count, channelName, video_views):
     yt = YouTube(youtube_base_url + videoid, use_oauth=True, allow_oauth_cache=True, on_progress_callback = on_progress)
-    dlpath = output_dir + "/" + channelName
+    #dlpath = output_dir + "/" + channelName
 
     #print("\n\n" + print_colored_text("Downloading age_restricted video...\n", bcolors.FAIL))
     print("\n")
