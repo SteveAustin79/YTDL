@@ -1,4 +1,4 @@
-# YTDLchannel - YouTubeChannelDownloader 0.6
+# YTDL - YouTube Channel Downloader 0.6
 Download one, multiple or all videos from a specific YouTube channel in any available resolution as mp4.
 
 Restricted video download possible, but requires authentication via accounts.google.com/device.

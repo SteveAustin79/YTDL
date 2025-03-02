@@ -494,8 +494,8 @@ while True:
         video_list = []
         video_list_restricted = []
 
-        print("\nYTDLchannel " + str(version))
-        print("***************")
+        print("\nYTDL " + str(version))
+        print("********")
         print("YouTube Channel Downloader")
         print("Exit App with Ctrl + C")
         print("https://github.com/SteveAustin79/YTDL\n")
