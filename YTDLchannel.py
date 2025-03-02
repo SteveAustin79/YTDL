@@ -529,57 +529,67 @@ while True:
         dlpath = smart_input("\nDownload Path:  ", output_dir + "/" + clean_string_regex(c.channel_name).rstrip())
 
         default_max_res = "max"
+        default_ignore_min_duration = "y"
+        default_ignore_max_duration = "y"
+        default_skip_restricted = "n"
+        default_minimum_view = "0"
+        default_exclude_videos = ""
+        default_include_videos = ""
+        default_filter_words = ""
 
         if os.path.exists(dlpath + "/_config/config_channel.json"):
             # Load channel config
             channel_config = load_config(dlpath + "/_config/config_channel.json")
             # Access settings
             default_max_res = channel_config["c_max_resolution"]
-            c_ignore_min_duration = channel_config["c_ignore_min_duration"]
-            c_ignore_max_duration = channel_config["c_ignore_max_duration"]
-            c_skip_restricted = channel_config["c_skip_restricted"]
-            c_minimum_views = channel_config["c_minimum_views"]
-            c_exclude_video_ids = channel_config["c_exclude_video_ids"]
-            c_include_video_ids = channel_config["c_include_video_ids"]
-            c_filter_words = channel_config["c_filter_words"]
+            default_ignore_min_duration = channel_config["c_ignore_min_duration"]
+            default_ignore_max_duration = channel_config["c_ignore_max_duration"]
+            default_skip_restricted = channel_config["c_skip_restricted"]
+            default_minimum_view = channel_config["c_minimum_views"]
+            default_exclude_videos = channel_config["c_exclude_video_ids"]
+            default_include_videos = channel_config["c_include_video_ids"]
+            default_filter_words = channel_config["c_filter_words"]
+
+        if video_id_from_single_video!="":
+            default_include_videos = video_id_from_single_video
 
         limit_resolution_to = smart_input("Max. Resolution:  ", default_max_res)
 
-        ignore_min_duration = smart_input("Ignore min_duration?  Y/n", "y")
+        ignore_min_duration = smart_input("Ignore min_duration?  Y/n", default_ignore_min_duration)
         ignore_min_duration_bool = True
         if ignore_min_duration == "n":
             ignore_min_duration_bool = False
             print(print_colored_text("Ignoring Video(s) < " + str(min_duration) + " Minutes!", BCOLORS.RED))
 
-        ignore_max_duration = smart_input("Ignore max_duration?  Y/n", "y")
+        ignore_max_duration = smart_input("Ignore max_duration?  Y/n", default_ignore_max_duration)
         ignore_max_duration_bool = True
         if ignore_max_duration=="n":
             ignore_max_duration_bool = False
             print(print_colored_text("Ignoring Video(s) > " + str(max_duration) + " Minutes!", BCOLORS.RED))
 
-        skip_restricted = smart_input("Skip restricted Video(s)?  Y/n ", "n")
+        skip_restricted = smart_input("Skip restricted Video(s)?  Y/n ", default_skip_restricted)
         skip_restricted_bool = False
         if skip_restricted== "y":
             skip_restricted_bool = True
             print(print_colored_text("Skipping restricted Video(s)!", BCOLORS.RED))
 
-        min_video_views = int(smart_input("Minimum Views (0=disabled): ", "0"))
+        min_video_views = int(smart_input("Minimum Views (0=disabled): ", default_minimum_view))
         if min_video_views > 0:
             min_video_views_bool = True
         else:
             min_video_views_bool = False
 
-        exclude_video_ids = input("\nExclude Video ID's (comma separated list): ")
+        exclude_video_ids = smart_input("\nExclude Video ID's (comma separated list): ", default_exclude_videos)
         exclude_list = []
         if exclude_video_ids!="":
             exclude_list = string_to_list(exclude_video_ids)
 
-        include_video_ids = smart_input("Include Video ID's (comma separated list): ", video_id_from_single_video)
+        include_video_ids = smart_input("Include Video ID's (comma separated list): ", default_include_videos)
         include_list = []
         if include_video_ids!="":
             include_list = string_to_list(include_video_ids)
 
-        video_name_filter = str(input("\nEnter filter word(s) (comma separated list): "))
+        video_name_filter = str(smart_input("\nEnter filter word(s) (comma separated list): ", default_filter_words))
         video_name_filter_list = string_to_list(video_name_filter)
 
         count_total_videos = 0
