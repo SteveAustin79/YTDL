@@ -148,11 +148,6 @@ def string_to_list(input_string):
     return [item.strip() for item in input_string.split(",")]
 
 
-def write_textfile_failed_downloads(file, text):
-    with open(file, "a", encoding="utf-8") as file:
-        file.write(f"{text}\n")
-
-
 def format_header(counter, width):
     # width = 95
     counter_splitted = counter.split(" - ")
@@ -480,7 +475,6 @@ def merge_video_audio(videoid, publishdate, video_resolution, year, restricted):
 
     except Exception as e:
         print(f"❌ Error merging files: {e}")
-        write_textfile_failed_downloads("errors.txt", output_file)
         sys.exit(1)
 
 
