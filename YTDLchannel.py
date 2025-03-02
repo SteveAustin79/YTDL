@@ -499,9 +499,10 @@ while True:
         video_list_restricted = []
 
         print_asteriks_line()
-        print("\n* YTDLchannel " + str(version))
+        print("* YTDLchannel " + str(version))
         print_asteriks_line()
-        print("* YouTube Channel Downloader\nExit App with Ctrl + C")
+        print("* YouTube Channel Downloader")
+        print("* Exit App with Ctrl + C")
         print("* https://github.com/SteveAustin79/YTDL")
         delete_temp_files()
         print_configuration()
