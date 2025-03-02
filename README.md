@@ -15,14 +15,14 @@ A command line YouTube video downloader, downloading a specific video resolution
 Download all videos as mp4 from a specific YouTube channel.
 
 ### Features
-- video title filter
+- filters: video title name, minimum video views
 - video resolutions > 1080p only provided as webm by YouTube -> converted to mp4 after downloading
 - highest available resolution downloaded automatically
 - sub directory structure suggested
 - skipping already downloaded videos
 
 ### History
-- 20250301 - v0.5 - added support to exclude videos by video_id
+- 20250301 - v0.5 - added support to exclude videos by video_id, filters
 - 20250228 - v0.4 - added support for age_restricted videos
 - 20250228 - v0.3 - added optional limit for max resolution, channels.txt as suggestions
 - 20250227 - v0.2 - enhanced file support (checks if already downloaded etc)
