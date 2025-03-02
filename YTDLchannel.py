@@ -577,9 +577,9 @@ while True:
         print_configuration()
 
         lines = read_file_lines("channels.txt")
-        if lines:
+        if lines and len(lines) > 0:
             YTchannel = user_selection(lines)
-        if "Enter CUSTOM channel URL" in YTchannel:
+        if "Enter CUSTOM channel URL" in YTchannel or len(lines)==0:
             YTchannel = input("YouTube Channel URL:  ")
         #count_fetch_videos = str(smart_input("Fetch x latest Videos (to download all playable/unrestricted videos use 'all'): ", "all"))
         #skip_x_videos = int(smart_input("Skip x videos: ", "0"))
