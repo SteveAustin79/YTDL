@@ -54,7 +54,7 @@ def cc_save_config(cc_file_path, cc_config):
     """Saves the updated config dictionary back to the JSON file."""
     with open(cc_file_path, "w", encoding="utf-8") as cc_file:
         json.dump(cc_config, cc_file, indent=4, ensure_ascii=False)
-    print(f"✅ Updated config saved to {cc_file_path}")
+    #print(f"✅ Updated config saved to {cc_file_path}")
 
 def cc_check_and_update_channel_config(cc_file_path, cc_required_config):
     """Ensures all required keys exist in the config file, adding missing ones."""
@@ -68,10 +68,10 @@ def cc_check_and_update_channel_config(cc_file_path, cc_required_config):
             missing_keys.append(key)
 
     if missing_keys:
-        print(f"⚠️ Missing keys added: {', '.join(missing_keys)}")
+        #print(f"⚠️ Missing keys added: {', '.join(missing_keys)}")
         cc_save_config(cc_file_path, cc_config)  # Save only if changes were made
-    else:
-        print("✅ All required config keys exist. No updates needed.")
+    # else:
+    #     print("✅ All required config keys exist. No updates needed.")
 
 
 def load_config(c_file):
@@ -636,7 +636,7 @@ while True:
             if incomplete_config:
                 print(print_colored_text("\nFound ", BCOLORS.DARKBLUE)
                       + print_colored_text("incomplete ", BCOLORS.ORANGE)
-                      + print_colored_text("channel config file! --> Adding missing to file ", BCOLORS.DARKBLUE)
+                      + print_colored_text("channel config file! --> Adding missing key(s) to file ", BCOLORS.DARKBLUE)
                       + print_colored_text(str(incomplete_string) + "\n", BCOLORS.ORANGE))
                 cc_check_and_update_channel_config(dlpath + channel_config_path, REQUIRED_CONFIG)
             else:
