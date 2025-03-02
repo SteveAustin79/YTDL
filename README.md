@@ -49,7 +49,10 @@ Download restricted/playable videos:<br/>
 - FFMPG (https://ffmpeg.org)
 
 ## Installation/Start
-- <code>git clone https://github.com/SteveAustin79/YTDL.git</code>
+1. Clone repository:
+```diff
+git clone https://github.com/SteveAustin79/YTDL.git
+```
 - <code>cd YTDL</code>
 - <code>python3 -m venv venv</code>
 - <code>sudo venv/bin/python3 -m pip install pytubefix ffmpeg-python</code>
