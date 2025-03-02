@@ -2,6 +2,7 @@
 Download one, multiple ar all videos from a specific YouTube channel in any available resolution as mp4.
 
 ### Features
+- channel config file with default filters (file must be located in _config subfolder in target directory)
 - filters: video title name, minimum video views, video duration, exclude/include video ID's 
 - channels.txt: YouTube Channels list
 - video resolutions > 1080p only provided as webm by YouTube -> converted to mp4 after downloading
@@ -10,10 +11,11 @@ Download one, multiple ar all videos from a specific YouTube channel in any avai
 - skipping already downloaded videos
 
 ### History
-- 20250301 - v0.5 - added support to exclude videos by video_id, filters
-- 20250228 - v0.4 - added support for age_restricted videos
+- 20250302 - v0.6 - added channel config file support 
+- 20250301 - v0.5 - added exclude videos by video_id, filter support 
+- 20250228 - v0.4 - added age_restricted videos support 
 - 20250228 - v0.3 - added optional limit for max resolution, channels.txt list
-- 20250227 - v0.2 - file support (checks if already downloaded)
+- 20250227 - v0.2 - file support (check if already downloaded)
 - 20250226 - v0.1 - initial version, based on YTDL v0.3
 
 ### 2do
