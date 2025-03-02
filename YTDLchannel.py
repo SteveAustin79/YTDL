@@ -333,7 +333,7 @@ def download_video_restricted(videoid, counterid, video_total_count, channel_nam
     print("\n")
     colored_video_id = print_colored_text(videoid, BCOLORS.RED)
     print(format_header(colored_video_id + " - " + channel_name
-                        + " - " + str(counterid) + "/" + str(video_total_count), 95))
+                        + " - " + str(counterid) + "/" + str(video_total_count), 104))
 
     publishingDate = yt.publish_date.strftime("%Y-%m-%d")
     if year_subfolders == True:
