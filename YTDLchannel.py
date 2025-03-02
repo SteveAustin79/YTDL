@@ -528,11 +528,13 @@ while True:
 
         dlpath = smart_input("\nDownload Path:  ", output_dir + "/" + clean_string_regex(c.channel_name).rstrip())
 
+        default_max_res = "max"
+
         if os.path.exists(dlpath + "/_config/config_channel.json"):
             # Load channel config
             channel_config = load_config(dlpath + "/_config/config_channel.json")
             # Access settings
-            c_max_resolution = channel_config["c_max_resolution"]
+            default_max_res = channel_config["c_max_resolution"]
             c_ignore_min_duration = channel_config["c_ignore_min_duration"]
             c_ignore_max_duration = channel_config["c_ignore_max_duration"]
             c_skip_restricted = channel_config["c_skip_restricted"]
@@ -541,7 +543,7 @@ while True:
             c_include_video_ids = channel_config["c_include_video_ids"]
             c_filter_words = channel_config["c_filter_words"]
 
-        limit_resolution_to = smart_input("Max. Resolution:  ", "max")
+        limit_resolution_to = smart_input("Max. Resolution:  ", default_max_res)
 
         ignore_min_duration = smart_input("Ignore min_duration?  Y/n", "y")
         ignore_min_duration_bool = True
