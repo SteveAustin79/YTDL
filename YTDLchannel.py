@@ -568,7 +568,7 @@ while True:
         only_restricted_videos_bool = False
         if only_restricted_videos=="y":
             only_restricted_videos_bool = True
-            print(print_colored_text("Downloading restricted Video(s) only!", BCOLORS.RED))
+            print(print_colored_text("Downloading only restricted Video(s)!", BCOLORS.RED))
 
         skip_restricted_bool = False
         if not only_restricted_videos_bool:
