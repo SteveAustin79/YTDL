@@ -53,15 +53,31 @@ Download restricted/playable videos:<br/>
 ```diff
 git clone https://github.com/SteveAustin79/YTDL.git
 ```
-- <code>cd YTDL</code>
-- <code>python3 -m venv venv</code>
-- <code>sudo venv/bin/python3 -m pip install pytubefix ffmpeg-python</code>
-- <code>cp config.example.json config.json</code>
-- modify config.json
-- add channel URLs to channels.txt (not required)
-- <code>venv/bin/python3 YTDL.py</code>
-- or
-- <code>venv/bin/python3 YTDLchannel.py</code>
+2. Change directory
+```diff
+cd YTDL
+```
+3. Install python environment
+```diff
+python3 -m venv venv
+```
+4. Install dependencies
+```diff
+sudo venv/bin/python3 -m pip install pytubefix ffmpeg-python
+```
+5. Create and modify config.json
+```diff
+cp config.example.json config.json
+nano config.json
+```
+6. (optional) Add channel URLs to channels.txt
+```diff
+nano channels.txt
+```
+7. Run the application
+```diff
+venv/bin/python3 YTDLchannel.py
+```
 
 ## Update
 - <code>git pull https://github.com/SteveAustin79/YTDL.git</code>
