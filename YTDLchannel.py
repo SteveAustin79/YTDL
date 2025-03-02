@@ -284,7 +284,7 @@ def limit_resolution(resolution, limit):
     return max_resolution
 
 
-def downloadVideoRestricted(videoid, counterid, video_total_count, channelName):
+def downloadVideoRestricted(videoid, counterid, video_total_count, channelName, video_views):
     yt = YouTube(youtube_base_url + videoid, use_oauth=True, allow_oauth_cache=True, on_progress_callback = on_progress)
     dlpath = output_dir + "/" + channelName
 
@@ -328,7 +328,7 @@ def downloadVideoRestricted(videoid, counterid, video_total_count, channelName):
     if limit_resolution_to != "max":
         res = limit_resolution(res, limit_resolution_to)
 
-    print_video_infos(yt, res)
+    print_video_infos(yt, res, video_views)
 
     #res = smart_input("\n" + print_colored_text("Resolution: ", bcolors.WARNING), max_res)
     # dlpath = smart_input("Download Path:  ", output_dir)
@@ -374,7 +374,7 @@ def downloadVideoRestricted(videoid, counterid, video_total_count, channelName):
             convert_m4a_to_opus_and_merge(yt.video_id, publishingDate, res, year, True)
 
 
-def downloadVideo(videoid, counterid, video_total_count):
+def downloadVideo(videoid, counterid, video_total_count, video_views):
     yt = YouTube(youtube_base_url + videoid, on_progress_callback=on_progress)
 
     #print("\n***" + str(counterid) + "********************************************************************************")
@@ -415,7 +415,7 @@ def downloadVideo(videoid, counterid, video_total_count):
     if limit_resolution_to != "max":
         res = limit_resolution(res, limit_resolution_to)
 
-    print_video_infos(yt, res)
+    print_video_infos(yt, res, video_views)
 
     #print("Resolution: ", res)
     # check if file was already downloaded
@@ -676,7 +676,7 @@ while True:
                         video_list.append(video.video_id)
                         #print(str(count_total_videos) + " - " + video.video_id + " - " + video.title)
                         #print_resolutions()
-                        downloadVideo(video.video_id, count_ok_videos, len(video_watch_urls))
+                        downloadVideo(video.video_id, count_ok_videos, len(video_watch_urls), video.views)
                     else:
                         if skip_restricted_bool == False:
                             if (video.vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
@@ -686,7 +686,7 @@ while True:
                                 count_this_run += 1
                                 video_list_restricted.append(video.video_id)
                                 downloadVideoRestricted(video.video_id, count_ok_videos, len(video_watch_urls),
-                                                        clean_string_regex(c.channel_name).rstrip())
+                                                        clean_string_regex(c.channel_name).rstrip(), video.views)
                         #print("\033[31m" + str(count_total_videos) + " - " + video.video_id + " - " + video.title + "\n\033[0m")
                         #print_resolutions()
 
