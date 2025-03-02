@@ -534,6 +534,7 @@ while True:
 
         if os.path.exists(dlpath + "/_config/config_channel.json"):
             incomplete_config = False
+            incomplete_string = []
             # Load channel config
             channel_config = load_config(dlpath + "/_config/config_channel.json")
             # Access settings
@@ -541,31 +542,37 @@ while True:
                 default_max_res = channel_config["c_max_resolution"]
             else:
                 incomplete_config = True
+                incomplete_string.append("c_max_resolution")
 
             if "c_ignore_min_duration" in channel_config and channel_config["c_ignore_min_duration"] != "":
                 default_ignore_min_duration = channel_config["c_ignore_min_duration"]
             else:
                 incomplete_config = True
+                incomplete_string.append("c_ignore_min_duration")
 
             if "c_ignore_max_duration" in channel_config and channel_config["c_ignore_max_duration"] != "":
                 default_ignore_max_duration = channel_config["c_ignore_max_duration"]
             else:
                 incomplete_config = True
+                incomplete_string.append("c_ignore_max_duration")
 
             if "c_only_restricted" in channel_config and channel_config["c_only_restricted"] != "":
                 default_only_restricted = channel_config["c_only_restricted"]
             else:
                 incomplete_config = True
+                incomplete_string.append("c_only_restricted")
 
             if "c_skip_restricted" in channel_config and channel_config["c_skip_restricted"] != "":
                 default_skip_restricted = channel_config["c_skip_restricted"]
             else:
                 incomplete_config = True
+                incomplete_string.append("c_skip_restricted")
 
             if "c_minimum_views" in channel_config and channel_config["c_minimum_views"] != "":
                 default_minimum_views = channel_config["c_minimum_views"]
             else:
                 incomplete_config = True
+                incomplete_string.append("c_minimum_views")
 
             default_exclude_videos = channel_config["c_exclude_video_ids"]
             default_include_videos = channel_config["c_include_video_ids"]
@@ -575,6 +582,8 @@ while True:
                 print(print_colored_text("\nFound ", BCOLORS.DARKBLUE)
                       + print_colored_text("incomplete ", BCOLORS.RED)
                       + print_colored_text("channel config file!\n", BCOLORS.DARKBLUE))
+                print(print_colored_text(incomplete_string, BCOLORS.RED))
+                print("\n")
             else:
                 print(print_colored_text("\nFound channel config file!\n", BCOLORS.DARKBLUE))
 
