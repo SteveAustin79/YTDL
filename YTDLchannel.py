@@ -26,6 +26,54 @@ class BCOLORS:
     ENDC       = "\033[0m"
 
 
+REQUIRED_CONFIG = {
+    "c_max_resolution": "",
+    "c_ignore_min_duration": "",
+    "c_ignore_max_duration": "",
+    "c_only_restricted": "",
+    "c_skip_restricted": "",
+    "c_minimum_views": "",
+    "c_exclude_video_ids": "",
+    "c_include_video_ids": "",
+    "c_filter_words": ""
+}
+
+
+def cc_load_config(file_path):
+    """Loads the JSON config file or creates an empty dictionary if the file doesn't exist."""
+    if os.path.exists(file_path):
+        with open(file_path, "r", encoding="utf-8") as file:
+            try:
+                return json.load(file)  # Load existing config
+            except json.JSONDecodeError:
+                print("❌ Error: Invalid JSON format. Resetting to default config.")
+                return {}  # Return an empty config if JSON is corrupted
+    return {}  # Return an empty config if file doesn't exist
+
+def cc_save_config(cc_file_path, cc_config):
+    """Saves the updated config dictionary back to the JSON file."""
+    with open(cc_file_path, "w", encoding="utf-8") as cc_file:
+        json.dump(cc_config, cc_file, indent=4, ensure_ascii=False)
+    print(f"✅ Updated config saved to {cc_file_path}")
+
+def cc_check_and_update_channel_config(cc_file_path, cc_required_config):
+    """Ensures all required keys exist in the config file, adding missing ones."""
+    cc_config = cc_load_config(cc_file_path)  # Load existing or empty config
+
+    # Check for missing keys and add them
+    missing_keys = []
+    for key, default_value in cc_required_config.items():
+        if key not in cc_config:
+            cc_config[key] = default_value
+            missing_keys.append(key)
+
+    if missing_keys:
+        print(f"⚠️ Missing keys added: {', '.join(missing_keys)}")
+        cc_save_config(cc_file_path, cc_config)  # Save only if changes were made
+    else:
+        print("✅ All required config keys exist. No updates needed.")
+
+
 def load_config(c_file):
     """Load settings from config.json."""
     with open(c_file, "r") as file:
@@ -531,11 +579,13 @@ while True:
         default_include_videos = ""
         default_filter_words = ""
 
-        if os.path.exists(dlpath + "/_config/config_channel.json"):
+        channel_config_path = "/_config/config_channel.json"
+
+        if os.path.exists(dlpath + channel_config_path):
             incomplete_config = False
             incomplete_string = []
             # Load channel config
-            channel_config = load_config(dlpath + "/_config/config_channel.json")
+            channel_config = load_config(dlpath + channel_config_path)
             # Access settings
             if "c_max_resolution" in channel_config:
                 if channel_config["c_max_resolution"] != "":
@@ -586,8 +636,9 @@ while True:
             if incomplete_config:
                 print(print_colored_text("\nFound ", BCOLORS.DARKBLUE)
                       + print_colored_text("incomplete ", BCOLORS.ORANGE)
-                      + print_colored_text("channel config file! --> Missing ", BCOLORS.DARKBLUE)
+                      + print_colored_text("channel config file! --> Adding missing to file ", BCOLORS.DARKBLUE)
                       + print_colored_text(str(incomplete_string) + "\n", BCOLORS.ORANGE))
+                cc_check_and_update_channel_config(dlpath + channel_config_path, REQUIRED_CONFIG)
             else:
                 print(print_colored_text("\nFound channel config file!\n", BCOLORS.DARKBLUE))
 
