@@ -20,13 +20,13 @@ version = 0.5
 
 
 class BCOLORS:
-    HEADER     = "\033[95m"
-    OKBLUE     = "\033[96m"
-    OKGREEN    = "\033[92m"
-    WARNING    = "\033[93m"
-    FAIL       = "\033[91m"
-    BOLD       = "\033[1m"
+    CYAN       = "\033[96m"
+    PURPLE     = "\033[95m"
+    YELLOW     = "\033[93m"
+    GREEN      = "\033[92m"
+    RED        = "\033[91m"
     UNDERLINE  = "\033[4m"
+    BOLD       = "\033[1m"
     ENDC       = "\033[0m"
 
 
@@ -41,19 +41,19 @@ def print_configuration():
     print("************************************************************************************")
     print("* CONFIGURATION (change in config.json):")
     print("************************************************************************************")
-    print("* Output directory:                     ", print_colored_text(output_dir, BCOLORS.OKBLUE))
-    print("* Minimum Video Duration in Minutes:    ", print_colored_text(min_duration, BCOLORS.OKBLUE))
-    print("* Maximum Video Duration in Minutes:    ", print_colored_text(max_duration, BCOLORS.OKBLUE))
+    print("* Output directory:                     ", print_colored_text(output_dir, BCOLORS.CYAN))
+    print("* Minimum Video Duration in Minutes:    ", print_colored_text(min_duration, BCOLORS.CYAN))
+    print("* Maximum Video Duration in Minutes:    ", print_colored_text(max_duration, BCOLORS.CYAN))
     if year_subfolders:
-        year_subfolders_colored = print_colored_text(year_subfolders, BCOLORS.OKGREEN)
+        year_subfolders_colored = print_colored_text(year_subfolders, BCOLORS.GREEN)
     else:
-        year_subfolders_colored = print_colored_text(year_subfolders, BCOLORS.FAIL)
+        year_subfolders_colored = print_colored_text(year_subfolders, BCOLORS.RED)
     print("* Year Subfolder-Structure:             ", year_subfolders_colored)
     print("************************************************************************************\n")
 
 
 def print_video_infos(yt, res, video_views):
-    print("Title:          ", print_colored_text(yt.title, BCOLORS.OKBLUE))
+    print("Title:          ", print_colored_text(yt.title, BCOLORS.CYAN))
     if min_video_views_bool:
         print("Views:          ", format_view_count(video_views), " (> " + format_view_count(min_video_views) + ")")
     else:
@@ -68,7 +68,7 @@ def print_video_infos(yt, res, video_views):
     else:
         print("Length:         ", str(int(yt.length / 60)) + "m", " (" + min_duration + "m < " + max_duration + "m)")
 
-    print("Resolution:     ", print_colored_text(res, BCOLORS.WARNING), " (" + limit_resolution_to + ")")
+    print("Resolution:     ", print_colored_text(res, BCOLORS.YELLOW), " (" + limit_resolution_to + ")")
 
 
 def print_colored_text(message_text, color):
@@ -104,7 +104,7 @@ def format_header(counter):
 
     counter_splitted = counter.split(" - ")
 
-    counter_str = ("** " + counter_splitted[0] + " *" + print_colored_text(f" {counter_splitted[1]} ", BCOLORS.OKBLUE)
+    counter_str = ("** " + counter_splitted[0] + " *" + print_colored_text(f" {counter_splitted[1]} ", BCOLORS.CYAN)
                    + "| " + counter_splitted[2] + " (" + get_free_space(dlpath) + " free) ")
     total_length = width - 2  # Exclude parentheses ()
 
@@ -289,12 +289,12 @@ def download_video_restricted(videoid, counterid, video_total_count, channelName
     yt = YouTube(youtube_base_url + videoid, use_oauth=True, allow_oauth_cache=True, on_progress_callback = on_progress)
     #dlpath = output_dir + "/" + channelName
 
-    #print("\n\n" + print_colored_text("Downloading age_restricted video...\n", BCOLORS.FAIL))
+    #print("\n\n" + print_colored_text("Downloading age_restricted video...\n", BCOLORS.RED))
     print("\n")
-    print(format_header(print_colored_text(videoid, BCOLORS.FAIL) + " - " + channelName + " - " + str(counterid) + "/" + str(video_total_count)))
+    print(format_header(print_colored_text(videoid, BCOLORS.RED) + " - " + channelName + " - " + str(counterid) + "/" + str(video_total_count)))
 
-    # #print("Channel:        ", print_colored_text(channelName, BCOLORS.OKBLUE))
-    # print("Title:          ", print_colored_text(yt.title, BCOLORS.OKBLUE))
+    # #print("Channel:        ", print_colored_text(channelName, BCOLORS.CYAN))
+    # print("Title:          ", print_colored_text(yt.title, BCOLORS.CYAN))
     # #print("ID:             ", videoid)
     # #print("Views:          ", format_view_count(yt.views))
     # print("Date:           ", yt.publish_date.strftime("%Y-%m-%d"))
@@ -317,7 +317,7 @@ def download_video_restricted(videoid, counterid, video_total_count, channelName
     # res = max(print_resolutions(yt), key=lambda x: int(x.rstrip('p')))
     # if limit_resolution_to != "max":
     #     res = limit_resolution(res, limit_resolution_to)
-    # print("Resolution:     ", print_colored_text(res, bcolors.WARNING), " (" + limit_resolution_to + ")")
+    # print("Resolution:     ", print_colored_text(res, bcolors.YELLOW), " (" + limit_resolution_to + ")")
 
     publishingDate = yt.publish_date.strftime("%Y-%m-%d")
     if year_subfolders == True:
@@ -331,13 +331,13 @@ def download_video_restricted(videoid, counterid, video_total_count, channelName
 
     print_video_infos(yt, res, video_views)
 
-    #res = smart_input("\n" + print_colored_text("Resolution: ", BCOLORS.WARNING), max_res)
+    #res = smart_input("\n" + print_colored_text("Resolution: ", BCOLORS.YELLOW), max_res)
     # dlpath = smart_input("Download Path:  ", output_dir)
 
     if os.path.exists(
             dlpath + str(year) + "/restricted/" + str(publishingDate) + " - " + res + " - " + clean_string_regex(
                 yt.title) + " - " + yt.video_id + ".mp4"):
-        print(print_colored_text("\nVideo already downloaded", BCOLORS.OKGREEN))
+        print(print_colored_text("\nVideo already downloaded", BCOLORS.GREEN))
     else:
         moreThan1080p = 0
 
@@ -382,7 +382,7 @@ def download_video(videoid, counterid, video_total_count, video_views):
     print(format_header(videoid + " - " + yt.author + " - " + str(counterid) + "/" + str(video_total_count)))
 
     # #print("Channel:        ", yt.author)
-    # print("Title:          ", print_colored_text(yt.title, bcolors.OKBLUE))
+    # print("Title:          ", print_colored_text(yt.title, bcolors.CYAN))
     # #print("ID:             ", videoid)
     # #print("Views:          ", format_view_count(yt.views))
     # print("Date:           ", yt.publish_date.strftime("%Y-%m-%d"))
@@ -404,7 +404,7 @@ def download_video(videoid, counterid, video_total_count, video_views):
     # if limit_resolution_to != "max":
     #     res = limit_resolution(res, limit_resolution_to)
     #
-    # print("Resolution:     ", print_colored_text(res, bcolors.WARNING), " (" + limit_resolution_to + ")")
+    # print("Resolution:     ", print_colored_text(res, bcolors.YELLOW), " (" + limit_resolution_to + ")")
 
     publishingDate = yt.publish_date.strftime("%Y-%m-%d")
     if year_subfolders == True:
@@ -421,7 +421,7 @@ def download_video(videoid, counterid, video_total_count, video_views):
     #print("Resolution: ", res)
     # check if file was already downloaded
     if os.path.exists(dlpath + year + "/" + str(publishingDate) + " - " + res + " - " + clean_string_regex(yt.title) + " - "+ videoid + ".mp4"):
-        print(print_colored_text("\nVideo already downloaded\n", BCOLORS.OKGREEN))
+        print(print_colored_text("\nVideo already downloaded\n", BCOLORS.GREEN))
         #count_already_downloaded += count_already_downloaded
     else:
         #count_downloading += count_downloading
@@ -488,9 +488,9 @@ def merge_video_audio(videoid, publishdate, video_resolution, year, restricted):
         ffmpeg.run(output, overwrite_output=True, quiet=True)
         #print(f"\n✅ \033[92mMerged file saved as: {output_file}.\033[0m")
         if restricted:
-            print(print_colored_text("\nRestricted Video downloaded", BCOLORS.OKGREEN))
+            print(print_colored_text("\nRestricted Video downloaded", BCOLORS.GREEN))
         else:
-            print(print_colored_text("\nVideo downloaded", BCOLORS.OKGREEN))
+            print(print_colored_text("\nVideo downloaded", BCOLORS.GREEN))
         # remove video and audio streams
         delete_temp_files()
 
@@ -544,9 +544,9 @@ def convert_webm_to_mp4(input_file, output_file, restricted):
     subprocess.run(command, check=True)
     os.remove(input_file)
     if restricted:
-        print(print_colored_text("\nRestricted Video downloaded", BCOLORS.OKGREEN))
+        print(print_colored_text("\nRestricted Video downloaded", BCOLORS.GREEN))
     else:
-        print(print_colored_text("\nVideo downloaded", BCOLORS.OKGREEN))
+        print(print_colored_text("\nVideo downloaded", BCOLORS.GREEN))
 
 
 while True:
@@ -592,19 +592,19 @@ while True:
         ignore_min_duration_bool = True
         if ignore_min_duration == "n":
             ignore_min_duration_bool = False
-            print(print_colored_text("Ignoring Video(s) < " + str(min_duration) + " Minutes!", BCOLORS.FAIL))
+            print(print_colored_text("Ignoring Video(s) < " + str(min_duration) + " Minutes!", BCOLORS.RED))
 
         ignore_max_duration = smart_input("Ignore max_duration?  Y/n", "y")
         ignore_max_duration_bool = True
         if ignore_max_duration=="n":
             ignore_max_duration_bool = False
-            print(print_colored_text("Ignoring Video(s) > " + str(max_duration) + " Minutes!", BCOLORS.FAIL))
+            print(print_colored_text("Ignoring Video(s) > " + str(max_duration) + " Minutes!", BCOLORS.RED))
 
         skip_restricted = smart_input("Skip restricted Video(s)?  Y/n ", "n")
         skip_restricted_bool = False
         if skip_restricted== "y":
             skip_restricted_bool = True
-            print(print_colored_text("Skipping restricted Video(s)!", BCOLORS.FAIL))
+            print(print_colored_text("Skipping restricted Video(s)!", BCOLORS.RED))
 
         min_video_views = int(smart_input("Minimum Views (0=disabled): ", "0"))
         if min_video_views > 0:
@@ -659,7 +659,7 @@ while True:
             if find_file_by_string(dlpath, only_video_id, limit_resolution_to)!=None:
                 count_ok_videos += 1
                 count_skipped += 1
-                print(print_colored_text(f"\rSkipping {count_skipped} Videos", BCOLORS.HEADER), end="", flush=True)
+                print(print_colored_text(f"\rSkipping {count_skipped} Videos", BCOLORS.PURPLE), end="", flush=True)
             else:
                 #print(only_video_id)
                 do_not_download = 0
@@ -705,13 +705,13 @@ while True:
                         #print_resolutions()
 
         if count_this_run == 0:
-            print("\n\n" + print_colored_text("nothing to do...\n\n", BCOLORS.OKGREEN))
+            print("\n\n" + print_colored_text("nothing to do...\n\n", BCOLORS.GREEN))
         else:
-            print(print_colored_text(f"\n\nDONE!!!\n", BCOLORS.OKGREEN))
+            print(print_colored_text(f"\n\nDONE!!!\n", BCOLORS.GREEN))
             print(print_colored_text(f"Videos: {count_total_videos}, Selected Videos: {count_ok_videos}",
-                                     BCOLORS.OKGREEN))
+                                     BCOLORS.GREEN))
             print(print_colored_text(f"Downloaded in this session: {count_this_run}, (restricted: {len(video_list_restricted)} / ignored: {len(video_watch_urls)-count_ok_videos})",
-                                     BCOLORS.OKGREEN))
+                                     BCOLORS.GREEN))
             print(f"Remaining disk space: {get_free_space(dlpath)}\n")
 
         continue_ytdl = smart_input("Continue?  Y/n ", "y")
