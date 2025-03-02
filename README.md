@@ -21,14 +21,10 @@ Download one, multiple ar all videos from a specific YouTube channel in any avai
 ### 2do
 - check /tmp dir for merged file to prevent downloading again
 
-<br/>
-
 ## Prerequisites
 - Git (https://git-scm.com/downloads)
 - Python (https://www.python.org)
 - FFMPG (https://ffmpeg.org)
-
-<br/>
 
 ## Installation
 1. Clone repository:
@@ -61,14 +57,12 @@ nano channels.txt
 venv/bin/python3 YTDLchannel.py
 ```
 
-<br/>
-
 ## Update
 ```diff
 git pull https://github.com/SteveAustin79/YTDL.git
 ```
 
-<br/><br/><br/>
+<br/><br/>
 
 ## YTDL - YouTubeDownLoader 0.4 - DEPRECATED!
 
