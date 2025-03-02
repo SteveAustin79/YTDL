@@ -650,7 +650,7 @@ while True:
         # if ignore_max_duration_bool== False:
         #     print(f'\n\n{len(video_watch_urls)} Videos (-ignored) by: \033[96m{c.channel_name}\033[0m\n')
         # else:
-        print(f'\n\n{len(video_watch_urls)} Videos by: \033[96m{c.channel_name}\033[0m\n')
+        print(f'\n\n{len(video_watch_urls)} Videos by: \033[96m{c.channel_name}\033[0m (filtered: {len(video_watch_urls)}\n')
 
         #for url in c.video_urls:
         for url in video_watch_urls:
