@@ -82,7 +82,7 @@ def load_config(c_file):
 
 
 def print_asteriks_line():
-    length = 95
+    length = 85
     print("*" * length)
 
 
