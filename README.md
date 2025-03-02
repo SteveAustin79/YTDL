@@ -1,4 +1,4 @@
-# YTDLchannel - YouTubeChannelDownloader 0.5
+# YTDLchannel - YouTubeChannelDownloader 0.6
 Download one, multiple ar all videos from a specific YouTube channel in any available resolution as mp4.
 
 ### Features
