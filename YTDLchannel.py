@@ -607,6 +607,8 @@ while True:
         if exclude_video_ids!="":
             exclude_list = string_to_list(exclude_video_ids)
 
+        min_video_views = int(smart_input("Minimum Views: ", "5000"))
+
         video_name_filter = str(input("\nEnter filter word(s) (comma separated list): "))
         video_name_filter_list = string_to_list(video_name_filter)
 
@@ -654,6 +656,9 @@ while True:
                         video_duration = int(video.length/60)
                         if video_duration > int(max_duration):
                             do_not_download = 1
+
+                    if video.views < min_video_views:
+                        do_not_download = 1
 
                     if (video.age_restricted == False and
                             video.vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
