@@ -612,7 +612,7 @@ while True:
         else:
             min_video_views_bool = False
 
-        exclude_video_ids = input("Exclude Video ID's (comma separated list): ")
+        exclude_video_ids = input("\nExclude Video ID's (comma separated list): ")
         exclude_list = []
         if exclude_video_ids!="":
             exclude_list = string_to_list(exclude_video_ids)
