@@ -548,11 +548,12 @@ while True:
             # Load channel config
             channel_config = load_config(dlpath + "/_config/config_channel.json")
             # Access settings
-            default_max_res = channel_config["c_max_resolution"]
+            if channel_config["c_max_resolution"] != "":
+                default_max_res = channel_config["c_max_resolution"]
             default_ignore_min_duration = channel_config["c_ignore_min_duration"]
             default_ignore_max_duration = channel_config["c_ignore_max_duration"]
             default_skip_restricted = channel_config["c_skip_restricted"]
-            if channel_config["c_minimum_views"]!="":
+            if channel_config["c_minimum_views"] != "":
                 default_minimum_views = channel_config["c_minimum_views"]
             default_exclude_videos = channel_config["c_exclude_video_ids"]
             default_include_videos = channel_config["c_include_video_ids"]
