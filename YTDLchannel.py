@@ -645,7 +645,7 @@ while True:
         #     print(f'\n\n{len(video_watch_urls)} Videos (-ignored) by: \033[96m{c.channel_name}\033[0m\n')
         # else:
         print(f'\n\nTotal {count_total_videos} Videos by: \033[96m{c.channel_name}\033[0m')
-        print(f'\n\nSelected {len(video_watch_urls)} Videos\n')
+        print(f'Selected {len(video_watch_urls)} Videos to download\n')
 
         #for url in c.video_urls:
         for url in video_watch_urls:
