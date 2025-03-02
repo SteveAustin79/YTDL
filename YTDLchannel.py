@@ -160,7 +160,7 @@ def rename_files_in_temp_directory():
             #print(f"Renamed: {filename} → {sanitized_name}")
 
 
-def read_file_lines(filename):
+def read_channel_txt_lines(filename):
     """Reads all lines from a file and returns a list of lines."""
     try:
         with open(filename, "r", encoding="utf-8") as file:
@@ -576,11 +576,11 @@ while True:
         deletTempFiles()
         print_configuration()
 
-        lines = read_file_lines("channels.txt")
+        lines = read_channel_txt_lines("channels.txt")
         print(len(lines))
-        if lines and len(lines) > 0:
+        if lines and len(lines) > 1:
             YTchannel = user_selection(lines)
-        if "Enter CUSTOM channel URL" in YTchannel or len(lines)==0:
+        if "Enter CUSTOM channel URL" in YTchannel or len(lines)==1:
             YTchannel = input("YouTube Channel URL:  ")
         #count_fetch_videos = str(smart_input("Fetch x latest Videos (to download all playable/unrestricted videos use 'all'): ", "all"))
         #skip_x_videos = int(smart_input("Skip x videos: ", "0"))
