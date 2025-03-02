@@ -15,11 +15,12 @@ version = 0.6
 
 class BCOLORS:
     CYAN       = "\033[96m"
-    PURPLE     = "\033[95m"
+    MAGENTA    = "\033[95m"
     DARKBLUE   = "\033[94m"
     YELLOW     = "\033[93m"
     GREEN      = "\033[92m"
     RED        = "\033[91m"
+    ORANGE     = "\033[33m"
     UNDERLINE  = "\033[4m"
     BOLD       = "\033[1m"
     ENDC       = "\033[0m"
@@ -586,9 +587,9 @@ while True:
 
             if incomplete_config:
                 print(print_colored_text("\nFound ", BCOLORS.DARKBLUE)
-                      + print_colored_text("incomplete ", BCOLORS.RED)
+                      + print_colored_text("incomplete ", BCOLORS.ORANGE)
                       + print_colored_text("channel config file! Missing ", BCOLORS.DARKBLUE)
-                      + print_colored_text(str(incomplete_string) + "\n", BCOLORS.RED))
+                      + print_colored_text(str(incomplete_string) + "\n", BCOLORS.ORANGE))
             else:
                 print(print_colored_text("\nFound channel config file!\n", BCOLORS.DARKBLUE))
 
@@ -668,7 +669,7 @@ while True:
             if find_file_by_string(dlpath, only_video_id, limit_resolution_to)!=None:
                 count_ok_videos += 1
                 count_skipped += 1
-                print(print_colored_text(f"\rSkipping {count_skipped} Videos", BCOLORS.PURPLE), end="", flush=True)
+                print(print_colored_text(f"\rSkipping {count_skipped} Videos", BCOLORS.MAGENTA), end="", flush=True)
             else:
                 do_not_download = 0
                 video = YouTube(youtube_base_url + only_video_id, on_progress_callback=on_progress)
