@@ -328,7 +328,8 @@ def download_video_restricted(videoid, counterid, video_total_count, channelName
     yt = YouTube(youtube_base_url + videoid, use_oauth=True, allow_oauth_cache=True, on_progress_callback = on_progress)
 
     print("\n")
-    print(format_header(print_colored_text(videoid, BCOLORS.RED) + " - " + channelName + " - " + str(counterid) + "/" + str(video_total_count)))
+    colored_video_id = print_colored_text(videoid, BCOLORS.RED)
+    print(format_header(colored_video_id + " - " + channelName + " - " + str(counterid) + "/" + str(video_total_count)))
 
     publishingDate = yt.publish_date.strftime("%Y-%m-%d")
     if year_subfolders == True:
