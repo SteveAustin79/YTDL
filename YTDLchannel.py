@@ -488,7 +488,7 @@ def merge_video_audio(videoid, publishdate, video_resolution, year, restricted):
         #print(f"\n✅ \033[92mMerged file saved as: {output_file}.\033[0m")
         if restricted:
             print(print_colored_text("\nRestricted Video downloaded", bcolors.OKGREEN))
-        else
+        else:
             print(print_colored_text("\nVideo downloaded", bcolors.OKGREEN))
         # remove video and audio streams
         deletTempFiles()
@@ -544,7 +544,7 @@ def convert_webm_to_mp4(input_file, output_file, restricted):
     os.remove(input_file)
     if restricted:
         print(print_colored_text("\nRestricted Video downloaded", bcolors.OKGREEN))
-    else
+    else:
         print(print_colored_text("\nVideo downloaded", bcolors.OKGREEN))
 
 
