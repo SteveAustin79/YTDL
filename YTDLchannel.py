@@ -612,11 +612,15 @@ while True:
         elif skip_restricted=="n":
             skip_restricted_bool = False
 
-        #exclude_video_ids_cache = ""
         exclude_video_ids = input("Exclude Video ID's (comma separated list): ")
         exclude_list = []
         if exclude_video_ids!="":
             exclude_list = string_to_list(exclude_video_ids)
+
+        include_video_ids = int("Include Video ID's (comma separated list): ")
+        include_list = []
+        if include_video_ids!="":
+            include_list = string_to_list(include_video_ids)
 
         min_video_views = int(smart_input("Minimum Views (0=disabled): ", "0"))
         if min_video_views > 0:
@@ -629,7 +633,7 @@ while True:
 
         video_watch_urls = []
         for url in c.video_urls:
-            if(url.video_id not in exclude_list):
+            if(url.video_id not in exclude_list or url.video_id in include_list):
                 video_watch_urls.append(url.watch_url)
 
         # if ignore_max_duration_bool== False:
