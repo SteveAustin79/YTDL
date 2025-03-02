@@ -57,7 +57,7 @@ def print_configuration():
 def print_video_infos(yt, res, video_views):
     print("Title:          ", print_colored_text(yt.title, bcolors.OKBLUE))
     if min_video_views_bool:
-        print("Views:          ", format_view_count(video_views), " (>" + format_view_count(min_video_views) + ")")
+        print("Views:          ", format_view_count(video_views), " (> " + format_view_count(min_video_views) + ")")
     else:
         print("Views:          ", format_view_count(video_views))
     print("Date:           ", yt.publish_date.strftime("%Y-%m-%d"))
@@ -603,7 +603,7 @@ while True:
             ignore_max_duration_bool = False
             print(print_colored_text("Ignoring Videos > " + str(max_duration) + " Minutes!", bcolors.FAIL))
 
-        skip_restricted = smart_input("Skip restricted Videos? Y/n ", "n")
+        skip_restricted = smart_input("Skip restricted Videos?  Y/n ", "n")
         if skip_restricted== "y":
             skip_restricted_bool = True
             print(print_colored_text("Skipping restricted Videos!", bcolors.FAIL))
@@ -701,8 +701,14 @@ while True:
         if count_this_run == 0:
             print("\n\n" + print_colored_text("nothing to do...\n\n", bcolors.OKGREEN))
         else:
-            done_string = f"\n\nDONE! Total Videos: {count_ok_videos}, Downloaded in this session: {count_this_run} (restricted: {len(video_list_restricted)} / ignored: {len(video_watch_urls)-count_ok_videos})\n\n"
+            done_string = f"\n\nDONE! Total Videos: {count_ok_videos}, Downloaded in this session: {count_this_run} (restricted: {len(video_list_restricted)} / ignored: {len(video_watch_urls)-count_ok_videos})\n"
             print(print_colored_text(done_string, bcolors.OKGREEN))
+
+        continue_ytdl = smart_input("Continue?  Y/n ", "y")
+        if continue_ytdl=="y":
+            continue
+        else:
+            break
         #for restricted_video in video_list_restricted:
         #    print(youtube_base_url + restricted_video)
         #print("Already downloaded: " + str(count_already_downloaded))
