@@ -537,7 +537,6 @@ def convert_webm_to_mp4(input_file, output_file, restricted):
 
 while True:
     try:
-        clear_screen()
         # Load config
         config = load_config("config.json")
         # Access settings
@@ -551,6 +550,7 @@ while True:
         video_list = []
         video_list_restricted = []
 
+        clear_screen()
         print("\nYTDL " + str(version))
         print("********")
         print("YouTube Channel Downloader")
