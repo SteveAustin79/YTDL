@@ -26,6 +26,8 @@ Download one, multiple ar all videos from a specific YouTube channel in any avai
 - Python (https://www.python.org)
 - FFMPG (https://ffmpeg.org)
 
+<br/>
+
 ## Installation
 1. Clone repository:
 ```diff
@@ -56,6 +58,8 @@ nano channels.txt
 ```diff
 venv/bin/python3 YTDLchannel.py
 ```
+
+<br/>
 
 ## Update
 ```diff
