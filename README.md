@@ -20,9 +20,6 @@ Restricted video download possible, but requires authentication via accounts.goo
 - 20250227 - v0.2 - file support (check if already downloaded)
 - 20250226 - v0.1 - initial version, based on YTDL v0.3
 
-### 2do
-- check /tmp dir for merged file to prevent downloading again
-
 ## Prerequisites
 - Git (https://git-scm.com/downloads)
 - Python (https://www.python.org)
