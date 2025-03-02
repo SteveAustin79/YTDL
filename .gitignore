@@ -1,5 +1,5 @@
 # ignore all logs
 *.log
 config.json
+config_channel.json
 channels.txt
-/files
