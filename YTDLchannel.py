@@ -38,10 +38,14 @@ def load_config():
     return config
 
 
+def print_asteriks_line():
+    print("************************************************************************************")
+
+
 def print_configuration():
-    print("************************************************************************************")
+    print_asteriks_line()
     print("* CONFIGURATION (change in config.json):")
-    print("************************************************************************************")
+    print_asteriks_line()
     print("* Output directory:                     ", print_colored_text(output_dir, BCOLORS.CYAN))
     print("* Minimum Video Duration in Minutes:    ", print_colored_text(min_duration, BCOLORS.CYAN))
     print("* Maximum Video Duration in Minutes:    ", print_colored_text(max_duration, BCOLORS.CYAN))
@@ -50,7 +54,8 @@ def print_configuration():
     else:
         year_subfolders_colored = print_colored_text(year_subfolders, BCOLORS.RED)
     print("* Year Subfolder-Structure:             ", year_subfolders_colored)
-    print("************************************************************************************\n")
+    print_asteriks_line()
+    print("\n")
 
 
 def print_video_infos(yt, res, video_views):
@@ -493,10 +498,11 @@ while True:
         video_list = []
         video_list_restricted = []
 
-        print("\nYTDLchannel " + str(version))
-        print("***************")
-        print("YouTube Channel Downloader\nExit App with Ctrl + C")
-        print("https://github.com/SteveAustin79/YTDL\n")
+        print_asteriks_line()
+        print("\n* YTDLchannel " + str(version))
+        print_asteriks_line()
+        print("* YouTube Channel Downloader\nExit App with Ctrl + C")
+        print("* https://github.com/SteveAustin79/YTDL")
         delete_temp_files()
         print_configuration()
 
