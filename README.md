@@ -21,34 +21,12 @@ Download one, multiple ar all videos from a specific YouTube channel in any avai
 
 <br/>
 
-# YTDL - YouTubeDownLoader 0.4
-
-```diff
-- Deprecated! --> YTDLchannel supports now also video URL's!
-```
-
-A command line YouTube video downloader, downloading a specific video resolution file and a 128kps audio stream, finally merged into a single file. Use of ffmpeg and pytubefix.
-
-Download unrestricted/playable videos:<br/>
-<code>venv/bin/python3 YTDL.py</code><br/><br/>
-
-Download restricted/playable videos:<br/>
-<code>venv/bin/python3 YTDLx.py</code>
-
-### History
-- 20250227 - v0.4 - download path structure based on YTDLchannel v0.1
-- 20250224 - v0.3 - config file support
-- 20250223 - v0.2 - added webm support (>1080p)
-- 20250220 - v0.1 - initial version
-
-<br/>
-
 ## Prerequisites
 - Git (https://git-scm.com/downloads)
 - Python (https://www.python.org)
 - FFMPG (https://ffmpeg.org)
 
-## Installation/Start
+## Installation
 1. Clone repository:
 ```diff
 git clone https://github.com/SteveAustin79/YTDL.git
@@ -70,7 +48,7 @@ sudo venv/bin/python3 -m pip install pytubefix ffmpeg-python
 cp config.example.json config.json
 nano config.json
 ```
-6. (optional) Add channel URLs to channels.txt
+6. Add channel URLs to channels.txt (optional)
 ```diff
 nano channels.txt
 ```
@@ -81,3 +59,25 @@ venv/bin/python3 YTDLchannel.py
 
 ## Update
 - <code>git pull https://github.com/SteveAustin79/YTDL.git</code>
+
+<br/>
+
+# YTDL - YouTubeDownLoader 0.4
+
+```diff
+- Deprecated! --> YTDLchannel supports now also video URL's!
+```
+
+A command line YouTube video downloader, downloading a specific video resolution file and a 128kps audio stream, finally merged into a single file. Use of ffmpeg and pytubefix.
+
+Download unrestricted/playable videos:<br/>
+<code>venv/bin/python3 YTDL.py</code><br/><br/>
+
+Download restricted/playable videos:<br/>
+<code>venv/bin/python3 YTDLx.py</code>
+
+### History
+- 20250227 - v0.4 - download path structure based on YTDLchannel v0.1
+- 20250224 - v0.3 - config file support
+- 20250223 - v0.2 - added webm support (>1080p)
+- 20250220 - v0.1 - initial version
