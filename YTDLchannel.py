@@ -504,9 +504,9 @@ while True:
         if lines and len(lines) > 1:
             YTchannel = user_selection(lines)
         else:
-            YTchannel = input("YouTube Channel or Video URL:  ")
+            YTchannel = input("\nYouTube Channel or Video URL:  ")
         if "Enter CUSTOM channel URL" in YTchannel:
-            YTchannel = input("YouTube Channel or Video URL:  ")
+            YTchannel = input("\nYouTube Channel or Video URL:  ")
 
         video_id_from_single_video = ""
         if youtube_base_url in YTchannel:
