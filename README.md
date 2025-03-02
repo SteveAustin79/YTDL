@@ -23,7 +23,7 @@ Download all videos as mp4 from a specific YouTube channel.
 # YTDL - YouTubeDownLoader 0.4
 A command line YouTube video downloader, downloading a specific video resolution file and a 128kps audio stream, finally merged into a single file. Use of ffmpeg and pytubefix.
 
-YTDL.py:  download unrestricted/playable videos
+YTDL.py:  download unrestricted/playable videos<br/>
 YTDLx.py: download restricted/playable videos
 
 #### Note: Member, ageRestricted or unplayable videos cannot be downloaded with YTDL or YTDLchannel!
