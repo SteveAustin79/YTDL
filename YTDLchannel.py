@@ -650,7 +650,7 @@ while True:
         # if ignore_max_duration_bool== False:
         #     print(f'\n\n{len(video_watch_urls)} Videos (-ignored) by: \033[96m{c.channel_name}\033[0m\n')
         # else:
-        print(f'\n\n{len(video_watch_urls)} Videos by: \033[96m{c.channel_name}\033[0m (filtered: {len(video_watch_urls)}\n')
+        print(f'\n\n{len(video_watch_urls)} Videos by: \033[96m{c.channel_name}\033[0m\n')
 
         #for url in c.video_urls:
         for url in video_watch_urls:
@@ -712,7 +712,7 @@ while True:
         if count_this_run == 0:
             print("\n\n" + print_colored_text("nothing to do...\n\n", bcolors.OKGREEN))
         else:
-            print(print_colored_text(f"\n\nDONE! Total Videos: {count_total_videos},Total Video filtered: {len(video_watch_urls)}, Selected Videos: {count_ok_videos}", bcolors.OKGREEN))
+            print(print_colored_text(f"\n\nDONE! Videos: {len(video_watch_urls)}, Selected Videos: {count_ok_videos}", bcolors.OKGREEN))
             print(print_colored_text(f"Downloaded in this session: {count_this_run}, (restricted: {len(video_list_restricted)} / ignored: {len(video_watch_urls)-count_ok_videos})\n", bcolors.OKGREEN))
 
         continue_ytdl = smart_input("Continue?  Y/n ", "y")
