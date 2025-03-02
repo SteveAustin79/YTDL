@@ -160,7 +160,7 @@ def read_channel_txt_lines(filename):
     try:
         with open(filename, "r", encoding="utf-8") as file:
             lines = [line.strip() for line in file.readlines()]  # Remove newlines
-        lines.append("- Enter YouTube Channel or Video URL -")
+        lines.append("--- Enter YouTube Channel or Video URL ---")
         return lines
     except FileNotFoundError:
         print("❌ Error: File not found.")
