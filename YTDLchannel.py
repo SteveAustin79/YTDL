@@ -643,6 +643,7 @@ while True:
             print(f"\n{get_free_space(dlpath)} free\n")
 
         continue_ytdl = smart_input("Continue?  Y/n ", "y")
+        print("\n")
         if continue_ytdl=="y":
             continue
         else:
