@@ -607,7 +607,7 @@ while True:
         if exclude_video_ids!="":
             exclude_list = string_to_list(exclude_video_ids)
 
-        min_video_views = int(input("Minimum Views: "))
+        min_video_views = int(smart_input("Minimum Views: ", "0"))
 
         video_name_filter = str(input("\nEnter filter word(s) (comma separated list): "))
         video_name_filter_list = string_to_list(video_name_filter)
@@ -657,7 +657,7 @@ while True:
                         if video_duration > int(max_duration):
                             do_not_download = 1
 
-                    if min_video_views!="":
+                    if min_video_views > 0:
                         if video.views < min_video_views:
                             do_not_download = 1
 
