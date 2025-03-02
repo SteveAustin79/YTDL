@@ -149,8 +149,8 @@ def write_textfile_failed_downloads(file, text):
         file.write(f"{text}\n")
 
 
-def format_header(counter):
-    width = 95
+def format_header(counter, width):
+    # width = 95
     counter_splitted = counter.split(" - ")
     counter_str = ("** " + counter_splitted[0] + " *" + print_colored_text(f" {counter_splitted[1]} ", BCOLORS.CYAN)
                    + "| " + counter_splitted[2] + " (" + get_free_space(dlpath) + " free) ")
@@ -332,7 +332,8 @@ def download_video_restricted(videoid, counterid, video_total_count, channel_nam
 
     print("\n")
     colored_video_id = print_colored_text(videoid, BCOLORS.RED)
-    print(format_header(colored_video_id + " - " + channel_name + " - " + str(counterid) + "/" + str(video_total_count)))
+    print(format_header(colored_video_id + " - " + channel_name
+                        + " - " + str(counterid) + "/" + str(video_total_count), 95))
 
     publishingDate = yt.publish_date.strftime("%Y-%m-%d")
     if year_subfolders == True:
@@ -389,7 +390,7 @@ def download_video_restricted(videoid, counterid, video_total_count, channel_nam
 def download_video(videoid, counterid, video_total_count, video_views):
     yt = YouTube(youtube_base_url + videoid, on_progress_callback=on_progress)
 
-    print(format_header(videoid + " - " + yt.author + " - " + str(counterid) + "/" + str(video_total_count)))
+    print(format_header(videoid + " - " + yt.author + " - " + str(counterid) + "/" + str(video_total_count), 95))
 
     publishingDate = yt.publish_date.strftime("%Y-%m-%d")
     if year_subfolders == True:
