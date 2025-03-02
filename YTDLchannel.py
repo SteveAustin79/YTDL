@@ -607,7 +607,7 @@ while True:
         if exclude_video_ids!="":
             exclude_list = string_to_list(exclude_video_ids)
 
-        min_video_views = int(smart_input("Minimum Views: ", "5000"))
+        min_video_views = int(input("Minimum Views: "))
 
         video_name_filter = str(input("\nEnter filter word(s) (comma separated list): "))
         video_name_filter_list = string_to_list(video_name_filter)
