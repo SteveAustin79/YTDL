@@ -570,7 +570,7 @@ while True:
             ignore_max_duration_bool = False
             print(print_colored_text("Ignoring Video(s) > " + str(max_duration) + " Minutes!", BCOLORS.RED))
 
-        only_restricted_videos = smart_input("Only restricted video(s)?  Y/n", "n")
+        only_restricted_videos = smart_input("Only restricted video(s)?  Y/n", default_only_restricted)
         only_restricted_videos_bool = False
         if only_restricted_videos=="y":
             only_restricted_videos_bool = True
