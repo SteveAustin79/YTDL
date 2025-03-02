@@ -708,7 +708,7 @@ while True:
             print("\n\n" + print_colored_text("nothing to do...\n\n", bcolors.OKGREEN))
         else:
             print(print_colored_text(f"\n\nDONE! Total Video: {len(video_watch_urls)}, Selected Videos: {count_ok_videos}", bcolors.OKGREEN))
-            print(print_colored_text("Downloaded in this session: {count_this_run}, (restricted: {len(video_list_restricted)} / ignored: {len(video_watch_urls)-count_ok_videos})\n", bcolors.OKGREEN))
+            print(print_colored_text(f"Downloaded in this session: {count_this_run}, (restricted: {len(video_list_restricted)} / ignored: {len(video_watch_urls)-count_ok_videos})\n", bcolors.OKGREEN))
 
         continue_ytdl = smart_input("Continue?  Y/n ", "y")
         if continue_ytdl=="y":
