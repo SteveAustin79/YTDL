@@ -532,7 +532,7 @@ while True:
         default_ignore_min_duration = "y"
         default_ignore_max_duration = "y"
         default_skip_restricted = "n"
-        default_minimum_view = "0"
+        default_minimum_views = "0"
         default_exclude_videos = ""
         default_include_videos = ""
         default_filter_words = ""
@@ -545,7 +545,7 @@ while True:
             default_ignore_min_duration = channel_config["c_ignore_min_duration"]
             default_ignore_max_duration = channel_config["c_ignore_max_duration"]
             default_skip_restricted = channel_config["c_skip_restricted"]
-            default_minimum_view = channel_config["c_minimum_views"]
+            default_minimum_views = channel_config["c_minimum_views"]
             default_exclude_videos = channel_config["c_exclude_video_ids"]
             default_include_videos = channel_config["c_include_video_ids"]
             default_filter_words = channel_config["c_filter_words"]
@@ -573,8 +573,8 @@ while True:
             skip_restricted_bool = True
             print(print_colored_text("Skipping restricted Video(s)!", BCOLORS.RED))
 
-        min_video_views = int(smart_input("Minimum Views (0=disabled): ", default_minimum_view))
-        if min_video_views > 0:
+        min_video_views = smart_input("Minimum Views (0=disabled): ", default_minimum_views)
+        if int(min_video_views) > 0:
             min_video_views_bool = True
         else:
             min_video_views_bool = False
