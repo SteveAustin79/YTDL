@@ -24,7 +24,7 @@ Download all videos as mp4 from a specific YouTube channel.
 A command line YouTube video downloader, downloading a specific video resolution file and a 128kps audio stream, finally merged into a single file. Use of ffmpeg and pytubefix.
 
 Download unrestricted/playable videos:<br/>
-<code>venv/bin/python3 YTDL.py</code><br/>
+<code>venv/bin/python3 YTDL.py</code><br/><br/>
 Download restricted/playable videos:<br/>
 <code>venv/bin/python3 YTDLx.py</code>
 
