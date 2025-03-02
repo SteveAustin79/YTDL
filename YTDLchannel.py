@@ -150,7 +150,7 @@ def write_textfile_failed_downloads(file, text):
 
 
 def format_header(counter):
-    width = 84 #95
+    width = 95
     counter_splitted = counter.split(" - ")
     counter_str = ("** " + counter_splitted[0] + " *" + print_colored_text(f" {counter_splitted[1]} ", BCOLORS.CYAN)
                    + "| " + counter_splitted[2] + " (" + get_free_space(dlpath) + " free) ")
