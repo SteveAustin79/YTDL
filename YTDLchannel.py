@@ -21,8 +21,8 @@ version = 0.5
 
 class BCOLORS:
     CYAN       = "\033[96m"
-    #PURPLE     = "\033[95m"
-    PURPLE = "\033[94m"
+    PURPLE     = "\033[95m"
+    DARKBLUE   = "\033[94m"
     YELLOW     = "\033[93m"
     GREEN      = "\033[92m"
     RED        = "\033[91m"
@@ -101,10 +101,7 @@ def write_textfile_failed_downloads(file, text):
 
 def format_header(counter):
     width = 95
-    #counter_str = f" \033[96m{counter}\033[0m "  # Add spaces around the number
-
     counter_splitted = counter.split(" - ")
-
     counter_str = ("** " + counter_splitted[0] + " *" + print_colored_text(f" {counter_splitted[1]} ", BCOLORS.CYAN)
                    + "| " + counter_splitted[2] + " (" + get_free_space(dlpath) + " free) ")
     total_length = width - 2  # Exclude parentheses ()
@@ -212,10 +209,7 @@ def find_media_files():
     video_file = None
     audio_file = None
 
-    # if 2160 selected --> webm file, not mp4!!!
-
     for file in os.listdir("."):
-        #if file.endswith(".mp4") and video_file is None:
         if file.endswith((".mp4", ".webm")) and video_file is None:
             video_file = file
         elif file.endswith(".m4a") and audio_file is None:
@@ -239,7 +233,6 @@ def move_video_audio():
 
 
 def print_resolutions(yt):
-    #yt = YouTube(youtube_base_url + video.video_id, on_progress_callback=on_progress)
     streams = yt.streams.filter(file_extension='mp4')  # StreamQuery object
     # Convert StreamQuery to a formatted string
     stream_string = "\n".join([str(stream) for stream in streams])
@@ -248,8 +241,6 @@ def print_resolutions(yt):
     # Remove duplicates and sort in descending order
     unique_resolutions = sorted(set(resolutions), key=lambda x: int(x[:-1]), reverse=True)
 
-    # Print results
-    #print("Available Resolutions:", unique_resolutions, "\n")
     return unique_resolutions
 
 
@@ -288,37 +279,9 @@ def limit_resolution(resolution, limit):
 
 def download_video_restricted(videoid, counterid, video_total_count, channelName, video_views):
     yt = YouTube(youtube_base_url + videoid, use_oauth=True, allow_oauth_cache=True, on_progress_callback = on_progress)
-    #dlpath = output_dir + "/" + channelName
 
-    #print("\n\n" + print_colored_text("Downloading age_restricted video...\n", BCOLORS.RED))
     print("\n")
     print(format_header(print_colored_text(videoid, BCOLORS.RED) + " - " + channelName + " - " + str(counterid) + "/" + str(video_total_count)))
-
-    # #print("Channel:        ", print_colored_text(channelName, BCOLORS.CYAN))
-    # print("Title:          ", print_colored_text(yt.title, BCOLORS.CYAN))
-    # #print("ID:             ", videoid)
-    # #print("Views:          ", format_view_count(yt.views))
-    # print("Date:           ", yt.publish_date.strftime("%Y-%m-%d"))
-    # if ignore_max_duration_bool and ignore_min_duration_bool:
-    #     print("Length:         ", str(int(yt.length / 60)) + "m")
-    # elif ignore_max_duration_bool:
-    #     print("Length:         ", str(int(yt.length / 60)) + "m", " (" + min_duration + "m <")
-    # elif ignore_min_duration_bool:
-    #     print("Length:         ", str(int(yt.length / 60)) + "m", " (< " + max_duration + "m")
-    # else:
-    #     print("Length:         ", str(int(yt.length / 60)) + "m", " (" + min_duration + " < " + max_duration + "m)")
-    #
-    # publishingDate = yt.publish_date.strftime("%Y-%m-%d")
-    # if year_subfolders == True:
-    #     year = yt.publish_date.strftime("%Y")
-    # else:
-    #     year = ""
-    # # Print results
-    # #print("\nAvailable Resolutions:", print_resolutions(yt))
-    # res = max(print_resolutions(yt), key=lambda x: int(x.rstrip('p')))
-    # if limit_resolution_to != "max":
-    #     res = limit_resolution(res, limit_resolution_to)
-    # print("Resolution:     ", print_colored_text(res, bcolors.YELLOW), " (" + limit_resolution_to + ")")
 
     publishingDate = yt.publish_date.strftime("%Y-%m-%d")
     if year_subfolders == True:
@@ -332,9 +295,6 @@ def download_video_restricted(videoid, counterid, video_total_count, channelName
 
     print_video_infos(yt, res, video_views)
 
-    #res = smart_input("\n" + print_colored_text("Resolution: ", BCOLORS.YELLOW), max_res)
-    # dlpath = smart_input("Download Path:  ", output_dir)
-
     if os.path.exists(
             dlpath + str(year) + "/restricted/" + str(publishingDate) + " - " + res + " - " + clean_string_regex(
                 yt.title) + " - " + yt.video_id + ".mp4"):
@@ -345,7 +305,6 @@ def download_video_restricted(videoid, counterid, video_total_count, channelName
         # here check if /temp/file already exists
 
         if res == "2160p" or res == "1440p":
-            # print("\nATTENTION: >1080p is stored as webm and cannot be merged by ffmpeg! Moving source files to download path instead!\n")
             moreThan1080p = 1
 
         print("\nDownloading VIDEO...")
@@ -379,33 +338,7 @@ def download_video_restricted(videoid, counterid, video_total_count, channelName
 def download_video(videoid, counterid, video_total_count, video_views):
     yt = YouTube(youtube_base_url + videoid, on_progress_callback=on_progress)
 
-    #print("\n***" + str(counterid) + "********************************************************************************")
     print(format_header(videoid + " - " + yt.author + " - " + str(counterid) + "/" + str(video_total_count)))
-
-    # #print("Channel:        ", yt.author)
-    # print("Title:          ", print_colored_text(yt.title, bcolors.CYAN))
-    # #print("ID:             ", videoid)
-    # #print("Views:          ", format_view_count(yt.views))
-    # print("Date:           ", yt.publish_date.strftime("%Y-%m-%d"))
-    # if ignore_max_duration_bool:
-    #     print("Length:         ", str(int(yt.length / 60)) + "m")
-    # else:
-    #     print("Length:         ", str(int(yt.length / 60)) + "m", " (<" + max_duration + "m)")
-    #
-    # if year_subfolders == True:
-    #     year = "/" + str(yt.publish_date.strftime("%Y"))
-    # else:
-    #     year = ""
-    # # print_resolutions()
-    # # res = smart_input("\nResolution: ", resolution)
-    # #res = max(print_resolutions(), key=lambda x: int(x.rstrip('p')))
-    #
-    # publishingDate = yt.publish_date.strftime("%Y-%m-%d")
-    # res = max(print_resolutions(yt), key=lambda x: int(x.rstrip('p')))
-    # if limit_resolution_to != "max":
-    #     res = limit_resolution(res, limit_resolution_to)
-    #
-    # print("Resolution:     ", print_colored_text(res, bcolors.YELLOW), " (" + limit_resolution_to + ")")
 
     publishingDate = yt.publish_date.strftime("%Y-%m-%d")
     if year_subfolders == True:
@@ -419,18 +352,13 @@ def download_video(videoid, counterid, video_total_count, video_views):
 
     print_video_infos(yt, res, video_views)
 
-    #print("Resolution: ", res)
     # check if file was already downloaded
     if os.path.exists(dlpath + year + "/" + str(publishingDate) + " - " + res + " - " + clean_string_regex(yt.title) + " - "+ videoid + ".mp4"):
         print(print_colored_text("\nVideo already downloaded\n", BCOLORS.GREEN))
-        #count_already_downloaded += count_already_downloaded
     else:
-        #count_downloading += count_downloading
-
         moreThan1080p = 0
 
         if res == "2160p" or res == "1440p":
-            # print("\nATTENTION: >1080p is stored as webm and cannot be merged by ffmpeg! Moving source files to download path instead!\n")
             moreThan1080p = 1
 
         print("\nDownloading VIDEO...")
@@ -453,7 +381,6 @@ def download_video(videoid, counterid, video_total_count, video_views):
         if moreThan1080p == 0:
             merge_video_audio(videoid, str(publishingDate), res, year, False)
         else:
-            # move_video_audio()
             convert_m4a_to_opus_and_merge(videoid, str(publishingDate), res, year, False)
 
 
@@ -500,6 +427,7 @@ def merge_video_audio(videoid, publishdate, video_resolution, year, restricted):
         write_textfile_failed_downloads("errors.txt", output_file)
         sys.exit(1)
 
+
 def convert_m4a_to_opus_and_merge(videoid, publishdate, video_resolution, year, restricted):
     video_file, audio_file = find_media_files()
     """Convert M4A to Opus format (WebM-compatible)."""
@@ -524,12 +452,12 @@ def merge_webm_opus(videoid, publishdate, video_resolution, year, restricted):
     delete_temp_files()
     os.remove("audio.opus")
     print(f"Converting to MP4... (this may take a while)")
+    restricted_string = "/"
     if restricted:
-        path = (dlpath + str(year) + "/restricted/" + publishdate + " - " + video_resolution
-                + " - " + clean_string_regex(os.path.splitext(video_file)[0]) + " - "+ videoid + ".mp4")
-    else:
-        path = (dlpath + str(year) + "/" + publishdate + " - " + video_resolution + " - "
-                + clean_string_regex(os.path.splitext(video_file)[0]) + " - "+ videoid + ".mp4")
+        restricted_string = "/restricted/"
+
+    path = (dlpath + str(year) + restricted_string + publishdate + " - " + video_resolution + " - "
+            + clean_string_regex(os.path.splitext(video_file)[0]) + " - " + videoid + ".mp4")
     convert_webm_to_mp4(output_file, path, restricted)
 
 
@@ -552,8 +480,6 @@ def convert_webm_to_mp4(input_file, output_file, restricted):
 
 while True:
     try:
-        # CHECK VIDEOS
-        ##############
         # Load config
         config = load_config()
         # Access settings
@@ -581,6 +507,7 @@ while True:
             YTchannel = input("YouTube Channel URL:  ")
         if "Enter CUSTOM channel URL" in YTchannel:
             YTchannel = input("YouTube Channel URL:  ")
+
         #count_fetch_videos = str(smart_input("Fetch x latest Videos (to download all playable/unrestricted videos use 'all'): ", "all"))
         #skip_x_videos = int(smart_input("Skip x videos: ", "0"))
 
@@ -642,17 +569,11 @@ while True:
                 else:
                     video_watch_urls.append(url.watch_url)
 
-        # if ignore_max_duration_bool== False:
-        #     print(f'\n\n{len(video_watch_urls)} Videos (-ignored) by: \033[96m{c.channel_name}\033[0m\n')
-        # else:
         print(f'\n\nTotal {count_total_videos} Video(s) by: \033[96m{c.channel_name}\033[0m')
         print(f'{len(video_watch_urls)} Video(s) to download\n')
 
-        #for url in c.video_urls:
         for url in video_watch_urls:
             only_video_id = pytubefix.extract.video_id(url)
-            #video_ids.append(only_video_id)
-            #print(youtube_base_url + only_video_id)
 
             if not os.path.exists(dlpath):
                 os.makedirs(dlpath)
@@ -662,7 +583,6 @@ while True:
                 count_skipped += 1
                 print(print_colored_text(f"\rSkipping {count_skipped} Videos", BCOLORS.PURPLE), end="", flush=True)
             else:
-                #print(only_video_id)
                 do_not_download = 0
                 video = YouTube(youtube_base_url + only_video_id, on_progress_callback=on_progress)
 
@@ -689,8 +609,6 @@ while True:
                         count_this_run += 1
                         count_skipped = 0
                         video_list.append(video.video_id)
-                        #print(str(count_total_videos) + " - " + video.video_id + " - " + video.title)
-                        #print_resolutions()
                         download_video(video.video_id, count_ok_videos, len(video_watch_urls), video.views)
                     else:
                         if not skip_restricted_bool:
@@ -702,8 +620,6 @@ while True:
                                 video_list_restricted.append(video.video_id)
                                 download_video_restricted(video.video_id, count_ok_videos, len(video_watch_urls),
                                                         clean_string_regex(c.channel_name).rstrip(), video.views)
-                        #print("\033[31m" + str(count_total_videos) + " - " + video.video_id + " - " + video.title + "\n\033[0m")
-                        #print_resolutions()
 
         if count_this_run == 0:
             print("\n\n" + print_colored_text("nothing to do...\n\n", BCOLORS.GREEN))
@@ -720,10 +636,6 @@ while True:
             continue
         else:
             break
-        #for restricted_video in video_list_restricted:
-        #    print(youtube_base_url + restricted_video)
-        #print("Already downloaded: " + str(count_already_downloaded))
-        #print("Downloaded:         " + str(count_downloading))
 
     except Exception as e:
         delete_temp_files()
