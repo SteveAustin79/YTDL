@@ -3,6 +3,7 @@ Download all videos as mp4 from a specific YouTube channel.
 
 ### Features
 - filters: video title name, minimum video views
+- channels.txt: YouTube Channels list
 - video resolutions > 1080p only provided as webm by YouTube -> converted to mp4 after downloading
 - highest available resolution (limitable) downloaded automatically
 - sub directory structure switch in config.json
@@ -11,8 +12,8 @@ Download all videos as mp4 from a specific YouTube channel.
 ### History
 - 20250301 - v0.5 - added support to exclude videos by video_id, filters
 - 20250228 - v0.4 - added support for age_restricted videos
-- 20250228 - v0.3 - added optional limit for max resolution, channels.txt as suggestions
-- 20250227 - v0.2 - enhanced file support (checks if already downloaded etc)
+- 20250228 - v0.3 - added optional limit for max resolution, channels.txt list
+- 20250227 - v0.2 - file support (checks if already downloaded)
 - 20250226 - v0.1 - initial version, based on YTDL v0.3
 
 ### 2do
@@ -25,6 +26,7 @@ A command line YouTube video downloader, downloading a specific video resolution
 
 Download unrestricted/playable videos:<br/>
 <code>venv/bin/python3 YTDL.py</code><br/><br/>
+
 Download restricted/playable videos:<br/>
 <code>venv/bin/python3 YTDLx.py</code>
 
@@ -48,6 +50,7 @@ Download restricted/playable videos:<br/>
 - <code>sudo venv/bin/python3 -m pip install pytubefix ffmpeg-python</code>
 - <code>cp config.example.json config.json</code>
 - modify config.json
+- add channel URLs to channels.txt (not required)
 - <code>venv/bin/python3 YTDL.py</code>
 - or
 - <code>venv/bin/python3 YTDLchannel.py</code>
