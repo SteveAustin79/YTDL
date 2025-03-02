@@ -587,7 +587,7 @@ while True:
             if incomplete_config:
                 print(print_colored_text("\nFound ", BCOLORS.DARKBLUE)
                       + print_colored_text("incomplete ", BCOLORS.RED)
-                      + print_colored_text("channel config file!\n", BCOLORS.DARKBLUE))
+                      + print_colored_text("channel config file!", BCOLORS.DARKBLUE))
                 print(print_colored_text(incomplete_string, BCOLORS.RED))
                 print("\n")
             else:
