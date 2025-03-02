@@ -545,7 +545,8 @@ while True:
             default_ignore_min_duration = channel_config["c_ignore_min_duration"]
             default_ignore_max_duration = channel_config["c_ignore_max_duration"]
             default_skip_restricted = channel_config["c_skip_restricted"]
-            default_minimum_views = channel_config["c_minimum_views"]
+            if channel_config["c_minimum_views"]!="":
+                default_minimum_views = channel_config["c_minimum_views"]
             default_exclude_videos = channel_config["c_exclude_video_ids"]
             default_include_videos = channel_config["c_include_video_ids"]
             default_filter_words = channel_config["c_filter_words"]
