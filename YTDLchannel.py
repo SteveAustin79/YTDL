@@ -564,14 +564,18 @@ while True:
             ignore_max_duration_bool = False
             print(print_colored_text("Ignoring Video(s) > " + str(max_duration) + " Minutes!", BCOLORS.RED))
 
-        # only restricted filter
+        only_restricted_videos = smart_input("Only restricted video(s)?  Y/n", "n")
+        only_restricted_videos_bool = False
+        if only_restricted_videos=="y":
+            only_restricted_videos_bool = True
+            print(print_colored_text("Only restricted Video(s)!", BCOLORS.RED))
 
-
-        skip_restricted = smart_input("Skip restricted Video(s)?  Y/n ", default_skip_restricted)
         skip_restricted_bool = False
-        if skip_restricted== "y":
-            skip_restricted_bool = True
-            print(print_colored_text("Skipping restricted Video(s)!", BCOLORS.RED))
+        if not only_restricted_videos_bool:
+            skip_restricted = smart_input("Skip restricted Video(s)?  Y/n ", default_skip_restricted)
+            if skip_restricted == "y":
+                skip_restricted_bool = True
+                print(print_colored_text("Skipping restricted Video(s)!", BCOLORS.RED))
 
         min_video_views = int(smart_input("Minimum Views (0=disabled): ", default_minimum_views))
         if min_video_views > 0:
@@ -641,7 +645,7 @@ while True:
 
                     if (video.age_restricted == False and
                             video.vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
-                            do_not_download == 0):
+                            do_not_download == 0 and not only_restricted_videos_bool):
                         print("\n")
                         count_ok_videos += 1
                         count_this_run += 1
