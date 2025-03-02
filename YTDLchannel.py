@@ -496,7 +496,7 @@ while True:
         print("\nYTDLchannel " + str(version))
         print("***************")
         print("YouTube Channel Downloader\nExit App with Ctrl + C")
-        print("https://github.com/SteveAustin79/YTDL\n\n")
+        print("https://github.com/SteveAustin79/YTDL\n")
         delete_temp_files()
         print_configuration()
 
