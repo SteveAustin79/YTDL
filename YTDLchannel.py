@@ -606,6 +606,12 @@ while True:
             skip_restricted_bool = True
             print(print_colored_text("Skipping restricted Videos!", BCOLORS.FAIL))
 
+        min_video_views = int(smart_input("Minimum Views (0=disabled): ", "0"))
+        if min_video_views > 0:
+            min_video_views_bool = True
+        else:
+            min_video_views_bool = False
+
         exclude_video_ids = input("Exclude Video ID's (comma separated list): ")
         exclude_list = []
         if exclude_video_ids!="":
@@ -615,12 +621,6 @@ while True:
         include_list = []
         if include_video_ids!="":
             include_list = string_to_list(include_video_ids)
-
-        min_video_views = int(smart_input("Minimum Views (0=disabled): ", "0"))
-        if min_video_views > 0:
-            min_video_views_bool = True
-        else:
-            min_video_views_bool = False
 
         video_name_filter = str(input("\nEnter filter word(s) (comma separated list): "))
         video_name_filter_list = string_to_list(video_name_filter)
