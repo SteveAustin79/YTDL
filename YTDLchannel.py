@@ -675,9 +675,6 @@ while True:
 
     except Exception as e:
         delete_temp_files()
-        #if e == "expected string or bytes-like object, got 'YouTube'":
-        #downloadVideoRestricted()
-        #else:
         print("An error occurred:", str(e))
 
     except KeyboardInterrupt:
