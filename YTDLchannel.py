@@ -74,6 +74,11 @@ def cc_check_and_update_channel_config(cc_file_path, cc_required_config):
     #     print("✅ All required config keys exist. No updates needed.")
 
 
+def clear_screen():
+    """Clears the console screen on Windows and Linux/macOS."""
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+
 def load_config(c_file):
     """Load settings from config.json."""
     with open(c_file, "r") as file:
@@ -532,6 +537,7 @@ def convert_webm_to_mp4(input_file, output_file, restricted):
 
 while True:
     try:
+        clear_screen()
         # Load config
         config = load_config("config.json")
         # Access settings
