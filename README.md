@@ -21,7 +21,10 @@ Download one, multiple ar all videos from a specific YouTube channel in any avai
 
 <br/>
 
-# YTDL - YouTubeDownLoader 0.4 - Deprecated! --> YTDLchannel supports now also video URL's!
+# YTDL - YouTubeDownLoader 0.4
+
+### Deprecated! --> YTDLchannel supports now also video URL's!
+
 A command line YouTube video downloader, downloading a specific video resolution file and a 128kps audio stream, finally merged into a single file. Use of ffmpeg and pytubefix.
 
 Download unrestricted/playable videos:<br/>
