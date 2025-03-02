@@ -8,7 +8,6 @@ import sys
 import pytubefix.extract
 from pytubefix import YouTube, Channel
 from pytubefix.cli import on_progress
-from collections import OrderedDict
 
 
 version = 0.6
@@ -27,17 +26,18 @@ class BCOLORS:
     ENDC       = "\033[0m"
 
 
-REQUIRED_CONFIG = OrderedDict([
-    ("c_max_resolution", ""),
-    ("c_ignore_min_duration", ""),
-    ("c_ignore_max_duration", ""),
-    ("c_only_restricted", ""),
-    ("c_skip_restricted", ""),
-    ("c_minimum_views", ""),
-    ("c_exclude_video_ids", ""),
-    ("c_include_video_ids", ""),
-    ("c_filter_words", "")
-])
+REQUIRED_CONFIG = {
+    "c_max_resolution": "",
+    "c_ignore_min_duration": "",
+    "c_ignore_max_duration": "",
+    "c_only_restricted": "",
+    "c_skip_restricted": "",
+    "c_minimum_views": "",
+    "c_exclude_video_ids": "",
+    "c_include_video_ids": "",
+    "c_filter_words": ""
+}
+
 
 def cc_load_config(file_path):
     """Loads the JSON config file or creates an empty dictionary if the file doesn't exist."""
@@ -47,8 +47,8 @@ def cc_load_config(file_path):
                 return json.load(file)  # Load existing config
             except json.JSONDecodeError:
                 print("❌ Error: Invalid JSON format. Resetting to default config.")
-                return OrderedDict()  # Return an empty ordered dict if JSON is corrupted
-    return OrderedDict()  # Return empty ordered dict if file doesn't exist
+                return {}  # Return an empty config if JSON is corrupted
+    return {}  # Return an empty config if file doesn't exist
 
 def cc_save_config(cc_file_path, cc_config):
     """Saves the updated config dictionary back to the JSON file."""
@@ -60,20 +60,16 @@ def cc_check_and_update_channel_config(cc_file_path, cc_required_config):
     """Ensures all required keys exist in the config file, adding missing ones."""
     cc_config = cc_load_config(cc_file_path)  # Load existing or empty config
 
-    # Create a new ordered dictionary with required keys in the correct order
-    updated_config = OrderedDict()
+    # Check for missing keys and add them
     missing_keys = []
-
     for key, default_value in cc_required_config.items():
-        if key in cc_config:
-            updated_config[key] = config[key]  # Keep existing values
-        else:
-            updated_config[key] = default_value  # Add missing key with default value
+        if key not in cc_config:
+            cc_config[key] = default_value
             missing_keys.append(key)
 
     if missing_keys:
         #print(f"⚠️ Missing keys added: {', '.join(missing_keys)}")
-        cc_save_config(cc_file_path, updated_config)  # Save only if changes were made
+        cc_save_config(cc_file_path, cc_config)  # Save only if changes were made
     # else:
     #     print("✅ All required config keys exist. No updates needed.")
 
