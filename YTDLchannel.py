@@ -344,15 +344,21 @@ def download_video(videoid, counterid, video_total_count, video_views):
 
     print(format_header(videoid + " - " + yt.author + " - " + str(counterid) + "/" + str(video_total_count)))
 
+    print("TEST1")
+
     publishingDate = yt.publish_date.strftime("%Y-%m-%d")
     if year_subfolders == True:
         year = "/" + str(yt.publish_date.strftime("%Y"))
     else:
         year = ""
 
+    print("TEST2")
+
     res = max(print_resolutions(yt), key=lambda x: int(x.rstrip('p')))
     if limit_resolution_to != "max":
         res = limit_resolution(res, limit_resolution_to)
+
+    print("TEST3")
 
     print_video_infos(yt, res, video_views)
 
