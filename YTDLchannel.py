@@ -592,19 +592,19 @@ while True:
         ignore_min_duration_bool = True
         if ignore_min_duration == "n":
             ignore_min_duration_bool = False
-            print(print_colored_text("Ignoring Videos < " + str(min_duration) + " Minutes!", BCOLORS.FAIL))
+            print(print_colored_text("Ignoring Video(s) < " + str(min_duration) + " Minutes!", BCOLORS.FAIL))
 
         ignore_max_duration = smart_input("Ignore max_duration?  Y/n", "y")
         ignore_max_duration_bool = True
         if ignore_max_duration=="n":
             ignore_max_duration_bool = False
-            print(print_colored_text("Ignoring Videos > " + str(max_duration) + " Minutes!", BCOLORS.FAIL))
+            print(print_colored_text("Ignoring Video(s) > " + str(max_duration) + " Minutes!", BCOLORS.FAIL))
 
-        skip_restricted = smart_input("Skip restricted Videos?  Y/n ", "n")
+        skip_restricted = smart_input("Skip restricted Video(s)?  Y/n ", "n")
         skip_restricted_bool = False
         if skip_restricted== "y":
             skip_restricted_bool = True
-            print(print_colored_text("Skipping restricted Videos!", BCOLORS.FAIL))
+            print(print_colored_text("Skipping restricted Video(s)!", BCOLORS.FAIL))
 
         min_video_views = int(smart_input("Minimum Views (0=disabled): ", "0"))
         if min_video_views > 0:
@@ -644,8 +644,8 @@ while True:
         # if ignore_max_duration_bool== False:
         #     print(f'\n\n{len(video_watch_urls)} Videos (-ignored) by: \033[96m{c.channel_name}\033[0m\n')
         # else:
-        print(f'\n\nTotal {count_total_videos} Videos by: \033[96m{c.channel_name}\033[0m')
-        print(f'{len(video_watch_urls)} Videos to download\n')
+        print(f'\n\nTotal {count_total_videos} Video(s) by: \033[96m{c.channel_name}\033[0m')
+        print(f'{len(video_watch_urls)} Video(s) to download\n')
 
         #for url in c.video_urls:
         for url in video_watch_urls:
