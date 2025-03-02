@@ -56,7 +56,10 @@ def print_configuration():
 
 def print_video_infos(yt, res, video_views):
     print("Title:          ", print_colored_text(yt.title, bcolors.OKBLUE))
-    print("Views:          ", format_view_count(video_views))
+    if min_video_views_bool:
+        print("Views:          ", format_view_count(video_views), " (>" + format_view_count(min_video_views) + ")")
+    else:
+        print("Views:          ", format_view_count(video_views))
     print("Date:           ", yt.publish_date.strftime("%Y-%m-%d"))
     if ignore_max_duration_bool and ignore_min_duration_bool:
         print("Length:         ", str(int(yt.length / 60)) + "m")
@@ -614,6 +617,10 @@ while True:
             exclude_list = string_to_list(exclude_video_ids)
 
         min_video_views = int(smart_input("Minimum Views (0=disabled): ", "0"))
+        if min_video_views > 0:
+            min_video_views_bool = True
+        else:
+            min_video_views_bool = False
 
         video_name_filter = str(input("\nEnter filter word(s) (comma separated list): "))
         video_name_filter_list = string_to_list(video_name_filter)
