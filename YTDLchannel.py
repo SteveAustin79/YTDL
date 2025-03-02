@@ -82,7 +82,8 @@ def load_config(c_file):
 
 
 def print_asteriks_line():
-    print("************************************************************************************")
+    length = 95
+    print("*" * length)
 
 
 def print_configuration():
@@ -107,6 +108,7 @@ def print_video_infos(yt, res, video_views):
     else:
         print("Views:          ", format_view_count(video_views))
     print("Date:           ", yt.publish_date.strftime("%Y-%m-%d"))
+
     if ignore_max_duration_bool and ignore_min_duration_bool:
         print("Length:         ", str(int(yt.length / 60)) + "m")
     elif ignore_max_duration_bool:
@@ -116,7 +118,8 @@ def print_video_infos(yt, res, video_views):
     else:
         print("Length:         ", str(int(yt.length / 60)) + "m", " (" + min_duration + "m < " + max_duration + "m)")
 
-    print("Resolution:     ", print_colored_text(res, BCOLORS.YELLOW), " (" + limit_resolution_to + ") " + str(print_resolutions(yt)))
+    print("Resolution:     ", print_colored_text(res, BCOLORS.YELLOW), " (" + limit_resolution_to + ")")
+    print(print_resolutions(yt))
 
 
 def print_colored_text(message_text, color):
