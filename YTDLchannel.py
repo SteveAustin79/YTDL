@@ -565,7 +565,7 @@ while True:
         video_list = []
         video_list_restricted = []
 
-        clear_screen()
+        #clear_screen()
         print(print_colored_text("\nYTDL " + str(version), BCOLORS.YELLOW))
         print("********")
         print("YouTube Channel Downloader")
