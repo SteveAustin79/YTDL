@@ -261,7 +261,7 @@ def user_selection(u_lines):
 
 def delete_temp_files():
     # remove video and audio streams
-    video_file, audio_file = find_media_files()
+    video_file, audio_file = find_media_files(".")
     # Check if files exist before deleting
     if video_file and os.path.exists(video_file):
         os.remove(video_file)
@@ -275,12 +275,12 @@ def smart_input(prompt, default_value):
     return user_input if user_input else default_value
 
 
-def find_media_files():
+def find_media_files(fmf_path):
     """Search for the first MP4 and M4A files in the current directory."""
     video_file = None
     audio_file = None
 
-    for file in os.listdir("."):
+    for file in os.listdir(fmf_path):
         if file.endswith((".mp4", ".webm")) and video_file is None:
             video_file = file
         elif file.endswith(".m4a") and audio_file is None:
@@ -292,15 +292,15 @@ def find_media_files():
     return video_file, audio_file
 
 
-def move_video_audio():
-    video_file, audio_file = find_media_files()
-    destination_video = dlpath + "/" + video_file  # Destination path
-    destination_audio = dlpath + "/" + audio_file  # Destination path
-
-    shutil.move(video_file, destination_video)
-    shutil.move(audio_file, destination_audio)
-
-    print(f"✅ Moved files to download path!")
+# def move_video_audio():
+#     video_file, audio_file = find_media_files()
+#     destination_video = dlpath + "/" + video_file  # Destination path
+#     destination_audio = dlpath + "/" + audio_file  # Destination path
+#
+#     shutil.move(video_file, destination_video)
+#     shutil.move(audio_file, destination_audio)
+#
+#     print(f"✅ Moved files to download path!")
 
 
 def print_resolutions(yt):
@@ -458,7 +458,7 @@ def download_video(videoid, counterid, video_total_count, video_views):
 
 
 def merge_video_audio(videoid, publishdate, video_resolution, year, restricted):
-    video_file, audio_file = find_media_files()
+    video_file, audio_file = find_media_files(".")
 
     if not video_file or not audio_file:
         print("❌ No MP4 or M4A files found in the current directory.")
@@ -501,18 +501,29 @@ def merge_video_audio(videoid, publishdate, video_resolution, year, restricted):
 
 
 def convert_m4a_to_opus_and_merge(videoid, publishdate, video_resolution, year, restricted):
-    video_file, audio_file = find_media_files()
-    """Convert M4A to Opus format (WebM-compatible)."""
-    command = [
-        "ffmpeg", "-loglevel", "quiet", "-i", audio_file, "-c:a", "libopus", "audio.opus"
-    ]
-    subprocess.run(command, check=True)
-    #print(f"✅ Converted {audio_file} to audio.opus")
-    merge_webm_opus(videoid, publishdate, video_resolution, year, restricted)
+    # check if merged file already exists in /tmp folder
+    video_file_tmp, audio_file_tmp = find_media_files("/tmp")
+    if video_file_tmp:
+        restricted_string = "/"
+        if restricted:
+            restricted_string = "/restricted/"
+
+        path = (dlpath + str(year) + restricted_string + publishdate + " - " + video_resolution + " - "
+                + clean_string_regex(os.path.splitext(video_file_tmp)[0]) + " - " + videoid + ".mp4")
+        convert_webm_to_mp4(video_file_tmp, path, restricted)
+    else:
+        video_file, audio_file = find_media_files(".")
+        """Convert M4A to Opus format (WebM-compatible)."""
+        command = [
+            "ffmpeg", "-loglevel", "quiet", "-i", audio_file, "-c:a", "libopus", "audio.opus"
+        ]
+        subprocess.run(command, check=True)
+        # print(f"✅ Converted {audio_file} to audio.opus")
+        merge_webm_opus(videoid, publishdate, video_resolution, year, restricted)
 
 
 def merge_webm_opus(videoid, publishdate, video_resolution, year, restricted):
-    video_file, audio_file = find_media_files()
+    video_file, audio_file = find_media_files(".")
     output_file = "tmp/" + video_file
     """Merge WebM video with Opus audio."""
     command = [
