@@ -434,9 +434,9 @@ def download_video(videoid, counterid, video_total_count, video_views):
                         + clean_string_regex(os.path.splitext(video_file_tmp)[0]) + " - " + videoid + ".mp4")
                 print(print_colored_text("Merged file already present.", BCOLORS.GREEN))
                 print(f"Converting to MP4... (this may take a while)")
-                convert_webm_to_mp4("tmp/" + video_file_tmp, path, True)
+                convert_webm_to_mp4("tmp/" + video_file_tmp, path, False)
             else:
-                download_video_process(yt, res, more_than1080p, publishing_date, year, True)
+                download_video_process(yt, res, more_than1080p, publishing_date, year, False)
         else:
             download_video_process(yt, res, more_than1080p, publishing_date, year, False)
 
