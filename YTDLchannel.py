@@ -97,13 +97,16 @@ def print_configuration():
     print_asteriks_line()
     print(print_colored_text("Output directory:                   ", BCOLORS.BLACK),
           print_colored_text(output_dir, BCOLORS.CYAN))
-    print("Minimum Video Duration in Minutes:  ", print_colored_text(min_duration, BCOLORS.CYAN))
-    print("Maximum Video Duration in Minutes:  ", print_colored_text(max_duration, BCOLORS.CYAN))
+    print(print_colored_text("Minimum Video Duration in Minutes:  ", BCOLORS.BLACK),
+          print_colored_text(min_duration, BCOLORS.CYAN))
+    print(print_colored_text("Maximum Video Duration in Minutes:  ", BCOLORS.BLACK),
+          print_colored_text(max_duration, BCOLORS.CYAN))
     if year_subfolders:
         year_subfolders_colored = print_colored_text(year_subfolders, BCOLORS.GREEN)
     else:
         year_subfolders_colored = print_colored_text(year_subfolders, BCOLORS.RED)
-    print("Year Subfolder-Structure:           ", year_subfolders_colored)
+    print(print_colored_text("Year Subfolder-Structure:           ", BCOLORS.BLACK),
+          year_subfolders_colored)
     print_asteriks_line()
     print("")
 
