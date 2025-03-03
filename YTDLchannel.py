@@ -349,24 +349,18 @@ def limit_resolution(resolution, limit):
 def download_video_universal(channel_name, video_id, counter_id, video_total_count, video_views, restricted):
     restricted_path_snippet = "/"
     colored_video_id = video_id
+    header_width = 95
     if restricted:
         yt = YouTube(youtube_base_url + video_id, use_oauth=True, allow_oauth_cache=True,
                      on_progress_callback=on_progress)
         restricted_path_snippet = "/restricted/"
         colored_video_id = print_colored_text(video_id, BCOLORS.RED)
+        header_width = 104
     else:
         yt = YouTube(youtube_base_url + video_id, on_progress_callback=on_progress)
 
     print(format_header(colored_video_id + " - " + channel_name
-                         + " - " + str(counter_id) + "/" + str(video_total_count), 95))
-    # HEADER
-    # print(format_header(video_id + " - " + yt.author + " - " + str(counter_id) + "/" + str(video_total_count), 95))
-    # HEADER
-    # print("\n")
-    # colored_video_id = print_colored_text(video_id, BCOLORS.RED)
-    # print(format_header(colored_video_id + " - " + yt.author
-    #                     + " - " + str(counter_id) + "/" + str(video_total_count), 104))
-
+                         + " - " + str(counter_id) + "/" + str(video_total_count), header_width))
 
     publishing_date = yt.publish_date.strftime("%Y-%m-%d")
     if year_subfolders:
