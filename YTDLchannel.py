@@ -535,8 +535,16 @@ def merge_webm_opus(videoid, publishdate, video_resolution, year, restricted):
 
 def convert_webm_to_mp4(input_file, output_file, restricted):
     """Convert a WebM file to MP4 (H.264/AAC)."""
+    # command = [
+    #     "ffmpeg", "-loglevel", "quiet", "-i", input_file,
+    #     "-c:v", "libx264", "-preset", "fast", "-crf", "23",  # H.264 video encoding
+    #     "-c:a", "aac", "-b:a", "128k",  # AAC audio encoding
+    #     "-movflags", "+faststart",  # Optimize MP4 for streaming
+    #     output_file
+    # ]
+    # ffmpeg -i input.avi {arguments} --> pv input.avi | ffmpeg -i pipe:0 -v warning {arguments}
     command = [
-        "ffmpeg", "-loglevel", "quiet", "-i", input_file,
+        "pv", input_file, "|", "ffmpeg", "-loglevel", "quiet", "-i", "pipe:0 -v warning",
         "-c:v", "libx264", "-preset", "fast", "-crf", "23",  # H.264 video encoding
         "-c:a", "aac", "-b:a", "128k",  # AAC audio encoding
         "-movflags", "+faststart",  # Optimize MP4 for streaming
@@ -805,7 +813,7 @@ while True:
         delete_temp_files()
         print("An error occurred:", str(e))
 
-        continue_ytdl = smart_input("Continue (there was an exception)?  Y/n ", "y")
+        continue_ytdl = smart_input("There was an exception. Continue?  Y/n ", "y")
         print("\n")
         if continue_ytdl == "y":
             continue
@@ -816,7 +824,7 @@ while True:
         delete_temp_files()
         print("\n\nGood Bye...\n")
 
-        continue_ytdl = smart_input("Continue (there was an interrupt)?  Y/n ", "y")
+        continue_ytdl = smart_input("There was an interrupt. Continue?  Y/n ", "y")
         print("\n")
         if continue_ytdl == "y":
             continue
