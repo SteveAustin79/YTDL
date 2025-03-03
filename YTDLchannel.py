@@ -127,25 +127,25 @@ def format_header(counter, width):
 def print_video_infos(yt, res, video_views):
     print(print_colored_text("Title:         ", BCOLORS.BLACK),
           print_colored_text(print_colored_text(yt.title, BCOLORS.CYAN), BCOLORS.BOLD))
+
+    views_title = print_colored_text("Views:         ", BCOLORS.BLACK)
     if min_video_views_bool:
-        print(print_colored_text("Views:         ", BCOLORS.BLACK),
-              format_view_count(video_views), " (> " + format_view_count(min_video_views) + ")")
+        print(views_title, format_view_count(video_views), " (> " + format_view_count(min_video_views) + ")")
     else:
-        print(print_colored_text("Views:         ", BCOLORS.BLACK),
-              format_view_count(video_views))
+        print(views_title, format_view_count(video_views))
+
     print(print_colored_text("Date:          ", BCOLORS.BLACK), yt.publish_date.strftime("%Y-%m-%d"))
 
+    length_title = print_colored_text("Length:        ", BCOLORS.BLACK)
+    length_title_value = length_title, str(int(yt.length / 60)) + "m (" + yt.vid_info + " Frames)"
     if ignore_max_duration_bool and ignore_min_duration_bool:
-        print(print_colored_text("Length:        ", BCOLORS.BLACK), str(int(yt.length / 60)) + "m")
+        print(length_title_value)
     elif ignore_max_duration_bool:
-        print(print_colored_text("Length:        ", BCOLORS.BLACK),
-              str(int(yt.length / 60)) + "m", " (" + min_duration + "m <")
+        print(length_title_value, " (" + min_duration + "m <")
     elif ignore_min_duration_bool:
-        print(print_colored_text("Length:        ", BCOLORS.BLACK),
-              str(int(yt.length / 60)) + "m", " (< " + max_duration + "m")
+        print(length_title_value, " (< " + max_duration + "m")
     else:
-        print(print_colored_text("Length:        ", BCOLORS.BLACK),
-              str(int(yt.length / 60)) + "m", " (" + min_duration + "m < " + max_duration + "m)")
+        print(length_title_value, " (" + min_duration + "m < " + max_duration + "m)")
 
     print(print_colored_text("Resolution:    ", BCOLORS.BLACK),
           print_colored_text(res, BCOLORS.YELLOW), " (" + limit_resolution_to + ")")
@@ -499,7 +499,7 @@ def merge_video_audio(videoid, publishdate, video_resolution, year, restricted):
         output = output.global_args("-stats")
 
         # Run FFmpeg command
-        ffmpeg.run(output, overwrite_output=True, quiet=True)
+        ffmpeg.run(output, overwrite_output=True, quiet=False)
         #print(f"\n✅ \033[92mMerged file saved as: {output_file}.\033[0m")
         if restricted:
             print(print_colored_text("\nRestricted Video downloaded", BCOLORS.GREEN))
