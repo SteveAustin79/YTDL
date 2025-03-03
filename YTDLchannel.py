@@ -16,7 +16,7 @@ version = 0.6
 class BCOLORS:
     CYAN       = "\033[96m"
     MAGENTA    = "\033[95m"
-    DARKBLUE   = "\033[94m"
+    BLUE       = "\033[94m"
     YELLOW     = "\033[93m"
     GREEN      = "\033[92m"
     RED        = "\033[91m"
@@ -660,13 +660,13 @@ while True:
             default_filter_words = channel_config["c_filter_words"]
 
             if incomplete_config:
-                print(print_colored_text("\nFound ", BCOLORS.DARKBLUE)
+                print(print_colored_text("\nFound ", BCOLORS.BLUE)
                       + print_colored_text("incomplete ", BCOLORS.ORANGE)
-                      + print_colored_text("channel config file! --> Adding missing key(s) to file ", BCOLORS.DARKBLUE)
+                      + print_colored_text("channel config file! --> Adding missing key(s) to file ", BCOLORS.BLUE)
                       + print_colored_text(str(incomplete_string) + "\n", BCOLORS.ORANGE))
                 cc_check_and_update_channel_config(dlpath + channel_config_path, REQUIRED_CONFIG)
             else:
-                print(print_colored_text("\nFound channel config file!\n", BCOLORS.DARKBLUE))
+                print(print_colored_text("\nFound channel config file!\n", BCOLORS.BLUE))
 
         if video_id_from_single_video!="":
             default_include_videos = video_id_from_single_video
