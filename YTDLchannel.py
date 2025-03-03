@@ -149,7 +149,7 @@ def print_video_infos(yt, res, video_views):
 
     print(print_colored_text("Resolution:    ", BCOLORS.BLACK),
           print_colored_text(res, BCOLORS.YELLOW), " (" + limit_resolution_to + ")")
-    print(print_colored_text("               ", BCOLORS.BLACK), print_resolutions(yt))
+    print("               ", print_colored_text(print_resolutions(yt), BCOLORS.BLACK))
 
 
 def print_colored_text(message_text, color):
