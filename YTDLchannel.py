@@ -358,7 +358,7 @@ def download_video_universal(channel_name, video_id, counter_id, video_total_cou
         yt = YouTube(youtube_base_url + video_id, on_progress_callback=on_progress)
 
     print(format_header(colored_video_id + " - " + channel_name
-                         + " - " + str(counter_id) + "/" + str(video_total_count), 104))
+                         + " - " + str(counter_id) + "/" + str(video_total_count), 95))
     # HEADER
     # print(format_header(video_id + " - " + yt.author + " - " + str(counter_id) + "/" + str(video_total_count), 95))
     # HEADER
