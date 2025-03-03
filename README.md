@@ -3,6 +3,8 @@ Download one, multiple or all videos from a specific YouTube channel in any avai
 
 Restricted video download possible, but requires authentication via accounts.google.com/device.
 
+<img src="https://github.com/SteveAustin79/SteveAustin79/blob/main/screenshots/YTDL.png?raw=true" alt="YTDL screenshot"/>
+
 ### Features
 - channel config file with default filters (file must be located in target directory)
 - filters: video title name, minimum video views, video duration, exclude/include video ID's 
@@ -60,8 +62,6 @@ venv/bin/python3 YTDLchannel.py
 ```diff
 git pull https://github.com/SteveAustin79/YTDL.git
 ```
-
-<img src="https://github.com/SteveAustin79/SteveAustin79/blob/main/screenshots/YTDL.png?raw=true" alt="YTDL screenshot"/>
 
 <br/><br/>
 
