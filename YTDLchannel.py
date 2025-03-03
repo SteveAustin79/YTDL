@@ -9,9 +9,7 @@ import pytubefix.extract
 from pytubefix import YouTube, Channel
 from pytubefix.cli import on_progress
 
-
 version = 0.6
-
 
 class BCOLORS:
     CYAN       = "\033[96m"
@@ -25,7 +23,6 @@ class BCOLORS:
     UNDERLINE  = "\033[4m"
     BOLD       = "\033[1m"
     ENDC       = "\033[0m"
-
 
 REQUIRED_CONFIG = {
     "c_max_resolution": "",
@@ -75,6 +72,11 @@ def cc_check_and_update_channel_config(cc_file_path, cc_required_config):
     #     print("✅ All required config keys exist. No updates needed.")
 
 
+def smart_input(prompt, default_value):
+    user_input = input(f"{prompt} [{default_value}]: ").strip()
+    return user_input if user_input else default_value
+
+
 def clear_screen():
     """Clears the console screen on Windows and Linux/macOS."""
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -90,6 +92,30 @@ def load_config(c_file):
 def print_asteriks_line():
     length = 84
     print("*" * length)
+
+
+def print_colored_text(message_text, color):
+    return f"{color}{message_text}{BCOLORS.ENDC}"
+
+
+def extract_number(res):
+    return int(''.join(filter(str.isdigit, res)))  # Extracts only numbers and converts to int
+
+
+def clean_youtube_urls(toclean_video_list):
+    prefix = youtube_base_url
+    return [toclean_video.replace(prefix, "") for toclean_video in toclean_video_list]
+
+
+def string_to_list(input_string):
+    """Transforms a comma-separated string into a list of strings, removing extra spaces."""
+    return [item.strip() for item in input_string.split(",")]
+
+
+def clean_string_regex(text):
+    new_text = text.replace(":", "")
+    pattern = r"[^a-zA-Z0-9 ]"
+    return re.sub(pattern, "", new_text)
 
 
 def print_configuration():
@@ -158,14 +184,6 @@ def print_video_infos(yt, res, video_views):
     print("               ", print_colored_text(print_resolutions(yt), BCOLORS.BLACK))
 
 
-def print_colored_text(message_text, color):
-    return f"{color}{message_text}{BCOLORS.ENDC}"
-
-
-def extract_number(res):
-    return int(''.join(filter(str.isdigit, res)))  # Extracts only numbers and converts to int
-
-
 def get_free_space(path):
     """Returns the free disk space for the given path formatted in GB or MB."""
     total, used, free = shutil.disk_usage(path)  # Get disk space (in bytes)
@@ -179,20 +197,6 @@ def get_free_space(path):
     return formatted_space
 
 
-def clean_youtube_urls(toclean_video_list):
-    """Removes 'https://www.youtube.com/watch?v=' from YouTube URLs in a list,
-    keeping only the video ID.
-    """
-    prefix = youtube_base_url
-
-    return [toclean_video.replace(prefix, "") for toclean_video in toclean_video_list]
-
-
-def string_to_list(input_string):
-    """Transforms a comma-separated string into a list of strings, removing extra spaces."""
-    return [item.strip() for item in input_string.split(",")]
-
-
 def format_view_count(number):
     """Formats a number into a human-readable view count."""
     if number >= 1_000_000_000:  # Billions
@@ -203,20 +207,6 @@ def format_view_count(number):
         return f"{number / 1_000:.1f}K"
     else:
         return str(number)
-
-
-def clean_string_regex(text):
-    """
-    Removes characters that do NOT match the given pattern.
-
-    :param text: The input string to clean.
-    :return: The cleaned string.
-    """
-    new_text = text.replace(":", "")
-
-    pattern = r"[^a-zA-Z0-9 ]"
-
-    return re.sub(pattern, "", new_text)
 
 
 def rename_files_in_temp_directory():
@@ -280,11 +270,6 @@ def delete_temp_files():
         os.remove(audio_file)
 
 
-def smart_input(prompt, default_value):
-    user_input = input(f"{prompt} [{default_value}]: ").strip()
-    return user_input if user_input else default_value
-
-
 def find_media_files(fmf_path):
     """Search for the first MP4 and M4A files in the current directory."""
     video_file = None
@@ -346,7 +331,7 @@ def limit_resolution(resolution, limit):
     return max_resolution
 
 
-def download_video_universal(channel_name, video_id, counter_id, video_total_count, video_views, restricted):
+def download_video(channel_name, video_id, counter_id, video_total_count, video_views, restricted):
     restricted_path_snippet = "/"
     colored_video_id = video_id
     header_width = 95
@@ -397,92 +382,6 @@ def download_video_universal(channel_name, video_id, counter_id, video_total_cou
             # if not os.path.exists(dlpath + f"{year}/restricted"):
             #     os.makedirs(dlpath + f"{year}/restricted")
             download_video_process(yt, res, more_than1080p, publishing_date, year, restricted)
-
-
-
-def download_video_restricted(videoid, counterid, video_total_count, channel_name, video_views):
-    yt = YouTube(youtube_base_url + videoid, use_oauth=True, allow_oauth_cache=True, on_progress_callback = on_progress)
-
-    print("\n")
-    colored_video_id = print_colored_text(videoid, BCOLORS.RED)
-    print(format_header(colored_video_id + " - " + channel_name
-                        + " - " + str(counterid) + "/" + str(video_total_count), 104))
-
-    publishing_date = yt.publish_date.strftime("%Y-%m-%d")
-    if year_subfolders:
-        year = "/" + str(yt.publish_date.strftime("%Y"))
-    else:
-        year = ""
-
-    res = max(print_resolutions(yt), key=lambda x: int(x.rstrip('p')))
-    if limit_resolution_to != "max":
-        res = limit_resolution(res, limit_resolution_to)
-
-    print_video_infos(yt, res, video_views)
-
-    if os.path.exists(
-            dlpath + str(year) + "/restricted/" + str(publishing_date) + " - " + res + " - " + clean_string_regex(
-                yt.title) + " - " + yt.video_id + ".mp4"):
-        print(print_colored_text("\nVideo already downloaded\n", BCOLORS.GREEN))
-    else:
-        more_than1080p = 0
-
-        if res == "2160p" or res == "1440p":
-            more_than1080p = 1
-            video_file_tmp, audio_file_tmp = find_media_files("tmp")
-            if video_file_tmp is not None:
-                restricted_string = "/restricted/"
-                path = (dlpath + str(year) + restricted_string + str(publishing_date) + " - " + res + " - "
-                        + clean_string_regex(os.path.splitext(video_file_tmp)[0]) + " - " + videoid + ".mp4")
-                print("\nMerged file already present.")
-                print(f"Converting to MP4... (this may take a while)")
-                convert_webm_to_mp4("tmp/" + video_file_tmp, path, True)
-            else:
-                download_video_process(yt, res, more_than1080p, publishing_date, year, True)
-        else:
-            if not os.path.exists(dlpath + f"{year}/restricted"):
-                os.makedirs(dlpath + f"{year}/restricted")
-            download_video_process(yt, res, more_than1080p, publishing_date, year, True)
-
-
-def download_video(videoid, counterid, video_total_count, video_views):
-    yt = YouTube(youtube_base_url + videoid, on_progress_callback=on_progress)
-
-    print(format_header(videoid + " - " + yt.author + " - " + str(counterid) + "/" + str(video_total_count), 95))
-
-    publishing_date = yt.publish_date.strftime("%Y-%m-%d")
-    if year_subfolders:
-        year = "/" + str(yt.publish_date.strftime("%Y"))
-    else:
-        year = ""
-
-    res = max(print_resolutions(yt), key=lambda x: int(x.rstrip('p')))
-    if limit_resolution_to != "max":
-        res = limit_resolution(res, limit_resolution_to)
-
-    print_video_infos(yt, res, video_views)
-
-    if os.path.exists(
-            dlpath + year + "/" + str(publishing_date) + " - " + res + " - " + clean_string_regex(
-                yt.title) + " - "+ videoid + ".mp4"):
-        print(print_colored_text("\nVideo already downloaded\n", BCOLORS.GREEN))
-    else:
-        more_than1080p = 0
-
-        if res == "2160p" or res == "1440p":
-            more_than1080p = 1
-            video_file_tmp, audio_file_tmp = find_media_files("tmp")
-            if video_file_tmp is not None:
-                restricted_string = "/"
-                path = (dlpath + str(year) + restricted_string + str(publishing_date) + " - " + res + " - "
-                        + clean_string_regex(os.path.splitext(video_file_tmp)[0]) + " - " + videoid + ".mp4")
-                print("\nMerged file already present.")
-                print(f"Converting to MP4... (this may take a while)")
-                convert_webm_to_mp4("tmp/" + video_file_tmp, path, False)
-            else:
-                download_video_process(yt, res, more_than1080p, publishing_date, year, False)
-        else:
-            download_video_process(yt, res, more_than1080p, publishing_date, year, False)
 
 
 def download_video_process(yt, res, more_than1080p, publishing_date, year, restricted):
@@ -827,7 +726,7 @@ while True:
                         count_skipped = 0
                         video_list.append(video.video_id)
                         #download_video(video.video_id, count_ok_videos, len(video_watch_urls), video.views)
-                        download_video_universal(clean_string_regex(c.channel_name).rstrip(), video.video_id,
+                        download_video(clean_string_regex(c.channel_name).rstrip(), video.video_id,
                                                  count_ok_videos, len(video_watch_urls), video.views, False)
                     else:
                         if not skip_restricted_bool:
@@ -841,7 +740,7 @@ while True:
                                 #     os.makedirs(dlpath + f"{year}/restricted")
                                 #download_video_restricted(video.video_id, count_ok_videos, len(video_watch_urls),
                                 #                        clean_string_regex(c.channel_name).rstrip(), video.views)
-                                download_video_universal(clean_string_regex(c.channel_name).rstrip(), video.video_id,
+                                download_video(clean_string_regex(c.channel_name).rstrip(), video.video_id,
                                                          count_ok_videos, len(video_watch_urls), video.views, True)
 
         if count_this_run == 0:
