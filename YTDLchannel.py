@@ -384,7 +384,7 @@ def download_video_restricted(videoid, counterid, video_total_count, channel_nam
                 restricted_string = "/restricted/"
                 path = (dlpath + str(year) + restricted_string + str(publishing_date) + " - " + res + " - "
                         + clean_string_regex(os.path.splitext(video_file_tmp)[0]) + " - " + videoid + ".mp4")
-                print("Merged file already present.")
+                print(print_colored_text("Merged file already present.", BCOLORS.GREEN))
                 print(f"Converting to MP4... (this may take a while)")
                 convert_webm_to_mp4("tmp/" + video_file_tmp, path, True)
                 question = input("Whats next... Continue? Y/n")
@@ -515,7 +515,7 @@ def convert_m4a_to_opus_and_merge(videoid, publishdate, video_resolution, year, 
     video_file, audio_file = find_media_files(".")
     """Convert M4A to Opus format (WebM-compatible)."""
     command = [
-        "ffmpeg", "-loglevel", "quiet", "-i", audio_file, "-c:a", "libopus", "audio.opus"
+        "ffmpeg", "-loglevel", "quiet", "-stats", "-i", audio_file, "-c:a", "libopus", "audio.opus"
     ]
     subprocess.run(command, check=True)
     # print(f"✅ Converted {audio_file} to audio.opus")
@@ -527,7 +527,7 @@ def merge_webm_opus(videoid, publishdate, video_resolution, year, restricted):
     output_file = "tmp/" + video_file
     """Merge WebM video with Opus audio."""
     command = [
-        "ffmpeg", "-loglevel", "quiet", "-i", video_file, "-i", "audio.opus",
+        "ffmpeg", "-loglevel", "quiet", "-stats", "-i", video_file, "-i", "audio.opus",
         "-c:v", "copy", "-c:a", "copy", output_file
     ]
     subprocess.run(command, check=True)
@@ -603,7 +603,7 @@ while True:
         #skip_x_videos = int(smart_input("Skip x videos: ", "0"))
 
         c = Channel(YTchannel)
-        print("\n" + str(YTchannel))
+        print("\n" + print_colored_text(str(YTchannel), BCOLORS.BOLD))
 
         dlpath = smart_input("\nDownload Path:  ", output_dir + "/" + clean_string_regex(c.channel_name).rstrip())
 
