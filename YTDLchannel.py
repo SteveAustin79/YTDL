@@ -565,7 +565,7 @@ while True:
         video_list = []
         video_list_restricted = []
 
-        #clear_screen()
+        clear_screen()
         print(print_colored_text("\nYTDL " + str(version), BCOLORS.YELLOW))
         print("********")
         print("YouTube Channel Downloader")
@@ -803,6 +803,12 @@ while True:
 
     except Exception as e:
         delete_temp_files()
+        continue_ytdl = smart_input("Continue (there was an error)?  Y/n ", "y")
+        print("\n")
+        if continue_ytdl == "y":
+            continue
+        else:
+            break
         print("An error occurred:", str(e))
 
     except KeyboardInterrupt:
