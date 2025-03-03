@@ -8,7 +8,7 @@ Restricted video download possible, but requires authentication via accounts.goo
 - filters: video title name, minimum video views, video duration, exclude/include video ID's 
 - channels.txt: YouTube Channels list
 - video resolutions > 1080p only provided as webm by YouTube -> converted to mp4 after downloading
-- highest available resolution (can be limited) downloaded automatically
+- highest available resolution downloaded automatically (can be limited)
 - sub directory structure switch in config.json
 - skipping already downloaded videos
 
