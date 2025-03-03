@@ -106,7 +106,7 @@ def print_configuration():
     print("")
 
 def print_video_infos(yt, res, video_views):
-    print("Title:          ", print_colored_text(yt.title, BCOLORS.CYAN))
+    print("Title:          ", print_colored_text(print_colored_text(yt.title, BCOLORS.CYAN), BCOLORS.BOLD))
     if min_video_views_bool:
         print("Views:          ", format_view_count(video_views), " (> " + format_view_count(min_video_views) + ")")
     else:
