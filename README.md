@@ -61,6 +61,8 @@ venv/bin/python3 YTDLchannel.py
 git pull https://github.com/SteveAustin79/YTDL.git
 ```
 
+<img src="https://github.com/SteveAustin79/SteveAustin79/blob/main/screenshots/YTDL.png?raw=true" alt="YTDL screenshot"/>
+
 <br/><br/>
 
 ## YTDL - YouTubeDownLoader 0.4 - DEPRECATED!
