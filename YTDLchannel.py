@@ -137,7 +137,7 @@ def print_video_infos(yt, res, video_views):
     print(print_colored_text("Date:          ", BCOLORS.BLACK), yt.publish_date.strftime("%Y-%m-%d"))
 
     length_title = print_colored_text("Length:        ", BCOLORS.BLACK)
-    data_dict = json.loads(str(t.vid_info))
+    data_dict = json.loads(str(yt.vid_info))
     # Extract FPS values
     fps_values = [fmt.get('fps') for fmt in data_dict['streamingData']['formats'] if 'fps' in fmt]
     length_title_value = length_title + str(int(yt.length / 60)) + "m (" + str(fps_values) + " Frames)"
