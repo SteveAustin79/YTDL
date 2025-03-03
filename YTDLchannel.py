@@ -136,8 +136,8 @@ def print_video_infos(yt, res, video_views):
 
     print(print_colored_text("Date:          ", BCOLORS.BLACK), yt.publish_date.strftime("%Y-%m-%d"))
 
-    length_title = print_colored_text("Length:        ", BCOLORS.BLACK)
-    match = re.search(r'"fps":\s*(\d+)', str(yt.vid_info))
+    length_title = print_colored_text("Length:         ", BCOLORS.BLACK)
+    match = re.search(r"'fps':\s*(\d+)", str(yt.vid_info))
     fps_value = ""
     if match:
         fps_value = int(match.group(1))
