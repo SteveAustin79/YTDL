@@ -498,7 +498,7 @@ def merge_video_audio(videoid, publishdate, video_resolution, year, restricted):
         output = output.global_args("-stats")
 
         # Run FFmpeg command
-        ffmpeg.run(output, overwrite_output=True, quiet=False)
+        ffmpeg.run(output, overwrite_output=True, quiet=True)
         #print(f"\n✅ \033[92mMerged file saved as: {output_file}.\033[0m")
         if restricted:
             print(print_colored_text("\nRestricted Video downloaded", BCOLORS.GREEN))
