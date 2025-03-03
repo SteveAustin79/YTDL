@@ -542,21 +542,21 @@ def merge_webm_opus(videoid, publishdate, video_resolution, year, restricted):
 
 def convert_webm_to_mp4(input_file, output_file, restricted):
     """Convert a WebM file to MP4 (H.264/AAC)."""
-    # command = [
-    #     "ffmpeg", "-loglevel", "quiet", "-i", input_file,
-    #     "-c:v", "libx264", "-preset", "fast", "-crf", "23",  # H.264 video encoding
-    #     "-c:a", "aac", "-b:a", "128k",  # AAC audio encoding
-    #     "-movflags", "+faststart",  # Optimize MP4 for streaming
-    #     output_file
-    # ]
-    # ffmpeg -i input.avi {arguments} --> pv input.avi | ffmpeg -i pipe:0 -v warning {arguments}
     command = [
-        "pv", input_file, "|", "ffmpeg", "-loglevel", "quiet", "-i", "pipe:0", "-v", "warning",
+        "ffmpeg", "-loglevel", "quiet", "-i", input_file,
         "-c:v", "libx264", "-preset", "fast", "-crf", "23",  # H.264 video encoding
         "-c:a", "aac", "-b:a", "128k",  # AAC audio encoding
         "-movflags", "+faststart",  # Optimize MP4 for streaming
         output_file
     ]
+    # ffmpeg -i input.avi {arguments} --> pv input.avi | ffmpeg -i pipe:0 -v warning {arguments}
+    # command = [
+    #     "pv", input_file, "|", "ffmpeg", "-loglevel", "quiet", "-i", "pipe:0", "-v", "warning",
+    #     "-c:v", "libx264", "-preset", "fast", "-crf", "23",  # H.264 video encoding
+    #     "-c:a", "aac", "-b:a", "128k",  # AAC audio encoding
+    #     "-movflags", "+faststart",  # Optimize MP4 for streaming
+    #     output_file
+    # ]
     subprocess.run(command, check=True)
     os.remove(input_file)
     if restricted:
