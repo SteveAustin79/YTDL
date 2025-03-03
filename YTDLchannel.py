@@ -125,24 +125,31 @@ def format_header(counter, width):
 
 
 def print_video_infos(yt, res, video_views):
-    print("Title:         ", print_colored_text(print_colored_text(yt.title, BCOLORS.CYAN), BCOLORS.BOLD))
+    print(print_colored_text("Title:         ", BCOLORS.BLACK),
+          print_colored_text(print_colored_text(yt.title, BCOLORS.CYAN), BCOLORS.BOLD))
     if min_video_views_bool:
-        print("Views:         ", format_view_count(video_views), " (> " + format_view_count(min_video_views) + ")")
+        print(print_colored_text("Views:         ", BCOLORS.BLACK),
+              format_view_count(video_views), " (> " + format_view_count(min_video_views) + ")")
     else:
-        print("Views:         ", format_view_count(video_views))
-    print("Date:          ", yt.publish_date.strftime("%Y-%m-%d"))
+        print(print_colored_text("Views:         ", BCOLORS.BLACK),
+              format_view_count(video_views))
+    print(print_colored_text("Date:          ", BCOLORS.BLACK), yt.publish_date.strftime("%Y-%m-%d"))
 
     if ignore_max_duration_bool and ignore_min_duration_bool:
-        print("Length:        ", str(int(yt.length / 60)) + "m")
+        print(print_colored_text("Length:        ", BCOLORS.BLACK), str(int(yt.length / 60)) + "m")
     elif ignore_max_duration_bool:
-        print("Length:        ", str(int(yt.length / 60)) + "m", " (" + min_duration + "m <")
+        print(print_colored_text("Length:        ", BCOLORS.BLACK),
+              str(int(yt.length / 60)) + "m", " (" + min_duration + "m <")
     elif ignore_min_duration_bool:
-        print("Length:        ", str(int(yt.length / 60)) + "m", " (< " + max_duration + "m")
+        print(print_colored_text("Length:        ", BCOLORS.BLACK),
+              str(int(yt.length / 60)) + "m", " (< " + max_duration + "m")
     else:
-        print("Length:        ", str(int(yt.length / 60)) + "m", " (" + min_duration + "m < " + max_duration + "m)")
+        print(print_colored_text("Length:        ", BCOLORS.BLACK),
+              str(int(yt.length / 60)) + "m", " (" + min_duration + "m < " + max_duration + "m)")
 
-    print("Resolution:    ", print_colored_text(res, BCOLORS.YELLOW), " (" + limit_resolution_to + ")")
-    print("               ", print_resolutions(yt))
+    print(print_colored_text("Resolution:    ", BCOLORS.BLACK),
+          print_colored_text(res, BCOLORS.YELLOW), " (" + limit_resolution_to + ")")
+    print(print_colored_text("               ", BCOLORS.BLACK), print_resolutions(yt))
 
 
 def print_colored_text(message_text, color):
