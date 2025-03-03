@@ -9,7 +9,7 @@ Restricted video download possible, but requires authentication via accounts.goo
 - channels.txt: YouTube Channels list
 - video resolutions > 1080p only provided as webm by YouTube -> converted to mp4 after downloading
 - auto download highest available resolution (can be limited)
-- sub directory structure switch in config.json
+- year sub directory structure switch in config.json
 - skipping already downloaded videos
 
 ### History
