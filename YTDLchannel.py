@@ -558,8 +558,8 @@ def convert_webm_to_mp4(input_file, output_file, restricted):
         "-movflags", "+faststart",  # Optimize MP4 for streaming
         output_file
     ]
-    subprocess.run(command, shell=True, check=True)
-    #subprocess.run(command, check=True)
+    #subprocess.run(command, shell=True, check=True)
+    subprocess.run(command, check=True)
     os.remove(input_file)
     if restricted:
         print(print_colored_text("\nRestricted Video downloaded", BCOLORS.GREEN))
