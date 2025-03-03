@@ -365,7 +365,7 @@ def download_video_restricted(videoid, counterid, video_total_count, channel_nam
 
     publishing_date = yt.publish_date.strftime("%Y-%m-%d")
     if year_subfolders:
-        year = yt.publish_date.strftime("%Y")
+        year = "/" + str(yt.publish_date.strftime("%Y"))
     else:
         year = ""
 
@@ -378,11 +378,9 @@ def download_video_restricted(videoid, counterid, video_total_count, channel_nam
     if os.path.exists(
             dlpath + str(year) + "/restricted/" + str(publishing_date) + " - " + res + " - " + clean_string_regex(
                 yt.title) + " - " + yt.video_id + ".mp4"):
-        print(print_colored_text("\nVideo already downloaded", BCOLORS.GREEN))
+        print(print_colored_text("\nVideo already downloaded\n", BCOLORS.GREEN))
     else:
         more_than1080p = 0
-
-        # here check if /temp/file already exists
 
         if res == "2160p" or res == "1440p":
             more_than1080p = 1
@@ -419,8 +417,9 @@ def download_video(videoid, counterid, video_total_count, video_views):
 
     print_video_infos(yt, res, video_views)
 
-    # check if file was already downloaded
-    if os.path.exists(dlpath + year + "/" + str(publishing_date) + " - " + res + " - " + clean_string_regex(yt.title) + " - "+ videoid + ".mp4"):
+    if os.path.exists(
+            dlpath + year + "/" + str(publishing_date) + " - " + res + " - " + clean_string_regex(
+                yt.title) + " - "+ videoid + ".mp4"):
         print(print_colored_text("\nVideo already downloaded\n", BCOLORS.GREEN))
     else:
         more_than1080p = 0
@@ -432,7 +431,7 @@ def download_video(videoid, counterid, video_total_count, video_views):
                 restricted_string = "/"
                 path = (dlpath + str(year) + restricted_string + str(publishing_date) + " - " + res + " - "
                         + clean_string_regex(os.path.splitext(video_file_tmp)[0]) + " - " + videoid + ".mp4")
-                print(print_colored_text("Merged file already present.", BCOLORS.GREEN))
+                print("\nMerged file already present.")
                 print(f"Converting to MP4... (this may take a while)")
                 convert_webm_to_mp4("tmp/" + video_file_tmp, path, False)
             else:
@@ -793,6 +792,8 @@ while True:
                                 count_ok_videos += 1
                                 count_this_run += 1
                                 video_list_restricted.append(video.video_id)
+                                # if not os.path.exists(dlpath + f"{year}/restricted"):
+                                #     os.makedirs(dlpath + f"{year}/restricted")
                                 download_video_restricted(video.video_id, count_ok_videos, len(video_watch_urls),
                                                         clean_string_regex(c.channel_name).rstrip(), video.views)
 
