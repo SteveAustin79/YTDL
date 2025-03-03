@@ -139,20 +139,20 @@ def print_video_infos(yt, res, video_views):
     length_title = print_colored_text("Length:         ", BCOLORS.BLACK)
     match = re.search(r"'fps':\s*(\d+)", str(yt.vid_info))
     fps_value = ""
+    frames_per_second = ""
     if match:
         fps_value = int(match.group(1))
-        frames_per_second = print_colored_text("   (" + str(yt.length*fps_value) + " Frames)", BCOLORS.BLACK)
-    else:
-        frames_per_second = ""
+        if extract_number(res) > extract_number("1080p"):
+            frames_per_second = print_colored_text("   (" + str(yt.length*fps_value) + " Frames)", BCOLORS.BLACK)
     length_title_value = length_title + str(int(yt.length / 60)) + "m" + frames_per_second
     if ignore_max_duration_bool and ignore_min_duration_bool:
         print(length_title_value)
     elif ignore_max_duration_bool:
-        print(length_title_value, " (" + min_duration + "m <")
+        print(length_title_value, print_colored_text("  (" + min_duration + "m <"), BCOLORS.BLACK)
     elif ignore_min_duration_bool:
-        print(length_title_value, " (< " + max_duration + "m")
+        print(length_title_value, print_colored_text("  (< " + max_duration + "m"), BCOLORS.BLACK)
     else:
-        print(length_title_value, " (" + min_duration + "m < " + max_duration + "m)")
+        print(length_title_value, print_colored_text("  (" + min_duration + "m < " + max_duration + "m)"), BCOLORS.BLACK)
 
     print(print_colored_text("Resolution:    ", BCOLORS.BLACK),
           print_colored_text(res, BCOLORS.YELLOW), print_colored_text("  (" + limit_resolution_to + ")", BCOLORS.BLACK))
@@ -161,6 +161,10 @@ def print_video_infos(yt, res, video_views):
 
 def print_colored_text(message_text, color):
     return f"{color}{message_text}{BCOLORS.ENDC}"
+
+
+def extract_number(res):
+    return int(''.join(filter(str.isdigit, res)))  # Extracts only numbers and converts to int
 
 
 def get_free_space(path):
