@@ -805,7 +805,7 @@ while True:
         delete_temp_files()
         print("An error occurred:", str(e))
 
-        continue_ytdl = smart_input("Continue (there was an error)?  Y/n ", "y")
+        continue_ytdl = smart_input("Continue (there was an exception)?  Y/n ", "y")
         print("\n")
         if continue_ytdl == "y":
             continue
