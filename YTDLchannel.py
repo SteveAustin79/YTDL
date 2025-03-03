@@ -302,17 +302,6 @@ def find_media_files(fmf_path):
     return video_file, audio_file
 
 
-# def move_video_audio():
-#     video_file, audio_file = find_media_files()
-#     destination_video = dlpath + "/" + video_file  # Destination path
-#     destination_audio = dlpath + "/" + audio_file  # Destination path
-#
-#     shutil.move(video_file, destination_video)
-#     shutil.move(audio_file, destination_audio)
-#
-#     print(f"✅ Moved files to download path!")
-
-
 def print_resolutions(yt):
     streams = yt.streams.filter(file_extension='mp4')  # StreamQuery object
     # Convert StreamQuery to a formatted string
@@ -327,7 +316,6 @@ def print_resolutions(yt):
 
 def find_file_by_string(directory, search_string, resolution):
     """Searches a directory for a file containing a specific string in its filename.
-
     Returns the filename if found, otherwise returns None.
     """
     if resolution=="max":
@@ -356,6 +344,66 @@ def limit_resolution(resolution, limit):
         max_resolution = limit
 
     return max_resolution
+
+
+def download_video_universal(channel_name, video_id, counter_id, video_total_count, video_views, restricted):
+    restricted_path_snippet = "/"
+    colored_video_id = video_id
+    if restricted:
+        yt = YouTube(youtube_base_url + video_id, use_oauth=True, allow_oauth_cache=True,
+                     on_progress_callback=on_progress)
+        restricted_path_snippet = "/restricted/"
+        colored_video_id = print_colored_text(video_id, BCOLORS.RED)
+    else:
+        yt = YouTube(youtube_base_url + video_id, on_progress_callback=on_progress)
+
+    print(format_header(colored_video_id + " - " + channel_name
+                         + " - " + str(counter_id) + "/" + str(video_total_count), 104))
+    # HEADER
+    # print(format_header(video_id + " - " + yt.author + " - " + str(counter_id) + "/" + str(video_total_count), 95))
+    # HEADER
+    # print("\n")
+    # colored_video_id = print_colored_text(video_id, BCOLORS.RED)
+    # print(format_header(colored_video_id + " - " + yt.author
+    #                     + " - " + str(counter_id) + "/" + str(video_total_count), 104))
+
+
+    publishing_date = yt.publish_date.strftime("%Y-%m-%d")
+    if year_subfolders:
+        year = "/" + str(yt.publish_date.strftime("%Y"))
+    else:
+        year = ""
+
+    res = max(print_resolutions(yt), key=lambda x: int(x.rstrip('p')))
+    if limit_resolution_to != "max":
+        res = limit_resolution(res, limit_resolution_to)
+
+    print_video_infos(yt, res, video_views)
+
+    if os.path.exists(
+            dlpath + year + restricted_path_snippet + str(publishing_date) + " - " + res + " - " + clean_string_regex(
+                yt.title) + " - " + video_id + ".mp4"):
+        print(print_colored_text("\nVideo already downloaded\n", BCOLORS.GREEN))
+    else:
+        more_than1080p = 0
+
+        if res == "2160p" or res == "1440p":
+            more_than1080p = 1
+            video_file_tmp, audio_file_tmp = find_media_files("tmp")
+            if video_file_tmp is not None:
+                path = (dlpath + str(year) + restricted_path_snippet + str(publishing_date) + " - " + res + " - "
+                        + clean_string_regex(os.path.splitext(video_file_tmp)[0]) + " - " + video_id + ".mp4")
+                print("\nMerged file already present.")
+                print(f"Converting to MP4... (this may take a while)")
+                convert_webm_to_mp4("tmp/" + video_file_tmp, path, restricted)
+            else:
+                download_video_process(yt, res, more_than1080p, publishing_date, year, restricted)
+        else:
+            # Brauchts das hier???
+            # if not os.path.exists(dlpath + f"{year}/restricted"):
+            #     os.makedirs(dlpath + f"{year}/restricted")
+            download_video_process(yt, res, more_than1080p, publishing_date, year, restricted)
+
 
 
 def download_video_restricted(videoid, counterid, video_total_count, channel_name, video_views):
@@ -600,9 +648,6 @@ while True:
             YTchannel = ytv.channel_url
             video_id_from_single_video = ytv.video_id
 
-        #count_fetch_videos = str(smart_input("Fetch x latest Videos (to download all playable/unrestricted videos use 'all'): ", "all"))
-        #skip_x_videos = int(smart_input("Skip x videos: ", "0"))
-
         c = Channel(YTchannel)
         print("\n" + print_colored_text(print_colored_text(str(c.channel_name), BCOLORS.BOLD), BCOLORS.CYAN))
         print(print_colored_text(print_colored_text("*" * len(str(c.channel_name)), BCOLORS.BOLD), BCOLORS.CYAN))
@@ -786,7 +831,9 @@ while True:
                         count_this_run += 1
                         count_skipped = 0
                         video_list.append(video.video_id)
-                        download_video(video.video_id, count_ok_videos, len(video_watch_urls), video.views)
+                        #download_video(video.video_id, count_ok_videos, len(video_watch_urls), video.views)
+                        download_video_universal(clean_string_regex(c.channel_name).rstrip(), video.video_id,
+                                                 count_ok_videos, len(video_watch_urls), video.views, False)
                     else:
                         if not skip_restricted_bool:
                             if (video.vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
@@ -797,8 +844,10 @@ while True:
                                 video_list_restricted.append(video.video_id)
                                 # if not os.path.exists(dlpath + f"{year}/restricted"):
                                 #     os.makedirs(dlpath + f"{year}/restricted")
-                                download_video_restricted(video.video_id, count_ok_videos, len(video_watch_urls),
-                                                        clean_string_regex(c.channel_name).rstrip(), video.views)
+                                #download_video_restricted(video.video_id, count_ok_videos, len(video_watch_urls),
+                                #                        clean_string_regex(c.channel_name).rstrip(), video.views)
+                                download_video_universal(clean_string_regex(c.channel_name).rstrip(), video.video_id,
+                                                         count_ok_videos, len(video_watch_urls), video.views, True)
 
         if count_this_run == 0:
             print("\n\n" + print_colored_text("Nothing to do...\n\n", BCOLORS.GREEN))
