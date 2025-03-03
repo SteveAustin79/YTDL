@@ -552,14 +552,14 @@ def convert_webm_to_mp4(input_file, output_file, restricted):
     # ]
     # ffmpeg -i input.avi {arguments} --> pv input.avi | ffmpeg -i pipe:0 -v warning {arguments}
     command = [
-        "pv", "-i", "0.5", input_file, "|", "ffmpeg", "-i", "pipe:0", "-v", "warning",
+        "pv", "-i", "0.5", "-p", input_file, "|", "ffmpeg", "-i", "pipe:0", "-v", "warning",
         "-c:v", "libx264", "-preset", "fast", "-crf", "23",  # H.264 video encoding
         "-c:a", "aac", "-b:a", "128k",  # AAC audio encoding
         "-movflags", "+faststart",  # Optimize MP4 for streaming
         output_file
     ]
-    #subprocess.run(command, shell=True, check=True)
-    subprocess.run(command, check=True)
+    subprocess.run(command, shell=True, check=True)
+    #subprocess.run(command, check=True)
     os.remove(input_file)
     if restricted:
         print(print_colored_text("\nRestricted Video downloaded", BCOLORS.GREEN))
