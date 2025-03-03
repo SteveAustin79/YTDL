@@ -137,7 +137,7 @@ def print_video_infos(yt, res, video_views):
     print(print_colored_text("Date:          ", BCOLORS.BLACK), yt.publish_date.strftime("%Y-%m-%d"))
 
     length_title = print_colored_text("Length:        ", BCOLORS.BLACK)
-    length_title_value = length_title, str(int(yt.length / 60)) + "m (" + str(yt.vid_info) + " Frames)"
+    length_title_value = length_title + str(int(yt.length / 60)) + "m (" + str(yt.vid_info) + " Frames)"
     if ignore_max_duration_bool and ignore_min_duration_bool:
         print(length_title_value)
     elif ignore_max_duration_bool:
