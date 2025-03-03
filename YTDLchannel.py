@@ -143,6 +143,15 @@ def get_free_space(path):
     return formatted_space
 
 
+def clean_youtube_urls(toclean_video_list):
+    """Removes 'https://www.youtube.com/watch?v=' from YouTube URLs in a list,
+    keeping only the video ID.
+    """
+    prefix = youtube_base_url
+
+    return [toclean_video.replace(prefix, "") for toclean_video in toclean_video_list]
+
+
 def string_to_list(input_string):
     """Transforms a comma-separated string into a list of strings, removing extra spaces."""
     return [item.strip() for item in input_string.split(",")]
@@ -685,12 +694,12 @@ while True:
         exclude_video_ids = smart_input("\nExclude Video ID's (comma separated list): ", default_exclude_videos)
         exclude_list = []
         if exclude_video_ids!="":
-            exclude_list = string_to_list(exclude_video_ids)
+            exclude_list = clean_youtube_urls(string_to_list(exclude_video_ids))
 
         include_video_ids = smart_input("Include Video ID's (comma separated list): ", default_include_videos)
         include_list = []
         if include_video_ids!="":
-            include_list = string_to_list(include_video_ids)
+            include_list = clean_youtube_urls(string_to_list(include_video_ids))
 
         video_name_filter = str(smart_input("\nEnter filter word(s) (comma separated list): ", default_filter_words))
         video_name_filter_list = string_to_list(video_name_filter)
