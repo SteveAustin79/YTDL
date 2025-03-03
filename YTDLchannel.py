@@ -105,25 +105,39 @@ def print_configuration():
     print_asteriks_line()
     print("")
 
+
+def format_header(counter, width):
+    # width = 95
+    counter_splitted = counter.split(" - ")
+    counter_str = ("* " + counter_splitted[0] + " *" + print_colored_text(f" {counter_splitted[1]} ", BCOLORS.CYAN)
+                   + "| " + counter_splitted[2] + " (" + get_free_space(dlpath) + " free) ")
+    total_length = width - 2  # Exclude parentheses ()
+
+    # Center the counter with asterisks
+    formatted = f"{counter_str.ljust(total_length, '*')}"
+
+    return formatted
+
+
 def print_video_infos(yt, res, video_views):
-    print("Title:          ", print_colored_text(print_colored_text(yt.title, BCOLORS.CYAN), BCOLORS.BOLD))
+    print("Title:         ", print_colored_text(print_colored_text(yt.title, BCOLORS.CYAN), BCOLORS.BOLD))
     if min_video_views_bool:
-        print("Views:          ", format_view_count(video_views), " (> " + format_view_count(min_video_views) + ")")
+        print("Views:         ", format_view_count(video_views), " (> " + format_view_count(min_video_views) + ")")
     else:
-        print("Views:          ", format_view_count(video_views))
-    print("Date:           ", yt.publish_date.strftime("%Y-%m-%d"))
+        print("Views:         ", format_view_count(video_views))
+    print("Date:          ", yt.publish_date.strftime("%Y-%m-%d"))
 
     if ignore_max_duration_bool and ignore_min_duration_bool:
-        print("Length:         ", str(int(yt.length / 60)) + "m")
+        print("Length:        ", str(int(yt.length / 60)) + "m")
     elif ignore_max_duration_bool:
-        print("Length:         ", str(int(yt.length / 60)) + "m", " (" + min_duration + "m <")
+        print("Length:        ", str(int(yt.length / 60)) + "m", " (" + min_duration + "m <")
     elif ignore_min_duration_bool:
-        print("Length:         ", str(int(yt.length / 60)) + "m", " (< " + max_duration + "m")
+        print("Length:        ", str(int(yt.length / 60)) + "m", " (< " + max_duration + "m")
     else:
-        print("Length:         ", str(int(yt.length / 60)) + "m", " (" + min_duration + "m < " + max_duration + "m)")
+        print("Length:        ", str(int(yt.length / 60)) + "m", " (" + min_duration + "m < " + max_duration + "m)")
 
-    print("Resolution:     ", print_colored_text(res, BCOLORS.YELLOW), " (" + limit_resolution_to + ")")
-    print("                ", print_resolutions(yt))
+    print("Resolution:    ", print_colored_text(res, BCOLORS.YELLOW), " (" + limit_resolution_to + ")")
+    print("               ", print_resolutions(yt))
 
 
 def print_colored_text(message_text, color):
@@ -155,19 +169,6 @@ def clean_youtube_urls(toclean_video_list):
 def string_to_list(input_string):
     """Transforms a comma-separated string into a list of strings, removing extra spaces."""
     return [item.strip() for item in input_string.split(",")]
-
-
-def format_header(counter, width):
-    # width = 95
-    counter_splitted = counter.split(" - ")
-    counter_str = ("** " + counter_splitted[0] + " *" + print_colored_text(f" {counter_splitted[1]} ", BCOLORS.CYAN)
-                   + "| " + counter_splitted[2] + " (" + get_free_space(dlpath) + " free) ")
-    total_length = width - 2  # Exclude parentheses ()
-
-    # Center the counter with asterisks
-    formatted = f"{counter_str.ljust(total_length, '*')}"
-
-    return formatted
 
 
 def format_view_count(number):
