@@ -592,7 +592,7 @@ while True:
         default_include_videos = ""
         default_filter_words = ""
 
-        channel_config_path = "/_config/config_channel.json"
+        channel_config_path = "/config_channel.json"
 
         if os.path.exists(dlpath + channel_config_path):
             incomplete_config = False
