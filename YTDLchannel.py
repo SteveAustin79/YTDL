@@ -803,15 +803,20 @@ while True:
 
     except Exception as e:
         delete_temp_files()
+        print("An error occurred:", str(e))
         continue_ytdl = smart_input("Continue (there was an error)?  Y/n ", "y")
         print("\n")
         if continue_ytdl == "y":
             continue
         else:
             break
-        print("An error occurred:", str(e))
 
     except KeyboardInterrupt:
         delete_temp_files()
         print("\n\nGood Bye...\n")
-        break
+        continue_ytdl = smart_input("Continue (there was an error)?  Y/n ", "y")
+        print("\n")
+        if continue_ytdl == "y":
+            continue
+        else:
+            break
