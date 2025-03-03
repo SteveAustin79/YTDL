@@ -387,6 +387,7 @@ def download_video_restricted(videoid, counterid, video_total_count, channel_nam
                         + clean_string_regex(os.path.splitext(video_file_tmp)[0]) + " - " + videoid + ".mp4")
                 print("CONVERTING... " + path)
                 convert_webm_to_mp4(video_file_tmp, path, True)
+                exit()
 
         print("\nDownloading VIDEO...")
 
