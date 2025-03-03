@@ -496,6 +496,8 @@ def merge_video_audio(videoid, publishdate, video_resolution, year, restricted):
         # Merge video and audio
         output = ffmpeg.output(m_video, audio, output_file, vcodec="copy", acodec="aac", strict="experimental")
 
+        output = output.global_args("-stats")
+
         # Run FFmpeg command
         ffmpeg.run(output, overwrite_output=True, quiet=True)
         #print(f"\n✅ \033[92mMerged file saved as: {output_file}.\033[0m")
