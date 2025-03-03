@@ -137,7 +137,11 @@ def print_video_infos(yt, res, video_views):
     print(print_colored_text("Date:          ", BCOLORS.BLACK), yt.publish_date.strftime("%Y-%m-%d"))
 
     length_title = print_colored_text("Length:        ", BCOLORS.BLACK)
-    length_title_value = length_title + str(int(yt.length / 60)) + "m (" + str(yt.vid_info) + " Frames)"
+    data_dict = json.loads(yt.vid_info)
+    # Extract FPS values
+    fps_values = [fmt.get('fps') for fmt in data_dict['streamingData']['formats'] if 'fps' in fmt]
+    length_title_value = length_title + str(int(yt.length / 60)) + "m (" + str(fps_values) + " Frames)"
+
     if ignore_max_duration_bool and ignore_min_duration_bool:
         print(length_title_value)
     elif ignore_max_duration_bool:
@@ -390,33 +394,14 @@ def download_video_restricted(videoid, counterid, video_total_count, channel_nam
                 question = input("Whats next... Continue? Y/n")
                 if question == "n":
                     exit()
-
-        print("\nDownloading VIDEO...")
-
-        for idx, i in enumerate(yt.streams):
-            if i.resolution == res:
-                break
-        yt.streams[idx].download()
-
-        print("\nDownloading AUDIO...")
-
-        for idx, i in enumerate(yt.streams):
-            if i.bitrate == "128kbps":
-                break
-        yt.streams[idx].download()
-
-        if not os.path.exists(dlpath + f"{year}/restricted"):
-            os.makedirs(dlpath + f"{year}/restricted")
-
-        rename_files_in_temp_directory()
-
-        if more_than1080p == 0:
-            print("\nMerging...")
-            merge_video_audio(yt.video_id, publishing_date, res, year, True)
+            else:
+                download_video_process(yt, res, more_than1080p, publishing_date, year, True)
         else:
-            print("\nMerging...")
-            # move_video_audio()
-            convert_m4a_to_opus_and_merge(yt.video_id, publishing_date, res, year, True)
+            if not os.path.exists(dlpath + f"{year}/restricted"):
+                os.makedirs(dlpath + f"{year}/restricted")
+
+            download_video_process(yt, res, more_than1080p, publishing_date, year, True)
+
 
 
 def download_video(videoid, counterid, video_total_count, video_views):
@@ -445,27 +430,31 @@ def download_video(videoid, counterid, video_total_count, video_views):
         if res == "2160p" or res == "1440p":
             more_than1080p = 1
 
-        print("\nDownloading VIDEO...")
+        download_video_process(yt, res, more_than1080p, publishing_date, year, False)
 
-        for idx, i in enumerate(yt.streams):
-            if i.resolution == res:
-                break
-        yt.streams[idx].download()
 
-        print("\nDownloading AUDIO...")
+def download_video_process(yt, res, more_than1080p, publishing_date, year, restricted):
+    print("\nDownloading VIDEO...")
 
-        for idx, i in enumerate(yt.streams):
-            if i.bitrate == "128kbps":
-                break
-        yt.streams[idx].download()
+    for idx, i in enumerate(yt.streams):
+        if i.resolution == res:
+            break
+    yt.streams[idx].download()
 
-        rename_files_in_temp_directory()
+    print("\nDownloading AUDIO...")
 
-        print("\nMerging...")
-        if more_than1080p == 0:
-            merge_video_audio(videoid, str(publishing_date), res, year, False)
-        else:
-            convert_m4a_to_opus_and_merge(videoid, str(publishing_date), res, year, False)
+    for idx, i in enumerate(yt.streams):
+        if i.bitrate == "128kbps":
+            break
+    yt.streams[idx].download()
+
+    rename_files_in_temp_directory()
+
+    print("\nMerging...")
+    if more_than1080p == 0:
+        merge_video_audio(yt.video_id, publishing_date, res, year, restricted)
+    else:
+        convert_m4a_to_opus_and_merge(yt.video_id, publishing_date, res, year, restricted)
 
 
 def merge_video_audio(videoid, publishdate, video_resolution, year, restricted):
