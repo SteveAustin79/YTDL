@@ -4,7 +4,7 @@ Download one, multiple or all videos from a specific YouTube channel in any avai
 Restricted video download possible, but requires authentication via accounts.google.com/device.
 
 ### Features
-- channel config file with default filters (file must be located in _config subfolder in target directory)
+- channel config file with default filters (file must be located in target directory)
 - filters: video title name, minimum video views, video duration, exclude/include video ID's 
 - channels.txt: YouTube Channels list
 - video resolutions > 1080p only provided as webm by YouTube -> converted to mp4 after downloading
