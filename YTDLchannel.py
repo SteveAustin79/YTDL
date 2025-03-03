@@ -83,8 +83,8 @@ def clear_screen():
 def load_config(c_file):
     """Load settings from config.json."""
     with open(c_file, "r") as file:
-        config = json.load(file)
-    return config
+        l_config = json.load(file)
+    return l_config
 
 
 def print_asteriks_line():
@@ -230,29 +230,29 @@ def read_channel_txt_lines(filename):
     """Reads all lines from a file and returns a list of lines."""
     try:
         with open(filename, "r", encoding="utf-8") as file:
-            lines = [line.strip() for line in file.readlines()]  # Remove newlines
-        lines.append("--- Enter YouTube Channel or Video URL ---")
-        return lines
+            rc_lines = [line.strip() for line in file.readlines()]  # Remove newlines
+        rc_lines.append("--- Enter YouTube Channel or Video URL ---")
+        return rc_lines
     except FileNotFoundError:
         print("❌ Error: File not found.")
         return []
 
 
-def user_selection(lines):
+def user_selection(u_lines):
     """Displays the lines as a selection menu and gets user input."""
-    if not lines:
+    if not u_lines:
         print("No lines available for selection.")
         return None
 
     print("Select channel:")
-    for index, line in enumerate(lines, start=1):
+    for index, line in enumerate(u_lines, start=1):
         print(f"{index}. {line}")
 
     while True:
         try:
             choice = int(input("\nEnter the number of your choice: "))
-            if 1 <= choice <= len(lines):
-                return lines[choice - 1]  # Return selected line
+            if 1 <= choice <= len(u_lines):
+                return u_lines[choice - 1]  # Return selected line
             else:
                 print("⚠️ Invalid selection. Choose a valid number.")
         except ValueError:
@@ -356,8 +356,8 @@ def download_video_restricted(videoid, counterid, video_total_count, channel_nam
     print(format_header(colored_video_id + " - " + channel_name
                         + " - " + str(counterid) + "/" + str(video_total_count), 104))
 
-    publishingDate = yt.publish_date.strftime("%Y-%m-%d")
-    if year_subfolders == True:
+    publishing_date = yt.publish_date.strftime("%Y-%m-%d")
+    if year_subfolders:
         year = yt.publish_date.strftime("%Y")
     else:
         year = ""
@@ -369,16 +369,16 @@ def download_video_restricted(videoid, counterid, video_total_count, channel_nam
     print_video_infos(yt, res, video_views)
 
     if os.path.exists(
-            dlpath + str(year) + "/restricted/" + str(publishingDate) + " - " + res + " - " + clean_string_regex(
+            dlpath + str(year) + "/restricted/" + str(publishing_date) + " - " + res + " - " + clean_string_regex(
                 yt.title) + " - " + yt.video_id + ".mp4"):
         print(print_colored_text("\nVideo already downloaded", BCOLORS.GREEN))
     else:
-        moreThan1080p = 0
+        more_than1080p = 0
 
         # here check if /temp/file already exists
 
         if res == "2160p" or res == "1440p":
-            moreThan1080p = 1
+            more_than1080p = 1
 
         print("\nDownloading VIDEO...")
 
@@ -399,13 +399,13 @@ def download_video_restricted(videoid, counterid, video_total_count, channel_nam
 
         rename_files_in_temp_directory()
 
-        if moreThan1080p == 0:
+        if more_than1080p == 0:
             print("\nMerging...")
-            merge_video_audio(yt.video_id, publishingDate, res, year, True)
+            merge_video_audio(yt.video_id, publishing_date, res, year, True)
         else:
             print("\nMerging...")
             # move_video_audio()
-            convert_m4a_to_opus_and_merge(yt.video_id, publishingDate, res, year, True)
+            convert_m4a_to_opus_and_merge(yt.video_id, publishing_date, res, year, True)
 
 
 def download_video(videoid, counterid, video_total_count, video_views):
@@ -413,8 +413,8 @@ def download_video(videoid, counterid, video_total_count, video_views):
 
     print(format_header(videoid + " - " + yt.author + " - " + str(counterid) + "/" + str(video_total_count), 95))
 
-    publishingDate = yt.publish_date.strftime("%Y-%m-%d")
-    if year_subfolders == True:
+    publishing_date = yt.publish_date.strftime("%Y-%m-%d")
+    if year_subfolders:
         year = "/" + str(yt.publish_date.strftime("%Y"))
     else:
         year = ""
@@ -426,13 +426,13 @@ def download_video(videoid, counterid, video_total_count, video_views):
     print_video_infos(yt, res, video_views)
 
     # check if file was already downloaded
-    if os.path.exists(dlpath + year + "/" + str(publishingDate) + " - " + res + " - " + clean_string_regex(yt.title) + " - "+ videoid + ".mp4"):
+    if os.path.exists(dlpath + year + "/" + str(publishing_date) + " - " + res + " - " + clean_string_regex(yt.title) + " - "+ videoid + ".mp4"):
         print(print_colored_text("\nVideo already downloaded\n", BCOLORS.GREEN))
     else:
-        moreThan1080p = 0
+        more_than1080p = 0
 
         if res == "2160p" or res == "1440p":
-            moreThan1080p = 1
+            more_than1080p = 1
 
         print("\nDownloading VIDEO...")
 
@@ -451,10 +451,10 @@ def download_video(videoid, counterid, video_total_count, video_views):
         rename_files_in_temp_directory()
 
         print("\nMerging...")
-        if moreThan1080p == 0:
-            merge_video_audio(videoid, str(publishingDate), res, year, False)
+        if more_than1080p == 0:
+            merge_video_audio(videoid, str(publishing_date), res, year, False)
         else:
-            convert_m4a_to_opus_and_merge(videoid, str(publishingDate), res, year, False)
+            convert_m4a_to_opus_and_merge(videoid, str(publishing_date), res, year, False)
 
 
 def merge_video_audio(videoid, publishdate, video_resolution, year, restricted):
@@ -479,11 +479,11 @@ def merge_video_audio(videoid, publishdate, video_resolution, year, restricted):
         #print(f"🎵 Merging Audio: {audio_file}")
 
         # Input video and audio streams
-        video = ffmpeg.input(video_file)
+        m_video = ffmpeg.input(video_file)
         audio = ffmpeg.input(audio_file)
 
         # Merge video and audio
-        output = ffmpeg.output(video, audio, output_file, vcodec="copy", acodec="aac", strict="experimental")
+        output = ffmpeg.output(m_video, audio, output_file, vcodec="copy", acodec="aac", strict="experimental")
 
         # Run FFmpeg command
         ffmpeg.run(output, overwrite_output=True, quiet=True)
@@ -495,8 +495,8 @@ def merge_video_audio(videoid, publishdate, video_resolution, year, restricted):
         # remove video and audio streams
         delete_temp_files()
 
-    except Exception as e:
-        print(f"❌ Error merging files: {e}")
+    except Exception as ee:
+        print(f"❌ Error merging files: {ee}")
         sys.exit(1)
 
 
@@ -741,7 +741,7 @@ while True:
             if not os.path.exists(dlpath):
                 os.makedirs(dlpath)
 
-            if find_file_by_string(dlpath, only_video_id, limit_resolution_to)!=None:
+            if find_file_by_string(dlpath, only_video_id, limit_resolution_to) != None:
                 count_ok_videos += 1
                 count_skipped += 1
                 print(print_colored_text(f"\rSkipping {count_skipped} Videos", BCOLORS.MAGENTA), end="", flush=True)
