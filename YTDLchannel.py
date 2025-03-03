@@ -823,10 +823,11 @@ while True:
                         if video.views < min_video_views:
                             do_not_download = 1
 
+                    print("\n")
+
                     if (video.age_restricted == False and
                             video.vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
                             do_not_download == 0 and not only_restricted_videos_bool):
-                        print("\n")
                         count_ok_videos += 1
                         count_this_run += 1
                         count_skipped = 0
