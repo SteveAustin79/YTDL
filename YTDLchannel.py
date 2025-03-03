@@ -382,12 +382,15 @@ def download_video_restricted(videoid, counterid, video_total_count, channel_nam
             video_file_tmp, audio_file_tmp = find_media_files("tmp")
             print(video_file_tmp)
             if os.path.exists(video_file_tmp):
+                print("good")
                 restricted_string = "/restricted/"
                 path = (dlpath + str(year) + restricted_string + str(publishing_date) + " - " + res + " - "
                         + clean_string_regex(os.path.splitext(video_file_tmp)[0]) + " - " + videoid + ".mp4")
                 print("CONVERTING... " + path)
                 convert_webm_to_mp4(video_file_tmp, path, True)
                 exit()
+            else:
+                print("not good")
 
         print("\nDownloading VIDEO...")
 
