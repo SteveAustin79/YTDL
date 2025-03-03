@@ -602,8 +602,8 @@ while True:
         #skip_x_videos = int(smart_input("Skip x videos: ", "0"))
 
         c = Channel(YTchannel)
-        print("\n" + print_colored_text(print_colored_text(str(YTchannel), BCOLORS.BOLD), BCOLORS.CYAN))
-        print(print_colored_text(print_colored_text("*" * len(str(YTchannel)), BCOLORS.BOLD), BCOLORS.CYAN))
+        print("\n" + print_colored_text(print_colored_text(str(c.channel_name), BCOLORS.BOLD), BCOLORS.CYAN))
+        print(print_colored_text(print_colored_text("*" * len(str(c.channel_name)), BCOLORS.BOLD), BCOLORS.CYAN))
 
         dlpath = smart_input("\nDownload Path:  ", output_dir + "/" + clean_string_regex(c.channel_name).rstrip())
 
