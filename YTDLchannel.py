@@ -384,9 +384,12 @@ def download_video_restricted(videoid, counterid, video_total_count, channel_nam
                 restricted_string = "/restricted/"
                 path = (dlpath + str(year) + restricted_string + str(publishing_date) + " - " + res + " - "
                         + clean_string_regex(os.path.splitext(video_file_tmp)[0]) + " - " + videoid + ".mp4")
-                print("MERGED FILE PRESENT. CONVERTING... ")
+                print("Merged file already present.")
+                print(f"Converting to MP4... (this may take a while)")
                 convert_webm_to_mp4("tmp/" + video_file_tmp, path, True)
-                #exit()
+                question = input("Whats next... Continue? Y/n")
+                if question == "n":
+                    exit()
 
         print("\nDownloading VIDEO...")
 
@@ -543,14 +546,6 @@ def merge_webm_opus(videoid, publishdate, video_resolution, year, restricted):
 
 def convert_webm_to_mp4(input_file, output_file, restricted):
     """Convert a WebM file to MP4 (H.264/AAC)."""
-    # command = [
-    #     "ffmpeg", "-loglevel", "quiet", "-i", input_file,
-    #     "-c:v", "libx264", "-preset", "fast", "-crf", "23",  # H.264 video encoding
-    #     "-c:a", "aac", "-b:a", "128k",  # AAC audio encoding
-    #     "-movflags", "+faststart",  # Optimize MP4 for streaming
-    #     output_file
-    # ]
-    # ffmpeg -i input.avi {arguments} --> pv input.avi | ffmpeg -i pipe:0 -v warning {arguments}
     command = [
         "ffmpeg", "-loglevel", "quiet", "-stats", "-i", input_file,
         "-c:v", "libx264", "-preset", "fast", "-crf", "23",  # H.264 video encoding
@@ -558,8 +553,6 @@ def convert_webm_to_mp4(input_file, output_file, restricted):
         "-movflags", "+faststart",  # Optimize MP4 for streaming
         output_file
     ]
-    print(command)
-    #subprocess.run(command, shell=True, check=True)
     subprocess.run(command, check=True)
     os.remove(input_file)
     if restricted:
