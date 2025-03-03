@@ -20,6 +20,7 @@ class BCOLORS:
     YELLOW     = "\033[93m"
     GREEN      = "\033[92m"
     RED        = "\033[91m"
+    BLACK      = "\033[90m"
     ORANGE     = "\033[33m"
     UNDERLINE  = "\033[4m"
     BOLD       = "\033[1m"
@@ -558,7 +559,7 @@ while True:
         print("********")
         print("YouTube Channel Downloader")
         print("Exit App with Ctrl + C")
-        print("https://github.com/SteveAustin79/YTDL\n")
+        print(print_colored_text("https://github.com/SteveAustin79/YTDL\n", BCOLORS.BLACK))
         delete_temp_files()
         print_configuration()
 
