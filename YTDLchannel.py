@@ -381,7 +381,7 @@ def download_video_restricted(videoid, counterid, video_total_count, channel_nam
             more_than1080p = 1
             video_file_tmp, audio_file_tmp = find_media_files("tmp")
             print(video_file_tmp, audio_file_tmp)
-            if os.path.exists(video_file_tmp):
+            if video_file_tmp!="None":
                 print("good")
                 restricted_string = "/restricted/"
                 path = (dlpath + str(year) + restricted_string + str(publishing_date) + " - " + res + " - "
