@@ -142,7 +142,7 @@ def print_video_infos(yt, res, video_views):
     if match:
         fps_value = int(match.group(1))
 
-    length_title_value = length_title + str(int(yt.length / 60)) + "m (" + str(fps_value) + " Frames)"
+    length_title_value = length_title + str(int(yt.length / 60)) + "m (" + str(yt.length*fps_value) + " Frames)"
 
     if ignore_max_duration_bool and ignore_min_duration_bool:
         print(length_title_value)
