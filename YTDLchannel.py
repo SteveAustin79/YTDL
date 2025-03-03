@@ -391,17 +391,12 @@ def download_video_restricted(videoid, counterid, video_total_count, channel_nam
                 print(print_colored_text("Merged file already present.", BCOLORS.GREEN))
                 print(f"Converting to MP4... (this may take a while)")
                 convert_webm_to_mp4("tmp/" + video_file_tmp, path, True)
-                question = input("Whats next... Continue? Y/n")
-                if question == "n":
-                    exit()
             else:
                 download_video_process(yt, res, more_than1080p, publishing_date, year, True)
         else:
             if not os.path.exists(dlpath + f"{year}/restricted"):
                 os.makedirs(dlpath + f"{year}/restricted")
-
             download_video_process(yt, res, more_than1080p, publishing_date, year, True)
-
 
 
 def download_video(videoid, counterid, video_total_count, video_views):
@@ -429,8 +424,18 @@ def download_video(videoid, counterid, video_total_count, video_views):
 
         if res == "2160p" or res == "1440p":
             more_than1080p = 1
-
-        download_video_process(yt, res, more_than1080p, publishing_date, year, False)
+            video_file_tmp, audio_file_tmp = find_media_files("tmp")
+            if video_file_tmp != "None":
+                restricted_string = "/"
+                path = (dlpath + str(year) + restricted_string + str(publishing_date) + " - " + res + " - "
+                        + clean_string_regex(os.path.splitext(video_file_tmp)[0]) + " - " + videoid + ".mp4")
+                print(print_colored_text("Merged file already present.", BCOLORS.GREEN))
+                print(f"Converting to MP4... (this may take a while)")
+                convert_webm_to_mp4("tmp/" + video_file_tmp, path, True)
+            else:
+                download_video_process(yt, res, more_than1080p, publishing_date, year, True)
+        else:
+            download_video_process(yt, res, more_than1080p, publishing_date, year, False)
 
 
 def download_video_process(yt, res, more_than1080p, publishing_date, year, restricted):
