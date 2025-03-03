@@ -141,7 +141,7 @@ def print_video_infos(yt, res, video_views):
     fps_value = ""
     if match:
         fps_value = int(match.group(1))
-        frames_per_second = print_colored_text("  (" + str(yt.length*fps_value) + " Frames)", BCOLORS.BLACK)
+        frames_per_second = print_colored_text("   (" + str(yt.length*fps_value) + " Frames)", BCOLORS.BLACK)
     else:
         frames_per_second = ""
     length_title_value = length_title + str(int(yt.length / 60)) + "m" + frames_per_second
@@ -155,7 +155,7 @@ def print_video_infos(yt, res, video_views):
         print(length_title_value, " (" + min_duration + "m < " + max_duration + "m)")
 
     print(print_colored_text("Resolution:    ", BCOLORS.BLACK),
-          print_colored_text(res, BCOLORS.YELLOW), print_colored_text(" (" + limit_resolution_to + ")", BCOLORS.BLACK))
+          print_colored_text(res, BCOLORS.YELLOW), print_colored_text("  (" + limit_resolution_to + ")", BCOLORS.BLACK))
     print("               ", print_colored_text(print_resolutions(yt), BCOLORS.BLACK))
 
 
