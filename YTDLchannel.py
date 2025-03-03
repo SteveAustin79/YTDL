@@ -558,6 +558,7 @@ def convert_webm_to_mp4(input_file, output_file, restricted):
         "-movflags", "+faststart",  # Optimize MP4 for streaming
         output_file
     ]
+    print(command)
     subprocess.run(command, shell=True, check=True)
     #subprocess.run(command, check=True)
     os.remove(input_file)
