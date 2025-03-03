@@ -606,6 +606,7 @@ while True:
 
         c = Channel(YTchannel)
         print("\n" + print_colored_text(str(YTchannel), BCOLORS.BOLD))
+        print(print_colored_text("*" * len(str(YTchannel)), BCOLORS.BOLD))
 
         dlpath = smart_input("\nDownload Path:  ", output_dir + "/" + clean_string_regex(c.channel_name).rstrip())
 
