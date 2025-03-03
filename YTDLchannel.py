@@ -600,7 +600,7 @@ while True:
         #skip_x_videos = int(smart_input("Skip x videos: ", "0"))
 
         c = Channel(YTchannel)
-        print(c.channel_name)
+        print(c.channel_url)
 
         dlpath = smart_input("\nDownload Path:  ", output_dir + "/" + clean_string_regex(c.channel_name).rstrip())
 
