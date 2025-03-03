@@ -95,7 +95,8 @@ def print_asteriks_line():
 def print_configuration():
     print("CONFIGURATION (config.json):")
     print_asteriks_line()
-    print("Output directory:                   ", print_colored_text(output_dir, BCOLORS.CYAN))
+    print(print_colored_text("Output directory:                   ", BCOLORS.BLACK),
+          print_colored_text(output_dir, BCOLORS.CYAN))
     print("Minimum Video Duration in Minutes:  ", print_colored_text(min_duration, BCOLORS.CYAN))
     print("Maximum Video Duration in Minutes:  ", print_colored_text(max_duration, BCOLORS.CYAN))
     if year_subfolders:
@@ -555,7 +556,7 @@ while True:
         video_list_restricted = []
 
         clear_screen()
-        print("\nYTDL " + str(version))
+        print(print_colored_text("\nYTDL " + str(version), BCOLORS.YELLOW))
         print("********")
         print("YouTube Channel Downloader")
         print("Exit App with Ctrl + C")
