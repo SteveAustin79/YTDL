@@ -141,7 +141,7 @@ def print_video_infos(yt, res, video_views):
     fps_value = ""
     if match:
         fps_value = int(match.group(1))
-        frames_per_second = print_colored_text(" (" + str(yt.length*fps_value) + " Frames)", BCOLORS.BLACK)
+        frames_per_second = print_colored_text("  (" + str(yt.length*fps_value) + " Frames)", BCOLORS.BLACK)
     else:
         frames_per_second = ""
     length_title_value = length_title + str(int(yt.length / 60)) + "m" + frames_per_second
