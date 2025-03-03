@@ -391,7 +391,7 @@ def download_video_restricted(videoid, counterid, video_total_count, channel_nam
                 restricted_string = "/restricted/"
                 path = (dlpath + str(year) + restricted_string + str(publishing_date) + " - " + res + " - "
                         + clean_string_regex(os.path.splitext(video_file_tmp)[0]) + " - " + videoid + ".mp4")
-                print(print_colored_text("Merged file already present.", BCOLORS.GREEN))
+                print("\nMerged file already present.")
                 print(f"Converting to MP4... (this may take a while)")
                 convert_webm_to_mp4("tmp/" + video_file_tmp, path, True)
             else:
