@@ -553,7 +553,7 @@ while True:
 
 
 
-        list_all_videos = smart_input("\nList all Videos?  Y/n", "y")
+        list_all_videos = smart_input("\nList all " + str(len(c.video_urls)) + " Videos?  Y/n", "y")
         selected_video_ids = []
 
         if list_all_videos == "y":
