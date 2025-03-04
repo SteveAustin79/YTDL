@@ -567,15 +567,21 @@ while True:
             # Ask user for selection
             while True:
                 try:
-                    choice = int(input("Select a video by entering the number: "))
-                    if 1 <= choice <= len(video_list):
-                        selected_video = video_list[choice - 1]  # Get the chosen video
-                        print(f"You selected: {selected_video.title}")
+                    choices = input("Select one or more videos by entering numbers separated by commas: ")
+                    selected_indices = [int(x.strip()) for x in choices.split(",")]
+
+                    # Validate selection
+                    if all(1 <= index <= len(video_list) for index in selected_indices):
+                        selected_videos = [video_list[i - 1] for i in selected_indices]  # Get the chosen videos
+                        print("You selected:")
+                        for video in selected_videos:
+                            print(f"- {video.title}")
                         break  # Exit loop if valid input
                     else:
-                        print("Invalid choice, please enter a number from the list.")
+                        print("Invalid choice(s), please enter valid numbers from the list.")
                 except ValueError:
-                    print("Invalid input, please enter a number.")
+                    print("Invalid input, please enter numbers separated by commas.")
+
 
         else:
             ytchannel_path = smart_input("\nDownload Path:  ",
