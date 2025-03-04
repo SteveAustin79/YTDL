@@ -23,6 +23,9 @@ Restricted video download possible, but requires authentication via accounts.goo
 - 20250227 - v0.2 - file support (check if already downloaded)
 - 20250226 - v0.1 - initial version, based on YTDL v0.3
 
+## Disclaimer
+- this app is meant only for non-copyrighted/protected videos
+
 ## Prerequisites
 - Git (https://git-scm.com/downloads)
 - Python (https://www.python.org)
