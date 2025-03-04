@@ -173,11 +173,11 @@ def print_video_infos(yt, res, video_views):
     if ignore_max_duration_bool and ignore_min_duration_bool:
         print(length_title_value)
     elif ignore_max_duration_bool:
-        print(length_title_value, print_colored_text("  (" + min_duration + "m <"), BCOLORS.BLACK)
+        print(length_title_value, print_colored_text("  (" + min_duration + "m <", BCOLORS.BLACK))
     elif ignore_min_duration_bool:
-        print(length_title_value, print_colored_text("  (< " + max_duration + "m"), BCOLORS.BLACK)
+        print(length_title_value, print_colored_text("  (< " + max_duration + "m", BCOLORS.BLACK))
     else:
-        print(length_title_value, print_colored_text("  (" + min_duration + "m < " + max_duration + "m)"), BCOLORS.BLACK)
+        print(length_title_value, print_colored_text("  (" + min_duration + "m < " + max_duration + "m)", BCOLORS.BLACK))
 
     print(print_colored_text("Resolution:    ", BCOLORS.BLACK),
           print_colored_text(res, BCOLORS.YELLOW), print_colored_text("  (" + limit_resolution_to + ")", BCOLORS.BLACK))
@@ -697,7 +697,7 @@ while True:
             if not os.path.exists(ytchannel_path):
                 os.makedirs(ytchannel_path)
 
-            if find_file_by_string(ytchannel_path, only_video_id, limit_resolution_to) != None:
+            if find_file_by_string(ytchannel_path, only_video_id, limit_resolution_to) is not None:
                 count_ok_videos += 1
                 count_skipped += 1
                 print(print_colored_text(f"\rSkipping {count_skipped} Videos", BCOLORS.MAGENTA), end="", flush=True)
