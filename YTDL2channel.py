@@ -581,6 +581,7 @@ while True:
                         print("Invalid choice(s), please enter valid numbers from the list.")
                 except ValueError:
                     print("Invalid input, please enter numbers separated by commas.")
+            end_of_app = input("end")
 
 
         else:
