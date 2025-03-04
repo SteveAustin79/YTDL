@@ -141,7 +141,7 @@ def format_header(counter, width):
     # width = 95
     counter_splitted = counter.split(" - ")
     counter_str = ("* " + counter_splitted[0] + " *" + print_colored_text(f" {counter_splitted[1]} ", BCOLORS.CYAN)
-                   + "| " + counter_splitted[2] + " (" + get_free_space(dlpath) + " free) ")
+                   + "| " + counter_splitted[2] + " (" + get_free_space(ytchannel_path) + " free) ")
     total_length = width - 2  # Exclude parentheses ()
 
     # Center the counter with asterisks
@@ -332,13 +332,13 @@ def limit_resolution(resolution, limit):
 
 
 def download_video(channel_name, video_id, counter_id, video_total_count, video_views, restricted):
-    restricted_path_snippet = "/"
+    restricted_path_snippet = ""
     colored_video_id = video_id
     header_width = 95
     if restricted:
         yt = YouTube(youtube_base_url + video_id, use_oauth=True, allow_oauth_cache=True,
                      on_progress_callback=on_progress)
-        restricted_path_snippet = "/restricted/"
+        restricted_path_snippet = "restricted/"
         colored_video_id = print_colored_text(video_id, BCOLORS.RED)
         header_width = 104
     else:
@@ -348,10 +348,18 @@ def download_video(channel_name, video_id, counter_id, video_total_count, video_
                          + " - " + str(counter_id) + "/" + str(video_total_count), header_width))
 
     publishing_date = yt.publish_date.strftime("%Y-%m-%d")
+
     if year_subfolders:
         year = "/" + str(yt.publish_date.strftime("%Y"))
     else:
         year = ""
+
+    if restricted:
+        if not os.path.exists(ytchannel_path + f"{str(year)}/restricted"):
+            os.makedirs(ytchannel_path + f"{str(year)}/restricted")
+    else:
+        if not os.path.exists(ytchannel_path + f"{str(year)}"):
+            os.makedirs(ytchannel_path + f"{str(year)}")
 
     res = max(print_resolutions(yt), key=lambda x: int(x.rstrip('p')))
     if limit_resolution_to != "max":
@@ -360,7 +368,7 @@ def download_video(channel_name, video_id, counter_id, video_total_count, video_
     print_video_infos(yt, res, video_views)
 
     if os.path.exists(
-            dlpath + year + restricted_path_snippet + str(publishing_date) + " - " + res + " - " + clean_string_regex(
+            ytchannel_path + year + "/" + restricted_path_snippet + str(publishing_date) + " - " + res + " - " + clean_string_regex(
                 yt.title) + " - " + video_id + ".mp4"):
         print(print_colored_text("\nVideo already downloaded\n", BCOLORS.GREEN))
     else:
@@ -370,16 +378,13 @@ def download_video(channel_name, video_id, counter_id, video_total_count, video_
             more_than1080p = 1
             video_file_tmp, audio_file_tmp = find_media_files("tmp")
             if video_file_tmp is not None:
-                path = (dlpath + str(year) + restricted_path_snippet + str(publishing_date) + " - " + res + " - "
+                path = (ytchannel_path + str(year) + "/" + restricted_path_snippet + str(publishing_date) + " - " + res + " - "
                         + clean_string_regex(os.path.splitext(video_file_tmp)[0]) + " - " + video_id + ".mp4")
                 print("\nMerged file already exists!")
                 convert_webm_to_mp4("tmp/" + video_file_tmp, path, restricted)
             else:
                 download_video_process(yt, res, more_than1080p, publishing_date, year, restricted)
         else:
-            # Brauchts das hier???
-            # if not os.path.exists(dlpath + f"{year}/restricted"):
-            #     os.makedirs(dlpath + f"{year}/restricted")
             download_video_process(yt, res, more_than1080p, publishing_date, year, restricted)
 
 
@@ -414,14 +419,11 @@ def merge_video_audio(videoid, publishdate, video_resolution, year, restricted):
         print("❌ No MP4 or M4A files found in the current directory.")
         return
 
-    if not os.path.exists(dlpath + f"{str(year)}"):
-        os.makedirs(dlpath + f"{str(year)}")
-
     if restricted:
         restricted_path = "/restricted/"
     else:
         restricted_path = "/"
-    output_file = dlpath + str(year) + restricted_path + publishdate + " - " + video_resolution + " - " + clean_string_regex(os.path.splitext(video_file)[0]) + " - " + videoid + ".mp4"
+    output_file = ytchannel_path + str(year) + restricted_path + publishdate + " - " + video_resolution + " - " + clean_string_regex(os.path.splitext(video_file)[0]) + " - " + videoid + ".mp4"
 
     """Merge video and audio into a single MP4 file using FFmpeg."""
     try:
@@ -482,7 +484,7 @@ def merge_webm_opus(videoid, publishdate, video_resolution, year, restricted):
     if restricted:
         restricted_string = "/restricted/"
 
-    path = (dlpath + str(year) + restricted_string + publishdate + " - " + video_resolution + " - "
+    path = (ytchannel_path + str(year) + restricted_string + publishdate + " - " + video_resolution + " - "
             + clean_string_regex(os.path.splitext(video_file)[0]) + " - " + videoid + ".mp4")
     convert_webm_to_mp4(output_file, path, restricted)
 
@@ -547,7 +549,7 @@ while True:
         print("\n" + print_colored_text(print_colored_text(str(c.channel_name), BCOLORS.BOLD), BCOLORS.CYAN))
         print(print_colored_text(print_colored_text("*" * len(str(c.channel_name)), BCOLORS.BOLD), BCOLORS.CYAN))
 
-        dlpath = smart_input("\nDownload Path:  ", output_dir + "/" + clean_string_regex(c.channel_name).rstrip())
+        ytchannel_path = smart_input("\nDownload Path:  ", output_dir + "/" + clean_string_regex(c.channel_name).rstrip())
 
         default_max_res = "max"
         default_ignore_min_duration = "y"
@@ -561,11 +563,11 @@ while True:
 
         channel_config_path = "/_config_channel.json"
 
-        if os.path.exists(dlpath + channel_config_path):
+        if os.path.exists(ytchannel_path + channel_config_path):
             incomplete_config = False
             incomplete_string = []
             # Load channel config
-            channel_config = load_config(dlpath + channel_config_path)
+            channel_config = load_config(ytchannel_path + channel_config_path)
             # Access settings
             if "c_max_resolution" in channel_config:
                 if channel_config["c_max_resolution"] != "":
@@ -618,7 +620,7 @@ while True:
                       + print_colored_text("incomplete ", BCOLORS.ORANGE)
                       + print_colored_text("channel config file! --> Adding missing key(s) to file ", BCOLORS.BLUE)
                       + print_colored_text(str(incomplete_string) + "\n", BCOLORS.ORANGE))
-                cc_check_and_update_channel_config(dlpath + channel_config_path, REQUIRED_CONFIG)
+                cc_check_and_update_channel_config(ytchannel_path + channel_config_path, REQUIRED_CONFIG)
             else:
                 print(print_colored_text("\nFound channel config file!\n", BCOLORS.BLUE))
 
@@ -692,10 +694,10 @@ while True:
         for url in video_watch_urls:
             only_video_id = pytubefix.extract.video_id(url)
 
-            if not os.path.exists(dlpath):
-                os.makedirs(dlpath)
+            if not os.path.exists(ytchannel_path):
+                os.makedirs(ytchannel_path)
 
-            if find_file_by_string(dlpath, only_video_id, limit_resolution_to) != None:
+            if find_file_by_string(ytchannel_path, only_video_id, limit_resolution_to) != None:
                 count_ok_videos += 1
                 count_skipped += 1
                 print(print_colored_text(f"\rSkipping {count_skipped} Videos", BCOLORS.MAGENTA), end="", flush=True)
@@ -727,7 +729,6 @@ while True:
                         count_this_run += 1
                         count_skipped = 0
                         video_list.append(video.video_id)
-                        #download_video(video.video_id, count_ok_videos, len(video_watch_urls), video.views)
                         download_video(clean_string_regex(c.channel_name).rstrip(), video.video_id,
                                                  count_ok_videos, len(video_watch_urls), video.views, False)
                     else:
@@ -738,10 +739,6 @@ while True:
                                 count_ok_videos += 1
                                 count_this_run += 1
                                 video_list_restricted.append(video.video_id)
-                                # if not os.path.exists(dlpath + f"{year}/restricted"):
-                                #     os.makedirs(dlpath + f"{year}/restricted")
-                                #download_video_restricted(video.video_id, count_ok_videos, len(video_watch_urls),
-                                #                        clean_string_regex(c.channel_name).rstrip(), video.views)
                                 download_video(clean_string_regex(c.channel_name).rstrip(), video.video_id,
                                                          count_ok_videos, len(video_watch_urls), video.views, True)
 
@@ -753,7 +750,7 @@ while True:
                                      BCOLORS.GREEN))
             print(print_colored_text(f"Downloaded in this session: {count_this_run}, (restricted: {len(video_list_restricted)} / ignored: {len(video_watch_urls)-count_ok_videos})",
                                      BCOLORS.GREEN))
-            print(f"\n{get_free_space(dlpath)} free\n")
+            print(f"\n{get_free_space(ytchannel_path)} free\n")
 
         continue_ytdl = smart_input("Continue?  Y/n ", "y")
         print("\n")
