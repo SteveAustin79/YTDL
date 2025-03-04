@@ -703,8 +703,8 @@ while True:
             if exclude_video_ids != "":
                 exclude_list = clean_youtube_urls(string_to_list(exclude_video_ids))
 
-            include_video_ids = smart_input("Include Video ID's (comma separated list): ", default_include_videos)
-            include_list = selected_videos
+            include_video_ids = smart_input("Include Video ID's (comma separated list): ", selected_videos)
+            include_list = []
             if include_video_ids != "":
                 include_list = clean_youtube_urls(string_to_list(include_video_ids))
 
