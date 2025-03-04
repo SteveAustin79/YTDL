@@ -9,7 +9,7 @@ import pytubefix.extract
 from pytubefix import YouTube, Channel
 from pytubefix.cli import on_progress
 
-version = 0.6
+version = 1.0
 
 class BCOLORS:
     CYAN       = "\033[96m"
