@@ -22,7 +22,7 @@ Restricted video download possible, but requires authentication via accounts.goo
 - 20250226 - v0.1 - initial version, based on YTDL v0.3
 
 ## Disclaimer
-- this app is meant only for non-copyrighted/protected videos
+- this app is meant only for non-copyright/non-protected videos, or for backup purposes
 
 ## Prerequisites
 - Git (https://git-scm.com/downloads)
