@@ -563,7 +563,7 @@ while True:
 
             for index, v_video in enumerate(video_list, start=1):
                 if v_video.age_restricted:
-                    print(print_colored_text(f"{index}. {v_video.title}", BCOLORS.RED)
+                    print(print_colored_text(f"{index}. {v_video.title}", BCOLORS.RED))
                 else:
                     print(f"{index}. {v_video.title}")
             # Ask user for selection
