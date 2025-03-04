@@ -106,15 +106,15 @@ def clean_youtube_urls(toclean_video_list):
     return [toclean_video.replace(prefix, "") for toclean_video in toclean_video_list]
 
 
-def string_to_list(input_string):
-    """Transforms a comma-separated string into a list of strings, removing extra spaces."""
-    return [item.strip() for item in input_string.split(",")]
-
-
 def clean_string_regex(text):
     new_text = text.replace(":", "")
     pattern = r"[^a-zA-Z0-9 ]"
     return re.sub(pattern, "", new_text)
+
+
+def string_to_list(input_string):
+    """Transforms a comma-separated string into a list of strings, removing extra spaces."""
+    return [item.strip() for item in input_string.split(",")]
 
 
 def print_configuration():
@@ -412,7 +412,7 @@ def download_video_process(yt, res, more_than1080p, publishing_date, year, restr
         convert_m4a_to_opus_and_merge(yt.video_id, publishing_date, res, year, restricted)
 
 
-def merge_video_audio(videoid, publishdate, video_resolution, year, restricted):
+def merge_video_audio(video_id, publish_date, video_resolution, year, restricted):
     video_file, audio_file = find_media_files(".")
 
     if not video_file or not audio_file:
@@ -423,13 +423,11 @@ def merge_video_audio(videoid, publishdate, video_resolution, year, restricted):
         restricted_path = "/restricted/"
     else:
         restricted_path = "/"
-    output_file = ytchannel_path + str(year) + restricted_path + publishdate + " - " + video_resolution + " - " + clean_string_regex(os.path.splitext(video_file)[0]) + " - " + videoid + ".mp4"
+    output_file = (ytchannel_path + str(year) + restricted_path + publish_date + " - " + video_resolution
+                   + " - " + clean_string_regex(os.path.splitext(video_file)[0]) + " - " + video_id + ".mp4")
 
     """Merge video and audio into a single MP4 file using FFmpeg."""
     try:
-        #print(f"🎬 Merging Video: {video_file}")
-        #print(f"🎵 Merging Audio: {audio_file}")
-
         # Input video and audio streams
         m_video = ffmpeg.input(video_file)
         audio = ffmpeg.input(audio_file)
@@ -437,7 +435,6 @@ def merge_video_audio(videoid, publishdate, video_resolution, year, restricted):
         print("\nMerging...")
         # Merge video and audio
         output = ffmpeg.output(m_video, audio, output_file, vcodec="copy", acodec="aac", strict="experimental")
-
         #output = output.global_args("-stats")
 
         # Run FFmpeg command
