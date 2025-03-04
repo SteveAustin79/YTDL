@@ -720,7 +720,7 @@ while True:
                         if video.views < min_video_views:
                             do_not_download = 1
 
-                    print("\n")
+                    #print("\n")
 
                     if (video.age_restricted == False and
                             video.vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
