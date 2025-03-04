@@ -575,12 +575,15 @@ while True:
                     choices = input("\nSelect one or more videos by entering numbers separated by commas: ")
                     selected_indices = [int(x.strip()) for x in choices.split(",")]
 
+                    selected_video_ids = []
+
                     # Validate selection
                     if all(1 <= index <= len(video_list) for index in selected_indices):
                         selected_videos = [video_list[i - 1] for i in selected_indices]  # Get the chosen videos
                         # print("You selected:")
-                        # for video in selected_videos:
-                        #     print(f"- {video.video_id}")
+                        for video in selected_videos:
+                            #print(f"- {video.video_id}")
+                            selected_video_ids.append(video.video_id)
                         break  # Exit loop if valid input
                     else:
                         print("Invalid choice(s), please enter valid numbers from the list.")
@@ -703,7 +706,7 @@ while True:
             if exclude_video_ids != "":
                 exclude_list = clean_youtube_urls(string_to_list(exclude_video_ids))
 
-            include_video_ids = smart_input("Include Video ID's (comma separated list): ", selected_videos)
+            include_video_ids = smart_input("Include Video ID's (comma separated list): ", selected_video_ids)
             include_list = []
             if include_video_ids != "":
                 include_list = clean_youtube_urls(string_to_list(include_video_ids))
