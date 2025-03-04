@@ -547,220 +547,225 @@ while True:
         print("\n" + print_colored_text(print_colored_text(str(c.channel_name), BCOLORS.BOLD), BCOLORS.CYAN))
         print(print_colored_text(print_colored_text("*" * len(str(c.channel_name)), BCOLORS.BOLD), BCOLORS.CYAN))
 
-        for url in c.releases:
-            print(url.title)
-
-        stopper = smart_input("Pause... press enter to continue  Y/n", "y")
-
-        ytchannel_path = smart_input("\nDownload Path:  ", output_dir + "/" + clean_string_regex(c.channel_name).rstrip())
-
-        default_max_res = "max"
-        default_ignore_min_duration = "y"
-        default_ignore_max_duration = "y"
-        default_only_restricted = "n"
-        default_skip_restricted = "n"
-        default_minimum_views = "0"
-        default_exclude_videos = ""
-        default_include_videos = ""
-        default_filter_words = ""
-
-        channel_config_path = "/_config_channel.json"
-
-        if os.path.exists(ytchannel_path + channel_config_path):
-            incomplete_config = False
-            incomplete_string = []
-            # Load channel config
-            channel_config = load_config(ytchannel_path + channel_config_path)
-            # Access settings
-            if "c_max_resolution" in channel_config:
-                if channel_config["c_max_resolution"] != "":
-                    default_max_res = channel_config["c_max_resolution"]
-            else:
-                incomplete_config = True
-                incomplete_string.append("c_max_resolution")
-
-            if "c_ignore_min_duration" in channel_config:
-                if channel_config["c_ignore_min_duration"] != "":
-                    default_ignore_min_duration = channel_config["c_ignore_min_duration"]
-            else:
-                incomplete_config = True
-                incomplete_string.append("c_ignore_min_duration")
-
-            if "c_ignore_max_duration" in channel_config:
-                if channel_config["c_ignore_max_duration"] != "":
-                    default_ignore_max_duration = channel_config["c_ignore_max_duration"]
-            else:
-                incomplete_config = True
-                incomplete_string.append("c_ignore_max_duration")
-
-            if "c_only_restricted" in channel_config:
-                if channel_config["c_only_restricted"] != "":
-                    default_only_restricted = channel_config["c_only_restricted"]
-            else:
-                incomplete_config = True
-                incomplete_string.append("c_only_restricted")
-
-            if "c_skip_restricted" in channel_config:
-                if channel_config["c_skip_restricted"] != "":
-                    default_skip_restricted = channel_config["c_skip_restricted"]
-            else:
-                incomplete_config = True
-                incomplete_string.append("c_skip_restricted")
-
-            if "c_minimum_views" in channel_config:
-                if channel_config["c_minimum_views"] != "":
-                    default_minimum_views = channel_config["c_minimum_views"]
-            else:
-                incomplete_config = True
-                incomplete_string.append("c_minimum_views")
-
-            default_exclude_videos = channel_config["c_exclude_video_ids"]
-            default_include_videos = channel_config["c_include_video_ids"]
-            default_filter_words = channel_config["c_filter_words"]
-
-            if incomplete_config:
-                print(print_colored_text("\nFound ", BCOLORS.BLUE)
-                      + print_colored_text("incomplete ", BCOLORS.ORANGE)
-                      + print_colored_text("channel config file! --> Adding missing key(s) to file ", BCOLORS.BLUE)
-                      + print_colored_text(str(incomplete_string) + "\n", BCOLORS.ORANGE))
-                cc_check_and_update_channel_config(ytchannel_path + channel_config_path, REQUIRED_CONFIG)
-            else:
-                print(print_colored_text("\nFound channel config file!\n", BCOLORS.BLUE))
-
-        if video_id_from_single_video!="":
-            default_include_videos = video_id_from_single_video
-
-        limit_resolution_to = smart_input("Max. Resolution:  ", default_max_res)
-
-        ignore_min_duration = smart_input("Ignore min_duration?  Y/n", default_ignore_min_duration)
-        ignore_min_duration_bool = True
-        if ignore_min_duration == "n":
-            ignore_min_duration_bool = False
-            print(print_colored_text("Ignoring Video(s) < " + str(min_duration) + " Minutes!", BCOLORS.RED))
-
-        ignore_max_duration = smart_input("Ignore max_duration?  Y/n", default_ignore_max_duration)
-        ignore_max_duration_bool = True
-        if ignore_max_duration=="n":
-            ignore_max_duration_bool = False
-            print(print_colored_text("Ignoring Video(s) > " + str(max_duration) + " Minutes!", BCOLORS.RED))
-
-        only_restricted_videos = smart_input("Only restricted video(s)?  Y/n", default_only_restricted)
-        only_restricted_videos_bool = False
-        if only_restricted_videos=="y":
-            only_restricted_videos_bool = True
-            print(print_colored_text("Downloading only restricted Video(s)!", BCOLORS.RED))
-
-        skip_restricted_bool = False
-        if not only_restricted_videos_bool:
-            skip_restricted = smart_input("Skip restricted Video(s)?  Y/n ", default_skip_restricted)
-            if skip_restricted == "y":
-                skip_restricted_bool = True
-                print(print_colored_text("Skipping restricted Video(s)!", BCOLORS.RED))
-
-        min_video_views = int(smart_input("Minimum Views (0=disabled): ", default_minimum_views))
-        if min_video_views > 0:
-            min_video_views_bool = True
+        list_all_videos = smart_input("List all Videos?  Y/n", "y")
+        if list_all_videos == "y":
+            for v_video in c.videos:
+                print(v_video.title)
+            stopper = smart_input("Please select Video(s)  ", "")
         else:
-            min_video_views_bool = False
+            ytchannel_path = smart_input("\nDownload Path:  ",
+                                         output_dir + "/" + clean_string_regex(c.channel_name).rstrip())
+            default_max_res = "max"
+            default_ignore_min_duration = "y"
+            default_ignore_max_duration = "y"
+            default_only_restricted = "n"
+            default_skip_restricted = "n"
+            default_minimum_views = "0"
+            default_exclude_videos = ""
+            default_include_videos = ""
+            default_filter_words = ""
 
-        exclude_video_ids = smart_input("\nExclude Video ID's (comma separated list): ", default_exclude_videos)
-        exclude_list = []
-        if exclude_video_ids!="":
-            exclude_list = clean_youtube_urls(string_to_list(exclude_video_ids))
+            channel_config_path = "/_config_channel.json"
 
-        include_video_ids = smart_input("Include Video ID's (comma separated list): ", default_include_videos)
-        include_list = []
-        if include_video_ids!="":
-            include_list = clean_youtube_urls(string_to_list(include_video_ids))
-
-        video_name_filter = str(smart_input("\nEnter filter word(s) (comma separated list): ", default_filter_words))
-        video_name_filter_list = string_to_list(video_name_filter)
-
-        count_total_videos = 0
-        count_restricted_videos = 0
-        count_ok_videos = 0
-        count_this_run = 0
-        count_skipped = 0
-
-        video_watch_urls = []
-        for url in c.video_urls:
-            count_total_videos += 1
-            if url.video_id not in exclude_list :
-                if len(include_list)>0:
-                    if url.video_id in include_list:
-                        video_watch_urls.append(url.watch_url)
+            if os.path.exists(ytchannel_path + channel_config_path):
+                incomplete_config = False
+                incomplete_string = []
+                # Load channel config
+                channel_config = load_config(ytchannel_path + channel_config_path)
+                # Access settings
+                if "c_max_resolution" in channel_config:
+                    if channel_config["c_max_resolution"] != "":
+                        default_max_res = channel_config["c_max_resolution"]
                 else:
-                    video_watch_urls.append(url.watch_url)
+                    incomplete_config = True
+                    incomplete_string.append("c_max_resolution")
 
-        print(f'\n\nTotal {count_total_videos} Video(s) by: \033[96m{c.channel_name}\033[0m\n')
+                if "c_ignore_min_duration" in channel_config:
+                    if channel_config["c_ignore_min_duration"] != "":
+                        default_ignore_min_duration = channel_config["c_ignore_min_duration"]
+                else:
+                    incomplete_config = True
+                    incomplete_string.append("c_ignore_min_duration")
 
-        for url in video_watch_urls:
-            only_video_id = pytubefix.extract.video_id(url)
+                if "c_ignore_max_duration" in channel_config:
+                    if channel_config["c_ignore_max_duration"] != "":
+                        default_ignore_max_duration = channel_config["c_ignore_max_duration"]
+                else:
+                    incomplete_config = True
+                    incomplete_string.append("c_ignore_max_duration")
 
-            if not os.path.exists(ytchannel_path):
-                os.makedirs(ytchannel_path)
+                if "c_only_restricted" in channel_config:
+                    if channel_config["c_only_restricted"] != "":
+                        default_only_restricted = channel_config["c_only_restricted"]
+                else:
+                    incomplete_config = True
+                    incomplete_string.append("c_only_restricted")
 
-            if find_file_by_string(ytchannel_path, only_video_id, limit_resolution_to) is not None:
-                count_ok_videos += 1
-                count_skipped += 1
-                print(print_colored_text(f"\rSkipping {count_skipped} Videos", BCOLORS.MAGENTA), end="", flush=True)
+                if "c_skip_restricted" in channel_config:
+                    if channel_config["c_skip_restricted"] != "":
+                        default_skip_restricted = channel_config["c_skip_restricted"]
+                else:
+                    incomplete_config = True
+                    incomplete_string.append("c_skip_restricted")
+
+                if "c_minimum_views" in channel_config:
+                    if channel_config["c_minimum_views"] != "":
+                        default_minimum_views = channel_config["c_minimum_views"]
+                else:
+                    incomplete_config = True
+                    incomplete_string.append("c_minimum_views")
+
+                default_exclude_videos = channel_config["c_exclude_video_ids"]
+                default_include_videos = channel_config["c_include_video_ids"]
+                default_filter_words = channel_config["c_filter_words"]
+
+                if incomplete_config:
+                    print(print_colored_text("\nFound ", BCOLORS.BLUE)
+                          + print_colored_text("incomplete ", BCOLORS.ORANGE)
+                          + print_colored_text("channel config file! --> Adding missing key(s) to file ", BCOLORS.BLUE)
+                          + print_colored_text(str(incomplete_string) + "\n", BCOLORS.ORANGE))
+                    cc_check_and_update_channel_config(ytchannel_path + channel_config_path, REQUIRED_CONFIG)
+                else:
+                    print(print_colored_text("\nFound channel config file!\n", BCOLORS.BLUE))
+
+            if video_id_from_single_video != "":
+                default_include_videos = video_id_from_single_video
+
+            limit_resolution_to = smart_input("Max. Resolution:  ", default_max_res)
+
+            ignore_min_duration = smart_input("Ignore min_duration?  Y/n", default_ignore_min_duration)
+            ignore_min_duration_bool = True
+            if ignore_min_duration == "n":
+                ignore_min_duration_bool = False
+                print(print_colored_text("Ignoring Video(s) < " + str(min_duration) + " Minutes!", BCOLORS.RED))
+
+            ignore_max_duration = smart_input("Ignore max_duration?  Y/n", default_ignore_max_duration)
+            ignore_max_duration_bool = True
+            if ignore_max_duration == "n":
+                ignore_max_duration_bool = False
+                print(print_colored_text("Ignoring Video(s) > " + str(max_duration) + " Minutes!", BCOLORS.RED))
+
+            only_restricted_videos = smart_input("Only restricted video(s)?  Y/n", default_only_restricted)
+            only_restricted_videos_bool = False
+            if only_restricted_videos == "y":
+                only_restricted_videos_bool = True
+                print(print_colored_text("Downloading only restricted Video(s)!", BCOLORS.RED))
+
+            skip_restricted_bool = False
+            if not only_restricted_videos_bool:
+                skip_restricted = smart_input("Skip restricted Video(s)?  Y/n ", default_skip_restricted)
+                if skip_restricted == "y":
+                    skip_restricted_bool = True
+                    print(print_colored_text("Skipping restricted Video(s)!", BCOLORS.RED))
+
+            min_video_views = int(smart_input("Minimum Views (0=disabled): ", default_minimum_views))
+            if min_video_views > 0:
+                min_video_views_bool = True
             else:
-                do_not_download = 0
-                video = YouTube(youtube_base_url + only_video_id, on_progress_callback=on_progress)
+                min_video_views_bool = False
 
-                if video_name_filter=="" or any(word.lower() in video.title.lower() for word in video_name_filter_list):
-                    if not ignore_min_duration_bool:
-                        video_duration = int(video.length/60)
-                        if video_duration < int(min_duration):
-                            do_not_download = 1
+            exclude_video_ids = smart_input("\nExclude Video ID's (comma separated list): ", default_exclude_videos)
+            exclude_list = []
+            if exclude_video_ids != "":
+                exclude_list = clean_youtube_urls(string_to_list(exclude_video_ids))
 
-                    if not ignore_max_duration_bool:
-                        video_duration = int(video.length/60)
-                        if video_duration > int(max_duration):
-                            do_not_download = 1
+            include_video_ids = smart_input("Include Video ID's (comma separated list): ", default_include_videos)
+            include_list = []
+            if include_video_ids != "":
+                include_list = clean_youtube_urls(string_to_list(include_video_ids))
 
-                    if min_video_views > 0:
-                        if video.views < min_video_views:
-                            do_not_download = 1
+            video_name_filter = str(
+                smart_input("\nEnter filter word(s) (comma separated list): ", default_filter_words))
+            video_name_filter_list = string_to_list(video_name_filter)
 
-                    #print("\n")
+            count_total_videos = 0
+            count_restricted_videos = 0
+            count_ok_videos = 0
+            count_this_run = 0
+            count_skipped = 0
 
-                    if (video.age_restricted == False and
-                            video.vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
-                            do_not_download == 0 and not only_restricted_videos_bool):
-                        count_ok_videos += 1
-                        count_this_run += 1
-                        count_skipped = 0
-                        video_list.append(video.video_id)
-                        download_video(clean_string_regex(c.channel_name).rstrip(), video.video_id,
-                                                 count_ok_videos, len(video_watch_urls), video.views, False)
+            video_watch_urls = []
+            for url in c.video_urls:
+                count_total_videos += 1
+                if url.video_id not in exclude_list:
+                    if len(include_list) > 0:
+                        if url.video_id in include_list:
+                            video_watch_urls.append(url.watch_url)
                     else:
-                        if not skip_restricted_bool:
-                            if (video.vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
-                                    do_not_download == 0):
-                                count_restricted_videos += 1
-                                count_ok_videos += 1
-                                count_this_run += 1
-                                video_list_restricted.append(video.video_id)
-                                download_video(clean_string_regex(c.channel_name).rstrip(), video.video_id,
-                                                         count_ok_videos, len(video_watch_urls), video.views, True)
+                        video_watch_urls.append(url.watch_url)
 
-        if count_this_run == 0:
-            print("\n\n" + print_colored_text("Nothing to do...\n\n", BCOLORS.GREEN))
-        else:
-            print(print_colored_text(f"\n\nDONE!\n", BCOLORS.GREEN))
-            print(print_colored_text(f"Videos: {count_total_videos}, Selected Videos: {count_ok_videos}",
-                                     BCOLORS.GREEN))
-            print(print_colored_text(f"Downloaded in this session: {count_this_run}, (restricted: {len(video_list_restricted)} / ignored: {len(video_watch_urls)-count_ok_videos})",
-                                     BCOLORS.GREEN))
-            print(f"\n{get_free_space(ytchannel_path)} free\n")
+            print(f'\n\nTotal {count_total_videos} Video(s) by: \033[96m{c.channel_name}\033[0m\n')
 
-        continue_ytdl = smart_input("Continue?  Y/n ", "y")
-        print("\n")
-        if continue_ytdl=="y":
-            continue
-        else:
-            break
+            for url in video_watch_urls:
+                only_video_id = pytubefix.extract.video_id(url)
+
+                if not os.path.exists(ytchannel_path):
+                    os.makedirs(ytchannel_path)
+
+                if find_file_by_string(ytchannel_path, only_video_id, limit_resolution_to) is not None:
+                    count_ok_videos += 1
+                    count_skipped += 1
+                    print(print_colored_text(f"\rSkipping {count_skipped} Videos", BCOLORS.MAGENTA), end="", flush=True)
+                else:
+                    do_not_download = 0
+                    video = YouTube(youtube_base_url + only_video_id, on_progress_callback=on_progress)
+
+                    if video_name_filter == "" or any(
+                            word.lower() in video.title.lower() for word in video_name_filter_list):
+                        if not ignore_min_duration_bool:
+                            video_duration = int(video.length / 60)
+                            if video_duration < int(min_duration):
+                                do_not_download = 1
+
+                        if not ignore_max_duration_bool:
+                            video_duration = int(video.length / 60)
+                            if video_duration > int(max_duration):
+                                do_not_download = 1
+
+                        if min_video_views > 0:
+                            if video.views < min_video_views:
+                                do_not_download = 1
+
+                        # print("\n")
+
+                        if (video.age_restricted == False and
+                                video.vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
+                                do_not_download == 0 and not only_restricted_videos_bool):
+                            count_ok_videos += 1
+                            count_this_run += 1
+                            count_skipped = 0
+                            video_list.append(video.video_id)
+                            download_video(clean_string_regex(c.channel_name).rstrip(), video.video_id,
+                                           count_ok_videos, len(video_watch_urls), video.views, False)
+                        else:
+                            if not skip_restricted_bool:
+                                if (video.vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
+                                        do_not_download == 0):
+                                    count_restricted_videos += 1
+                                    count_ok_videos += 1
+                                    count_this_run += 1
+                                    video_list_restricted.append(video.video_id)
+                                    download_video(clean_string_regex(c.channel_name).rstrip(), video.video_id,
+                                                   count_ok_videos, len(video_watch_urls), video.views, True)
+
+            if count_this_run == 0:
+                print("\n\n" + print_colored_text("Nothing to do...\n\n", BCOLORS.GREEN))
+            else:
+                print(print_colored_text(f"\n\nDONE!\n", BCOLORS.GREEN))
+                print(print_colored_text(f"Videos: {count_total_videos}, Selected Videos: {count_ok_videos}",
+                                         BCOLORS.GREEN))
+                print(print_colored_text(
+                    f"Downloaded in this session: {count_this_run}, (restricted: {len(video_list_restricted)} / ignored: {len(video_watch_urls) - count_ok_videos})",
+                    BCOLORS.GREEN))
+                print(f"\n{get_free_space(ytchannel_path)} free\n")
+
+            continue_ytdl = smart_input("Continue?  Y/n ", "y")
+            print("\n")
+            if continue_ytdl == "y":
+                continue
+            else:
+                break
+
 
     except Exception as e:
         delete_temp_files()
