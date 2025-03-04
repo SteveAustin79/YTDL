@@ -550,11 +550,33 @@ while True:
 
         list_all_videos = smart_input("\nList all Videos?  Y/n", "y")
 
+
+
         if list_all_videos == "y":
             print("")
-            for v_video in c.videos:
-                print(v_video.title)
-            stopper = smart_input("\nPlease select Video(s)  ", "")
+            # for v_video in c.videos:
+            #     print(v_video.title)
+            # stopper = smart_input("\nPlease select Video(s)  (comma separated)", "")
+
+            # Display the video list with numbers
+            video_list = list(c.videos)  # Convert to a list if not already
+
+            for index, v_video in enumerate(video_list, start=1):
+                print(f"{index}. {v_video.title}")
+
+            # Ask user for selection
+            while True:
+                try:
+                    choice = int(input("Select a video by entering the number: "))
+                    if 1 <= choice <= len(video_list):
+                        selected_video = video_list[choice - 1]  # Get the chosen video
+                        print(f"You selected: {selected_video.title}")
+                        break  # Exit loop if valid input
+                    else:
+                        print("Invalid choice, please enter a number from the list.")
+                except ValueError:
+                    print("Invalid input, please enter a number.")
+
         else:
             ytchannel_path = smart_input("\nDownload Path:  ",
                                          output_dir + "/" + clean_string_regex(c.channel_name).rstrip())
