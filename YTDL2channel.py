@@ -557,9 +557,6 @@ while True:
 
         if list_all_videos == "y":
             print("")
-            # for v_video in c.videos:
-            #     print(v_video.title)
-            # stopper = smart_input("\nPlease select Video(s)  (comma separated)", "")
 
             # Display the video list with numbers
             video_list = list(c.videos)  # Convert to a list if not already
@@ -590,6 +587,7 @@ while True:
                 except ValueError:
                     print("Invalid input, please enter numbers separated by commas.")
 
+            # from here
             ytchannel_path = smart_input("\nDownload Path:  ",
                                          output_dir + "/" + clean_string_regex(c.channel_name).rstrip())
             default_max_res = "max"
@@ -929,6 +927,8 @@ while True:
             if exclude_video_ids != "":
                 exclude_list = clean_youtube_urls(string_to_list(exclude_video_ids))
 
+            if len(selected_video_ids) > 0:
+                default_include_videos = ",".join(selected_video_ids)
             include_video_ids = smart_input("Include Video ID's (comma separated list): ", default_include_videos)
             include_list = []
             if include_video_ids != "":
