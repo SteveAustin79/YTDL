@@ -547,11 +547,14 @@ while True:
         print("\n" + print_colored_text(print_colored_text(str(c.channel_name), BCOLORS.BOLD), BCOLORS.CYAN))
         print(print_colored_text(print_colored_text("*" * len(str(c.channel_name)), BCOLORS.BOLD), BCOLORS.CYAN))
 
-        list_all_videos = smart_input("List all Videos?  Y/n", "y")
+
+        list_all_videos = smart_input("\nList all Videos?  Y/n", "y")
+
         if list_all_videos == "y":
+            print("")
             for v_video in c.videos:
                 print(v_video.title)
-            stopper = smart_input("Please select Video(s)  ", "")
+            stopper = smart_input("\nPlease select Video(s)  ", "")
         else:
             ytchannel_path = smart_input("\nDownload Path:  ",
                                          output_dir + "/" + clean_string_regex(c.channel_name).rstrip())
