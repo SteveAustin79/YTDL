@@ -547,8 +547,8 @@ while True:
         print("\n" + print_colored_text(print_colored_text(str(c.channel_name), BCOLORS.BOLD), BCOLORS.CYAN))
         print(print_colored_text(print_colored_text("*" * len(str(c.channel_name)), BCOLORS.BOLD), BCOLORS.CYAN))
 
-        for v_video in c.videos:
-            print(v_video.title)
+        for v_video in c.video_urls:
+            print(v_video)
 
         stopper = smart_input("Pause... press enter to continue  Y/n", "y")
 
