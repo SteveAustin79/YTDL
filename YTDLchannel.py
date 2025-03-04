@@ -401,7 +401,7 @@ def download_video_process(yt, res, more_than1080p, publishing_date, year, restr
 
     rename_files_in_temp_directory()
 
-    print("\nMerging...")
+    #print("\nMerging...")
     if more_than1080p == 0:
         merge_video_audio(yt.video_id, publishing_date, res, year, restricted)
     else:
@@ -433,6 +433,7 @@ def merge_video_audio(videoid, publishdate, video_resolution, year, restricted):
         m_video = ffmpeg.input(video_file)
         audio = ffmpeg.input(audio_file)
 
+        print("\nMerging...")
         # Merge video and audio
         output = ffmpeg.output(m_video, audio, output_file, vcodec="copy", acodec="aac", strict="experimental")
 
@@ -456,6 +457,7 @@ def merge_video_audio(videoid, publishdate, video_resolution, year, restricted):
 def convert_m4a_to_opus_and_merge(videoid, publishdate, video_resolution, year, restricted):
     video_file, audio_file = find_media_files(".")
     """Convert M4A to Opus format (WebM-compatible)."""
+    print("\nConvert M4A audio to Opus format (WebM-compatible)...")
     command = [
         "ffmpeg", "-loglevel", "quiet", "-stats", "-i", audio_file, "-c:a", "libopus", "audio.opus"
     ]
@@ -468,6 +470,7 @@ def merge_webm_opus(videoid, publishdate, video_resolution, year, restricted):
     video_file, audio_file = find_media_files(".")
     output_file = "tmp/" + video_file
     """Merge WebM video with Opus audio."""
+    print("\nMerging WebM video with Opus audio...")
     command = [
         "ffmpeg", "-loglevel", "quiet", "-stats", "-i", video_file, "-i", "audio.opus",
         "-c:v", "copy", "-c:a", "copy", output_file
@@ -476,7 +479,7 @@ def merge_webm_opus(videoid, publishdate, video_resolution, year, restricted):
     # remove video and audio streams
     delete_temp_files()
     os.remove("audio.opus")
-    print(f"Converting to MP4... (this may take a while)")
+    print(f"Converting WebM to MP4... (this may take a while)")
     restricted_string = "/"
     if restricted:
         restricted_string = "/restricted/"
