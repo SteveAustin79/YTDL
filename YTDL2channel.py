@@ -562,12 +562,14 @@ while True:
             video_list = list(c.videos)  # Convert to a list if not already
 
             for index, v_video in enumerate(video_list, start=1):
-                print(f"{index}. {v_video.title}")
-
+                if v_video.age_restricted:
+                    print(print_colored_text(f"{index}. {v_video.title}", BCOLORS.RED)
+                else:
+                    print(f"{index}. {v_video.title}")
             # Ask user for selection
             while True:
                 try:
-                    choices = input("Select one or more videos by entering numbers separated by commas: ")
+                    choices = input("\nSelect one or more videos by entering numbers separated by commas: ")
                     selected_indices = [int(x.strip()) for x in choices.split(",")]
 
                     # Validate selection
