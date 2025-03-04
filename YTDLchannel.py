@@ -76,7 +76,6 @@ def smart_input(prompt, default_value):
     user_input = input(f"{prompt} [{default_value}]: ").strip()
     return user_input if user_input else default_value
 
-
 def clear_screen():
     """Clears the console screen on Windows and Linux/macOS."""
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -528,7 +527,8 @@ while True:
         print("********")
         print("YouTube Channel Downloader")
         print("Exit App with Ctrl + C")
-        print(print_colored_text("https://github.com/SteveAustin79/YTDL\n", BCOLORS.BLACK))
+        #print(print_colored_text("https://github.com/SteveAustin79/YTDL\n", BCOLORS.BLACK))
+        print("")
         delete_temp_files()
         print_configuration()
 
