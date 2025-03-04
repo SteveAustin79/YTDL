@@ -479,7 +479,6 @@ def merge_webm_opus(videoid, publishdate, video_resolution, year, restricted):
     # remove video and audio streams
     delete_temp_files()
     os.remove("audio.opus")
-    print(f"Converting WebM to MP4... (this may take a while)")
     restricted_string = "/"
     if restricted:
         restricted_string = "/restricted/"
@@ -491,6 +490,7 @@ def merge_webm_opus(videoid, publishdate, video_resolution, year, restricted):
 
 def convert_webm_to_mp4(input_file, output_file, restricted):
     """Convert a WebM file to MP4 (H.264/AAC)."""
+    print(f"Converting WebM to MP4... (this may take a while)")
     command = [
         "ffmpeg", "-loglevel", "quiet", "-stats", "-i", input_file,
         "-c:v", "libx264", "-preset", "fast", "-crf", "23",  # H.264 video encoding
