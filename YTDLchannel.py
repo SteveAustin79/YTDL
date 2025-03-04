@@ -468,7 +468,7 @@ def merge_webm_opus(videoid, publishdate, video_resolution, year, restricted):
     video_file, audio_file = find_media_files(".")
     output_file = "tmp/" + video_file
     """Merge WebM video with Opus audio."""
-    print("\nMerging WebM video with Opus audio...")
+    print("Merging WebM video with Opus audio...")
     command = [
         "ffmpeg", "-loglevel", "quiet", "-stats", "-i", video_file, "-i", "audio.opus",
         "-c:v", "copy", "-c:a", "copy", output_file
