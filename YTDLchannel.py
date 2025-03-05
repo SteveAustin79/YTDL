@@ -554,7 +554,7 @@ while True:
                 more_than = " This can take a while..."
 
             list_all_videos = smart_input("\nList all " + str(len(c.video_urls)) + " Videos?" + more_than + " (Restricted videos in "
-                                          + print_colored_text("red", BCOLORS.RED) + ")  Y/n", "n")
+                                          + print_colored_text("red", BCOLORS.RED) + ")  Y/n", "y")
             selected_video_ids = []
 
             if list_all_videos == "y":
@@ -705,8 +705,9 @@ while True:
         if exclude_video_ids != "":
             exclude_list = clean_youtube_urls(string_to_list(exclude_video_ids))
 
-        # if len(selected_video_ids) > 0:
-        #     default_include_videos = ",".join(selected_video_ids)
+        if video_listings:
+            if len(selected_video_ids) > 0:
+                default_include_videos = ",".join(selected_video_ids)
         include_video_ids = smart_input("Include Video ID's (comma separated list): ", default_include_videos)
         include_list = []
         if include_video_ids != "":
