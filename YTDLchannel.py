@@ -9,6 +9,8 @@ import pytubefix.extract
 from pytubefix import YouTube, Channel
 from pytubefix.cli import on_progress
 
+from YTDL import print_colored_text
+
 version = "1.0.1"
 
 class BCOLORS:
@@ -565,7 +567,8 @@ while True:
                 video_list = list(c.videos)  # Convert to a list if not already
 
                 for index, v_video in enumerate(video_list, start=1):
-                    video_list_item =  f"{index}. {v_video.title}   ({v_video.publish_date.strftime('%Y-%m-%d')})"
+                    video_date = print_colored_text("  (" + v_video.publish_date.strftime('%Y-%m-%d') + ")", BCOLORS.BLACK)
+                    video_list_item =  f"{index}. {v_video.title} {video_date}"
                     if v_video.age_restricted:
                         print(print_colored_text(video_list_item, BCOLORS.RED))
                     else:
