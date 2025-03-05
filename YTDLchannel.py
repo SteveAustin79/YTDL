@@ -566,6 +566,8 @@ while True:
             while True:
                 try:
                     choices = input("\nSelect one or more videos by entering numbers separated by commas: ")
+                    if choices is None:
+                        break
                     selected_indices = [int(x.strip()) for x in choices.split(",")]
 
                     # Validate selection
@@ -578,11 +580,9 @@ while True:
                         break  # Exit loop if valid input
                     else:
                         print("Invalid choice(s), please enter valid numbers from the list.")
-                finally:
-                    print()
-                # except ValueError:
-                #     # print("Invalid input, please enter numbers separated by commas.")
-                #     continue
+                except ValueError:
+                    # print("Invalid input, please enter numbers separated by commas.")
+                    continue
 
         ytchannel_path = smart_input("\nDownload Path:  ",
                                      output_dir + "/" + clean_string_regex(c.channel_name).rstrip())
