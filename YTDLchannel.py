@@ -547,45 +547,45 @@ while True:
         print("\n" + print_colored_text(print_colored_text(str(c.channel_name), BCOLORS.BOLD), BCOLORS.CYAN))
         print(print_colored_text(print_colored_text("*" * len(str(c.channel_name)), BCOLORS.BOLD), BCOLORS.CYAN))
 
-        more_than = ""
-        if len(c.video_urls) > 50:
-            more_than = " This can take a while..."
-
-        list_all_videos = smart_input("\nList all " + str(len(c.video_urls)) + " Videos?" + more_than + " (Restricted videos in "
-                                      + print_colored_text("red", BCOLORS.RED) + ")  Y/n", "n")
-        selected_video_ids = []
-
-        if list_all_videos == "y":
-            print("")
-
-            # Display the video list with numbers
-            video_list = list(c.videos)  # Convert to a list if not already
-
-            for index, v_video in enumerate(video_list, start=1):
-                if v_video.age_restricted:
-                    print(print_colored_text(f"{index}. {v_video.title}", BCOLORS.RED))
-                else:
-                    print(f"{index}. {v_video.title}")
-            # Ask user for selection
-            while True:
-                try:
-                    choices = input("\nSelect one or more videos by entering numbers separated by commas: ")
-                    if choices is None:
-                        break
-                    selected_indices = [int(x.strip()) for x in choices.split(",")]
-
-                    # Validate selection
-                    if all(1 <= index <= len(video_list) for index in selected_indices):
-                        selected_videos = [video_list[i - 1] for i in selected_indices]  # Get the chosen videos
-                        # print("You selected:")
-                        for video in selected_videos:
-                            # print(f"- {video.video_id}")
-                            selected_video_ids.append(video.video_id)
-                        break  # Exit loop if valid input
-                    else:
-                        print("Invalid choice(s), please enter valid numbers from the list.")
-                except ValueError:
-                    print("Invalid input, please enter numbers separated by commas.")
+        # more_than = ""
+        # if len(c.video_urls) > 50:
+        #     more_than = " This can take a while..."
+        #
+        # list_all_videos = smart_input("\nList all " + str(len(c.video_urls)) + " Videos?" + more_than + " (Restricted videos in "
+        #                               + print_colored_text("red", BCOLORS.RED) + ")  Y/n", "n")
+        # selected_video_ids = []
+        #
+        # if list_all_videos == "y":
+        #     print("")
+        #
+        #     # Display the video list with numbers
+        #     video_list = list(c.videos)  # Convert to a list if not already
+        #
+        #     for index, v_video in enumerate(video_list, start=1):
+        #         if v_video.age_restricted:
+        #             print(print_colored_text(f"{index}. {v_video.title}", BCOLORS.RED))
+        #         else:
+        #             print(f"{index}. {v_video.title}")
+        #     # Ask user for selection
+        #     while True:
+        #         try:
+        #             choices = input("\nSelect one or more videos by entering numbers separated by commas: ")
+        #             if choices is None:
+        #                 break
+        #             selected_indices = [int(x.strip()) for x in choices.split(",")]
+        #
+        #             # Validate selection
+        #             if all(1 <= index <= len(video_list) for index in selected_indices):
+        #                 selected_videos = [video_list[i - 1] for i in selected_indices]  # Get the chosen videos
+        #                 # print("You selected:")
+        #                 for video in selected_videos:
+        #                     # print(f"- {video.video_id}")
+        #                     selected_video_ids.append(video.video_id)
+        #                 break  # Exit loop if valid input
+        #             else:
+        #                 print("Invalid choice(s), please enter valid numbers from the list.")
+        #         except ValueError:
+        #             print("Invalid input, please enter numbers separated by commas.")
 
         ytchannel_path = smart_input("\nDownload Path:  ",
                                      output_dir + "/" + clean_string_regex(c.channel_name).rstrip())
@@ -703,8 +703,8 @@ while True:
         if exclude_video_ids != "":
             exclude_list = clean_youtube_urls(string_to_list(exclude_video_ids))
 
-        if len(selected_video_ids) > 0:
-            default_include_videos = ",".join(selected_video_ids)
+        # if len(selected_video_ids) > 0:
+        #     default_include_videos = ",".join(selected_video_ids)
         include_video_ids = smart_input("Include Video ID's (comma separated list): ", default_include_videos)
         include_list = []
         if include_video_ids != "":
