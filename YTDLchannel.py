@@ -568,7 +568,7 @@ while True:
                     if v_video.age_restricted:
                         print(print_colored_text(f"{index}. {v_video.title} ({v_video.publish_date.strftime("%Y-%m-%d")})", BCOLORS.RED))
                     else:
-                        print(f"{index}. {v_video.title}")
+                        print(f"{index}. {v_video.title} ({v_video.publish_date.strftime("%Y-%m-%d")})")
                 # Ask user for selection
                 while True:
                     try:
