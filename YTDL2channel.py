@@ -9,7 +9,7 @@ import pytubefix.extract
 from pytubefix import YouTube, Channel
 from pytubefix.cli import on_progress
 
-version = 1.0
+version = "1.0.1"
 
 class BCOLORS:
     CYAN       = "\033[96m"
@@ -548,11 +548,6 @@ while True:
         print(print_colored_text(print_colored_text("*" * len(str(c.channel_name)), BCOLORS.BOLD), BCOLORS.CYAN))
 
 
-
-
-
-
-
         list_all_videos = smart_input("\nList all " + str(len(c.video_urls)) + " Videos?  Y/n", "y")
         selected_video_ids = []
 
@@ -585,14 +580,6 @@ while True:
                         print("Invalid choice(s), please enter valid numbers from the list.")
                 except ValueError:
                     print("Invalid input, please enter numbers separated by commas.")
-
-            # from here
-
-
-
-
-
-
 
         ytchannel_path = smart_input("\nDownload Path:  ",
                                      output_dir + "/" + clean_string_regex(c.channel_name).rstrip())

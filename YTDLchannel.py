@@ -547,8 +547,41 @@ while True:
         print("\n" + print_colored_text(print_colored_text(str(c.channel_name), BCOLORS.BOLD), BCOLORS.CYAN))
         print(print_colored_text(print_colored_text("*" * len(str(c.channel_name)), BCOLORS.BOLD), BCOLORS.CYAN))
 
-        ytchannel_path = smart_input("\nDownload Path:  ", output_dir + "/" + clean_string_regex(c.channel_name).rstrip())
+        list_all_videos = smart_input("\nList all " + str(len(c.video_urls)) + " Videos?  Y/n", "y")
+        selected_video_ids = []
 
+        if list_all_videos == "y":
+            print("")
+
+            # Display the video list with numbers
+            video_list = list(c.videos)  # Convert to a list if not already
+
+            for index, v_video in enumerate(video_list, start=1):
+                if v_video.age_restricted:
+                    print(print_colored_text(f"{index}. {v_video.title}", BCOLORS.RED))
+                else:
+                    print(f"{index}. {v_video.title}")
+            # Ask user for selection
+            while True:
+                try:
+                    choices = input("\nSelect one or more videos by entering numbers separated by commas: ")
+                    selected_indices = [int(x.strip()) for x in choices.split(",")]
+
+                    # Validate selection
+                    if all(1 <= index <= len(video_list) for index in selected_indices):
+                        selected_videos = [video_list[i - 1] for i in selected_indices]  # Get the chosen videos
+                        # print("You selected:")
+                        for video in selected_videos:
+                            # print(f"- {video.video_id}")
+                            selected_video_ids.append(video.video_id)
+                        break  # Exit loop if valid input
+                    else:
+                        print("Invalid choice(s), please enter valid numbers from the list.")
+                except ValueError:
+                    print("Invalid input, please enter numbers separated by commas.")
+
+        ytchannel_path = smart_input("\nDownload Path:  ",
+                                     output_dir + "/" + clean_string_regex(c.channel_name).rstrip())
         default_max_res = "max"
         default_ignore_min_duration = "y"
         default_ignore_max_duration = "y"
@@ -622,7 +655,7 @@ while True:
             else:
                 print(print_colored_text("\nFound channel config file!\n", BCOLORS.BLUE))
 
-        if video_id_from_single_video!="":
+        if video_id_from_single_video != "":
             default_include_videos = video_id_from_single_video
 
         limit_resolution_to = smart_input("Max. Resolution:  ", default_max_res)
@@ -635,13 +668,13 @@ while True:
 
         ignore_max_duration = smart_input("Ignore max_duration?  Y/n", default_ignore_max_duration)
         ignore_max_duration_bool = True
-        if ignore_max_duration=="n":
+        if ignore_max_duration == "n":
             ignore_max_duration_bool = False
             print(print_colored_text("Ignoring Video(s) > " + str(max_duration) + " Minutes!", BCOLORS.RED))
 
         only_restricted_videos = smart_input("Only restricted video(s)?  Y/n", default_only_restricted)
         only_restricted_videos_bool = False
-        if only_restricted_videos=="y":
+        if only_restricted_videos == "y":
             only_restricted_videos_bool = True
             print(print_colored_text("Downloading only restricted Video(s)!", BCOLORS.RED))
 
@@ -660,15 +693,18 @@ while True:
 
         exclude_video_ids = smart_input("\nExclude Video ID's (comma separated list): ", default_exclude_videos)
         exclude_list = []
-        if exclude_video_ids!="":
+        if exclude_video_ids != "":
             exclude_list = clean_youtube_urls(string_to_list(exclude_video_ids))
 
+        if len(selected_video_ids) > 0:
+            default_include_videos = ",".join(selected_video_ids)
         include_video_ids = smart_input("Include Video ID's (comma separated list): ", default_include_videos)
         include_list = []
-        if include_video_ids!="":
+        if include_video_ids != "":
             include_list = clean_youtube_urls(string_to_list(include_video_ids))
 
-        video_name_filter = str(smart_input("\nEnter filter word(s) (comma separated list): ", default_filter_words))
+        video_name_filter = str(
+            smart_input("\nEnter filter word(s) (comma separated list): ", default_filter_words))
         video_name_filter_list = string_to_list(video_name_filter)
 
         count_total_videos = 0
@@ -680,8 +716,8 @@ while True:
         video_watch_urls = []
         for url in c.video_urls:
             count_total_videos += 1
-            if url.video_id not in exclude_list :
-                if len(include_list)>0:
+            if url.video_id not in exclude_list:
+                if len(include_list) > 0:
                     if url.video_id in include_list:
                         video_watch_urls.append(url.watch_url)
                 else:
@@ -703,14 +739,15 @@ while True:
                 do_not_download = 0
                 video = YouTube(youtube_base_url + only_video_id, on_progress_callback=on_progress)
 
-                if video_name_filter=="" or any(word.lower() in video.title.lower() for word in video_name_filter_list):
+                if video_name_filter == "" or any(
+                        word.lower() in video.title.lower() for word in video_name_filter_list):
                     if not ignore_min_duration_bool:
-                        video_duration = int(video.length/60)
+                        video_duration = int(video.length / 60)
                         if video_duration < int(min_duration):
                             do_not_download = 1
 
                     if not ignore_max_duration_bool:
-                        video_duration = int(video.length/60)
+                        video_duration = int(video.length / 60)
                         if video_duration > int(max_duration):
                             do_not_download = 1
 
@@ -718,7 +755,7 @@ while True:
                         if video.views < min_video_views:
                             do_not_download = 1
 
-                    #print("\n")
+                    # print("\n")
 
                     if (video.age_restricted == False and
                             video.vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
@@ -728,7 +765,7 @@ while True:
                         count_skipped = 0
                         video_list.append(video.video_id)
                         download_video(clean_string_regex(c.channel_name).rstrip(), video.video_id,
-                                                 count_ok_videos, len(video_watch_urls), video.views, False)
+                                       count_ok_videos, len(video_watch_urls), video.views, False)
                     else:
                         if not skip_restricted_bool:
                             if (video.vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
@@ -738,7 +775,7 @@ while True:
                                 count_this_run += 1
                                 video_list_restricted.append(video.video_id)
                                 download_video(clean_string_regex(c.channel_name).rstrip(), video.video_id,
-                                                         count_ok_videos, len(video_watch_urls), video.views, True)
+                                               count_ok_videos, len(video_watch_urls), video.views, True)
 
         if count_this_run == 0:
             print("\n\n" + print_colored_text("Nothing to do...\n\n", BCOLORS.GREEN))
@@ -746,13 +783,14 @@ while True:
             print(print_colored_text(f"\n\nDONE!\n", BCOLORS.GREEN))
             print(print_colored_text(f"Videos: {count_total_videos}, Selected Videos: {count_ok_videos}",
                                      BCOLORS.GREEN))
-            print(print_colored_text(f"Downloaded in this session: {count_this_run}, (restricted: {len(video_list_restricted)} / ignored: {len(video_watch_urls)-count_ok_videos})",
-                                     BCOLORS.GREEN))
+            print(print_colored_text(
+                f"Downloaded in this session: {count_this_run}, (restricted: {len(video_list_restricted)} / ignored: {len(video_watch_urls) - count_ok_videos})",
+                BCOLORS.GREEN))
             print(f"\n{get_free_space(ytchannel_path)} free\n")
 
         continue_ytdl = smart_input("Continue?  Y/n ", "y")
         print("\n")
-        if continue_ytdl=="y":
+        if continue_ytdl == "y":
             continue
         else:
             break
