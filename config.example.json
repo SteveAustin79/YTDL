@@ -3,5 +3,6 @@
     "youtube_base_url": "https://www.youtube.com/watch?v=",
     "min_duration_in_minutes": "5",
     "max_duration_in_minutes": "60",
-    "year_subfolders": false
+    "year_subfolders": false,
+    "video_listings": false
 }
