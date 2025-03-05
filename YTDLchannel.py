@@ -581,8 +581,7 @@ while True:
                     else:
                         print("Invalid choice(s), please enter valid numbers from the list.")
                 except ValueError:
-                    # print("Invalid input, please enter numbers separated by commas.")
-                    continue
+                    print("Invalid input, please enter numbers separated by commas.")
 
         ytchannel_path = smart_input("\nDownload Path:  ",
                                      output_dir + "/" + clean_string_regex(c.channel_name).rstrip())
