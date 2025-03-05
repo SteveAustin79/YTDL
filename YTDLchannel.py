@@ -551,7 +551,7 @@ while True:
         if len(c.video_urls) > 50:
             more_than = " This can take a while..."
 
-        list_all_videos = smart_input("\nList all " + str(len(c.video_urls)) + " Videos?" + more_than +" (Restricted videos in "
+        list_all_videos = smart_input("\nList all " + str(len(c.video_urls)) + " Videos?" + more_than + " (Restricted videos in "
                                       + print_colored_text("red", BCOLORS.RED) + ")  Y/n", "n")
         selected_video_ids = []
 
