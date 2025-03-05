@@ -11,7 +11,7 @@ from pytubefix.cli import on_progress
 
 from YTDL import print_colored_text
 
-version = "1.0.1"
+version = 1.0
 
 class BCOLORS:
     CYAN       = "\033[96m"
