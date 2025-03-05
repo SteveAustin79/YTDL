@@ -522,7 +522,7 @@ while True:
         clear_screen()
         print(print_colored_text("\nYTDL " + str(version), BCOLORS.YELLOW))
         print("*" * len(str("YTDL " + str(version))))
-        print("YouTube Channel Downloader (Exit App with Ctrl + C)")
+        print("YouTube Channel Downloader (Exit with Ctrl + C)")
         #print("Exit App with Ctrl + C")
         #print(print_colored_text("https://github.com/SteveAustin79/YTDL\n", BCOLORS.BLACK))
         print("")
