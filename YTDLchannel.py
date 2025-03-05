@@ -134,6 +134,8 @@ def print_configuration():
         year_subfolders_colored = print_colored_text(year_subfolders, BCOLORS.RED)
     print(print_colored_text("Year Subfolder-Structure:           ", BCOLORS.BLACK),
           year_subfolders_colored)
+    print(print_colored_text("Video Listings:                     ", BCOLORS.BLACK),
+          video_listings)
     print_asteriks_line()
     print("")
 
