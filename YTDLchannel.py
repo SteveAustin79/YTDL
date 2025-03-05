@@ -815,9 +815,8 @@ while True:
 
     except KeyboardInterrupt:
         delete_temp_files()
-        print("\n\nGood Bye...\n")
 
-        continue_ytdl = smart_input("There was an interrupt. Continue?  Y/n ", "y")
+        continue_ytdl = smart_input("\n\nThere was an interrupt. Continue?  Y/n ", "y")
         print("\n")
         if continue_ytdl == "y":
             continue
