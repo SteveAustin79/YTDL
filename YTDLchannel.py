@@ -565,7 +565,7 @@ while True:
                 video_list = list(c.videos)  # Convert to a list if not already
 
                 for index, v_video in enumerate(video_list, start=1):
-                    video_list_item =  f"{index}. {v_video.title} ({v_video.publish_date.strftime('%Y-%m-%d')})"
+                    video_list_item =  f"{index}. {v_video.title}   ({v_video.publish_date.strftime('%Y-%m-%d')})"
                     if v_video.age_restricted:
                         print(print_colored_text(video_list_item, BCOLORS.RED))
                     else:
