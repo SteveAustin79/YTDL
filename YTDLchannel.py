@@ -134,8 +134,6 @@ def print_configuration():
         year_subfolders_colored = print_colored_text(year_subfolders, BCOLORS.RED)
     print(print_colored_text("Year Subfolder-Structure:           ", BCOLORS.BLACK),
           year_subfolders_colored)
-    # print(print_colored_text("Video Listings:                     ", BCOLORS.BLACK),
-    #       video_listings)
     print_asteriks_line()
     print("")
 
@@ -569,7 +567,8 @@ while True:
                 video_list = list(c.videos)  # Convert to a list if not already
 
                 for index, v_video in enumerate(video_list, start=1):
-                    video_date = print_colored_text("  (" + v_video.publish_date.strftime('%Y-%m-%d') + ")", BCOLORS.BLACK)
+                    #video_date = print_colored_text("  (" + v_video.publish_date.strftime('%Y-%m-%d') + ")", BCOLORS.BLACK)
+                    video_date = ""
                     video_list_item =  f"{index}. {v_video.title} {video_date}"
                     if v_video.age_restricted:
                         print(print_colored_text(video_list_item, BCOLORS.RED))
