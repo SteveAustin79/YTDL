@@ -579,7 +579,7 @@ while True:
                     else:
                         print("Invalid choice(s), please enter valid numbers from the list.")
                 finally:
-
+                    print()
                 # except ValueError:
                 #     # print("Invalid input, please enter numbers separated by commas.")
                 #     continue
