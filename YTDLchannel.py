@@ -564,7 +564,6 @@ while True:
             list_all_videos = smart_input("\nList all " + str(len(c.video_urls)) + " Videos?" + more_than + " (Restricted videos in "
                                           + print_colored_text("red", BCOLORS.RED) + ")  Y/n", "y")
 
-
             if list_all_videos == "y":
                 print("")
 
@@ -572,10 +571,11 @@ while True:
                 video_list = list(c.videos)  # Convert to a list if not already
 
                 for index, v_video in enumerate(video_list, start=1):
+                    video_date_formated = print_colored_text(v_video.publish_date, BCOLORS.BLACK)
                     if v_video.age_restricted:
-                        print(print_colored_text(f"{index}. {v_video.title}", BCOLORS.RED))
+                        print(print_colored_text(f"{index}. {v_video.title} {video_date_formated}", BCOLORS.RED))
                     else:
-                        print(f"{index}. {v_video.title}")
+                        print(f"{index}. {v_video.title} {video_date_formated}")
                 # Ask user for selection
                 while True:
                     try:
