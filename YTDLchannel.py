@@ -24,7 +24,16 @@ class BCOLORS:
     BOLD       = "\033[1m"
     ENDC       = "\033[0m"
 
-REQUIRED_CONFIG = {
+REQUIRED_APP_CONFIG = {
+    "output_directory": "",
+    "youtube_base_url": "",
+    "min_duration_in_minutes": "",
+    "max_duration_in_minutes": "",
+    "year_subfolders": "",
+    "video_listings": ""
+}
+
+REQUIRED_VIDEO_CHANNEL_CONFIG = {
     "c_max_resolution": "",
     "c_ignore_min_duration": "",
     "c_ignore_max_duration": "",
@@ -524,7 +533,8 @@ while True:
             video_listings = config["video_listings"]
         except Exception as e:
             print("An error occurred, incomplete config file:", str(e))
-            break
+            cc_check_and_update_channel_config("config.json", REQUIRED_APP_CONFIG)
+            continue
 
         # Create an empty list
         video_list = []
@@ -674,7 +684,7 @@ while True:
                       + print_colored_text("incomplete ", BCOLORS.ORANGE)
                       + print_colored_text("channel config file! --> Adding missing key(s) to file ", BCOLORS.BLUE)
                       + print_colored_text(str(incomplete_string) + "\n", BCOLORS.ORANGE))
-                cc_check_and_update_channel_config(ytchannel_path + channel_config_path, REQUIRED_CONFIG)
+                cc_check_and_update_channel_config(ytchannel_path + channel_config_path, REQUIRED_VIDEO_CHANNEL_CONFIG)
             else:
                 print(print_colored_text("\nFound channel config file!\n", BCOLORS.BLUE))
 
