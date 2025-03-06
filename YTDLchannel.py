@@ -572,7 +572,10 @@ while True:
 
         latest_video = list(c.videos)
         latest_date = latest_video[0].publish_date.strftime("%Y-%m-%d")
-        print("Latest Video:  ", latest_date)
+        got_it = find_file_by_string(output_dir + "/" + clean_string_regex(c.channel_name).rstrip(), latest_date, "")
+        if got_it:
+                latest_date = print_colored_text(latest_date, BCOLORS.GREEN)
+        print("\nLatest Video:  ", latest_date)
 
         selected_video_ids = []
 
