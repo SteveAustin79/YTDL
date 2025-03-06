@@ -554,6 +554,8 @@ while True:
         print("\n" + print_colored_text(print_colored_text(str(c.channel_name), BCOLORS.BOLD), BCOLORS.CYAN))
         print(print_colored_text(print_colored_text("*" * len(str(c.channel_name)), BCOLORS.BOLD), BCOLORS.CYAN))
 
+        selected_video_ids = []
+
         if video_listings:
             more_than = ""
             if len(c.video_urls) > 50:
@@ -561,7 +563,7 @@ while True:
 
             list_all_videos = smart_input("\nList all " + str(len(c.video_urls)) + " Videos?" + more_than + " (Restricted videos in "
                                           + print_colored_text("red", BCOLORS.RED) + ")  Y/n", "y")
-            selected_video_ids = []
+
 
             if list_all_videos == "y":
                 print("")
