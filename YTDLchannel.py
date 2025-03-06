@@ -514,13 +514,16 @@ while True:
     try:
         # Load config
         config = load_config("config.json")
+        try:
         # Access settings
-        output_dir = config["output_directory"]
-        youtube_base_url = config["youtube_base_url"]
-        min_duration = config["min_duration_in_minutes"]
-        max_duration = config["max_duration_in_minutes"]
-        year_subfolders = config["year_subfolders"]
-        video_listings = config["video_listings"]
+            output_dir = config["output_directory"]
+            youtube_base_url = config["youtube_base_url"]
+            min_duration = config["min_duration_in_minutes"]
+            max_duration = config["max_duration_in_minutes"]
+            year_subfolders = config["year_subfolders"]
+            video_listings = config["video_listings"]
+        except Exception as e:
+            print("An error occurred:", str(e))
 
         # Create an empty list
         video_list = []
