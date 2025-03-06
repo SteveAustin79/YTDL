@@ -269,14 +269,11 @@ def user_selection(u_lines):
 
     print("Select channel:")
     for index, line in enumerate(u_lines, start=1):
-        print("one")
         if not line == u_lines[(len(u_lines) - 1)]:
-            print("two")
             ytchannel = Channel(line)
             latest_video = list(ytchannel.videos)
             for l_video in latest_video:
                 if l_video.vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE':
-                    print("three")
                     latest_date = l_video.publish_date.strftime("%Y-%m-%d")
                     got_it = find_file_by_string(output_dir + "/" + clean_string_regex(ytchannel.channel_name).rstrip(), latest_date, "")
                     if got_it:
