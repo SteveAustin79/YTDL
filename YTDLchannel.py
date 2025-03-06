@@ -31,7 +31,8 @@ REQUIRED_APP_CONFIG = {
     "min_duration_in_minutes": "",
     "max_duration_in_minutes": "",
     "year_subfolders": "",
-    "video_listings": ""
+    "video_listings": "",
+    "show_latest_video_date": ""
 }
 
 REQUIRED_VIDEO_CHANNEL_CONFIG = {
@@ -262,16 +263,20 @@ def user_selection(u_lines):
 
     print("Select channel:")
     for index, line in enumerate(u_lines, start=1):
-        if not line == u_lines[(len(u_lines) - 1)]:
-            ytchannel = Channel(line)
-            latest_video = list(ytchannel.videos)
-            latest_date = latest_video[0].publish_date.strftime("%Y-%m-%d")
-            got_it = find_file_by_string(output_dir + "/" + clean_string_regex(ytchannel.channel_name).rstrip(), latest_date, "")
-            if got_it:
-                latest_date = print_colored_text(latest_date, BCOLORS.GREEN)
-            latest_date_formated = "   (Latest: " + latest_date + ")"
-        print(f"{index}. {line}{latest_date_formated}")
-        latest_date_formated = ""
+        if show_latest_video_date:
+            if not line == u_lines[(len(u_lines) - 1)]:
+                ytchannel = Channel(line)
+                latest_video = list(ytchannel.videos)
+                for l_video in latest_video:
+                    if l_video.vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE':
+                        latest_date = l_video.publish_date.strftime("%Y-%m-%d")
+                        got_it = find_file_by_string(output_dir + "/" + clean_string_regex(ytchannel.channel_name).rstrip(), latest_date, "")
+                        if got_it:
+                            latest_date = print_colored_text(latest_date, BCOLORS.GREEN)
+                        latest_date_formated = "   (Latest: " + latest_date + ")"
+                        break
+            print(f"{index}. {line}{latest_date_formated}")
+            latest_date_formated = ""
 
     while True:
         try:
@@ -544,6 +549,7 @@ while True:
             max_duration = config["max_duration_in_minutes"]
             year_subfolders = config["year_subfolders"]
             video_listings = config["video_listings"]
+            show_latest_video_date= config["show_latest_video_date"]
         except Exception as e:
             print("An error occurred, incomplete config file:", str(e))
             cc_check_and_update_channel_config("config.json", REQUIRED_APP_CONFIG)
