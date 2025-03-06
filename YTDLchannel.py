@@ -267,10 +267,11 @@ def user_selection(u_lines):
             latest_video = list(ytchannel.videos)
             latest_date = latest_video[0].publish_date.strftime("%Y-%m-%d")
             got_it = find_file_by_string(output_dir + "/" + clean_string_regex(ytchannel.channel_name).rstrip(), latest_date, "")
-            latest_date_formated = "   (Latest: " + latest_date + ")"
             if got_it:
                 latest_date = print_colored_text(latest_date, BCOLORS.GREEN)
+            latest_date_formated = "   (Latest: " + latest_date + ")"
         print(f"{index}. {line}{latest_date_formated}")
+        latest_date_formated = ""
 
     while True:
         try:
