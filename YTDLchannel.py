@@ -262,7 +262,7 @@ def user_selection(u_lines):
 
     print("Select channel:")
     for index, line in enumerate(u_lines, start=1):
-        if not line == u_lines[len(u_lines)]:
+        if not line == u_lines[len(u_lines - 1)]:
             ytchannel = Channel(line)
             latest_video = list(ytchannel.videos)
             latest_date = latest_video[0].publish_date.strftime("%Y-%m-%d")
