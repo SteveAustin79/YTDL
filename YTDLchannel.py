@@ -572,11 +572,12 @@ while True:
 
                 for index, v_video in enumerate(video_list, start=1):
                     video_date_formated = print_colored_text(str(v_video.publish_date.strftime("%Y-%m-%d")), BCOLORS.BLACK)
-                    space_formated = " " * (40-len(video_date_formated))
+                    video_message = f"{index}. {v_video.title}"
+                    space_formated = " " * (60-len(video_message))
                     if v_video.age_restricted:
-                        print(print_colored_text(f"{index}. {v_video.title} {video_date_formated}", BCOLORS.RED))
+                        print(print_colored_text(video_message + space_formated + video_date_formated, BCOLORS.RED))
                     else:
-                        print(f"{index}. {v_video.title} {video_date_formated}")
+                        print(video_message + space_formated + video_date_formated)
                 # Ask user for selection
                 while True:
                     try:
