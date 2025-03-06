@@ -573,7 +573,7 @@ while True:
                 for index, v_video in enumerate(video_list, start=1):
                     video_date_formated = print_colored_text(str(v_video.publish_date.strftime("%Y-%m-%d")), BCOLORS.BLACK)
                     video_message = f"{index}. {v_video.title}"
-                    space_formated = " " * (60-len(video_message))
+                    space_formated = " " * (80-len(video_message))
                     if v_video.age_restricted:
                         print(print_colored_text(video_message + space_formated + video_date_formated, BCOLORS.RED))
                     else:
