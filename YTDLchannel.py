@@ -32,7 +32,7 @@ REQUIRED_APP_CONFIG = {
     "max_duration_in_minutes": "",
     "year_subfolders": "",
     "video_listings": "",
-    "show_latest_video_date": ""
+    "show_latest_video_date": False
 }
 
 REQUIRED_VIDEO_CHANNEL_CONFIG = {
@@ -149,6 +149,12 @@ def print_configuration():
         video_listings_colored = print_colored_text(video_listings, BCOLORS.RED)
     print(print_colored_text("Video Listings:                     ", BCOLORS.BLACK),
           video_listings_colored)
+    if show_latest_video_date:
+        show_latest_video_date_colored = print_colored_text(show_latest_video_date, BCOLORS.GREEN)
+    else:
+        show_latest_video_date_colored = print_colored_text(show_latest_video_date, BCOLORS.RED)
+    print(print_colored_text("Show latest Video date:             ", BCOLORS.BLACK),
+          show_latest_video_date_colored)
     print_asteriks_line()
     print("")
 
