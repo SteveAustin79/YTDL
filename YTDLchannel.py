@@ -9,9 +9,7 @@ import pytubefix.extract
 from pytubefix import YouTube, Channel
 from pytubefix.cli import on_progress
 
-from YTDL import print_colored_text
-
-version = 1.0
+version = "1.0.1"
 
 class BCOLORS:
     CYAN       = "\033[96m"
@@ -550,8 +548,6 @@ while True:
         print("\n" + print_colored_text(print_colored_text(str(c.channel_name), BCOLORS.BOLD), BCOLORS.CYAN))
         print(print_colored_text(print_colored_text("*" * len(str(c.channel_name)), BCOLORS.BOLD), BCOLORS.CYAN))
 
-        selected_video_ids = []
-
         if video_listings:
             more_than = ""
             if len(c.video_urls) > 50:
@@ -559,6 +555,7 @@ while True:
 
             list_all_videos = smart_input("\nList all " + str(len(c.video_urls)) + " Videos?" + more_than + " (Restricted videos in "
                                           + print_colored_text("red", BCOLORS.RED) + ")  Y/n", "y")
+            selected_video_ids = []
 
             if list_all_videos == "y":
                 print("")
@@ -567,13 +564,10 @@ while True:
                 video_list = list(c.videos)  # Convert to a list if not already
 
                 for index, v_video in enumerate(video_list, start=1):
-                    #video_date = print_colored_text("  (" + v_video.publish_date.strftime('%Y-%m-%d') + ")", BCOLORS.BLACK)
-                    video_date = ""
-                    video_list_item =  f"{index}. {v_video.title} {video_date}"
                     if v_video.age_restricted:
-                        print(print_colored_text(video_list_item, BCOLORS.RED))
+                        print(print_colored_text(f"{index}. {v_video.title}", BCOLORS.RED))
                     else:
-                        print(video_list_item)
+                        print(f"{index}. {v_video.title}")
                 # Ask user for selection
                 while True:
                     try:
