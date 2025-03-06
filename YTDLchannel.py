@@ -523,7 +523,7 @@ while True:
             year_subfolders = config["year_subfolders"]
             video_listings = config["video_listings"]
         except Exception as e:
-            print("An error occurred:", str(e))
+            print("An error occurred, config file incomplete:", str(e))
             break
 
         # Create an empty list
