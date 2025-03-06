@@ -10,6 +10,7 @@ from pytubefix import YouTube, Channel
 from pytubefix.cli import on_progress
 
 version = "1.0.2 (20250306)"
+header_width_global = 84
 
 class BCOLORS:
     CYAN       = "\033[96m"
@@ -98,7 +99,7 @@ def load_config(c_file):
 
 
 def print_asteriks_line():
-    length = 84
+    length = header_width_global
     print("*" * length)
 
 
@@ -152,7 +153,6 @@ def print_configuration():
 
 
 def format_header(counter, width):
-    # width = 95
     counter_splitted = counter.split(" - ")
     counter_str = ("* " + counter_splitted[0] + " *" + print_colored_text(f" {counter_splitted[1]} ", BCOLORS.CYAN)
                    + "| " + counter_splitted[2] + " (" + get_free_space(ytchannel_path) + " free) ")
@@ -348,13 +348,15 @@ def limit_resolution(resolution, limit):
 def download_video(channel_name, video_id, counter_id, video_total_count, video_views, restricted):
     restricted_path_snippet = ""
     colored_video_id = video_id
-    header_width = 95
+    #header_width = 95
+    header_width = (header_width_global + 11)
     if restricted:
         yt = YouTube(youtube_base_url + video_id, use_oauth=True, allow_oauth_cache=True,
                      on_progress_callback=on_progress)
         restricted_path_snippet = "restricted/"
         colored_video_id = print_colored_text(video_id, BCOLORS.RED)
-        header_width = 104
+        #header_width = 104
+        header_width = (header_width_global + 20)
     else:
         yt = YouTube(youtube_base_url + video_id, on_progress_callback=on_progress)
 
