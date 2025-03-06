@@ -127,7 +127,7 @@ def string_to_list(input_string):
 
 
 def print_configuration():
-    print("CONFIGURATION (config.json):")
+    print("Configuration (config.json):")
     print_asteriks_line()
     print(print_colored_text("Output directory:                   ", BCOLORS.BLACK),
           print_colored_text(output_dir, BCOLORS.CYAN))
