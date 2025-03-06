@@ -260,9 +260,6 @@ def user_selection(u_lines):
 
     print("Select channel:")
     for index, line in enumerate(u_lines, start=1):
-        # ytchannel = Channel(line)
-        # latest_video = list(ytchannel.videos)
-        # latest_date = latest_video[0].publish_date.strftime("%Y-%m-%d")
         print(f"{index}. {line}")
 
     while True:
@@ -572,6 +569,10 @@ while True:
         c = Channel(YTchannel)
         print("\n" + print_colored_text(print_colored_text(str(c.channel_name), BCOLORS.BOLD), BCOLORS.CYAN))
         print(print_colored_text(print_colored_text("*" * len(str(c.channel_name)), BCOLORS.BOLD), BCOLORS.CYAN))
+
+        latest_video = list(c.videos)
+        latest_date = latest_video[0].publish_date.strftime("%Y-%m-%d")
+        print("Latest Video:  ", latest_date)
 
         selected_video_ids = []
 
