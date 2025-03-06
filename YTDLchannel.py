@@ -524,6 +524,7 @@ while True:
             video_listings = config["video_listings"]
         except Exception as e:
             print("An error occurred:", str(e))
+            break
 
         # Create an empty list
         video_list = []
