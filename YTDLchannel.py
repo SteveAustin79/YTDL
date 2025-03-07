@@ -294,7 +294,8 @@ def user_selection(u_lines):
                             output_dir + "/" + clean_string_regex(ytchannel.channel_name).rstrip(), latest_date, "")
                         if got_it:
                             latest_date = print_colored_text(latest_date, BCOLORS.GREEN)
-                        latest_date_formated = " " * (spaces-len(str(index))-len(line)) + "Latest: " + latest_date
+                        latest_date_formated = (" " * (spaces-len(str(index))-len(line)) + "Latest: "
+                                                + latest_date + " " + latest_video[i].video_id)
                         break
 
         print(f"{index}. {line}{latest_date_formated}")
