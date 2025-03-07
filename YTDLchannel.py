@@ -268,6 +268,7 @@ def user_selection(u_lines):
     latest_date_formated = ""
 
     temp_disable = smart_input("Disable latest video date for this run?  Y/n", "n")
+    print()
     if temp_disable:
         show_latest_video_date = False
 
@@ -603,7 +604,7 @@ while True:
         print("\n" + print_colored_text(print_colored_text(str(c.channel_name), BCOLORS.BOLD), BCOLORS.CYAN))
         print(print_colored_text(print_colored_text("*" * len(str(c.channel_name)), BCOLORS.BOLD), BCOLORS.CYAN))
 
-        print(c.channel_url)
+        print(print_colored_text("\n" + c.channel_url, BCOLORS.CYAN))
 
         # if show_latest_video_date:
         #     latest_video = list(c.videos)
