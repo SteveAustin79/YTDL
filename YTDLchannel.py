@@ -284,7 +284,7 @@ def user_selection(u_lines):
         #                 continue
         if show_latest_video_date:
             if not line == u_lines[(len(u_lines) - 1)]:
-                spaces = 51
+                spaces = 53
                 ytchannel = Channel(line)
                 latest_video = list(ytchannel.videos)
                 for i in range(len(latest_video)):
@@ -296,7 +296,7 @@ def user_selection(u_lines):
                             latest_date = print_colored_text(latest_date, BCOLORS.GREEN)
                         else:
                             latest_date = print_colored_text(latest_date, BCOLORS.RED)
-                        latest_date_formated = (" " * (spaces-len(str(index))-len(line)) + "Latest: "
+                        latest_date_formated = (" " * (spaces-len(str(index))-len(line)) + "Last: "
                                                 + latest_date + " | " + latest_video[i].video_id)
                         break
 
