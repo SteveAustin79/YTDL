@@ -599,6 +599,8 @@ while True:
         print("\n" + print_colored_text(print_colored_text(str(c.channel_name), BCOLORS.BOLD), BCOLORS.CYAN))
         print(print_colored_text(print_colored_text("*" * len(str(c.channel_name)), BCOLORS.BOLD), BCOLORS.CYAN))
 
+        print(c.channel_url)
+
         # if show_latest_video_date:
         #     latest_video = list(c.videos)
         #     latest_date = latest_video[0].publish_date.strftime("%Y-%m-%d")
