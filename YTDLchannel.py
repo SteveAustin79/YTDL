@@ -287,6 +287,7 @@ def user_selection(u_lines):
                 ytchannel = Channel(line)
                 latest_video = list(ytchannel.videos)
                 for i in range(len(latest_video)):
+                    print(i)
                     latest_date = latest_video[i].publish_date.strftime("%Y-%m-%d")
                     got_it = find_file_by_string(
                         output_dir + "/" + clean_string_regex(ytchannel.channel_name).rstrip(), latest_date, "")
