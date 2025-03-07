@@ -288,14 +288,15 @@ def user_selection(u_lines):
                 latest_video = list(ytchannel.videos)
                 for i in range(len(latest_video)):
                     print(i)
-                    latest_date = latest_video[i].publish_date.strftime("%Y-%m-%d")
-                    got_it = find_file_by_string(
-                        output_dir + "/" + clean_string_regex(ytchannel.channel_name).rstrip(), latest_date, "")
-                    if got_it:
-                        latest_date = print_colored_text(latest_date, BCOLORS.GREEN)
-                    latest_date_formated = "   (Latest: " + latest_date + ")"
-                    if i == 3:
-                        break
+                    if latest_video[i].vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE':
+                        latest_date = latest_video[i].publish_date.strftime("%Y-%m-%d")
+                        got_it = find_file_by_string(
+                            output_dir + "/" + clean_string_regex(ytchannel.channel_name).rstrip(), latest_date, "")
+                        if got_it:
+                            latest_date = print_colored_text(latest_date, BCOLORS.GREEN)
+                        latest_date_formated = "   (Latest: " + latest_date + ")"
+                        if i == 3:
+                            break
 
 
         print(f"{index}. {line}{latest_date_formated}")
