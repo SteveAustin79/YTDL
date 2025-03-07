@@ -295,7 +295,7 @@ def user_selection(u_lines):
                         latest_date = print_colored_text(latest_date, BCOLORS.GREEN)
                     latest_date_formated = "   (Latest: " + latest_date + ")"
                     if i == 3:
-                        continue
+                        break
 
 
         print(f"{index}. {line}{latest_date_formated}")
