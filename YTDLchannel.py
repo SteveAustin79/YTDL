@@ -286,7 +286,7 @@ def user_selection(u_lines):
             if not line == u_lines[(len(u_lines) - 1)]:
                 ytchannel = Channel(line)
                 latest_video = list(ytchannel.videos)
-                latest_date = latest_video[0].publish_date.strftime("%Y-%m-%d") + "-" + latest_video[0].vid_info.get('playabilityStatus')
+                latest_date = latest_video[0].publish_date.strftime("%Y-%m-%d") + "-" + str(latest_video[0].vid_info.get('playabilityStatus'))
                 got_it = find_file_by_string(
                     output_dir + "/" + clean_string_regex(ytchannel.channel_name).rstrip(), latest_date, "")
                 if got_it:
