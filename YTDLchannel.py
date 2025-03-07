@@ -608,14 +608,14 @@ while True:
         print("\n" + print_colored_text(print_colored_text(str(c.channel_name), BCOLORS.BOLD), BCOLORS.CYAN))
         print(print_colored_text(print_colored_text("*" * len(str(c.channel_name)), BCOLORS.BOLD), BCOLORS.CYAN))
 
-        if show_latest_video_date:
-            latest_video = list(c.videos)
-            latest_date = latest_video[0].publish_date.strftime("%Y-%m-%d")
-            got_it = find_file_by_string(output_dir + "/" + clean_string_regex(c.channel_name).rstrip(), latest_date,
-                                         "")
-            if got_it:
-                latest_date = print_colored_text(latest_date, BCOLORS.GREEN)
-            print("\nLatest Video:  ", latest_date)
+        # if show_latest_video_date:
+        #     latest_video = list(c.videos)
+        #     latest_date = latest_video[0].publish_date.strftime("%Y-%m-%d")
+        #     got_it = find_file_by_string(output_dir + "/" + clean_string_regex(c.channel_name).rstrip(), latest_date,
+        #                                  "")
+        #     if got_it:
+        #         latest_date = print_colored_text(latest_date, BCOLORS.GREEN)
+        #     print("\nLatest Video:  ", latest_date)
 
         selected_video_ids = []
 
