@@ -284,6 +284,7 @@ def user_selection(u_lines):
         #                 continue
         if show_latest_video_date:
             if not line == u_lines[(len(u_lines) - 1)]:
+                spaces = 50
                 ytchannel = Channel(line)
                 latest_video = list(ytchannel.videos)
                 for i in range(len(latest_video)):
@@ -293,7 +294,7 @@ def user_selection(u_lines):
                             output_dir + "/" + clean_string_regex(ytchannel.channel_name).rstrip(), latest_date, "")
                         if got_it:
                             latest_date = print_colored_text(latest_date, BCOLORS.GREEN)
-                        latest_date_formated = "   (Latest: " + latest_date + ")"
+                        latest_date_formated = " " * (spaces-len(index)-len(line)) + "Latest: " + latest_date
                         break
 
         print(f"{index}. {line}{latest_date_formated}")
