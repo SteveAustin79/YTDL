@@ -287,7 +287,6 @@ def user_selection(u_lines):
                 ytchannel = Channel(line)
                 latest_video = list(ytchannel.videos)
                 for i in range(len(latest_video)):
-                    print(i)
                     if latest_video[i].vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE':
                         latest_date = latest_video[i].publish_date.strftime("%Y-%m-%d")
                         got_it = find_file_by_string(
@@ -296,7 +295,6 @@ def user_selection(u_lines):
                             latest_date = print_colored_text(latest_date, BCOLORS.GREEN)
                         latest_date_formated = "   (Latest: " + latest_date + ")"
                         break
-
 
         print(f"{index}. {line}{latest_date_formated}")
         latest_date_formated = ""
