@@ -259,7 +259,7 @@ def read_channel_txt_lines(filename):
         return []
 
 
-def user_selection(u_lines):
+def user_selection(u_lines, show_latest_video_date):
     """Displays the lines as a selection menu and gets user input."""
     if not u_lines:
         print("No lines available for selection.")
@@ -588,7 +588,7 @@ while True:
 
         lines = read_channel_txt_lines("channels.txt")
         if lines and len(lines) > 1:
-            YTchannel = user_selection(lines)
+            YTchannel = user_selection(lines, show_latest_video_date)
         else:
             YTchannel = input("\nYouTube Channel or Video URL:  ")
         if "- Enter YouTube Channel or Video URL -" in YTchannel:
