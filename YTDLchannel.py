@@ -267,6 +267,10 @@ def user_selection(u_lines):
 
     latest_date_formated = ""
 
+    temp_disable = smart_input("temporary disable latest video date?  Y/N", "n")
+    if temp_disable:
+        show_latest_video_date = False
+
     print("Select channel:")
     for index, line in enumerate(u_lines, start=1):
         if show_latest_video_date:
