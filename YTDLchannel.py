@@ -282,6 +282,7 @@ def user_selection(u_lines):
         #                     latest_date = print_colored_text(latest_date, BCOLORS.GREEN)
         #                 latest_date_formated = "   (Latest: " + latest_date + ")"
         #                 continue
+
         if show_latest_video_date:
             if not line == u_lines[(len(u_lines) - 1)]:
                 spaces = 50
