@@ -202,7 +202,7 @@ def print_video_infos(yt, res, video_views):
     #             frames_per_second = print_colored_text("   (" + str(yt.length*fps_value) + " Frames)", BCOLORS.BLACK)
 
     #length_title_value = length_title + str(int(yt.length / 60)) + "m" + frames_per_second
-    length_title_value = length_title + str(int(yt.length / 60)) + "m" + str(yt.length - ((yt.length / 60) * 60)) + "s"
+    length_title_value = length_title + str(int(yt.length / 60)) + "m" + str(yt.length) + " - " + str(yt.length - ((yt.length / 60) * 60)) + "s"
     if ignore_max_duration_bool and ignore_min_duration_bool:
         print(length_title_value)
     elif ignore_max_duration_bool:
