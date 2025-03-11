@@ -863,6 +863,7 @@ while True:
         count_this_run = 0
         count_skipped = 0
 
+        print()
         video_watch_urls = []
         for url in c.video_urls:
             count_total_videos += 1
