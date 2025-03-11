@@ -532,7 +532,7 @@ def merge_video_audio(video_id, publish_date, video_resolution, year, restricted
 
     """Merge video and audio into a single MP4 file using FFmpeg."""
     try:
-        print("\nMerging...")
+        print("\nMerging to MP4...")
         command = [
             "ffmpeg", "-loglevel", "quiet", "-stats", "-i", video_file, "-i", audio_file,
             "-c:v", "copy", "-c:a", "copy", output_file
@@ -554,7 +554,7 @@ def merge_video_audio(video_id, publish_date, video_resolution, year, restricted
 def convert_m4a_to_opus_and_merge(videoid, publishdate, video_resolution, year, restricted):
     video_file, audio_file = find_media_files(".")
     """Convert M4A to Opus format (WebM-compatible)."""
-    print("\nConvert M4A audio to Opus format (WebM-compatible)...")
+    print("\nConvert M4A audio to Opus format (WebM compatible)...")
     command = [
         "ffmpeg", "-loglevel", "quiet", "-stats", "-i", audio_file, "-c:a", "libopus", "audio.opus"
     ]
