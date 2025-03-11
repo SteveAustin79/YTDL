@@ -536,16 +536,23 @@ def merge_video_audio(video_id, publish_date, video_resolution, year, restricted
     try:
         # Input video and audio streams
         m_video = ffmpeg.input(video_file)
-        audio = ffmpeg.input(audio_file)
+        m_audio = ffmpeg.input(audio_file)
 
         print("\nMerging...")
         # Merge video and audio
-        output = ffmpeg.output(m_video, audio, output_file, vcodec="copy", acodec="aac", strict="experimental")
-        #output = output.global_args("-stats")
 
-        # Run FFmpeg command
-        ffmpeg.run(output, overwrite_output=True, quiet=True)
-        #print(f"\n✅ \033[92mMerged file saved as: {output_file}.\033[0m")
+        # output = ffmpeg.output(m_video, m_audio, output_file, vcodec="copy", acodec="aac", strict="experimental")
+        # output = output.global_args("-stats")
+        # # Run FFmpeg command
+        # ffmpeg.run(output, overwrite_output=True, quiet=True)
+
+        # ffmpeg -i input.mp4 -i input.m4a -c:v copy -c:a copy output.mp4
+        command = [
+            "ffmpeg", "-loglevel", "quiet", "-stats", "-i", m_video, "-i", m_audio,
+            "-c:v", "copy", "-c:a", "copy", output_file
+        ]
+        subprocess.run(command, check=True)
+
         if restricted:
             print(print_colored_text("\nRestricted Video downloaded", BCOLORS.GREEN))
         else:
@@ -883,9 +890,6 @@ while True:
             print("\n")
         for url in video_watch_urls:
             only_video_id = pytubefix.extract.video_id(url)
-
-            # if not os.path.exists(ytchannel_path):
-            #     os.makedirs(ytchannel_path)
 
             if find_file_by_string(ytchannel_path, only_video_id, limit_resolution_to, audio_or_video_bool) is not None:
                 count_ok_videos += 1
