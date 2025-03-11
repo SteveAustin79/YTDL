@@ -582,7 +582,7 @@ def merge_webm_opus(videoid, publishdate, video_resolution, year, restricted):
 
     path = (ytchannel_path + str(year) + restricted_string + publishdate + " - " + video_resolution + " - "
             + clean_string_regex(os.path.splitext(video_file)[0]) + " - " + videoid + ".mp4")
-    convert_webm_to_mp4(output_file, path, restricted)
+    convert_webm_to_mp4(output_file, path, restricted, year)
 
 
 def convert_webm_to_mp4(input_file, output_file, restricted, year):
