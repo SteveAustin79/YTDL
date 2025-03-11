@@ -867,7 +867,7 @@ while True:
 
         if len(include_list) > 0:
             for include in include_list:
-                video_watch_urls.append(include)
+                video_watch_urls.append(youtube_base_url + include)
         else:
             print()
             for url in c.video_urls:
