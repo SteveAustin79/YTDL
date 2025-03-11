@@ -394,6 +394,8 @@ def limit_resolution(resolution, limit):
 
 
 def download_video(channel_name, video_id, counter_id, video_total_count, video_views, restricted):
+    if not os.path.exists(ytchannel_path):
+        os.makedirs(ytchannel_path)
     restricted_path_snippet = ""
     colored_video_id = video_id
     #header_width = 95
@@ -884,8 +886,8 @@ while True:
         for url in video_watch_urls:
             only_video_id = pytubefix.extract.video_id(url)
 
-            if not os.path.exists(ytchannel_path):
-                os.makedirs(ytchannel_path)
+            # if not os.path.exists(ytchannel_path):
+            #     os.makedirs(ytchannel_path)
 
             if find_file_by_string(ytchannel_path, only_video_id, limit_resolution_to, audio_or_video_bool) is not None:
                 count_ok_videos += 1
