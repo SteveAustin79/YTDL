@@ -393,6 +393,15 @@ def limit_resolution(resolution, limit):
     return max_resolution
 
 
+def create_directories(restricted, year):
+    if restricted:
+        if not os.path.exists(ytchannel_path + f"{str(year)}/restricted"):
+            os.makedirs(ytchannel_path + f"{str(year)}/restricted")
+    else:
+        if not os.path.exists(ytchannel_path + f"{str(year)}"):
+            os.makedirs(ytchannel_path + f"{str(year)}")
+
+
 def download_video(channel_name, video_id, counter_id, video_total_count, video_views, restricted):
     restricted_path_snippet = ""
     colored_video_id = video_id
@@ -419,12 +428,12 @@ def download_video(channel_name, video_id, counter_id, video_total_count, video_
     else:
         year = ""
 
-    if restricted:
-        if not os.path.exists(ytchannel_path + f"{str(year)}/restricted"):
-            os.makedirs(ytchannel_path + f"{str(year)}/restricted")
-    else:
-        if not os.path.exists(ytchannel_path + f"{str(year)}"):
-            os.makedirs(ytchannel_path + f"{str(year)}")
+    # if restricted:
+    #     if not os.path.exists(ytchannel_path + f"{str(year)}/restricted"):
+    #         os.makedirs(ytchannel_path + f"{str(year)}/restricted")
+    # else:
+    #     if not os.path.exists(ytchannel_path + f"{str(year)}"):
+    #         os.makedirs(ytchannel_path + f"{str(year)}")
 
     res = max(print_resolutions(yt), key=lambda x: int(x.rstrip('p')))
     if limit_resolution_to != "max":
@@ -453,7 +462,7 @@ def download_video(channel_name, video_id, counter_id, video_total_count, video_
                 path = (ytchannel_path + str(year) + "/" + restricted_path_snippet + str(publishing_date) + " - " + res + " - "
                         + clean_string_regex(os.path.splitext(video_file_tmp)[0]) + " - " + video_id + ".mp4")
                 print("\nMerged file already exists!")
-                convert_webm_to_mp4("tmp/" + video_file_tmp, path, restricted)
+                convert_webm_to_mp4("tmp/" + video_file_tmp, path, restricted, year)
             else:
                 download_video_process(yt, res, more_than1080p, publishing_date, year, restricted)
         else:
@@ -497,6 +506,7 @@ def convert_m4a_to_mp3(video_id, publish_date, video_resolution, year, restricte
     if restricted:
         restricted_path = "/restricted/"
 
+    create_directories(restricted, year)
     output_file = (ytchannel_path + str(year) + restricted_path + publish_date +
                    " - " + clean_string_regex(os.path.splitext(audio_file)[0]) + " - " + video_id + ".mp3")
     print("")
@@ -529,6 +539,7 @@ def merge_video_audio(video_id, publish_date, video_resolution, year, restricted
     if restricted:
         restricted_path = "/restricted/"
 
+    create_directories(restricted, year)
     output_file = (ytchannel_path + str(year) + restricted_path + publish_date + " - " + video_resolution
                    + " - " + clean_string_regex(os.path.splitext(video_file)[0]) + " - " + video_id + ".mp4")
 
@@ -599,7 +610,8 @@ def merge_webm_opus(videoid, publishdate, video_resolution, year, restricted):
     convert_webm_to_mp4(output_file, path, restricted)
 
 
-def convert_webm_to_mp4(input_file, output_file, restricted):
+def convert_webm_to_mp4(input_file, output_file, restricted, year):
+    create_directories(restricted, year)
     """Convert a WebM file to MP4 (H.264/AAC)."""
     print(f"\nConverting WebM to MP4... (this may take a while)")
     command = [
