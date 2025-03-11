@@ -878,7 +878,7 @@ while True:
                             video_watch_urls.append(url.watch_url)
                     else:
                         video_watch_urls.append(url.watch_url)
-                print(f"\rFetching " + count_total_videos + " videos", end="", flush=True)
+                print(f"\rFetching " + str(count_total_videos) + " videos", end="", flush=True)
 
             print(f'\n\nTotal {count_total_videos} Video(s) by: \033[96m{c.channel_name}\033[0m\n')
 
