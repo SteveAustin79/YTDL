@@ -547,8 +547,8 @@ def merge_video_audio(video_id, publish_date, video_resolution, year, restricted
     """Merge video and audio into a single MP4 file using FFmpeg."""
     try:
         # Input video and audio streams
-        m_video = ffmpeg.input(video_file)
-        m_audio = ffmpeg.input(audio_file)
+        # m_video = ffmpeg.input(video_file)
+        # m_audio = ffmpeg.input(audio_file)
 
         print("\nMerging...")
         # Merge video and audio
@@ -560,7 +560,7 @@ def merge_video_audio(video_id, publish_date, video_resolution, year, restricted
 
         # ffmpeg -i input.mp4 -i input.m4a -c:v copy -c:a copy output.mp4
         command = [
-            "ffmpeg", "-loglevel", "quiet", "-stats", "-i", m_video, "-i", m_audio,
+            "ffmpeg", "-loglevel", "quiet", "-stats", "-i", video_file, "-i", audio_file,
             "-c:v", "copy", "-c:a", "copy", output_file
         ]
         subprocess.run(command, check=True)
