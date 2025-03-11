@@ -499,7 +499,7 @@ def convert_m4a_to_mp3(video_id, publish_date, video_resolution, year, restricte
 
     output_file = (ytchannel_path + str(year) + restricted_path + publish_date +
                    " - " + clean_string_regex(os.path.splitext(audio_file)[0]) + " - " + video_id + ".mp3")
-
+    print("")
     try:
         command = [
             "ffmpeg", "-loglevel", "quiet", "-stats",
@@ -508,7 +508,7 @@ def convert_m4a_to_mp3(video_id, publish_date, video_resolution, year, restricte
             "-q:a", "2",  # Quality setting (lower is better)
             output_file
         ]
-        subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        subprocess.run(command, check=True)
 
     except Exception as ee:
         print(f"❌ Error merging files: {ee}")
