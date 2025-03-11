@@ -863,12 +863,13 @@ while True:
         count_this_run = 0
         count_skipped = 0
 
+        video_watch_urls = []
+
         if len(include_list) > 0:
             for include in include_list:
                 video_watch_urls.append(include)
         else:
             print()
-            video_watch_urls = []
             for url in c.video_urls:
                 count_total_videos += 1
                 if url.video_id not in exclude_list:
