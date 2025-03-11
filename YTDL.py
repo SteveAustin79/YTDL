@@ -2,7 +2,6 @@ import os
 import re
 import shutil
 import subprocess
-import ffmpeg
 import json
 import sys
 import pytubefix.extract
@@ -476,7 +475,7 @@ def download_video_process(yt, res, more_than1080p, publishing_date, year, restr
     rename_files_in_temp_directory()
 
     if audio_or_video_bool:
-        convert_m4a_to_mp3(yt.video_id, publishing_date, res, year, restricted)
+        convert_m4a_to_mp3(yt.video_id, publishing_date, year, restricted)
     else:
         if more_than1080p == 0:
             merge_video_audio(yt.video_id, publishing_date, res, year, restricted)
@@ -484,7 +483,7 @@ def download_video_process(yt, res, more_than1080p, publishing_date, year, restr
             convert_m4a_to_opus_and_merge(yt.video_id, publishing_date, res, year, restricted)
 
 
-def convert_m4a_to_mp3(video_id, publish_date, video_resolution, year, restricted):
+def convert_m4a_to_mp3(video_id, publish_date, year, restricted):
     video_file, audio_file = find_media_files(".")
     if not audio_file:
         print("❌ No M4A files found in the current directory.")
