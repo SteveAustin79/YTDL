@@ -394,8 +394,8 @@ def limit_resolution(resolution, limit):
 
 
 def download_video(channel_name, video_id, counter_id, video_total_count, video_views, restricted):
-    if not os.path.exists(ytchannel_path):
-        os.makedirs(ytchannel_path)
+    # if not os.path.exists(ytchannel_path):
+    #     os.makedirs(ytchannel_path)
     restricted_path_snippet = ""
     colored_video_id = video_id
     #header_width = 95
