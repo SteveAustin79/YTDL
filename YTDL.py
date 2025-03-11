@@ -497,7 +497,7 @@ def convert_m4a_to_mp3(video_id, publish_date, video_resolution, year, restricte
     create_directories(restricted, year)
     output_file = (ytchannel_path + str(year) + restricted_path + publish_date +
                    " - " + clean_string_regex(os.path.splitext(audio_file)[0]) + " - " + video_id + ".mp3")
-    print("")
+    print("\nConverting into MP3...")
     try:
         command = [
             "ffmpeg", "-loglevel", "quiet", "-stats",
