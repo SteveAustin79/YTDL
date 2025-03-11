@@ -134,21 +134,21 @@ def print_configuration():
     print_asteriks_line()
     print(print_colored_text("Output directory:                   ", BCOLORS.BLACK),
           print_colored_text(output_dir, BCOLORS.CYAN))
-    print(print_colored_text("Minimum Video Duration in Minutes:  ", BCOLORS.BLACK),
+    print(print_colored_text("Minimum Video duration in Minutes:  ", BCOLORS.BLACK),
           print_colored_text(min_duration, BCOLORS.CYAN))
-    print(print_colored_text("Maximum Video Duration in Minutes:  ", BCOLORS.BLACK),
+    print(print_colored_text("Maximum Video duration in Minutes:  ", BCOLORS.BLACK),
           print_colored_text(max_duration, BCOLORS.CYAN))
     if year_subfolders:
         year_subfolders_colored = print_colored_text(year_subfolders, BCOLORS.GREEN)
     else:
         year_subfolders_colored = print_colored_text(year_subfolders, BCOLORS.RED)
-    print(print_colored_text("Year Subfolder-Structure:           ", BCOLORS.BLACK),
+    print(print_colored_text("Year sub folder structure:          ", BCOLORS.BLACK),
           year_subfolders_colored)
     if video_listings:
         video_listings_colored = print_colored_text(video_listings, BCOLORS.GREEN)
     else:
         video_listings_colored = print_colored_text(video_listings, BCOLORS.RED)
-    print(print_colored_text("Video Listings:                     ", BCOLORS.BLACK),
+    print(print_colored_text("Video listings:                     ", BCOLORS.BLACK),
           video_listings_colored)
     if show_latest_video_date:
         show_latest_video_date_colored = print_colored_text(show_latest_video_date, BCOLORS.GREEN)
@@ -160,7 +160,7 @@ def print_configuration():
         default_audioMP3_colored = print_colored_text(default_audioMP3, BCOLORS.GREEN)
     else:
         default_audioMP3_colored = print_colored_text(default_audioMP3, BCOLORS.RED)
-    print(print_colored_text("Default Audio/MP3:                  ", BCOLORS.BLACK),
+    print(print_colored_text("Default audio/MP3:                  ", BCOLORS.BLACK),
           default_audioMP3_colored)
     print_asteriks_line()
     print("")
