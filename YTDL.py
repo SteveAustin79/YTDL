@@ -32,7 +32,8 @@ REQUIRED_APP_CONFIG = {
     "max_duration_in_minutes": "",
     "year_subfolders": "",
     "video_listings": "",
-    "show_latest_video_date": False
+    "show_latest_video_date": False,
+    "default_audioMP3": False
 }
 
 REQUIRED_VIDEO_CHANNEL_CONFIG = {
@@ -155,6 +156,12 @@ def print_configuration():
         show_latest_video_date_colored = print_colored_text(show_latest_video_date, BCOLORS.RED)
     print(print_colored_text("Show latest Video date:             ", BCOLORS.BLACK),
           show_latest_video_date_colored)
+    if default_audioMP3:
+        default_audioMP3_colored = print_colored_text(default_audioMP3, BCOLORS.GREEN)
+    else:
+        default_audioMP3_colored = print_colored_text(default_audioMP3, BCOLORS.RED)
+    print(print_colored_text("Default Audio/MP3:                  ", BCOLORS.BLACK),
+          default_audioMP3_colored)
     print_asteriks_line()
     print("")
 
@@ -615,7 +622,8 @@ while True:
             max_duration = config["max_duration_in_minutes"]
             year_subfolders = config["year_subfolders"]
             video_listings = config["video_listings"]
-            show_latest_video_date= config["show_latest_video_date"]
+            show_latest_video_date = config["show_latest_video_date"]
+            default_audioMP3 = config["default_audioMP3"]
         except Exception as e:
             print("An error occurred, incomplete config file:", str(e))
             cc_check_and_update_channel_config("config.json", REQUIRED_APP_CONFIG)
@@ -787,7 +795,11 @@ while True:
         if video_id_from_single_video != "":
             default_include_videos = video_id_from_single_video
 
-        audio_or_video = smart_input("\nAudio or Video?  a/v", "a")
+        if default_audioMP3:
+            default_value_mp3 = "a"
+        else:
+            default_value_mp3 = "v"
+        audio_or_video = smart_input("\nAudio or Video?  a/v", default_value_mp3)
         audio_or_video_bool = True
         if audio_or_video == "v":
             audio_or_video_bool = False

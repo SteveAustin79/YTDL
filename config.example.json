@@ -5,5 +5,6 @@
     "max_duration_in_minutes": "60",
     "year_subfolders": false,
     "video_listings": false,
-    "show_latest_video_date": true
+    "show_latest_video_date": true,
+    "default_audioMP3": false
 }
