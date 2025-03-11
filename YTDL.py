@@ -9,7 +9,7 @@ import pytubefix.extract
 from pytubefix import YouTube, Channel
 from pytubefix.cli import on_progress
 
-version = "1.0.2 (20250306)"
+version = "1.1 (20250311)"
 header_width_global = 85
 
 class BCOLORS:
@@ -272,7 +272,7 @@ def read_channel_txt_lines(filename):
         return []
 
 
-def user_selection(u_lines, show_latest_video_date):
+def user_selection(u_lines, u_show_latest_video_date):
     """Displays the lines as a selection menu and gets user input."""
     if not u_lines:
         print("No lines available for selection.")
@@ -283,11 +283,11 @@ def user_selection(u_lines, show_latest_video_date):
     temp_disable = smart_input("Skip latest Video date for this run?  Y/n", "n")
     print()
     if temp_disable == "y":
-        show_latest_video_date = False
+        u_show_latest_video_date = False
 
     print("Select channel:")
     for index, line in enumerate(u_lines, start=1):
-        if show_latest_video_date:
+        if u_show_latest_video_date:
             if not line == u_lines[(len(u_lines) - 1)]:
                 spaces = 53
                 ytchannel = Channel(line)
@@ -872,6 +872,7 @@ while True:
                         video_watch_urls.append(url.watch_url)
                 else:
                     video_watch_urls.append(url.watch_url)
+            print(f"\rFetching videos: " + url.video_id, end="", flush=True)
 
         print(f'\n\nTotal {count_total_videos} Video(s) by: \033[96m{c.channel_name}\033[0m\n')
 
