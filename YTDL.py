@@ -192,16 +192,17 @@ def print_video_infos(yt, res, video_views):
 
     length_title = print_colored_text("Length:         ", BCOLORS.BLACK)
 
-    frames_per_second = ""
+    # frames_per_second = ""
 
-    if not audio_or_video_bool:
-        match = re.search(r"'fps':\s*(\d+)", str(yt.vid_info))
-        if match:
-            fps_value = int(match.group(1))
-            if extract_number(res) > extract_number("1080p"):
-                frames_per_second = print_colored_text("   (" + str(yt.length*fps_value) + " Frames)", BCOLORS.BLACK)
+    # if not audio_or_video_bool:
+    #     match = re.search(r"'fps':\s*(\d+)", str(yt.vid_info))
+    #     if match:
+    #         fps_value = int(match.group(1))
+    #         if extract_number(res) > extract_number("1080p"):
+    #             frames_per_second = print_colored_text("   (" + str(yt.length*fps_value) + " Frames)", BCOLORS.BLACK)
 
-    length_title_value = length_title + str(int(yt.length / 60)) + "m" + frames_per_second
+    #length_title_value = length_title + str(int(yt.length / 60)) + "m" + frames_per_second
+    length_title_value = length_title + str(int(yt.length / 60)) + "m"
     if ignore_max_duration_bool and ignore_min_duration_bool:
         print(length_title_value)
     elif ignore_max_duration_bool:
