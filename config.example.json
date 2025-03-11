@@ -4,7 +4,7 @@
     "min_duration_in_minutes": "5",
     "max_duration_in_minutes": "60",
     "year_subfolders": false,
-    "video_listings": false,
+    "video_listing": false,
     "show_latest_video_date": true,
     "default_audioMP3": false
 }
