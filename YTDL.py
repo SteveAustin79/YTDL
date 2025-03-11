@@ -879,9 +879,9 @@ while True:
                     else:
                         video_watch_urls.append(url.watch_url)
                 print(f"\rFetching " + str(count_total_videos) + " videos", end="", flush=True)
-
-            print(f'\n\nTotal {count_total_videos} Video(s) by: \033[96m{c.channel_name}\033[0m\n')
-
+            print("\n\n")
+            print(f"\rTotal {count_total_videos} Video(s) by: \033[96m{c.channel_name}\033[0m", end="", flush=True)
+            print()
         for url in video_watch_urls:
             only_video_id = pytubefix.extract.video_id(url)
 
