@@ -88,6 +88,7 @@ def smart_input(prompt, default_value):
     user_input = input(f"{prompt} [{default_value}]: ").strip()
     return user_input if user_input else default_value
 
+
 def clear_screen():
     """Clears the console screen on Windows and Linux/macOS."""
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -191,17 +192,6 @@ def print_video_infos(yt, res, video_views):
     print(print_colored_text("Date:          ", BCOLORS.BLACK), yt.publish_date.strftime("%Y-%m-%d"))
 
     length_title = print_colored_text("Length:         ", BCOLORS.BLACK)
-
-    # frames_per_second = ""
-
-    # if not audio_or_video_bool:
-    #     match = re.search(r"'fps':\s*(\d+)", str(yt.vid_info))
-    #     if match:
-    #         fps_value = int(match.group(1))
-    #         if extract_number(res) > extract_number("1080p"):
-    #             frames_per_second = print_colored_text("   (" + str(yt.length*fps_value) + " Frames)", BCOLORS.BLACK)
-
-    #length_title_value = length_title + str(int(yt.length / 60)) + "m" + frames_per_second
     length_title_value = length_title + format_time(yt.length)
     if ignore_max_duration_bool and ignore_min_duration_bool:
         print(length_title_value)
@@ -263,7 +253,6 @@ def rename_files_in_temp_directory():
             new_path = os.path.join(directory, sanitized_name)
 
             os.rename(old_path, new_path)
-            #print(f"Renamed: {filename} → {sanitized_name}")
 
 
 def read_channel_txt_lines(filename):
@@ -434,13 +423,6 @@ def download_video(channel_name, video_id, counter_id, video_total_count, video_
     else:
         year = ""
 
-    # if restricted:
-    #     if not os.path.exists(ytchannel_path + f"{str(year)}/restricted"):
-    #         os.makedirs(ytchannel_path + f"{str(year)}/restricted")
-    # else:
-    #     if not os.path.exists(ytchannel_path + f"{str(year)}"):
-    #         os.makedirs(ytchannel_path + f"{str(year)}")
-
     res = max(print_resolutions(yt), key=lambda x: int(x.rstrip('p')))
     if limit_resolution_to != "max":
         res = limit_resolution(res, limit_resolution_to)
@@ -551,19 +533,7 @@ def merge_video_audio(video_id, publish_date, video_resolution, year, restricted
 
     """Merge video and audio into a single MP4 file using FFmpeg."""
     try:
-        # Input video and audio streams
-        # m_video = ffmpeg.input(video_file)
-        # m_audio = ffmpeg.input(audio_file)
-
         print("\nMerging...")
-        # Merge video and audio
-
-        # output = ffmpeg.output(m_video, m_audio, output_file, vcodec="copy", acodec="aac", strict="experimental")
-        # output = output.global_args("-stats")
-        # # Run FFmpeg command
-        # ffmpeg.run(output, overwrite_output=True, quiet=True)
-
-        # ffmpeg -i input.mp4 -i input.m4a -c:v copy -c:a copy output.mp4
         command = [
             "ffmpeg", "-loglevel", "quiet", "-stats", "-i", video_file, "-i", audio_file,
             "-c:v", "copy", "-c:a", "copy", output_file
@@ -590,7 +560,6 @@ def convert_m4a_to_opus_and_merge(videoid, publishdate, video_resolution, year, 
         "ffmpeg", "-loglevel", "quiet", "-stats", "-i", audio_file, "-c:a", "libopus", "audio.opus"
     ]
     subprocess.run(command, check=True)
-    # print(f"✅ Converted {audio_file} to audio.opus")
     merge_webm_opus(videoid, publishdate, video_resolution, year, restricted)
 
 
@@ -687,15 +656,6 @@ while True:
         print(print_colored_text(print_colored_text("*" * len(str(c.channel_name)), BCOLORS.BOLD), BCOLORS.CYAN))
 
         print(print_colored_text("\n" + c.channel_url, BCOLORS.CYAN))
-
-        # if show_latest_video_date:
-        #     latest_video = list(c.videos)
-        #     latest_date = latest_video[0].publish_date.strftime("%Y-%m-%d")
-        #     got_it = find_file_by_string(output_dir + "/" + clean_string_regex(c.channel_name).rstrip(), latest_date,
-        #                                  "")
-        #     if got_it:
-        #         latest_date = print_colored_text(latest_date, BCOLORS.GREEN)
-        #     print("\nLatest Video:  ", latest_date)
 
         selected_video_ids = []
 
