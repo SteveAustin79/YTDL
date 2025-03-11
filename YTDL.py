@@ -655,7 +655,7 @@ while True:
         print("\n" + print_colored_text(print_colored_text(str(c.channel_name), BCOLORS.BOLD), BCOLORS.CYAN))
         print(print_colored_text(print_colored_text("*" * len(str(c.channel_name)), BCOLORS.BOLD), BCOLORS.CYAN))
 
-        print(print_colored_text("\n" + c.channel_url, BCOLORS.CYAN))
+        print(print_colored_text(c.channel_url, BCOLORS.CYAN))
 
         selected_video_ids = []
 
