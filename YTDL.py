@@ -462,7 +462,7 @@ def download_video(channel_name, video_id, counter_id, video_total_count, video_
             if video_file_tmp is not None:
                 path = (ytchannel_path + str(year) + "/" + restricted_path_snippet + str(publishing_date) + " - " + res + " - "
                         + clean_string_regex(os.path.splitext(video_file_tmp)[0]) + " - " + video_id + ".mp4")
-                print("\nMerged file still available!")
+                print(print_colored_text("\nMerged file still available!", BCOLORS.BLACK))
                 convert_webm_to_mp4("tmp/" + video_file_tmp, path, restricted, year)
             else:
                 download_video_process(yt, res, more_than1080p, publishing_date, year, restricted)
