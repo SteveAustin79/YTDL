@@ -544,12 +544,13 @@ def merge_video_audio(video_id, publish_date, video_resolution, year, restricted
     output_file = (ytchannel_path + str(year) + restricted_path + publish_date + " - " + video_resolution
                    + " - " + clean_string_regex(os.path.splitext(video_file)[0]) + " - " + video_id + ".mp4")
 
-    """Merge video and audio into a single MP4 file using FFmpeg."""
+    """Merge video and audio into a single MP4 file using FFmpeg. ffmpeg -i input.mp4 -i input.m4a -c:v copy -c:a aac output.mp4
+"""
     try:
         print(print_colored_text("\nMerging to MP4...", BCOLORS.BLACK))
         command = [
             "ffmpeg", "-loglevel", "quiet", "-stats", "-i", video_file, "-i", audio_file,
-            "-c:v", "copy", "-c:a", "copy", output_file
+            "-c:v", "copy", "-c:a", "aac", output_file
         ]
         subprocess.run(command, check=True)
 
