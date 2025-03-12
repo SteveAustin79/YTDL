@@ -282,6 +282,9 @@ def user_selection(u_lines, u_show_latest_video_date):
         for _ in range(13):
             sys.stdout.write("\033[F")  # Move cursor up
             sys.stdout.write("\033[K")  # Clear the line
+        print("")
+        print_asteriks_line()
+        print("")
 
     print()
     if temp_disable == "y":
