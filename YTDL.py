@@ -431,10 +431,8 @@ def download_video(channel_name, video_id, counter_id, video_total_count, video_
 
     try:
         publishing_date = yt.publish_date.strftime("%Y-%m-%d")
-
         if year_subfolders:
             year = "/" + str(yt.publish_date.strftime("%Y"))
-
     except:
         publishing_date = ""
         year = ""
@@ -961,7 +959,7 @@ while True:
     except KeyboardInterrupt:
         delete_temp_files()
 
-        continue_ytdl = smart_input("\n\nThere was an interrupt. Continue?  Y/n ", "y")
+        continue_ytdl = smart_input("\n\nCtrl + C detected. Continue?  Y/n ", "y")
         print("\n")
         if continue_ytdl == "y":
             continue
