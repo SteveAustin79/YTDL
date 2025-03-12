@@ -782,7 +782,7 @@ while True:
             default_filter_words = channel_config["c_filter_words"]
 
             if incomplete_config:
-                print(print_colored_text("\nIncomplete ", BCOLORS.BLUE)
+                print(print_colored_text("\nIncomplete ", BCOLORS.ORANGE)
                       + print_colored_text("channel config file! --> Adding missing key(s) to file ", BCOLORS.BLUE)
                       + print_colored_text(str(incomplete_string), BCOLORS.ORANGE))
                 cc_check_and_update_channel_config(ytchannel_path + channel_config_path, REQUIRED_VIDEO_CHANNEL_CONFIG)
