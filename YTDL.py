@@ -425,7 +425,7 @@ def download_video(channel_name, video_id, counter_id, video_total_count, video_
 
     # print(yt.vid_info)
 
-    # print("\n")
+    print("\n")
     print(format_header(colored_video_id + " - " + channel_name
                          + " - " + str(counter_id) + "/" + str(video_total_count), header_width))
 
