@@ -411,6 +411,8 @@ def download_video(channel_name, video_id, counter_id, video_total_count, video_
     else:
         yt = YouTube(youtube_base_url + video_id, on_progress_callback=on_progress)
 
+    print(yt.vid_info)
+
     print("\n")
     print(format_header(colored_video_id + " - " + channel_name
                          + " - " + str(counter_id) + "/" + str(video_total_count), header_width))
