@@ -279,7 +279,7 @@ def user_selection(u_lines, u_show_latest_video_date):
     temp_disable = "y"
     if show_latest_video_date:
         temp_disable = smart_input("Skip latest Video date for this run?  Y/n", "n")
-        for _ in range(13):
+        for _ in range(14):
             sys.stdout.write("\033[F")  # Move cursor up
             sys.stdout.write("\033[K")  # Clear the line
         print("")
