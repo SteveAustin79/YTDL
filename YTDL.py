@@ -429,13 +429,14 @@ def download_video(channel_name, video_id, counter_id, video_total_count, video_
     print(format_header(colored_video_id + " - " + channel_name
                          + " - " + str(counter_id) + "/" + str(video_total_count), header_width))
 
+    publishing_date = ""
+    year = ""
     try:
         publishing_date = yt.publish_date.strftime("%Y-%m-%d")
         if year_subfolders:
             year = "/" + str(yt.publish_date.strftime("%Y"))
     except:
-        publishing_date = ""
-        year = ""
+        print()
 
     res = max(print_resolutions(yt), key=lambda x: int(x.rstrip('p')))
     if limit_resolution_to != "max":
