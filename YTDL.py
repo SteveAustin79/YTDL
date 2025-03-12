@@ -782,13 +782,12 @@ while True:
             default_filter_words = channel_config["c_filter_words"]
 
             if incomplete_config:
-                print(print_colored_text("\nFound ", BCOLORS.BLUE)
-                      + print_colored_text("incomplete ", BCOLORS.ORANGE)
+                print(print_colored_text("\nIncomplete ", BCOLORS.BLUE)
                       + print_colored_text("channel config file! --> Adding missing key(s) to file ", BCOLORS.BLUE)
                       + print_colored_text(str(incomplete_string), BCOLORS.ORANGE))
                 cc_check_and_update_channel_config(ytchannel_path + channel_config_path, REQUIRED_VIDEO_CHANNEL_CONFIG)
             else:
-                print(print_colored_text("\nFound channel config file!", BCOLORS.BLUE))
+                print(print_colored_text("\nChannel config file found!", BCOLORS.BLUE))
 
         if video_id_from_single_video != "":
             default_include_videos = video_id_from_single_video
