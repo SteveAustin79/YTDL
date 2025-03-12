@@ -510,7 +510,7 @@ def convert_m4a_to_mp3(video_id, publish_date, year, restricted):
     create_directories(restricted, year)
     output_file = (ytchannel_path + str(year) + restricted_path + publish_date +
                    " - " + clean_string_regex(os.path.splitext(audio_file)[0]) + " - " + video_id + ".mp3")
-    print(print_colored_text("\nConverting to MP3...", BCOLORS.BLACK)
+    print(print_colored_text("\nConverting to MP3...", BCOLORS.BLACK))
     try:
         command = [
             "ffmpeg", "-loglevel", "quiet", "-stats",
@@ -568,7 +568,7 @@ def merge_video_audio(video_id, publish_date, video_resolution, year, restricted
 def convert_m4a_to_opus_and_merge(videoid, publishdate, video_resolution, year, restricted):
     video_file, audio_file = find_media_files(".")
     """Convert M4A to Opus format (WebM-compatible)."""
-    print(print_colored_text("\nConvert M4A audio to Opus format (WebM compatible)...", BCOLORS.BLACK)
+    print(print_colored_text("\nConvert M4A audio to Opus format (WebM compatible)...", BCOLORS.BLACK))
     command = [
         "ffmpeg", "-loglevel", "quiet", "-stats", "-i", audio_file, "-c:a", "libopus", "audio.opus"
     ]
