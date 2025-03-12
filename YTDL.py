@@ -580,7 +580,7 @@ def merge_webm_opus(videoid, publishdate, video_resolution, year, restricted):
     video_file, audio_file = find_media_files(".")
     output_file = "tmp/" + video_file
     """Merge WebM video with Opus audio."""
-    print(print_colored_text("\nMerging WebM video with Opus audio...", BCOLORS.BLACK))
+    print(print_colored_text("Merging WebM video with Opus audio...", BCOLORS.BLACK))
     command = [
         "ffmpeg", "-loglevel", "quiet", "-stats", "-i", video_file, "-i", "audio.opus",
         "-c:v", "copy", "-c:a", "copy", output_file
@@ -601,7 +601,7 @@ def merge_webm_opus(videoid, publishdate, video_resolution, year, restricted):
 def convert_webm_to_mp4(input_file, output_file, restricted, year):
     create_directories(restricted, year)
     """Convert a WebM file to MP4 (H.264/AAC)."""
-    print(print_colored_text(f"\nConverting WebM to MP4... (this may take a while)", BCOLORS.BLACK))
+    print(print_colored_text(f"Converting WebM to MP4... (this may take a while)", BCOLORS.BLACK))
     command = [
         "ffmpeg", "-loglevel", "quiet", "-stats", "-i", input_file,
         "-c:v", "libx264", "-preset", "fast", "-crf", "23",  # H.264 video encoding
