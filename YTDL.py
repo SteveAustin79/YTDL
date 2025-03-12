@@ -931,8 +931,7 @@ while True:
         if count_this_run == 0:
             print("\n\n" + print_colored_text("Nothing to do...\n\n", BCOLORS.GREEN))
         else:
-            print(print_colored_text(f"\nDONE!\n", BCOLORS.GREEN))
-            print(print_colored_text(f"Videos: {count_total_videos}, Selected: {count_ok_videos}",
+            print(print_colored_text(f"\nDONE! Videos: {count_total_videos}, Selected: {count_ok_videos}",
                                      BCOLORS.GREEN))
             print(print_colored_text(
                 f"Downloaded in this session: {count_this_run}, (restricted: {len(video_list_restricted)} / ignored: {len(video_watch_urls) - count_ok_videos})",
