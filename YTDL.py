@@ -411,14 +411,14 @@ def create_directories(restricted, year):
 def download_video(channel_name, video_id, counter_id, video_total_count, video_views, restricted):
     restricted_path_snippet = ""
     colored_video_id = video_id
-    #header_width = 95
+    # header_width = 95
     header_width = (header_width_global + 11)
     if restricted:
         yt = YouTube(youtube_base_url + video_id, use_oauth=True, allow_oauth_cache=True,
                      on_progress_callback=on_progress)
         restricted_path_snippet = "restricted/"
         colored_video_id = print_colored_text(video_id, BCOLORS.RED)
-        #header_width = 104
+        # header_width = 104
         header_width = (header_width_global + 20)
     else:
         yt = YouTube(youtube_base_url + video_id, on_progress_callback=on_progress)
@@ -931,7 +931,7 @@ while True:
         if count_this_run == 0:
             print("\n\n" + print_colored_text("Nothing to do...\n\n", BCOLORS.GREEN))
         else:
-            print(print_colored_text(f"\n\nDONE!\n", BCOLORS.GREEN))
+            print(print_colored_text(f"\nDONE!\n", BCOLORS.GREEN))
             print(print_colored_text(f"Videos: {count_total_videos}, Selected: {count_ok_videos}",
                                      BCOLORS.GREEN))
             print(print_colored_text(
