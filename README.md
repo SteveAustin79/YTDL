@@ -13,7 +13,7 @@ Restricted video download possible, but requires authentication via accounts.goo
 - skipping already downloaded videos
 
 ### History
-- 20250311 - v1.1 - added mp3 support, skip channel fetching if include list > 0
+- 20250311 - v1.1 - added mp3 support, skip channel fetching if include list > 0, skip "Premiere in..." videos
 - 20250303 - v1.0 - code optimization
 - 20250302 - v0.6 - added channel config file support 
 - 20250301 - v0.5 - added exclude videos by video_id, filter support 
