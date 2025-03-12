@@ -525,7 +525,7 @@ def convert_m4a_to_mp3(video_id, publish_date, year, restricted):
         print(f"❌ Error merging files: {ee}")
         sys.exit(1)
 
-    print(print_colored_text("\nMP3 downloaded", BCOLORS.GREEN))
+    print(print_colored_text("\nMP3 downloaded\n", BCOLORS.GREEN))
     delete_temp_files()
 
 
@@ -554,9 +554,9 @@ def merge_video_audio(video_id, publish_date, video_resolution, year, restricted
         subprocess.run(command, check=True)
 
         if restricted:
-            print(print_colored_text("\nRestricted Video downloaded", BCOLORS.GREEN))
+            print(print_colored_text("\nRestricted Video downloaded\n", BCOLORS.GREEN))
         else:
-            print(print_colored_text("\nVideo downloaded", BCOLORS.GREEN))
+            print(print_colored_text("\nVideo downloaded\n", BCOLORS.GREEN))
         # remove video and audio streams
         delete_temp_files()
 
@@ -612,9 +612,9 @@ def convert_webm_to_mp4(input_file, output_file, restricted, year):
     subprocess.run(command, check=True)
     os.remove(input_file)
     if restricted:
-        print(print_colored_text("\nRestricted Video downloaded", BCOLORS.GREEN))
+        print(print_colored_text("\nRestricted Video downloaded\n", BCOLORS.GREEN))
     else:
-        print(print_colored_text("\nVideo downloaded", BCOLORS.GREEN))
+        print(print_colored_text("\nVideo downloaded\n", BCOLORS.GREEN))
 
 
 while True:
