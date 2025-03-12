@@ -472,14 +472,14 @@ def download_video(channel_name, video_id, counter_id, video_total_count, video_
 
 def download_video_process(yt, res, more_than1080p, publishing_date, year, restricted):
     if not audio_or_video_bool:
-        print("\nDownloading VIDEO...")
+        print(print_colored_text("\nDownloading VIDEO...", BCOLORS.BLACK))
 
         for idx, i in enumerate(yt.streams):
             if i.resolution == res:
                 break
         yt.streams[idx].download()
 
-    print("\nDownloading AUDIO...")
+    print(print_colored_text("\nDownloading AUDIO...", BCOLORS.BLACK))
 
     for idx, i in enumerate(yt.streams):
         if i.bitrate == "128kbps":
