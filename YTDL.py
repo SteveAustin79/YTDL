@@ -510,7 +510,7 @@ def convert_m4a_to_mp3(video_id, publish_date, year, restricted):
     create_directories(restricted, year)
     output_file = (ytchannel_path + str(year) + restricted_path + publish_date +
                    " - " + clean_string_regex(os.path.splitext(audio_file)[0]) + " - " + video_id + ".mp3")
-    print("\nConverting to MP3...")
+    print(print_colored_text("\nConverting to MP3...", BCOLORS.BLACK)
     try:
         command = [
             "ffmpeg", "-loglevel", "quiet", "-stats",
@@ -546,7 +546,7 @@ def merge_video_audio(video_id, publish_date, video_resolution, year, restricted
 
     """Merge video and audio into a single MP4 file using FFmpeg."""
     try:
-        print("\nMerging to MP4...")
+        print(print_colored_text("\nMerging to MP4...", BCOLORS.BLACK))
         command = [
             "ffmpeg", "-loglevel", "quiet", "-stats", "-i", video_file, "-i", audio_file,
             "-c:v", "copy", "-c:a", "copy", output_file
@@ -568,7 +568,7 @@ def merge_video_audio(video_id, publish_date, video_resolution, year, restricted
 def convert_m4a_to_opus_and_merge(videoid, publishdate, video_resolution, year, restricted):
     video_file, audio_file = find_media_files(".")
     """Convert M4A to Opus format (WebM-compatible)."""
-    print("\nConvert M4A audio to Opus format (WebM compatible)...")
+    print(print_colored_text("\nConvert M4A audio to Opus format (WebM compatible)...", BCOLORS.BLACK)
     command = [
         "ffmpeg", "-loglevel", "quiet", "-stats", "-i", audio_file, "-c:a", "libopus", "audio.opus"
     ]
@@ -580,7 +580,7 @@ def merge_webm_opus(videoid, publishdate, video_resolution, year, restricted):
     video_file, audio_file = find_media_files(".")
     output_file = "tmp/" + video_file
     """Merge WebM video with Opus audio."""
-    print("\nMerging WebM video with Opus audio...")
+    print(print_colored_text("\nMerging WebM video with Opus audio...", BCOLORS.BLACK))
     command = [
         "ffmpeg", "-loglevel", "quiet", "-stats", "-i", video_file, "-i", "audio.opus",
         "-c:v", "copy", "-c:a", "copy", output_file
@@ -601,7 +601,7 @@ def merge_webm_opus(videoid, publishdate, video_resolution, year, restricted):
 def convert_webm_to_mp4(input_file, output_file, restricted, year):
     create_directories(restricted, year)
     """Convert a WebM file to MP4 (H.264/AAC)."""
-    print(f"\nConverting WebM to MP4... (this may take a while)")
+    print(print_colored_text(f"\nConverting WebM to MP4... (this may take a while)", BCOLORS.BLACK))
     command = [
         "ffmpeg", "-loglevel", "quiet", "-stats", "-i", input_file,
         "-c:v", "libx264", "-preset", "fast", "-crf", "23",  # H.264 video encoding
