@@ -785,10 +785,10 @@ while True:
                 print(print_colored_text("\nFound ", BCOLORS.BLUE)
                       + print_colored_text("incomplete ", BCOLORS.ORANGE)
                       + print_colored_text("channel config file! --> Adding missing key(s) to file ", BCOLORS.BLUE)
-                      + print_colored_text(str(incomplete_string) + "\n", BCOLORS.ORANGE))
+                      + print_colored_text(str(incomplete_string), BCOLORS.ORANGE))
                 cc_check_and_update_channel_config(ytchannel_path + channel_config_path, REQUIRED_VIDEO_CHANNEL_CONFIG)
             else:
-                print(print_colored_text("\nFound channel config file!\n", BCOLORS.BLUE))
+                print(print_colored_text("\nFound channel config file!", BCOLORS.BLUE))
 
         if video_id_from_single_video != "":
             default_include_videos = video_id_from_single_video
