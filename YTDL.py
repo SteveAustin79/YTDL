@@ -287,7 +287,7 @@ def user_selection(u_lines, u_show_latest_video_date):
                 ytchannel = Channel(line)
                 latest_video = list(ytchannel.videos)
                 for i in range(len(latest_video)):
-                    if (latest_video[i].vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' or
+                    if (latest_video[i].vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
                             latest_video[i].vid_info.get('playabilityStatus', {}).get('status') != 'LIVE_STREAM_OFFLINE'):
                         latest_date = latest_video[i].publish_date.strftime("%Y-%m-%d")
                         got_it = find_file_by_string(
@@ -896,7 +896,7 @@ while True:
                             do_not_download = 1
 
                     if (video.age_restricted == False and
-                            video.vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' or
+                            video.vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
                             video.vid_info.get('playabilityStatus', {}).get('status') != 'LIVE_STREAM_OFFLINE' and
                             do_not_download == 0 and not only_restricted_videos_bool):
                         count_ok_videos += 1
@@ -907,7 +907,7 @@ while True:
                                        count_ok_videos, len(video_watch_urls), video.views, False)
                     else:
                         if not skip_restricted_bool:
-                            if (video.vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' or
+                            if (video.vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
                             video.vid_info.get('playabilityStatus', {}).get('status') != 'LIVE_STREAM_OFFLINE' and
                                     do_not_download == 0):
                                 count_restricted_videos += 1
