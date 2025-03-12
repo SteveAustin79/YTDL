@@ -269,16 +269,16 @@ def read_channel_txt_lines(filename):
 
 
 def user_selection(u_lines, u_show_latest_video_date):
-    for _ in range(11):
-        sys.stdout.write("\033[F")  # Move cursor up
-        sys.stdout.write("\033[K")  # Clear the line
-
     """Displays the lines as a selection menu and gets user input."""
     if not u_lines:
         print("No lines available for selection.")
         return None
 
     latest_date_formated = ""
+
+    for _ in range(11):
+        sys.stdout.write("\033[F")  # Move cursor up
+        sys.stdout.write("\033[K")  # Clear the line
 
     temp_disable = smart_input("Skip latest Video date for this run?  Y/n", "n")
     print()
