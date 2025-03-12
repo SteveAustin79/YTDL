@@ -882,10 +882,11 @@ while True:
         for url in video_watch_urls:
             only_video_id = pytubefix.extract.video_id(url)
 
+            print("")
+
             if find_file_by_string(ytchannel_path, only_video_id, limit_resolution_to, audio_or_video_bool) is not None:
                 count_ok_videos += 1
                 count_skipped += 1
-                print("")
                 print(print_colored_text(f"\rSkipping {count_skipped} Videos", BCOLORS.MAGENTA), end="", flush=True)
             else:
                 do_not_download = 0
