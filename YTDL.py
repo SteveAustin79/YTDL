@@ -22,6 +22,8 @@ class BCOLORS:
     ORANGE     = "\033[33m"
     UNDERLINE  = "\033[4m"
     BOLD       = "\033[1m"
+    MOVES1UP   = "\033[F"
+    CLRLINE    = "\033[K"
     ENDC       = "\033[0m"
 
 REQUIRED_APP_CONFIG = {
@@ -267,6 +269,10 @@ def read_channel_txt_lines(filename):
 
 
 def user_selection(u_lines, u_show_latest_video_date):
+    for _ in range(11):
+        sys.stdout.write("\033[F")  # Move cursor up
+        sys.stdout.write("\033[K")  # Clear the line
+
     """Displays the lines as a selection menu and gets user input."""
     if not u_lines:
         print("No lines available for selection.")
