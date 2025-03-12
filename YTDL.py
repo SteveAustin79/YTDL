@@ -285,7 +285,7 @@ def user_selection(u_lines, u_show_latest_video_date):
         print("")
         print_asteriks_line()
 
-    print()
+    #print()
     if temp_disable == "y":
         u_show_latest_video_date = False
 
