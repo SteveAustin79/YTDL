@@ -409,7 +409,8 @@ def create_directories(restricted: bool, year: str) -> None:
             os.makedirs(ytchannel_path + f"{str(year)}")
 
 
-def download_video(channel_name, video_id, counter_id, video_total_count, video_views, restricted):
+def download_video(channel_name: str, video_id: str, counter_id: int, video_total_count: int,
+                   video_views: int, restricted: bool) -> None:
     restricted_path_snippet = ""
     colored_video_id = video_id
     # header_width = 95
@@ -455,23 +456,24 @@ def download_video(channel_name, video_id, counter_id, video_total_count, video_
                         yt.title) + " - " + video_id + ".mp3"):
                 print(print_colored_text("\nMP3 already downloaded\n", BCOLORS.GREEN))
 
-        more_than1080p = 0
+        more_than1080p = False
 
         if res == "2160p" or res == "1440p":
-            more_than1080p = 1
+            more_than1080p = True
             video_file_tmp, audio_file_tmp = find_media_files("tmp")
             if video_file_tmp is not None:
                 path = (ytchannel_path + str(year) + "/" + restricted_path_snippet + str(publishing_date) + " - " + res + " - "
                         + clean_string_regex(os.path.splitext(video_file_tmp)[0]) + " - " + video_id + ".mp4")
                 print(print_colored_text("\nMerged file still available!", BCOLORS.BLACK))
-                convert_webm_to_mp4("tmp/" + video_file_tmp, path, restricted, year)
+                convert_webm_to_mp4("tmp/" + video_file_tmp, path, year, restricted)
             else:
                 download_video_process(yt, res, more_than1080p, publishing_date, year, restricted)
         else:
             download_video_process(yt, res, more_than1080p, publishing_date, year, restricted)
 
 
-def download_video_process(yt, res, more_than1080p, publishing_date, year, restricted):
+def download_video_process(yt: YouTube, res: str, more_than1080p: bool, publishing_date: str, year: str,
+                           restricted: bool) -> None:
     if not audio_or_video_bool:
         print(print_colored_text("\nDownloading VIDEO...", BCOLORS.BLACK))
 
@@ -492,13 +494,13 @@ def download_video_process(yt, res, more_than1080p, publishing_date, year, restr
     if audio_or_video_bool:
         convert_m4a_to_mp3(yt.video_id, publishing_date, year, restricted)
     else:
-        if more_than1080p == 0:
-            merge_video_audio(yt.video_id, publishing_date, res, year, restricted)
-        else:
+        if more_than1080p:
             convert_m4a_to_opus_and_merge(yt.video_id, publishing_date, res, year, restricted)
+        else:
+            merge_video_audio(yt.video_id, publishing_date, res, year, restricted)
 
 
-def convert_m4a_to_mp3(video_id, publish_date, year, restricted):
+def convert_m4a_to_mp3(video_id: str, publish_date: str, year: str, restricted: bool) -> None:
     video_file, audio_file = find_media_files(".")
     if not audio_file:
         print("❌ No M4A files found in the current directory.")
@@ -530,7 +532,7 @@ def convert_m4a_to_mp3(video_id, publish_date, year, restricted):
     delete_temp_files()
 
 
-def merge_video_audio(video_id, publish_date, video_resolution, year, restricted):
+def merge_video_audio(video_id: str, publish_date: str, video_resolution: str, year: str, restricted: bool) -> None:
     video_file, audio_file = find_media_files(".")
 
     if not video_file or not audio_file:
@@ -566,7 +568,8 @@ def merge_video_audio(video_id, publish_date, video_resolution, year, restricted
         sys.exit(1)
 
 
-def convert_m4a_to_opus_and_merge(videoid, publishdate, video_resolution, year, restricted):
+def convert_m4a_to_opus_and_merge(video_id: str, publish_date: str, video_resolution: str, year: str,
+                                  restricted: bool) -> None:
     video_file, audio_file = find_media_files(".")
     """Convert M4A to Opus format (WebM-compatible)."""
     print(print_colored_text("\nConvert M4A audio to Opus format (WebM compatible)...", BCOLORS.BLACK))
@@ -574,10 +577,10 @@ def convert_m4a_to_opus_and_merge(videoid, publishdate, video_resolution, year, 
         "ffmpeg", "-loglevel", "quiet", "-stats", "-i", audio_file, "-c:a", "libopus", "audio.opus"
     ]
     subprocess.run(command, check=True)
-    merge_webm_opus(videoid, publishdate, video_resolution, year, restricted)
+    merge_webm_opus(video_id, publish_date, video_resolution, year, restricted)
 
 
-def merge_webm_opus(videoid, publishdate, video_resolution, year, restricted):
+def merge_webm_opus(video_id: str, publish_date: str, video_resolution: str, year: str, restricted: bool) -> None:
     video_file, audio_file = find_media_files(".")
     output_file = "tmp/" + video_file
     """Merge WebM video with Opus audio."""
@@ -594,12 +597,12 @@ def merge_webm_opus(videoid, publishdate, video_resolution, year, restricted):
     if restricted:
         restricted_string = "/restricted/"
 
-    path = (ytchannel_path + str(year) + restricted_string + publishdate + " - " + video_resolution + " - "
-            + clean_string_regex(os.path.splitext(video_file)[0]) + " - " + videoid + ".mp4")
-    convert_webm_to_mp4(output_file, path, restricted, year)
+    path = (ytchannel_path + str(year) + restricted_string + publish_date + " - " + video_resolution + " - "
+            + clean_string_regex(os.path.splitext(video_file)[0]) + " - " + video_id + ".mp4")
+    convert_webm_to_mp4(output_file, path, year, restricted)
 
 
-def convert_webm_to_mp4(input_file, output_file, restricted, year):
+def convert_webm_to_mp4(input_file: str, output_file: str, year: str, restricted: bool) -> None:
     create_directories(restricted, year)
     """Convert a WebM file to MP4 (H.264/AAC)."""
     print(print_colored_text(f"Converting WebM to MP4... (this may take a while)", BCOLORS.BLACK))
