@@ -50,7 +50,7 @@ REQUIRED_VIDEO_CHANNEL_CONFIG = {
 }
 
 
-def cc_load_config(file_path):
+def cc_load_config(file_path: str):
     """Loads the JSON config file or creates an empty dictionary if the file doesn't exist."""
     if os.path.exists(file_path):
         with open(file_path, "r", encoding="utf-8") as file:
@@ -61,13 +61,13 @@ def cc_load_config(file_path):
                 return {}  # Return an empty config if JSON is corrupted
     return {}  # Return an empty config if file doesn't exist
 
-def cc_save_config(cc_file_path, cc_config):
+def cc_save_config(cc_file_path: str, cc_config: str) -> None:
     """Saves the updated config dictionary back to the JSON file."""
     with open(cc_file_path, "w", encoding="utf-8") as cc_file:
         json.dump(cc_config, cc_file, indent=4, ensure_ascii=False)
     #print(f"✅ Updated config saved to {cc_file_path}")
 
-def cc_check_and_update_channel_config(cc_file_path, cc_required_config):
+def cc_check_and_update_channel_config(cc_file_path: str, cc_required_config: dict) -> None:
     """Ensures all required keys exist in the config file, adding missing ones."""
     cc_config = cc_load_config(cc_file_path)  # Load existing or empty config
 
@@ -85,12 +85,12 @@ def cc_check_and_update_channel_config(cc_file_path, cc_required_config):
     #     print("✅ All required config keys exist. No updates needed.")
 
 
-def smart_input(prompt, default_value):
+def smart_input(prompt: str, default_value: str):
     user_input = input(f"{prompt} [{default_value}]: ").strip()
     return user_input if user_input else default_value
 
 
-def clear_screen():
+def clear_screen() -> None:
     """Clears the console screen on Windows and Linux/macOS."""
     os.system('cls' if os.name == 'nt' else 'clear')
 
@@ -102,7 +102,7 @@ def load_config(c_file):
     return l_config
 
 
-def print_asteriks_line():
+def print_asteriks_line() -> None:
     length = header_width_global
     print("*" * length)
 
