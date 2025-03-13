@@ -291,7 +291,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool) -> None:
         u_show_latest_video_date = False
 
     print("Select channel:")
-    for index, line in enumerate(u_lines, start=1):
+    for u_index, line in enumerate(u_lines, start=1):
         if u_show_latest_video_date:
             if not line == u_lines[(len(u_lines) - 1)]:
                 spaces = 53
@@ -307,11 +307,11 @@ def user_selection(u_lines, u_show_latest_video_date: bool) -> None:
                             latest_date = print_colored_text(latest_date, BCOLORS.GREEN)
                         else:
                             latest_date = print_colored_text(latest_date, BCOLORS.RED)
-                        latest_date_formated = (" " * (spaces-len(str(index))-len(line)) + "Last: "
+                        latest_date_formated = (" " * (spaces-len(str(u_index))-len(line)) + "Last: "
                                                 + latest_date + " | " + latest_video[i].video_id)
                         break
 
-        print(f"{index}. {line}{latest_date_formated}")
+        print(f"{u_index}. {line}{latest_date_formated}")
         latest_date_formated = ""
 
     while True:
@@ -353,7 +353,7 @@ def find_media_files(fmf_path: str) -> tuple[str | None, str | None]:
     return video_file, audio_file
 
 
-def print_resolutions(yt: YouTube) -> list:
+def print_resolutions(yt: YouTube) -> list[str]:
     streams = yt.streams.filter(file_extension='mp4')  # StreamQuery object
     # Convert StreamQuery to a formatted string
     stream_string = "\n".join([str(stream) for stream in streams])
@@ -389,10 +389,10 @@ def find_file_by_string(directory: str, search_string: str, resolution: str, mp3
 
 def limit_resolution(resolution: str, limit: str) -> str:
     num_resolution = int(''.join(filter(str.isdigit, resolution)))  # Extract number from first resolution
-    num_limit = 0
+    num_limit: int = 0
     if limit!="max":
         num_limit = int(''.join(filter(str.isdigit, limit)))  # Extract number from second resolution
-    if str(limit)=="max" or num_resolution < num_limit:
+    if limit=="max" or num_resolution < num_limit:
         max_resolution = resolution
     else:
         max_resolution = limit
