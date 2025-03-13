@@ -958,7 +958,7 @@ while True:
     except KeyboardInterrupt:
         delete_temp_files()
 
-        continue_ytdl = smart_input("\n\nThere was an interrupt. Continue?  Y/n ", "y")
+        continue_ytdl = smart_input("\n\nCtrl + C detected. Continue?  Y/n ", "y")
         print("\n")
         if continue_ytdl == "y":
             continue
