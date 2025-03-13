@@ -107,31 +107,31 @@ def print_asteriks_line() -> None:
     print("*" * length)
 
 
-def print_colored_text(message_text: str, color: BCOLORS) -> str:
+def print_colored_text(message_text: str, color: str) -> str:
     return f"{color}{message_text}{BCOLORS.ENDC}"
 
 
-def extract_number(res):
+def extract_number(res: str):
     return int(''.join(filter(str.isdigit, res)))  # Extracts only numbers and converts to int
 
 
-def clean_youtube_urls(toclean_video_list):
+def clean_youtube_urls(to_clean_video_list: list) -> list[str]:
     prefix = youtube_base_url
-    return [toclean_video.replace(prefix, "") for toclean_video in toclean_video_list]
+    return [to_clean_video.replace(prefix, "") for to_clean_video in to_clean_video_list]
 
 
-def clean_string_regex(text):
+def clean_string_regex(text: str) -> str:
     new_text = text.replace(":", "")
     pattern = r"[^a-zA-Z0-9 ]"
     return re.sub(pattern, "", new_text)
 
 
-def string_to_list(input_string):
+def string_to_list(input_string: str) -> list[str]:
     """Transforms a comma-separated string into a list of strings, removing extra spaces."""
     return [item.strip() for item in input_string.split(",")]
 
 
-def print_configuration():
+def print_configuration() -> None:
     print("Configuration (config.json):")
     print_asteriks_line()
     print(print_colored_text("Output directory:                   ", BCOLORS.BLACK),
@@ -158,17 +158,17 @@ def print_configuration():
         show_latest_video_date_colored = print_colored_text(show_latest_video_date, BCOLORS.RED)
     print(print_colored_text("Show latest Video date:             ", BCOLORS.BLACK),
           show_latest_video_date_colored)
-    if default_audioMP3:
-        default_audioMP3_colored = print_colored_text(default_audioMP3, BCOLORS.GREEN)
+    if default_audio_mp3:
+        default_audio_mp3_colored = print_colored_text(default_audio_mp3, BCOLORS.GREEN)
     else:
-        default_audioMP3_colored = print_colored_text(default_audioMP3, BCOLORS.RED)
+        default_audio_mp3_colored = print_colored_text(default_audio_mp3, BCOLORS.RED)
     print(print_colored_text("Default audio/MP3:                  ", BCOLORS.BLACK),
-          default_audioMP3_colored)
+          default_audio_mp3_colored)
     print_asteriks_line()
     print("")
 
 
-def format_header(counter, width):
+def format_header(counter: str, width: int) -> str:
     counter_splitted = counter.split(" - ")
     counter_str = ("* " + counter_splitted[0] + " *" + print_colored_text(f" {counter_splitted[1]} ", BCOLORS.CYAN)
                    + "| " + counter_splitted[2] + " (" + get_free_space(output_dir) + " free) ")
@@ -180,7 +180,7 @@ def format_header(counter, width):
     return formatted
 
 
-def print_video_infos(yt, res, video_views):
+def print_video_infos(yt: YouTube, res: str, video_views: str) -> None:
     print(print_colored_text("Title:         ", BCOLORS.BLACK),
           print_colored_text(print_colored_text(yt.title, BCOLORS.CYAN), BCOLORS.BOLD))
 
@@ -210,12 +210,12 @@ def print_video_infos(yt, res, video_views):
         print("               ", print_colored_text(print_resolutions(yt), BCOLORS.BLACK))
 
 
-def format_time(seconds):
+def format_time(seconds: int) -> str:
     minutes, seconds = divmod(seconds, 60)
     return f"{minutes}m{seconds}s"
 
 
-def get_free_space(path):
+def get_free_space(path: str) -> str:
     """Returns the free disk space for the given path formatted in GB or MB."""
     total, used, free = shutil.disk_usage(path)  # Get disk space (in bytes)
 
@@ -228,7 +228,7 @@ def get_free_space(path):
     return formatted_space
 
 
-def format_view_count(number):
+def format_view_count(number: int) -> str:
     """Formats a number into a human-readable view count."""
     if number >= 1_000_000_000:  # Billions
         return f"{number / 1_000_000_000:.1f}B"
@@ -240,7 +240,7 @@ def format_view_count(number):
         return str(number)
 
 
-def rename_files_in_temp_directory():
+def rename_files_in_temp_directory() -> None:
     """Removes ':' from filenames in a given directory."""
     directory = os.getcwd()
     if not os.path.exists(directory):
@@ -256,7 +256,7 @@ def rename_files_in_temp_directory():
             os.rename(old_path, new_path)
 
 
-def read_channel_txt_lines(filename):
+def read_channel_txt_lines(filename: str) -> list[str]:
     """Reads all lines from a file and returns a list of lines."""
     try:
         with open(filename, "r", encoding="utf-8") as file:
@@ -268,7 +268,7 @@ def read_channel_txt_lines(filename):
         return []
 
 
-def user_selection(u_lines, u_show_latest_video_date):
+def user_selection(u_lines, u_show_latest_video_date: bool) -> None:
     """Displays the lines as a selection menu and gets user input."""
     if not u_lines:
         print("No lines available for selection.")
@@ -353,7 +353,7 @@ def find_media_files(fmf_path):
     return video_file, audio_file
 
 
-def print_resolutions(yt):
+def print_resolutions(yt) -> list:
     streams = yt.streams.filter(file_extension='mp4')  # StreamQuery object
     # Convert StreamQuery to a formatted string
     stream_string = "\n".join([str(stream) for stream in streams])
@@ -630,7 +630,7 @@ while True:
             year_subfolders = config["year_subfolders"]
             video_listing = config["video_listing"]
             show_latest_video_date = config["show_latest_video_date"]
-            default_audioMP3 = config["default_audioMP3"]
+            default_audio_mp3 = config["default_audioMP3"]
         except Exception as e:
             print("An error occurred, incomplete config file:", str(e))
             cc_check_and_update_channel_config("config.json", REQUIRED_APP_CONFIG)
@@ -792,7 +792,7 @@ while True:
         if video_id_from_single_video != "":
             default_include_videos = video_id_from_single_video
 
-        if default_audioMP3:
+        if default_audio_mp3:
             default_value_mp3 = "a"
         else:
             default_value_mp3 = "v"
