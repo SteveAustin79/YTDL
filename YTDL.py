@@ -429,14 +429,12 @@ def download_video(channel_name, video_id, counter_id, video_total_count, video_
     print(format_header(colored_video_id + " - " + channel_name
                          + " - " + str(counter_id) + "/" + str(video_total_count), header_width))
 
-    publishing_date = ""
-    year = ""
-    try:
-        publishing_date = yt.publish_date.strftime("%Y-%m-%d")
-        if year_subfolders:
-            year = "/" + str(yt.publish_date.strftime("%Y"))
-    except:
-        print()
+    publishing_date = yt.publish_date.strftime("%Y-%m-%d")
+
+    if year_subfolders:
+        year = "/" + str(yt.publish_date.strftime("%Y"))
+    else:
+        year = ""
 
     res = max(print_resolutions(yt), key=lambda x: int(x.rstrip('p')))
     if limit_resolution_to != "max":
@@ -960,7 +958,7 @@ while True:
     except KeyboardInterrupt:
         delete_temp_files()
 
-        continue_ytdl = smart_input("\n\nCtrl + C detected. Continue?  Y/n ", "y")
+        continue_ytdl = smart_input("\n\nThere was an interrupt. Continue?  Y/n ", "y")
         print("\n")
         if continue_ytdl == "y":
             continue
