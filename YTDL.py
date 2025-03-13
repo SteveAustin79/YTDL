@@ -180,7 +180,7 @@ def format_header(counter: str, width: int) -> str:
     return formatted
 
 
-def print_video_infos(yt: YouTube, res: str, video_views: str) -> None:
+def print_video_infos(yt: YouTube, res: str, video_views: int) -> None:
     print(print_colored_text("Title:         ", BCOLORS.BLACK),
           print_colored_text(print_colored_text(yt.title, BCOLORS.CYAN), BCOLORS.BOLD))
 
@@ -207,7 +207,7 @@ def print_video_infos(yt: YouTube, res: str, video_views: str) -> None:
         print(print_colored_text("Resolution:    ", BCOLORS.BLACK),
               print_colored_text(res, BCOLORS.YELLOW),
               print_colored_text("  (" + limit_resolution_to + ")", BCOLORS.BLACK))
-        print("               ", print_colored_text(print_resolutions(yt), BCOLORS.BLACK))
+        print("               ", print_colored_text(str(print_resolutions(yt)), BCOLORS.BLACK))
 
 
 def format_time(seconds: int) -> str:
@@ -325,7 +325,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool) -> None:
             print("⚠️ Invalid input. Please enter a number.")
 
 
-def delete_temp_files():
+def delete_temp_files() -> None:
     # remove video and audio streams
     video_file, audio_file = find_media_files(".")
     # Check if files exist before deleting
@@ -336,7 +336,7 @@ def delete_temp_files():
         os.remove(audio_file)
 
 
-def find_media_files(fmf_path):
+def find_media_files(fmf_path: str) -> tuple[str | None, str | None]:
     """Search for the first MP4 and M4A files in the current directory."""
     video_file = None
     audio_file = None
@@ -353,7 +353,7 @@ def find_media_files(fmf_path):
     return video_file, audio_file
 
 
-def print_resolutions(yt) -> list:
+def print_resolutions(yt: YouTube) -> list:
     streams = yt.streams.filter(file_extension='mp4')  # StreamQuery object
     # Convert StreamQuery to a formatted string
     stream_string = "\n".join([str(stream) for stream in streams])
@@ -365,7 +365,7 @@ def print_resolutions(yt) -> list:
     return unique_resolutions
 
 
-def find_file_by_string(directory, search_string, resolution, mp3):
+def find_file_by_string(directory: str, search_string: str, resolution: str, mp3: bool) -> str | None:
     """Searches a directory for a file containing a specific string in its filename.
     Returns the filename if found, otherwise returns None.
     """
@@ -387,8 +387,9 @@ def find_file_by_string(directory, search_string, resolution, mp3):
     return None  # Return None if no file is found
 
 
-def limit_resolution(resolution, limit):
+def limit_resolution(resolution: str, limit: str) -> str:
     num_resolution = int(''.join(filter(str.isdigit, resolution)))  # Extract number from first resolution
+    num_limit = 0
     if limit!="max":
         num_limit = int(''.join(filter(str.isdigit, limit)))  # Extract number from second resolution
     if str(limit)=="max" or num_resolution < num_limit:
@@ -399,7 +400,7 @@ def limit_resolution(resolution, limit):
     return max_resolution
 
 
-def create_directories(restricted, year):
+def create_directories(restricted: bool, year: str) -> None:
     if restricted:
         if not os.path.exists(ytchannel_path + f"{str(year)}/restricted"):
             os.makedirs(ytchannel_path + f"{str(year)}/restricted")
