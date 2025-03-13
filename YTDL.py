@@ -95,7 +95,7 @@ def clear_screen() -> None:
     os.system('cls' if os.name == 'nt' else 'clear')
 
 
-def load_config(c_file):
+def load_config(c_file: str):
     """Load settings from config.json."""
     with open(c_file, "r") as file:
         l_config = json.load(file)
@@ -107,7 +107,7 @@ def print_asteriks_line() -> None:
     print("*" * length)
 
 
-def print_colored_text(message_text, color):
+def print_colored_text(message_text: str, color: BCOLORS):
     return f"{color}{message_text}{BCOLORS.ENDC}"
 
 
