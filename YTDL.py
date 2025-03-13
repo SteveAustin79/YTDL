@@ -948,7 +948,6 @@ while True:
     except Exception as e:
         delete_temp_files()
         print("An error occurred:", str(e))
-
         continue_ytdl = smart_input("There was an exception. Continue?  Y/n ", "y")
         print("\n")
         if continue_ytdl == "y":
@@ -958,7 +957,6 @@ while True:
 
     except KeyboardInterrupt:
         delete_temp_files()
-
         continue_ytdl = smart_input("\n\nCtrl + C detected. Continue?  Y/n ", "y")
         print("\n")
         if continue_ytdl == "y":
