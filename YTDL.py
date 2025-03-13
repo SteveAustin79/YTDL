@@ -107,7 +107,7 @@ def print_asteriks_line() -> None:
     print("*" * length)
 
 
-def print_colored_text(message_text: str, color: BCOLORS):
+def print_colored_text(message_text: str, color: BCOLORS) -> str:
     return f"{color}{message_text}{BCOLORS.ENDC}"
 
 
