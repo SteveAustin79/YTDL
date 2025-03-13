@@ -8,6 +8,7 @@ import pytubefix.extract
 from pytubefix import YouTube, Channel
 from pytubefix.cli import on_progress
 
+
 version = "1.1 (20250312)"
 header_width_global = 94
 
@@ -268,7 +269,7 @@ def read_channel_txt_lines(filename: str) -> list[str]:
         return []
 
 
-def user_selection(u_lines, u_show_latest_video_date: bool) -> None:
+def user_selection(u_lines, u_show_latest_video_date: bool):
     """Displays the lines as a selection menu and gets user input."""
     if not u_lines:
         print("No lines available for selection.")
