@@ -30,7 +30,7 @@ Restricted video download possible, but requires authentication via accounts.goo
 - Python (https://www.python.org)
 - FFMPG (https://ffmpeg.org)
 
-## Installation
+## Installation (Linux)
 1. Clone repository:
 ```diff
 git clone https://github.com/SteveAustin79/YTDL.git
