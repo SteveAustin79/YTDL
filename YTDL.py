@@ -131,7 +131,7 @@ def string_to_list(input_string: str) -> list[str]:
 
 
 def print_configuration() -> None:
-    print("Configuration (" + os.path.abspath(config) + "):")
+    print("Configuration (" + os.path.abspath("config.json") + "):")
     print_asteriks_line()
     print(print_colored_text("Output directory:                   ", BCOLORS.BLACK),
           print_colored_text(output_dir, BCOLORS.CYAN))
