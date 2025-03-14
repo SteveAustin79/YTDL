@@ -793,7 +793,8 @@ while True:
                       + print_colored_text(str(incomplete_string), BCOLORS.ORANGE))
                 cc_check_and_update_channel_config(ytchannel_path + channel_config_path, REQUIRED_VIDEO_CHANNEL_CONFIG)
             else:
-                print(print_colored_text("\nChannel config file found! (" + ytchannel_path + channel_config_path + ")", BCOLORS.BLUE))
+                print(print_colored_text("\nChannel config file found! (" + print_colored_text(ytchannel_path
+                                                + channel_config_path, BCOLORS.BLACK) + ")", BCOLORS.BLUE))
 
         if video_id_from_single_video != "":
             default_include_videos = video_id_from_single_video
