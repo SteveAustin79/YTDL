@@ -936,7 +936,7 @@ while True:
         if count_this_run == 0:
             print("\n\n" + print_colored_text("Nothing to do...\n\n", BCOLORS.GREEN))
         else:
-            print(print_colored_text(f"\nDONE! Downloaded in this session: {count_this_run})", BCOLORS.GREEN))
+            print(print_colored_text(f"\nDONE! Downloaded in this session: {count_this_run}", BCOLORS.GREEN))
             print(f"\n{get_free_space(ytchannel_path)} free\n")
 
         continue_ytdl = smart_input("Continue?  Y/n ", "y")
