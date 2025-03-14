@@ -82,8 +82,6 @@ def cc_check_and_update_channel_config(cc_file_path: str, cc_required_config: di
     if missing_keys:
         #print(f"⚠️ Missing keys added: {', '.join(missing_keys)}")
         cc_save_config(cc_file_path, cc_config)  # Save only if changes were made
-    # else:
-    #     print("✅ All required config keys exist. No updates needed.")
 
 
 def smart_input(prompt: str, default_value: str):
@@ -640,6 +638,9 @@ while True:
             print("An error occurred, incomplete config file:", str(e))
             cc_check_and_update_channel_config("config.json", REQUIRED_APP_CONFIG)
             continue
+
+        if not os.path.exists(output_dir):
+            os.makedirs(output_dir)
 
         # Create an empty list
         video_list = []
