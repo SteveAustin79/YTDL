@@ -33,7 +33,7 @@ REQUIRED_APP_CONFIG = {
     "min_duration_in_minutes": "",
     "max_duration_in_minutes": "",
     "year_subfolders": "",
-    "video_listings": "",
+    "video_listing": "",
     "show_latest_video_date": False,
     "default_audioMP3": False
 }
@@ -793,8 +793,8 @@ while True:
                       + print_colored_text(str(incomplete_string), BCOLORS.ORANGE))
                 cc_check_and_update_channel_config(ytchannel_path + channel_config_path, REQUIRED_VIDEO_CHANNEL_CONFIG)
             else:
-                print(print_colored_text("\nChannel config file found! " + print_colored_text("(" + ytchannel_path
-                                                + channel_config_path + ")", BCOLORS.BLACK), BCOLORS.BLUE))
+                print(print_colored_text("\nChannel config file found! ", BCOLORS.BLUE) +
+                      print_colored_text("(" + ytchannel_path + channel_config_path + ")", BCOLORS.BLACK))
 
         if video_id_from_single_video != "":
             default_include_videos = video_id_from_single_video
