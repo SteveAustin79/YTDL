@@ -662,6 +662,10 @@ while True:
             ytv = YouTube(YTchannel, on_progress_callback=on_progress)
             YTchannel = ytv.channel_url
             video_id_from_single_video = ytv.video_id
+        elif "https://" not in YTchannel:
+            ytv = YouTube(youtube_base_url + YTchannel, on_progress_callback=on_progress)
+            YTchannel = ytv.channel_url
+            video_id_from_single_video = ytv.video_id
 
         c = Channel(YTchannel)
         print("\n" + print_colored_text(print_colored_text(str(c.channel_name), BCOLORS.BOLD), BCOLORS.CYAN))
