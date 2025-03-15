@@ -728,10 +728,10 @@ while True:
         default_only_restricted = "n"
         default_skip_restricted = "n"
         default_minimum_views = "0"
+        default_year_subfolders = "n"
         default_exclude_videos = ""
         default_include_videos = ""
         default_filter_words = ""
-        default_year_subfolders = ""
 
         channel_config_path = "/_config_channel.json"
 
