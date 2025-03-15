@@ -738,8 +738,6 @@ while True:
 
         channel_config_path = "/_config_channel.json"
 
-        make_year_subfolder_structure(ytchannel_path)
-
         if os.path.exists(ytchannel_path + channel_config_path):
             incomplete_config = False
             incomplete_string = []
@@ -861,6 +859,8 @@ while True:
         if year_subfolders_temp == "y":
             year_subfolders = True
             print(print_colored_text("Year sub folder structure active!", BCOLORS.RED))
+
+        make_year_subfolder_structure(ytchannel_path)
 
         exclude_video_ids = smart_input("\nExclude Video ID's (comma separated list): ", default_exclude_videos)
         exclude_list = []
