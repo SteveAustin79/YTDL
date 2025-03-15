@@ -74,7 +74,7 @@ def organize_files_by_year(base_directory: str) -> None:
                 shutil.move(file_path, os.path.join(year_folder, file_name))
                 print(f"Moved: {file_name} → {year}/")
 
-    print("✅ Files organized successfully!")
+    smart_input("✅ Files organized successfully! Continue?  Y/n", "y")
 
 
 def contains_folder_starting_with_2(path):
