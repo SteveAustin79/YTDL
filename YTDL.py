@@ -44,10 +44,10 @@ REQUIRED_VIDEO_CHANNEL_CONFIG = {
     "c_only_restricted": "",
     "c_skip_restricted": "",
     "c_minimum_views": "",
+    "c_year_subfolders": "",
     "c_exclude_video_ids": "",
     "c_include_video_ids": "",
-    "c_filter_words": "",
-    "c_year_subfolders": ""
+    "c_filter_words": ""
 }
 
 
@@ -139,12 +139,6 @@ def print_configuration() -> None:
           print_colored_text(min_duration, BCOLORS.CYAN))
     print(print_colored_text("Maximum Video duration in Minutes:  ", BCOLORS.BLACK),
           print_colored_text(max_duration, BCOLORS.CYAN))
-    # if year_subfolders:
-    #     year_subfolders_colored = print_colored_text(year_subfolders, BCOLORS.GREEN)
-    # else:
-    #     year_subfolders_colored = print_colored_text(year_subfolders, BCOLORS.RED)
-    # print(print_colored_text("Year sub folder structure:          ", BCOLORS.BLACK),
-    #       year_subfolders_colored)
     if video_listing:
         video_listings_colored = print_colored_text(video_listing, BCOLORS.GREEN)
     else:
