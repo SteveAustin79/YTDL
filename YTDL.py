@@ -51,13 +51,41 @@ REQUIRED_VIDEO_CHANNEL_CONFIG = {
 }
 
 
+def organize_files_by_year(base_directory: str) -> None:
+    if not os.path.exists(base_directory):
+        print(f"Error: The directory '{base_directory}' does not exist.")
+        return
+
+    for file_name in os.listdir(base_directory):
+        file_path = os.path.join(base_directory, file_name)
+
+        # Ensure it's a file (not a folder)
+        if os.path.isfile(file_path):
+            # Extract year from filename (expects format: YYYY-...)
+            parts = file_name.split("-")
+            if parts[0].isdigit() and len(parts[0]) == 4:
+                year = parts[0]
+                year_folder = os.path.join(base_directory, year)
+
+                # Create the year folder if it doesn't exist
+                os.makedirs(year_folder, exist_ok=True)
+
+                # Move the file to the corresponding year folder
+                shutil.move(file_path, os.path.join(year_folder, file_name))
+                print(f"Moved: {file_name} → {year}/")
+
+    print("✅ Files organized successfully!")
+
+
 def contains_folder_starting_with_2(path):
     return any(name.startswith("2") and os.path.isdir(os.path.join(path, name)) for name in os.listdir(path))
 
 
 def make_year_subfolder_structure(path: str) -> None:
-    gte_videos_from_path: int = sum(os.path.isdir(os.path.join(path, f)) for f in os.listdir(path))
-    print(os.listdir(path), str(gte_videos_from_path), contains_folder_starting_with_2(path))
+    if not contains_folder_starting_with_2(path):
+        print("Creating year sub folder structure!")
+        organize_files_by_year(path)
+    print()
 
 
 def cc_load_config(file_path: str):
