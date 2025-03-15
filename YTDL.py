@@ -32,7 +32,7 @@ REQUIRED_APP_CONFIG = {
     "youtube_base_url": "",
     "min_duration_in_minutes": "",
     "max_duration_in_minutes": "",
-    "video_listing": "",
+    "video_listing": False,
     "show_latest_video_date": False,
     "default_audioMP3": False
 }
