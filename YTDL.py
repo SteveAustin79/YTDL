@@ -51,9 +51,13 @@ REQUIRED_VIDEO_CHANNEL_CONFIG = {
 }
 
 
+def contains_folder_starting_with_2(path):
+    return any(name.startswith("2") and os.path.isdir(os.path.join(path, name)) for name in os.listdir(path))
+
+
 def make_year_subfolder_structure(path: str) -> None:
     gte_videos_from_path: int = sum(os.path.isdir(os.path.join(path, f)) for f in os.listdir(path))
-    print(os.listdir(path), str(gte_videos_from_path))
+    print(os.listdir(path), str(gte_videos_from_path), contains_folder_starting_with_2(path))
 
 
 def cc_load_config(file_path: str):
