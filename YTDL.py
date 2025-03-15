@@ -51,6 +51,11 @@ REQUIRED_VIDEO_CHANNEL_CONFIG = {
 }
 
 
+def make_year_subfolder_structure(path: str) -> None:
+    gte_videos_from_path = os.listdir(path)
+    print(gte_videos_from_path)
+
+
 def cc_load_config(file_path: str):
     """Loads the JSON config file or creates an empty dictionary if the file doesn't exist."""
     if os.path.exists(file_path):
@@ -732,6 +737,8 @@ while True:
         default_filter_words = ""
 
         channel_config_path = "/_config_channel.json"
+
+        make_year_subfolder_structure(ytchannel_path)
 
         if os.path.exists(ytchannel_path + channel_config_path):
             incomplete_config = False
