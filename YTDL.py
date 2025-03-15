@@ -53,7 +53,7 @@ REQUIRED_VIDEO_CHANNEL_CONFIG = {
 
 def make_year_subfolder_structure(path: str) -> None:
     gte_videos_from_path: int = sum(os.path.isdir(os.path.join(path, f)) for f in os.listdir(path))
-    print(str(gte_videos_from_path))
+    print(os.listdir(path), str(gte_videos_from_path))
 
 
 def cc_load_config(file_path: str):
