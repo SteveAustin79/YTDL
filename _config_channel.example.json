@@ -7,5 +7,6 @@
     "c_minimum_views": "",
 	"c_exclude_video_ids": "",
 	"c_include_video_ids": "",
-	"c_filter_words": ""
+	"c_filter_words": "",
+    "c_year_subfolders": ""
 }

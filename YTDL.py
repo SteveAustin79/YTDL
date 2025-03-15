@@ -32,7 +32,6 @@ REQUIRED_APP_CONFIG = {
     "youtube_base_url": "",
     "min_duration_in_minutes": "",
     "max_duration_in_minutes": "",
-    "year_subfolders": "",
     "video_listing": "",
     "show_latest_video_date": False,
     "default_audioMP3": False
@@ -47,7 +46,8 @@ REQUIRED_VIDEO_CHANNEL_CONFIG = {
     "c_minimum_views": "",
     "c_exclude_video_ids": "",
     "c_include_video_ids": "",
-    "c_filter_words": ""
+    "c_filter_words": "",
+    "c_year_subfolders": ""
 }
 
 
@@ -139,12 +139,12 @@ def print_configuration() -> None:
           print_colored_text(min_duration, BCOLORS.CYAN))
     print(print_colored_text("Maximum Video duration in Minutes:  ", BCOLORS.BLACK),
           print_colored_text(max_duration, BCOLORS.CYAN))
-    if year_subfolders:
-        year_subfolders_colored = print_colored_text(year_subfolders, BCOLORS.GREEN)
-    else:
-        year_subfolders_colored = print_colored_text(year_subfolders, BCOLORS.RED)
-    print(print_colored_text("Year sub folder structure:          ", BCOLORS.BLACK),
-          year_subfolders_colored)
+    # if year_subfolders:
+    #     year_subfolders_colored = print_colored_text(year_subfolders, BCOLORS.GREEN)
+    # else:
+    #     year_subfolders_colored = print_colored_text(year_subfolders, BCOLORS.RED)
+    # print(print_colored_text("Year sub folder structure:          ", BCOLORS.BLACK),
+    #       year_subfolders_colored)
     if video_listing:
         video_listings_colored = print_colored_text(video_listing, BCOLORS.GREEN)
     else:
@@ -630,7 +630,6 @@ while True:
             youtube_base_url = config["youtube_base_url"]
             min_duration = config["min_duration_in_minutes"]
             max_duration = config["max_duration_in_minutes"]
-            year_subfolders = config["year_subfolders"]
             video_listing = config["video_listing"]
             show_latest_video_date = config["show_latest_video_date"]
             default_audio_mp3 = config["default_audioMP3"]
@@ -732,6 +731,7 @@ while True:
         default_exclude_videos = ""
         default_include_videos = ""
         default_filter_words = ""
+        default_year_subfolders = ""
 
         channel_config_path = "/_config_channel.json"
 
@@ -740,7 +740,7 @@ while True:
             incomplete_string = []
             # Load channel config
             channel_config = load_config(ytchannel_path + channel_config_path)
-            # Access settings
+            # Access and set settings
             if "c_max_resolution" in channel_config:
                 if channel_config["c_max_resolution"] != "":
                     default_max_res = channel_config["c_max_resolution"]
@@ -782,6 +782,13 @@ while True:
             else:
                 incomplete_config = True
                 incomplete_string.append("c_minimum_views")
+
+            if "c_year_subfolders" in channel_config:
+                if channel_config["c_year_subfolders"] != "":
+                    default_year_subfolders = channel_config["c_year_subfolders"]
+            else:
+                incomplete_config = True
+                incomplete_string.append("c_year_subfolders")
 
             default_exclude_videos = channel_config["c_exclude_video_ids"]
             default_include_videos = channel_config["c_include_video_ids"]
@@ -833,7 +840,7 @@ while True:
 
         skip_restricted_bool = False
         if not only_restricted_videos_bool:
-            skip_restricted = smart_input("Skip restricted Video(s)?  Y/n ", default_skip_restricted)
+            skip_restricted = smart_input("Skip restricted Video(s)?  Y/n", default_skip_restricted)
             if skip_restricted == "y":
                 skip_restricted_bool = True
                 print(print_colored_text("Skipping restricted Video(s)!", BCOLORS.RED))
@@ -843,6 +850,12 @@ while True:
             min_video_views_bool = True
         else:
             min_video_views_bool = False
+
+        year_subfolders = False
+        year_subfolders_temp = smart_input("Year sub folder structure?  Y/n", default_year_subfolders)
+        if year_subfolders_temp == "y":
+            year_subfolders = True
+            print(print_colored_text("Year sub folder structure active!", BCOLORS.RED))
 
         exclude_video_ids = smart_input("\nExclude Video ID's (comma separated list): ", default_exclude_videos)
         exclude_list = []
