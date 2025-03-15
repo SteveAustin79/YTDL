@@ -72,9 +72,7 @@ def organize_files_by_year(base_directory: str) -> None:
 
                 # Move the file to the corresponding year folder
                 shutil.move(file_path, os.path.join(year_folder, file_name))
-                print(f"Moved: {file_name} → {year}/")
-
-    smart_input("✅ Files organized successfully! Continue?  Y/n", "y")
+                # print(f"Moved: {file_name} → {year}/")
 
 
 def contains_folder_starting_with_2(path):
@@ -85,7 +83,6 @@ def make_year_subfolder_structure(path: str) -> None:
     if not contains_folder_starting_with_2(path):
         print("Creating year sub folder structure!")
         organize_files_by_year(path)
-    print()
 
 
 def cc_load_config(file_path: str):
