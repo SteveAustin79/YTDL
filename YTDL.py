@@ -111,7 +111,10 @@ def organize_files_by_year(base_directory: str) -> None:
 
 
 def contains_folder_starting_with_2(path: str) -> bool:
-    return any(name.startswith("2") and os.path.isdir(os.path.join(path, name)) for name in os.listdir(path))
+    if os.path.exists(path):
+        return any(name.startswith("2") and os.path.isdir(os.path.join(path, name)) for name in os.listdir(path))
+    else:
+        return False
 
 
 def make_year_subfolder_structure(path: str) -> None:
