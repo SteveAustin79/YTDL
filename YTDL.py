@@ -890,7 +890,7 @@ while True:
             print(print_colored_text("Year sub folder structure active!", BCOLORS.RED))
             make_year_subfolder_structure(ytchannel_path)
         else:
-            if contains_folder_starting_with_2(ytchannel_path):
+            if contains_folder_starting_with_2(ytchannel_path) and os.path.exists(ytchannel_path + channel_config_path):
                 print(print_colored_text("Year sub folder structure found!", BCOLORS.RED))
                 smart_input("Update channel config?  Y/n", "y")
                 # change here channel config -> set year subfolders to "y"
