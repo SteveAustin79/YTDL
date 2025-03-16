@@ -52,6 +52,56 @@ REQUIRED_VIDEO_CHANNEL_CONFIG = {
 }
 
 
+import json
+import os
+
+def create_json_config(file_path, config_values=None):
+    """
+    Creates a JSON config file at the specified path with default or custom values.
+
+    Args:
+        file_path (str): The path where the JSON file will be created.
+        config_values (dict, optional): A dictionary containing key-value pairs for the config.
+                                        If None, default values are used.
+
+    Returns:
+        bool: True if the file was created successfully, False otherwise.
+    """
+
+    # Merge default config with user-defined values
+    if config_values:
+        REQUIRED_VIDEO_CHANNEL_CONFIG.update(config_values)  # Override defaults if provided
+
+    try:
+        # Ensure the directory exists
+        os.makedirs(os.path.dirname(file_path), exist_ok=True)
+
+        # Write JSON file
+        with open(file_path, "w", encoding="utf-8") as f:
+            json.dump(REQUIRED_VIDEO_CHANNEL_CONFIG, f, indent=4)
+
+        print(f"✅ JSON config file created at: {file_path}")
+        return True
+
+    except Exception as e:
+        print(f"❌ Error creating JSON file: {e}")
+        return False
+
+# # Example Usage
+# config_path = "C:/your/path/to/config.json"  # Change to your desired path
+#
+# # Create JSON with default values
+# create_json_config(config_path)
+#
+# # Create JSON with custom values
+# custom_values = {
+#     "c_max_resolution": "1080p",
+#     "c_minimum_views": 5000,
+#     "c_year_subfolders": "True"
+# }
+# create_json_config(config_path, custom_values)
+
+
 def organize_files_by_year(base_directory: str) -> None:
     if not os.path.exists(base_directory):
         print(f"Error: The directory '{base_directory}' does not exist.")
@@ -944,6 +994,22 @@ while True:
                         update_json_config(ytchannel_path + channel_config_path, "c_include_video_ids", include_video_ids)
                     if default_filter_words != video_name_filter:
                         update_json_config(ytchannel_path + channel_config_path, "c_filter_words", video_name_filter)
+        else:
+            create_channel_config_file = smart_input("Create channel config file?  Y/n", "n")
+            if create_channel_config_file == "y":
+                custom_values = {
+                    "c_max_resolution": limit_resolution_to,
+                    "c_ignore_min_duration": ignore_min_duration,
+                    "c_ignore_max_duration": ignore_max_duration,
+                    "c_only_restricted": only_restricted_videos,
+                    "c_skip_restricted": skip_restricted,
+                    "c_minimum_views": 5000,
+                    "c_year_subfolders": "True",
+                    "c_exclude_video_ids": exclude_video_ids,
+                    "c_include_video_ids": include_video_ids,
+                    "c_filter_words": video_name_filter
+                }
+                create_json_config(ytchannel_path + channel_config_path, custom_values)
 
         count_total_videos = 0
         count_restricted_videos = 0
