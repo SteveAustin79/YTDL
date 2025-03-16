@@ -206,11 +206,10 @@ def print_configuration() -> None:
     print_configuration_line("Minimum Video duration in Minutes:", min_duration, BCOLORS.CYAN)
     print_configuration_line("Maximum Video duration in Minutes:", max_duration, BCOLORS.CYAN)
 
+    video_listing_color = BCOLORS.RED
     if video_listing:
-        color = BCOLORS.GREEN
-    else:
-        color = BCOLORS.RED
-    print_configuration_line("Video listing:", video_listing, color)
+        video_listing_color = BCOLORS.GREEN
+    print_configuration_line("Video listing:", video_listing, video_listing_color)
 
     if show_latest_video_date:
         show_latest_video_date_colored = print_colored_text(show_latest_video_date, BCOLORS.GREEN)
