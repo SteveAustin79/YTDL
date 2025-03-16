@@ -194,36 +194,30 @@ def string_to_list(input_string: str) -> list[str]:
     return [item.strip() for item in input_string.split(",")]
 
 
-def print_configuration_line(config_desc_text: str, config_value: str, config_value_color: str) -> None:
-    column_length = 37
-    print(print_colored_text(config_desc_text + " " * (column_length - len(config_desc_text)), BCOLORS.BLACK),
-          print_colored_text(config_value, config_value_color))
-
 def print_configuration() -> None:
     print("Configuration (" + os.path.abspath("config.json") + "):")
     print_asteriks_line()
     print_configuration_line("Output directory:", output_dir, BCOLORS.CYAN)
     print_configuration_line("Minimum Video duration in Minutes:", min_duration, BCOLORS.CYAN)
     print_configuration_line("Maximum Video duration in Minutes:", max_duration, BCOLORS.CYAN)
-
     video_listing_color = BCOLORS.RED
     if video_listing:
         video_listing_color = BCOLORS.GREEN
     print_configuration_line("Video listing:", video_listing, video_listing_color)
-
     show_latest_video_date_color = BCOLORS.RED
     if show_latest_video_date:
         show_latest_video_date_color = BCOLORS.GREEN
     print_configuration_line("Show latest Video date:", show_latest_video_date, show_latest_video_date_color)
-
+    default_audio_mp3_color = BCOLORS.RED
     if default_audio_mp3:
-        default_audio_mp3_colored = print_colored_text(default_audio_mp3, BCOLORS.GREEN)
-    else:
-        default_audio_mp3_colored = print_colored_text(default_audio_mp3, BCOLORS.RED)
-    print(print_colored_text("Default audio/MP3:                  ", BCOLORS.BLACK),
-          default_audio_mp3_colored)
+        default_audio_mp3_color = BCOLORS.GREEN
+    print_configuration_line("Default audio/MP3:", default_audio_mp3, default_audio_mp3_color)
     print_asteriks_line()
     print("")
+
+def print_configuration_line(config_desc_text: str, config_value: str, config_value_color: str) -> None:
+    print(print_colored_text(config_desc_text + " " * (37 - len(config_desc_text)), BCOLORS.BLACK),
+          print_colored_text(config_value, config_value_color))
 
 
 def format_header(counter: str, width: int) -> str:
