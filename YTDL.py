@@ -319,6 +319,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
         return None
 
     latest_date_formated = ""
+
     temp_disable = "y"
     if show_latest_video_date:
         temp_disable = smart_input("Skip latest Video date for this run?  Y/n", "n")
