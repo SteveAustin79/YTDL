@@ -119,7 +119,7 @@ def update_json_config(file_path, parameter, new_value):
         with open(file_path, "w", encoding="utf-8") as f:
             json.dump(config, f, indent=4)
 
-        print(f"✅ Updated '{parameter}' to '{new_value}' in '{file_path}'")
+        # print(f"✅ Updated '{parameter}' to '{new_value}' in '{file_path}'")
         return True
 
     except json.JSONDecodeError:
@@ -960,7 +960,7 @@ while True:
             smart_input("\nEnter filter word(s) (comma separated list): ", default_filter_words))
         video_name_filter_list = string_to_list(video_name_filter)
 
-        # smart_input("\nSave settings as channel config file?  Y/n", "n")
+        # HERE smart_input("\nSave settings as channel config file?  Y/n", "n")
 
         count_total_videos = 0
         count_restricted_videos = 0
