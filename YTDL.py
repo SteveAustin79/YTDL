@@ -804,7 +804,7 @@ while True:
         default_ignore_max_duration = "y"
         default_only_restricted = "n"
         default_skip_restricted = "n"
-        default_minimum_views = "0"
+        default_minimum_views = 0
         default_year_subfolders = "n"
         default_exclude_videos = ""
         default_include_videos = ""
