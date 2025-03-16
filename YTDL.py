@@ -10,7 +10,7 @@ from pytubefix.cli import on_progress
 
 
 version = "1.3.0 (20250316)"
-header_width_global = 94
+header_width_global = 97
 
 
 class BCOLORS:
