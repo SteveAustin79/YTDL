@@ -297,7 +297,7 @@ def print_video_infos(yt: YouTube, res: str, video_views: int) -> None:
         print(print_colored_text("Resolution:      ", BCOLORS.BLACK),
               print_colored_text(res, BCOLORS.YELLOW),
               print_colored_text("  (" + limit_resolution_to + ")", BCOLORS.BLACK))
-        print("               ", print_colored_text(str(print_resolutions(yt)), BCOLORS.BLACK))
+        print("                 ", print_colored_text(str(print_resolutions(yt)), BCOLORS.BLACK))
 
 
 def format_time(seconds: int) -> str:
