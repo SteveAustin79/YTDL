@@ -818,6 +818,10 @@ while True:
             if "c_year_subfolders" in channel_config:
                 if channel_config["c_year_subfolders"] != "":
                     default_year_subfolders = channel_config["c_year_subfolders"]
+                    if default_year_subfolders == "n":
+                        if contains_folder_starting_with_2(ytchannel_path):
+                            smart_input("Year sub folder structure found. Change channel config?  Y/n", "y")
+
             else:
                 incomplete_config = True
                 incomplete_string.append("c_year_subfolders")
