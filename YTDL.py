@@ -875,7 +875,7 @@ while True:
                 cc_check_and_update_channel_config(ytchannel_path + channel_config_path, REQUIRED_VIDEO_CHANNEL_CONFIG)
             else:
                 print(print_colored_text("\nChannel config file found! ", BCOLORS.BLUE) +
-                      print_colored_text("(" + ytchannel_path + channel_config_path + ")", BCOLORS.BLACK))
+                      print_colored_text("\n" + ytchannel_path + channel_config_path, BCOLORS.BLACK))
 
         if video_id_from_single_video != "":
             default_include_videos = video_id_from_single_video
