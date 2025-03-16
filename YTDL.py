@@ -225,10 +225,8 @@ def format_header(counter: str, width: int) -> str:
     counter_str = ("* " + counter_splitted[0] + " *" + print_colored_text(f" {counter_splitted[1]} ", BCOLORS.CYAN)
                    + "| " + counter_splitted[2] + " (" + get_free_space(output_dir) + " free) ")
     total_length = width - 2  # Exclude parentheses ()
-
     # Center the counter with asterisks
     formatted = f"{counter_str.ljust(total_length, '*')}"
-
     return formatted
 
 
@@ -268,20 +266,16 @@ def format_time(seconds: int) -> str:
 
 
 def get_free_space(path: str) -> str:
-    """Returns the free disk space for the given path formatted in GB or MB."""
     total, used, free = shutil.disk_usage(path)  # Get disk space (in bytes)
-
     # Convert bytes to GB or MB for readability
     if free >= 1_000_000_000:  # If space is at least 1GB
         formatted_space = f"{free / 1_073_741_824:.1f} GB"
     else:
         formatted_space = f"{free / 1_048_576:.0f} MB"  # Otherwise, use MB
-
     return formatted_space
 
 
 def format_view_count(number: int) -> str:
-    """Formats a number into a human-readable view count."""
     if number >= 1_000_000_000:  # Billions
         return f"{number / 1_000_000_000:.1f}B"
     elif number >= 1_000_000:  # Millions
@@ -304,12 +298,10 @@ def rename_files_in_temp_directory() -> None:
             sanitized_name = filename.replace(":", "")
             old_path = os.path.join(directory, filename)
             new_path = os.path.join(directory, sanitized_name)
-
             os.rename(old_path, new_path)
 
 
 def read_channel_txt_lines(filename: str) -> list[str]:
-    """Reads all lines from a file and returns a list of lines."""
     try:
         with open(filename, "r", encoding="utf-8") as file:
             rc_lines = [line.strip() for line in file.readlines()]  # Remove newlines
@@ -327,12 +319,10 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
         return None
 
     latest_date_formated = ""
-
     temp_disable = "y"
     if show_latest_video_date:
         temp_disable = smart_input("Skip latest Video date for this run?  Y/n", "n")
-        # 7 config line, 3 header/footer, 3 leerzeilen = 13
-        for _ in range(13):
+        for _ in range(13):     # 7 config line, 3 header/footer, 3 spaces = 13
             sys.stdout.write(BCOLORS.MOVES1UP)  # Move cursor up
             sys.stdout.write(BCOLORS.CLRLINE)  # Clear the line
         print("")
@@ -378,21 +368,17 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
 
 
 def delete_temp_files() -> None:
-    # remove video and audio streams
     video_file, audio_file = find_media_files(".")
     # Check if files exist before deleting
     if video_file and os.path.exists(video_file):
         os.remove(video_file)
-
     if audio_file and os.path.exists(audio_file):
         os.remove(audio_file)
 
 
 def find_media_files(fmf_path: str) -> tuple[str | None, str | None]:
-    """Search for the first MP4 and M4A files in the current directory."""
     video_file = None
     audio_file = None
-
     for file in os.listdir(fmf_path):
         if file.endswith((".mp4", ".webm")) and video_file is None:
             video_file = file
@@ -418,19 +404,14 @@ def print_resolutions(yt: YouTube) -> list[str]:
 
 
 def find_file_by_string(directory: str, search_string: str, resolution: str, mp3: bool) -> str | None:
-    """Searches a directory for a file containing a specific string in its filename.
-    Returns the filename if found, otherwise returns None.
-    """
     if resolution=="max":
         resolution = ""
     if mp3:
         resolution = "mp3"
 
     if not os.path.exists(directory):
-        #print("Error: Directory does not exist!")
         return None
 
-    # Iterate over each file in the directory
     for root, _, files in os.walk(directory):  # os.walk() traverses all subdirectories
         for filename in files:
             if search_string in filename and resolution in filename:
@@ -465,19 +446,15 @@ def download_video(channel_name: str, video_id: str, counter_id: int, video_tota
                    video_views: int, restricted: bool) -> None:
     restricted_path_snippet = ""
     colored_video_id = video_id
-    # header_width = 95
     header_width = (header_width_global + 11)
     if restricted:
         yt = YouTube(youtube_base_url + video_id, use_oauth=True, allow_oauth_cache=True,
                      on_progress_callback=on_progress)
         restricted_path_snippet = "restricted/"
         colored_video_id = print_colored_text(video_id, BCOLORS.RED)
-        # header_width = 104
         header_width = (header_width_global + 20)
     else:
         yt = YouTube(youtube_base_url + video_id, on_progress_callback=on_progress)
-
-    # print(yt.vid_info)
 
     print("\n")
     print(format_header(colored_video_id + " - " + channel_name
@@ -694,7 +671,7 @@ while True:
         if not os.path.exists(output_dir):
             os.makedirs(output_dir)
 
-        # Create an empty list
+        # Create empty lists
         video_list = []
         video_list_restricted = []
 
@@ -702,8 +679,6 @@ while True:
         print(print_colored_text("\nYTDL " + str(version), BCOLORS.YELLOW))
         print("*" * len(str("YTDL " + str(version))))
         print("YouTube Channel Downloader (Exit with Ctrl + C)")
-        #print("Exit App with Ctrl + C")
-        #print(print_colored_text("https://github.com/SteveAustin79/YTDL\n", BCOLORS.BLACK))
         print("")
         delete_temp_files()
         print_configuration()
@@ -919,7 +894,6 @@ while True:
             if contains_folder_starting_with_2(ytchannel_path) and os.path.exists(ytchannel_path + channel_config_path):
                 print(print_colored_text("Year sub folder structure found!", BCOLORS.RED))
                 update_channel_config = smart_input("Update selection and channel config?  Y/n", "y")
-                # change here channel config -> set year subfolders to "y"
                 if update_channel_config == "y":
                     update_json_config(ytchannel_path + channel_config_path, "c_year_subfolders", "y")
                     year_subfolders = True
@@ -943,11 +917,10 @@ while True:
 
         if os.path.exists(ytchannel_path + channel_config_path):
             if (default_max_res != limit_resolution_to or default_ignore_min_duration != ignore_min_duration or
-                    default_ignore_max_duration != ignore_max_duration or default_only_restricted != only_restricted_videos or
-                    default_skip_restricted != skip_restricted or default_minimum_views != min_video_views or
-                    default_year_subfolders != year_subfolders_temp or default_exclude_videos != exclude_video_ids or
-                    default_include_videos != include_video_ids or default_filter_words != video_name_filter):
-                # compare run settings with channel config settings and only ask fo save if different
+                        default_ignore_max_duration != ignore_max_duration or default_only_restricted != only_restricted_videos or
+                        default_skip_restricted != skip_restricted or default_minimum_views != min_video_views or
+                        default_year_subfolders != year_subfolders_temp or default_exclude_videos != exclude_video_ids or
+                        default_include_videos != include_video_ids or default_filter_words != video_name_filter):
                 save_settings_in_channel_config = smart_input("\nUpdate settings in channel config file?  Y/n", "n")
                 if save_settings_in_channel_config == "y":
                     update_json_config(ytchannel_path + channel_config_path, "c_max_resolution", limit_resolution_to)
