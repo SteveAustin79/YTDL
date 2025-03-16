@@ -678,7 +678,7 @@ while True:
 
         clear_screen()
         print(print_colored_text("\nYTDL " + str(version), BCOLORS.YELLOW))
-        print("*" * len(str("YTDL " + str(version))))
+        print(print_colored_text("*" * len(str("YTDL " + str(version))), BCOLORS.YELLOW))
         print("YouTube Channel Downloader (Exit with Ctrl + C)")
         print("")
         delete_temp_files()
