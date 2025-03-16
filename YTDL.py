@@ -86,7 +86,7 @@ def make_year_subfolder_structure(path: str) -> None:
         organize_files_by_year(path)
 
 
-def update_json_config(file_path, parameter, new_value):
+def update_json_config(file_path: str, parameter: str, new_value) -> bool:
     if not os.path.exists(file_path):
         print(f"Error: File '{file_path}' not found.")
         return False
@@ -924,16 +924,26 @@ while True:
                         default_include_videos != include_video_ids or default_filter_words != video_name_filter):
                 save_settings_in_channel_config = smart_input("\nUpdate settings in channel config file?  Y/n", "n")
                 if save_settings_in_channel_config == "y":
-                    update_json_config(ytchannel_path + channel_config_path, "c_max_resolution", limit_resolution_to)
-                    update_json_config(ytchannel_path + channel_config_path, "c_ignore_min_duration", ignore_min_duration)
-                    update_json_config(ytchannel_path + channel_config_path, "c_ignore_max_duration", ignore_max_duration)
-                    update_json_config(ytchannel_path + channel_config_path, "c_only_restricted", only_restricted_videos)
-                    update_json_config(ytchannel_path + channel_config_path, "c_skip_restricted", skip_restricted)
-                    update_json_config(ytchannel_path + channel_config_path, "c_minimum_views", min_video_views)
-                    update_json_config(ytchannel_path + channel_config_path, "c_year_subfolders", year_subfolders_temp)
-                    update_json_config(ytchannel_path + channel_config_path, "c_exclude_video_ids", exclude_video_ids)
-                    update_json_config(ytchannel_path + channel_config_path, "c_include_video_ids", include_video_ids)
-                    update_json_config(ytchannel_path + channel_config_path, "c_filter_words", video_name_filter)
+                    if default_max_res != limit_resolution_to:
+                        update_json_config(ytchannel_path + channel_config_path, "c_max_resolution", limit_resolution_to)
+                    if default_ignore_min_duration != ignore_min_duration:
+                        update_json_config(ytchannel_path + channel_config_path, "c_ignore_min_duration", ignore_min_duration)
+                    if default_ignore_max_duration != ignore_max_duration:
+                        update_json_config(ytchannel_path + channel_config_path, "c_ignore_max_duration", ignore_max_duration)
+                    if default_only_restricted != only_restricted_videos:
+                        update_json_config(ytchannel_path + channel_config_path, "c_only_restricted", only_restricted_videos)
+                    if default_skip_restricted != skip_restricted:
+                        update_json_config(ytchannel_path + channel_config_path, "c_skip_restricted", skip_restricted)
+                    if default_minimum_views != min_video_views:
+                        update_json_config(ytchannel_path + channel_config_path, "c_minimum_views", min_video_views)
+                    if default_year_subfolders != year_subfolders_temp:
+                        update_json_config(ytchannel_path + channel_config_path, "c_year_subfolders", year_subfolders_temp)
+                    if default_exclude_videos != exclude_video_ids:
+                        update_json_config(ytchannel_path + channel_config_path, "c_exclude_video_ids", exclude_video_ids)
+                    if default_include_videos != include_video_ids:
+                        update_json_config(ytchannel_path + channel_config_path, "c_include_video_ids", include_video_ids)
+                    if default_filter_words != video_name_filter:
+                        update_json_config(ytchannel_path + channel_config_path, "c_filter_words", video_name_filter)
 
         count_total_videos = 0
         count_restricted_videos = 0
