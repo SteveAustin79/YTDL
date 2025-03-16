@@ -496,6 +496,8 @@ def download_video(channel_name: str, video_id: str, counter_id: int, video_tota
 
     publishing_date = yt.publish_date.strftime("%Y-%m-%d")
 
+    print(yt.vid_info)
+
     if year_subfolders:
         year = "/" + str(yt.publish_date.strftime("%Y"))
     else:
