@@ -962,6 +962,7 @@ while True:
         video_name_filter_list = string_to_list(video_name_filter)
 
         if os.path.exists(ytchannel_path + channel_config_path):
+            # compare run settings with channel config settings and only ask fo save if different
             save_settings_in_channel_config = smart_input("\nSave settings in channel config file?  Y/n", "n")
             if save_settings_in_channel_config == "y":
                 update_json_config(ytchannel_path + channel_config_path, "c_max_resolution", limit_resolution_to)
