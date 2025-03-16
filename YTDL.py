@@ -907,7 +907,7 @@ while True:
             smart_input("\nEnter filter word(s) (comma separated list): ", default_filter_words))
         video_name_filter_list = string_to_list(video_name_filter)
 
-        smart_input(print_colored_text("Write settings to channel config file?  Y/n", "n", BCOLORS.BLACK))
+        print_colored_text(smart_input("Write settings to channel config file?  Y/n", "n"), BCOLORS.BLACK)
 
         count_total_videos = 0
         count_restricted_videos = 0
