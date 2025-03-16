@@ -52,9 +52,6 @@ REQUIRED_VIDEO_CHANNEL_CONFIG = {
 }
 
 
-import json
-import os
-
 def create_json_config(file_path, config_values=None):
     """
     Creates a JSON config file at the specified path with default or custom values.
@@ -86,20 +83,6 @@ def create_json_config(file_path, config_values=None):
     except Exception as e:
         print(f"❌ Error creating JSON file: {e}")
         return False
-
-# # Example Usage
-# config_path = "C:/your/path/to/config.json"  # Change to your desired path
-#
-# # Create JSON with default values
-# create_json_config(config_path)
-#
-# # Create JSON with custom values
-# custom_values = {
-#     "c_max_resolution": "1080p",
-#     "c_minimum_views": 5000,
-#     "c_year_subfolders": "True"
-# }
-# create_json_config(config_path, custom_values)
 
 
 def organize_files_by_year(base_directory: str) -> None:
