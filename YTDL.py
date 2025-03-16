@@ -14,6 +14,7 @@ header_width_global = 94
 
 
 class BCOLORS:
+    WHITE      = "\033[97m"
     CYAN       = "\033[96m"
     MAGENTA    = "\033[95m"
     BLUE       = "\033[94m"
@@ -271,7 +272,7 @@ def format_header(counter: str, width: int) -> str:
 
 def print_video_infos(yt: YouTube, res: str, video_views: int) -> None:
     print(print_colored_text("Title:         ", BCOLORS.BLACK),
-          print_colored_text(print_colored_text(yt.title, BCOLORS.CYAN), BCOLORS.BOLD))
+          print_colored_text(print_colored_text(yt.title, BCOLORS.WHITE), BCOLORS.BOLD))
 
     views_title = print_colored_text("Views:         ", BCOLORS.BLACK)
     if min_video_views_bool:
