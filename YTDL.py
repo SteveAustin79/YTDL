@@ -80,8 +80,8 @@ def create_json_config(file_path, config_values=None):
         # print(f"✅ JSON config file created at: {file_path}")
         return True
 
-    except Exception as e:
-        print(f"❌ Error creating JSON file: {e}")
+    except Exception as json_e:
+        print(f"❌ Error creating JSON file: {json_e}")
         return False
 
 
@@ -128,11 +128,11 @@ def update_json_config(file_path: str, parameter: str, new_value) -> bool:
     try:
         # Load existing JSON file
         with open(file_path, "r", encoding="utf-8") as f:
-            config = json.load(f)
+            json_config = json.load(f)
 
         # Handle nested keys (e.g., "settings.database.host")
         keys = parameter.split(".")
-        temp = config
+        temp = json_config
         for key in keys[:-1]:  # Traverse to the second last key
             temp = temp.setdefault(key, {})  # Create dict if key doesn't exist
 
@@ -141,15 +141,15 @@ def update_json_config(file_path: str, parameter: str, new_value) -> bool:
 
         # Save back to JSON file
         with open(file_path, "w", encoding="utf-8") as f:
-            json.dump(config, f, indent=4)
+            json.dump(json_config, f, indent=4)
 
         # print(f"✅ Updated '{parameter}' to '{new_value}' in '{file_path}'")
         return True
 
     except json.JSONDecodeError:
         print(f"Error: Invalid JSON format in '{file_path}'")
-    except Exception as e:
-        print(f"Error: {e}")
+    except Exception as ujson_e:
+        print(f"Error: {ujson_e}")
 
     return False
 
