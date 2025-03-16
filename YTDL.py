@@ -968,7 +968,7 @@ while True:
                     default_year_subfolders != year_subfolders_temp or default_exclude_videos != exclude_video_ids or
                     default_include_videos != include_video_ids or default_filter_words != video_name_filter):
                 # compare run settings with channel config settings and only ask fo save if different
-                save_settings_in_channel_config = smart_input("\nSave settings in channel config file?  Y/n", "n")
+                save_settings_in_channel_config = smart_input("\nUpdate settings in channel config file?  Y/n", "n")
                 if save_settings_in_channel_config == "y":
                     update_json_config(ytchannel_path + channel_config_path, "c_max_resolution", limit_resolution_to)
                     update_json_config(ytchannel_path + channel_config_path, "c_ignore_min_duration", ignore_min_duration)
