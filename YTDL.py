@@ -211,12 +211,11 @@ def print_configuration() -> None:
         video_listing_color = BCOLORS.GREEN
     print_configuration_line("Video listing:", video_listing, video_listing_color)
 
+    show_latest_video_date_color = BCOLORS.RED
     if show_latest_video_date:
-        show_latest_video_date_colored = print_colored_text(show_latest_video_date, BCOLORS.GREEN)
-    else:
-        show_latest_video_date_colored = print_colored_text(show_latest_video_date, BCOLORS.RED)
-    print(print_colored_text("Show latest Video date:             ", BCOLORS.BLACK),
-          show_latest_video_date_colored)
+        show_latest_video_date_color = BCOLORS.GREEN
+    print_configuration_line("Show latest Video date:", show_latest_video_date, show_latest_video_date_color)
+
     if default_audio_mp3:
         default_audio_mp3_colored = print_colored_text(default_audio_mp3, BCOLORS.GREEN)
     else:
