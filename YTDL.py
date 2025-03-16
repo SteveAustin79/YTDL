@@ -85,6 +85,51 @@ def make_year_subfolder_structure(path: str) -> None:
         organize_files_by_year(path)
 
 
+def update_json_config(file_path, parameter, new_value):
+    """
+    Updates a specific parameter value in a JSON config file.
+
+    Args:
+        file_path (str): Path to the JSON file.
+        parameter (str): The key in the JSON to update (supports nested keys using dot notation).
+        new_value: The new value to set for the parameter.
+
+    Returns:
+        bool: True if update was successful, False otherwise.
+    """
+    if not os.path.exists(file_path):
+        print(f"Error: File '{file_path}' not found.")
+        return False
+
+    try:
+        # Load existing JSON file
+        with open(file_path, "r", encoding="utf-8") as f:
+            config = json.load(f)
+
+        # Handle nested keys (e.g., "settings.database.host")
+        keys = parameter.split(".")
+        temp = config
+        for key in keys[:-1]:  # Traverse to the second last key
+            temp = temp.setdefault(key, {})  # Create dict if key doesn't exist
+
+        # Update the final key
+        temp[keys[-1]] = new_value
+
+        # Save back to JSON file
+        with open(file_path, "w", encoding="utf-8") as f:
+            json.dump(config, f, indent=4)
+
+        print(f"✅ Updated '{parameter}' to '{new_value}' in '{file_path}'")
+        return True
+
+    except json.JSONDecodeError:
+        print(f"Error: Invalid JSON format in '{file_path}'")
+    except Exception as e:
+        print(f"Error: {e}")
+
+    return False
+
+
 def cc_load_config(file_path: str):
     """Loads the JSON config file or creates an empty dictionary if the file doesn't exist."""
     if os.path.exists(file_path):
@@ -892,8 +937,11 @@ while True:
         else:
             if contains_folder_starting_with_2(ytchannel_path) and os.path.exists(ytchannel_path + channel_config_path):
                 print(print_colored_text("Year sub folder structure found!", BCOLORS.RED))
-                smart_input("Update channel config?  Y/n", "y")
+                update_channel_config = smart_input("Update selection and channel config?  Y/n", "y")
                 # change here channel config -> set year subfolders to "y"
+                if update_channel_config == "y":
+                    update_json_config(ytchannel_path + channel_config_path, "c_year_subfolders", "y")
+                    year_subfolders = True
 
         exclude_video_ids = smart_input("\nExclude Video ID's (comma separated list): ", default_exclude_videos)
         exclude_list = []
