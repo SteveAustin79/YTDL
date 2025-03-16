@@ -33,9 +33,9 @@ REQUIRED_APP_CONFIG = {
     "youtube_base_url": "",
     "min_duration_in_minutes": "",
     "max_duration_in_minutes": "",
-    "video_listing": False,
-    "show_latest_video_date": False,
-    "default_audioMP3": False
+    "video_listing": "",
+    "show_latest_video_date": "",
+    "default_audioMP3": ""
 }
 
 REQUIRED_VIDEO_CHANNEL_CONFIG = {
