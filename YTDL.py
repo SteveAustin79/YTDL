@@ -794,7 +794,7 @@ while True:
                     except ValueError:
                         print("Invalid input, please enter numbers separated by commas.")
 
-        ytchannel_path = smart_input("\nDownload Path:  ",
+        ytchannel_path = smart_input("\nDownload Path:   ",
                                      output_dir + "/" + clean_string_regex(c.channel_name).rstrip())
         default_max_res = "max"
         default_ignore_min_duration = "y"
