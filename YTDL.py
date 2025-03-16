@@ -127,13 +127,13 @@ def organize_files_by_year(base_directory: str) -> None:
     print(print_colored_text("Created year sub folder structure!", BCOLORS.ORANGE))
 
 
-def contains_folder_starting_with_2(path):
+def contains_folder_starting_with_2(path: str) -> bool:
     return any(name.startswith("2") and os.path.isdir(os.path.join(path, name)) for name in os.listdir(path))
 
 
 def make_year_subfolder_structure(path: str) -> None:
     if os.path.exists(path):
-        if not contains_folder_starting_with_2(path):
+        if not contains_folder_starting_with_2(path) and not os.listdir(path)[0].startswith("_config"):
             organize_files_by_year(path)
 
 
