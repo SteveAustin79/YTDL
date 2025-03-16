@@ -11,7 +11,6 @@ from pytubefix.cli import on_progress
 
 version = "1.3.0 (20250316)"
 header_width_global = 97
-first_column_width = 37
 
 
 class BCOLORS:
@@ -795,7 +794,7 @@ while True:
                     except ValueError:
                         print("Invalid input, please enter numbers separated by commas.")
 
-        ytchannel_path = smart_input("\nDownload Path:" + " " * (first_column_width-len("Download Path:")),
+        ytchannel_path = smart_input("\nDownload Path:   ",
                                      output_dir + "/" + clean_string_regex(c.channel_name).rstrip())
         default_max_res = "max"
         default_ignore_min_duration = "y"
