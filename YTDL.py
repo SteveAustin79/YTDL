@@ -961,18 +961,19 @@ while True:
             smart_input("\nEnter filter word(s) (comma separated list): ", default_filter_words))
         video_name_filter_list = string_to_list(video_name_filter)
 
-        save_settings_in_channel_config = smart_input("\nSave settings in channel config file?  Y/n", "n")
-        if save_settings_in_channel_config == "y":
-            update_json_config(ytchannel_path + channel_config_path, "c_max_resolution", limit_resolution_to)
-            update_json_config(ytchannel_path + channel_config_path, "c_ignore_min_duration", ignore_min_duration)
-            update_json_config(ytchannel_path + channel_config_path, "c_ignore_max_duration", ignore_max_duration)
-            update_json_config(ytchannel_path + channel_config_path, "c_only_restricted", only_restricted_videos)
-            update_json_config(ytchannel_path + channel_config_path, "c_skip_restricted", skip_restricted)
-            update_json_config(ytchannel_path + channel_config_path, "c_minimum_views", min_video_views)
-            update_json_config(ytchannel_path + channel_config_path, "c_year_subfolders", year_subfolders_temp)
-            update_json_config(ytchannel_path + channel_config_path, "c_exclude_video_ids", exclude_video_ids)
-            update_json_config(ytchannel_path + channel_config_path, "c_include_video_ids", include_video_ids)
-            update_json_config(ytchannel_path + channel_config_path, "c_filter_words", video_name_filter)
+        if os.path.exists(ytchannel_path + channel_config_path):
+            save_settings_in_channel_config = smart_input("\nSave settings in channel config file?  Y/n", "n")
+            if save_settings_in_channel_config == "y":
+                update_json_config(ytchannel_path + channel_config_path, "c_max_resolution", limit_resolution_to)
+                update_json_config(ytchannel_path + channel_config_path, "c_ignore_min_duration", ignore_min_duration)
+                update_json_config(ytchannel_path + channel_config_path, "c_ignore_max_duration", ignore_max_duration)
+                update_json_config(ytchannel_path + channel_config_path, "c_only_restricted", only_restricted_videos)
+                update_json_config(ytchannel_path + channel_config_path, "c_skip_restricted", skip_restricted)
+                update_json_config(ytchannel_path + channel_config_path, "c_minimum_views", min_video_views)
+                update_json_config(ytchannel_path + channel_config_path, "c_year_subfolders", year_subfolders_temp)
+                update_json_config(ytchannel_path + channel_config_path, "c_exclude_video_ids", exclude_video_ids)
+                update_json_config(ytchannel_path + channel_config_path, "c_include_video_ids", include_video_ids)
+                update_json_config(ytchannel_path + channel_config_path, "c_filter_words", video_name_filter)
 
         count_total_videos = 0
         count_restricted_videos = 0
