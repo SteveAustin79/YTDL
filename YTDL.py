@@ -328,7 +328,6 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
             sys.stdout.write(BCOLORS.CLRLINE)  # Clear the line
         print("")
         print_asteriks_line()
-        # print()
 
     if temp_disable == "y":
         u_show_latest_video_date = False
