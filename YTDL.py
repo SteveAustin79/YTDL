@@ -195,7 +195,7 @@ def string_to_list(input_string: str) -> list[str]:
 
 
 def print_configuration_line(config_desc_text: str, config_value: str) -> None:
-    print(print_colored_text(config_desc_text + " " * (36-len(config_desc_text)), BCOLORS.BLACK),
+    print(print_colored_text(config_desc_text + " " * (39-len(config_desc_text)), BCOLORS.BLACK),
           print_colored_text(config_value, BCOLORS.CYAN))
 
 def print_configuration() -> None:
