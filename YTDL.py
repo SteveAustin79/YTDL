@@ -116,7 +116,9 @@ def contains_folder_starting_with_2(path: str) -> bool:
 
 def make_year_subfolder_structure(path: str) -> None:
     if os.path.exists(path):
-        if not contains_folder_starting_with_2(path) and not os.listdir(path)[0].startswith("_config"):
+        if (not contains_folder_starting_with_2(path) and
+                any(file.endswith((".mp4", ".mp3")) for file in os.listdir(path)
+                    if os.path.isfile(os.path.join(path, file)))):
             organize_files_by_year(path)
 
 
