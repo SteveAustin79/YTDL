@@ -77,7 +77,7 @@ def create_json_config(file_path, config_values=None):
         with open(file_path, "w", encoding="utf-8") as f:
             json.dump(REQUIRED_VIDEO_CHANNEL_CONFIG, f, indent=4)
 
-        print(f"✅ JSON config file created at: {file_path}")
+        # print(f"✅ JSON config file created at: {file_path}")
         return True
 
     except Exception as e:
