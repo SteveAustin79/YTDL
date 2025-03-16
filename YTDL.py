@@ -12,6 +12,7 @@ from pytubefix.cli import on_progress
 version = "1.2.2 (20250316)"
 header_width_global = 94
 
+
 class BCOLORS:
     CYAN       = "\033[96m"
     MAGENTA    = "\033[95m"
@@ -86,17 +87,6 @@ def make_year_subfolder_structure(path: str) -> None:
 
 
 def update_json_config(file_path, parameter, new_value):
-    """
-    Updates a specific parameter value in a JSON config file.
-
-    Args:
-        file_path (str): Path to the JSON file.
-        parameter (str): The key in the JSON to update (supports nested keys using dot notation).
-        new_value: The new value to set for the parameter.
-
-    Returns:
-        bool: True if update was successful, False otherwise.
-    """
     if not os.path.exists(file_path):
         print(f"Error: File '{file_path}' not found.")
         return False
@@ -145,7 +135,6 @@ def cc_save_config(cc_file_path: str, cc_config: str) -> None:
     """Saves the updated config dictionary back to the JSON file."""
     with open(cc_file_path, "w", encoding="utf-8") as cc_file:
         json.dump(cc_config, cc_file, indent=4, ensure_ascii=False)
-    #print(f"✅ Updated config saved to {cc_file_path}")
 
 def cc_check_and_update_channel_config(cc_file_path: str, cc_required_config: dict) -> None:
     """Ensures all required keys exist in the config file, adding missing ones."""
@@ -159,7 +148,6 @@ def cc_check_and_update_channel_config(cc_file_path: str, cc_required_config: di
             missing_keys.append(key)
 
     if missing_keys:
-        #print(f"⚠️ Missing keys added: {', '.join(missing_keys)}")
         cc_save_config(cc_file_path, cc_config)  # Save only if changes were made
 
 
@@ -169,12 +157,10 @@ def smart_input(prompt: str, default_value: str):
 
 
 def clear_screen() -> None:
-    """Clears the console screen on Windows and Linux/macOS."""
     os.system('cls' if os.name == 'nt' else 'clear')
 
 
 def load_config(c_file: str):
-    """Load settings from config.json."""
     with open(c_file, "r") as file:
         l_config = json.load(file)
     return l_config
@@ -205,15 +191,19 @@ def clean_string_regex(text: str) -> str:
 
 
 def string_to_list(input_string: str) -> list[str]:
-    """Transforms a comma-separated string into a list of strings, removing extra spaces."""
     return [item.strip() for item in input_string.split(",")]
 
+
+def print_configuration_line(config_desc_text: str, config_value: str) -> None:
+    print(print_colored_text(config_desc_text + " " * (36-len(config_desc_text)), BCOLORS.BLACK),
+          print_colored_text(config_value, BCOLORS.CYAN))
 
 def print_configuration() -> None:
     print("Configuration (" + os.path.abspath("config.json") + "):")
     print_asteriks_line()
-    print(print_colored_text("Output directory:                   ", BCOLORS.BLACK),
-          print_colored_text(output_dir, BCOLORS.CYAN))
+    print_configuration_line("Output directory:", output_dir)
+    # print(print_colored_text("Output directory:                   ", BCOLORS.BLACK),
+    #       print_colored_text(output_dir, BCOLORS.CYAN))
     print(print_colored_text("Minimum Video duration in Minutes:  ", BCOLORS.BLACK),
           print_colored_text(min_duration, BCOLORS.CYAN))
     print(print_colored_text("Maximum Video duration in Minutes:  ", BCOLORS.BLACK),
