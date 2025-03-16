@@ -891,7 +891,8 @@ while True:
             make_year_subfolder_structure(ytchannel_path)
         else:
             if contains_folder_starting_with_2(ytchannel_path):
-                smart_input("Year sub folder structure found. Change channel config?  Y/n", "y")
+                print(print_colored_text("Year sub folder structure found.", BCOLORS.ORANGE))
+                smart_input("Change channel config?  Y/n", "y")
 
         exclude_video_ids = smart_input("\nExclude Video ID's (comma separated list): ", default_exclude_videos)
         exclude_list = []
