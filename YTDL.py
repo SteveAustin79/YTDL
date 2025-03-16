@@ -82,8 +82,9 @@ def contains_folder_starting_with_2(path):
 
 
 def make_year_subfolder_structure(path: str) -> None:
-    if not contains_folder_starting_with_2(path):
-        organize_files_by_year(path)
+    if os.path.exists(path):
+        if not contains_folder_starting_with_2(path):
+            organize_files_by_year(path)
 
 
 def update_json_config(file_path: str, parameter: str, new_value) -> bool:
