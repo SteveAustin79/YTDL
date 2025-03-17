@@ -31,6 +31,7 @@ Restricted video download possible, but requires authentication via accounts.goo
 - Git (https://git-scm.com/downloads)
 - Python (https://www.python.org)
 - FFMPG (https://ffmpeg.org)
+- NodeJS (https://nodejs.org)
 
 ## Installation (Linux)
 1. Clone repository:
