@@ -742,7 +742,7 @@ while True:
         elif "list=" in YTchannel:
             playlist = Playlist(YTchannel)
             YTchannel = playlist.owner_url
-            for i, p_video in playlist.videos:
+            for p_video in playlist.videos:
                 video_id_from_single_video += p_video.video_id
             video_id_from_single_video = video_id_from_single_video.removesuffix(",")
 
