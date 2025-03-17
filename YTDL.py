@@ -271,18 +271,18 @@ def format_header(counter: str, width: int) -> str:
 
 
 def print_video_infos(yt: YouTube, res: str, video_views: int) -> None:
-    print(print_colored_text("Title:           ", BCOLORS.BLACK),
+    print(print_colored_text("Title:" + " " * (first_column_width - len("Title:")), BCOLORS.BLACK),
           print_colored_text(print_colored_text(yt.title, BCOLORS.WHITE), BCOLORS.BOLD))
 
-    views_title = print_colored_text("Views:           ", BCOLORS.BLACK)
+    views_title = print_colored_text("Views:" + " " * (first_column_width - len("Views:")), BCOLORS.BLACK)
     if min_video_views_bool:
         print(views_title, format_view_count(video_views), " (> " + format_view_count(min_video_views) + ")")
     else:
         print(views_title, format_view_count(video_views))
 
-    print(print_colored_text("Date:            ", BCOLORS.BLACK), yt.publish_date.strftime("%Y-%m-%d"))
+    print(print_colored_text("Date:" + " " * (first_column_width - len("Date:")), BCOLORS.BLACK), yt.publish_date.strftime("%Y-%m-%d"))
 
-    length_title = print_colored_text("Length:           ", BCOLORS.BLACK)
+    length_title = print_colored_text("Length:" + " " * (first_column_width - len("Length:")), BCOLORS.BLACK)
     length_title_value = length_title + format_time(yt.length)
     if ignore_max_duration_bool and ignore_min_duration_bool:
         print(length_title_value)
@@ -294,7 +294,7 @@ def print_video_infos(yt: YouTube, res: str, video_views: int) -> None:
         print(length_title_value, print_colored_text("  (" + min_duration + "m < " + max_duration + "m)", BCOLORS.BLACK))
 
     if not audio_or_video_bool:
-        print(print_colored_text("Resolution:      ", BCOLORS.BLACK),
+        print(print_colored_text("Resolution:" + " " * (first_column_width - len("Resolution:")), BCOLORS.BLACK),
               print_colored_text(res, BCOLORS.YELLOW),
               print_colored_text("  (" + limit_resolution_to + ")", BCOLORS.BLACK))
         print("                 ", print_colored_text(str(print_resolutions(yt)), BCOLORS.BLACK))
