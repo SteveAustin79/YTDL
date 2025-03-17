@@ -5,7 +5,7 @@ import subprocess
 import json
 import sys
 import pytubefix.extract
-from pytubefix import YouTube, Channel
+from pytubefix import YouTube, Channel, Playlist
 from pytubefix.cli import on_progress
 
 
@@ -739,6 +739,11 @@ while True:
             ytv = YouTube(youtube_base_url + YTchannel, 'WEB', on_progress_callback=on_progress)
             YTchannel = ytv.channel_url
             video_id_from_single_video = ytv.video_id
+        elif "list=" in YTchannel:
+            playlist = Playlist(YTchannel)
+            YTchannel = playlist.owner_url
+            for p_url in playlist.video_urls:
+                video_id_from_single_video += p_url + ","
 
         c = Channel(YTchannel)
         print("\n" + print_colored_text(print_colored_text(str(c.channel_name), BCOLORS.BOLD), BCOLORS.CYAN))
