@@ -744,7 +744,7 @@ while True:
             YTchannel = playlist.owner_url
             for p_video in playlist.videos:
                 video_id_from_single_video += p_video.video_id
-            video_id_from_single_video = video_id_from_single_video.removesuffix(",")
+            video_id_from_single_video = video_id_from_single_video[:-1]
 
         c = Channel(YTchannel)
         print("\n" + print_colored_text(print_colored_text(str(c.channel_name), BCOLORS.BOLD), BCOLORS.CYAN))
