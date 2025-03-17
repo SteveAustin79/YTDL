@@ -12,6 +12,7 @@ from pytubefix.cli import on_progress
 version = "1.3.0 (20250316)"
 header_width_global = 99
 first_column_width = 17
+first_column_width_wide = 37
 
 class BCOLORS:
     WHITE      = "\033[97m"
@@ -256,7 +257,7 @@ def print_configuration() -> None:
     print("")
 
 def print_configuration_line(config_desc_text: str, config_value: str, config_value_color: str) -> None:
-    print(print_colored_text(config_desc_text + " " * (37 - len(config_desc_text)), BCOLORS.BLACK),
+    print(print_colored_text(config_desc_text + " " * (first_column_width_wide - len(config_desc_text)), BCOLORS.BLACK),
           print_colored_text(config_value, config_value_color))
 
 
@@ -282,7 +283,7 @@ def print_video_infos(yt: YouTube, res: str, video_views: int) -> None:
 
     print(print_colored_text("Date:" + " " * (first_column_width - len("Date:")), BCOLORS.BLACK), yt.publish_date.strftime("%Y-%m-%d"))
 
-    length_title = print_colored_text("Length:" + " " * (first_column_width - len("Length:")), BCOLORS.BLACK)
+    length_title = print_colored_text("Length: " + " " * (first_column_width - len("Length:")), BCOLORS.BLACK)
     length_title_value = length_title + format_time(yt.length)
     if ignore_max_duration_bool and ignore_min_duration_bool:
         print(length_title_value)
