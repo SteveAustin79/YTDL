@@ -620,7 +620,6 @@ def merge_video_audio(video_id: str, publish_date: str, video_resolution: str, y
     output_file = (ytchannel_path + str(year) + restricted_path + publish_date + " - " + video_resolution
                    + " - " + clean_string_regex(os.path.splitext(video_file)[0]) + " - " + video_id + ".mp4")
 
-    """Merge video and audio into a single MP4 file using FFmpeg."""
     try:
         print(print_colored_text("\nMerging to MP4...", BCOLORS.BLACK))
         command = [
@@ -644,7 +643,6 @@ def merge_video_audio(video_id: str, publish_date: str, video_resolution: str, y
 def convert_m4a_to_opus_and_merge(video_id: str, publish_date: str, video_resolution: str, year: str,
                                   restricted: bool) -> None:
     video_file, audio_file = find_media_files(".")
-    """Convert M4A to Opus format (WebM-compatible)."""
     print(print_colored_text("\nConvert M4A audio to Opus format (WebM compatible)...", BCOLORS.BLACK))
     command = [
         "ffmpeg", "-loglevel", "quiet", "-stats", "-i", audio_file, "-c:a", "libopus", "audio.opus"
@@ -656,7 +654,6 @@ def convert_m4a_to_opus_and_merge(video_id: str, publish_date: str, video_resolu
 def merge_webm_opus(video_id: str, publish_date: str, video_resolution: str, year: str, restricted: bool) -> None:
     video_file, audio_file = find_media_files(".")
     output_file = "tmp/" + video_file
-    """Merge WebM video with Opus audio."""
     print(print_colored_text("Merging WebM video with Opus audio...", BCOLORS.BLACK))
     command = [
         "ffmpeg", "-loglevel", "quiet", "-stats", "-i", video_file, "-i", "audio.opus",
@@ -677,7 +674,6 @@ def merge_webm_opus(video_id: str, publish_date: str, video_resolution: str, yea
 
 def convert_webm_to_mp4(input_file: str, output_file: str, year: str, restricted: bool) -> None:
     create_directories(restricted, year)
-    """Convert a WebM file to MP4 (H.264/AAC)."""
     print(print_colored_text(f"Converting WebM to MP4... (this may take a while)", BCOLORS.BLACK))
     command = [
         "ffmpeg", "-loglevel", "quiet", "-stats", "-i", input_file,
@@ -748,7 +744,6 @@ while True:
         c = Channel(YTchannel)
         print("\n" + print_colored_text(print_colored_text(str(c.channel_name), BCOLORS.BOLD), BCOLORS.CYAN))
         print(print_colored_text(print_colored_text("*" * len(str(c.channel_name)), BCOLORS.BOLD), BCOLORS.CYAN))
-
         print(print_colored_text(c.channel_url, BCOLORS.CYAN))
 
         selected_video_ids = []
@@ -760,13 +755,10 @@ while True:
 
             list_all_videos = smart_input("\nList all " + str(len(c.video_urls)) + " Videos?" + more_than + " (Restricted videos in "
                                           + print_colored_text("red", BCOLORS.RED) + ")  Y/n", "y")
-
             if list_all_videos == "y":
                 print("")
-
                 # Display the video list with numbers
                 video_list = list(c.videos)  # Convert to a list if not already
-
                 for index, v_video in enumerate(video_list, start=1):
                     video_date_formated = print_colored_text(str(v_video.publish_date.strftime("%Y-%m-%d")), BCOLORS.BLACK)
                     video_message = f"{index}. {clean_string_regex(v_video.title)}"
@@ -782,7 +774,6 @@ while True:
                         if choices is None:
                             break
                         selected_indices = [int(x.strip()) for x in choices.split(",")]
-
                         # Validate selection
                         if all(1 <= index <= len(video_list) for index in selected_indices):
                             selected_videos = [video_list[i - 1] for i in selected_indices]  # Get the chosen videos
@@ -995,47 +986,36 @@ while True:
                     default_include_videos != include_video_ids or default_filter_words != video_name_filter):
                 create_channel_config_file = smart_input("Create channel config file?  Y/n", "n")
                 if create_channel_config_file == "y":
-
                     json_max_res = ""
                     if default_max_res != limit_resolution_to:
                         json_max_res = limit_resolution_to
-
                     json_ignore_min_duration = ""
                     if default_ignore_min_duration != ignore_min_duration:
                         json_ignore_min_duration = ignore_min_duration
-
                     json_ignore_max_duration = ""
                     if default_ignore_max_duration != ignore_max_duration:
                         json_ignore_max_duration = ignore_max_duration
-
                     json_only_restricted_videos = ""
                     if default_only_restricted != only_restricted_videos:
                         json_only_restricted_videos = only_restricted_videos
-
                     json_skip_restricted = ""
                     if default_skip_restricted != skip_restricted:
                         json_skip_restricted = skip_restricted
-
                     json_min_video_views = 0
                     if default_minimum_views != min_video_views:
                         json_min_video_views = min_video_views
-
                     json_year_subfolders_temp = ""
                     if default_year_subfolders != year_subfolders_temp:
                         json_year_subfolders_temp = year_subfolders_temp
-
                     json_exclude_video_ids = ""
                     if default_exclude_videos != exclude_video_ids:
                         json_exclude_video_ids = exclude_video_ids
-
                     json_include_video_ids = ""
                     if default_include_videos != include_video_ids:
                         json_include_video_ids = include_video_ids
-
                     json_video_name_filter = ""
                     if default_filter_words != video_name_filter:
                         json_video_name_filter = video_name_filter
-
                     custom_values = {
                         "c_max_resolution": json_max_res,
                         "c_ignore_min_duration": json_ignore_min_duration,
@@ -1128,7 +1108,6 @@ while True:
         else:
             print(print_colored_text(f"\nDONE! Downloaded in this session: {count_this_run}", BCOLORS.GREEN))
             print(f"\n{get_free_space(ytchannel_path)} free\n")
-
         continue_ytdl = smart_input("Continue?  Y/n ", "y")
         print("\n")
         if continue_ytdl == "y":
