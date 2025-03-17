@@ -263,7 +263,8 @@ def print_configuration_line(config_desc_text: str, config_value: str, config_va
 
 def format_header(counter: str, width: int) -> str:
     counter_split = counter.split(" - ")
-    counter_str = ("** " + counter_split[0] + " **" + print_colored_text(f" {counter_split[1]} ", BCOLORS.CYAN)
+    counter_str = ("*" * int((first_column_width - (len(counter_split[0]) + 2))/2) + " " + counter_split[0] + " " +
+                   "*" * int((first_column_width - (len(counter_split[0]) + 2))/2) + print_colored_text(f" {counter_split[1]} ", BCOLORS.CYAN)
                    + "| " + counter_split[2] + " (" + get_free_space(output_dir) + " free) ")
     total_length = width - 2  # Exclude parentheses ()
     # Center the counter with asterisks
