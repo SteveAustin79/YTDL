@@ -11,7 +11,7 @@ from pytubefix.cli import on_progress
 
 version = "1.3.0 (20250316)"
 header_width_global = 99
-first_column_width = 18
+first_column_width = 17
 
 class BCOLORS:
     WHITE      = "\033[97m"
@@ -297,7 +297,7 @@ def print_video_infos(yt: YouTube, res: str, video_views: int) -> None:
         print(print_colored_text("Resolution:" + " " * (first_column_width - len("Resolution:")), BCOLORS.BLACK),
               print_colored_text(res, BCOLORS.YELLOW),
               print_colored_text("  (" + limit_resolution_to + ")", BCOLORS.BLACK))
-        print("                 ", print_colored_text(str(print_resolutions(yt)), BCOLORS.BLACK))
+        print(" " * first_column_width, print_colored_text(str(print_resolutions(yt)), BCOLORS.BLACK))
 
 
 def format_time(seconds: int) -> str:
