@@ -726,9 +726,9 @@ while True:
         if lines and len(lines) > 1:
             YTchannel = user_selection(lines, show_latest_video_date)
         else:
-            YTchannel = input("\nYouTube Channel or Video URL:  ")
+            YTchannel = input("\nYouTube Channel, Video-, or Playlist URL:  ")
         if "- Enter YouTube Channel or Video URL -" in YTchannel:
-            YTchannel = input("\nYouTube Channel or Video URL:  ")
+            YTchannel = input("\nYouTube Channel, Video-, or Playlist URL:  ")
 
         video_id_from_single_video = ""
         if youtube_base_url in YTchannel:
