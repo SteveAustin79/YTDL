@@ -11,8 +11,8 @@ from pytubefix.cli import on_progress
 
 version = "1.3.1 (20250317)"
 header_width_global = 97
-first_column_width = 17
-first_column_width_wide = 37
+first_column_width = 19
+first_column_width_wide = 39
 
 class BCOLORS:
     WHITE      = "\033[97m"
