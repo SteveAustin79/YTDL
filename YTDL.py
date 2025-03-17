@@ -489,13 +489,13 @@ def download_video(channel_name: str, video_id: str, counter_id: int, video_tota
     colored_video_id = video_id
     header_width = (header_width_global + 11)
     if restricted:
-        yt = YouTube(youtube_base_url + video_id, use_oauth=True, allow_oauth_cache=True,
+        yt = YouTube(youtube_base_url + video_id, 'WEB', use_oauth=True, allow_oauth_cache=True,
                      on_progress_callback=on_progress)
         restricted_path_snippet = "restricted/"
         colored_video_id = print_colored_text(video_id, BCOLORS.RED)
         header_width = (header_width_global + 20)
     else:
-        yt = YouTube(youtube_base_url + video_id, on_progress_callback=on_progress)
+        yt = YouTube(youtube_base_url + video_id, 'WEB', on_progress_callback=on_progress)
 
     print("\n")
     print(format_header(colored_video_id + " - " + channel_name
@@ -732,11 +732,11 @@ while True:
 
         video_id_from_single_video = ""
         if youtube_base_url in YTchannel:
-            ytv = YouTube(YTchannel, on_progress_callback=on_progress)
+            ytv = YouTube(YTchannel, 'WEB', on_progress_callback=on_progress)
             YTchannel = ytv.channel_url
             video_id_from_single_video = ytv.video_id
         elif "https://" not in YTchannel:
-            ytv = YouTube(youtube_base_url + YTchannel, on_progress_callback=on_progress)
+            ytv = YouTube(youtube_base_url + YTchannel, 'WEB', on_progress_callback=on_progress)
             YTchannel = ytv.channel_url
             video_id_from_single_video = ytv.video_id
 
@@ -1062,7 +1062,7 @@ while True:
                 print(print_colored_text(f"\rSkipping {count_skipped} Videos", BCOLORS.MAGENTA), end="", flush=True)
             else:
                 do_not_download = 0
-                video = YouTube(youtube_base_url + only_video_id, on_progress_callback=on_progress)
+                video = YouTube(youtube_base_url + only_video_id, 'WEB', on_progress_callback=on_progress)
 
                 if video_name_filter == "" or any(
                         word.lower() in video.title.lower() for word in video_name_filter_list):
