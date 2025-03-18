@@ -285,6 +285,7 @@ def print_video_infos(yt: YouTube, res: str, video_views: int) -> None:
         print(views_title, format_view_count(video_views))
 
     print(print_colored_text("Date:" + " " * (first_column_width - len("Date:")), BCOLORS.BLACK), yt.publish_date.strftime("%Y-%m-%d"))
+    ## here year from to, if min or max year contains something
 
     length_title = print_colored_text("Length: " + " " * (first_column_width - len("Length:")), BCOLORS.BLACK)
     length_title_value = length_title + format_time(yt.length)
@@ -1142,11 +1143,11 @@ while True:
                             do_not_download = 1
 
                     if int(min_year) > 0:
-                        if video.publish_date.strftime("%Y") < min_year:
+                        if int(video.publish_date.strftime("%Y")) < min_year:
                             do_not_download = 1
 
                     if int(max_year) > 0:
-                        if video.publish_date.strftime("%Y") > max_year:
+                        if int(video.publish_date.strftime("%Y")) > max_year:
                             do_not_download = 1
 
                     if min_video_views > 0:
