@@ -284,8 +284,14 @@ def print_video_infos(yt: YouTube, res: str, video_views: int) -> None:
     else:
         print(views_title, format_view_count(video_views))
 
-    print(print_colored_text("Date:" + " " * (first_column_width - len("Date:")), BCOLORS.BLACK), yt.publish_date.strftime("%Y-%m-%d"))
-    ## here year from to, if min or max year contains something
+    year_title = print_colored_text("Date:" + " " * (first_column_width - len("Date:")), BCOLORS.BLACK)
+    year_title_value = year_title + yt.publish_date.strftime("%Y-%m-%d")
+    if min_year_bool and max_year_bool:
+        print(year_title_value, print_colored_text("  (" + str(min_year) + " - " + str(max_year) + ")", BCOLORS.BLACK))
+    elif min_year_bool:
+        print(year_title_value, print_colored_text("  (" + str(min_year) + " - )", BCOLORS.BLACK))
+    elif max_year_bool:
+        print(year_title_value, print_colored_text("  ( - " + str(max_year) + ")", BCOLORS.BLACK))
 
     length_title = print_colored_text("Length: " + " " * (first_column_width - len("Length:")), BCOLORS.BLACK)
     length_title_value = length_title + format_time(yt.length)
@@ -942,14 +948,14 @@ while True:
             print(print_colored_text("Ignoring Video(s) > " + str(max_duration) + " Minutes!", BCOLORS.RED))
 
         min_year = int(smart_input("Minimum Year (0=disabled):  ", default_minimum_year))
-        #min_year_bool = False
-        #if min_year.isdigit() and 1900 <= int(min_year) <= 2100 or min_year==0:
-        #    min_year_bool = True
+        min_year_bool = False
+        if min_year.isdigit() and 1900 <= int(min_year) <= 2100 or min_year==0:
+            min_year_bool = True
 
         max_year = smart_input("Maximum Year (0=disabled):  ", default_maximum_year)
-        #max_year_bool = False
-        #if max_year.isdigit() and 1900 <= int(max_year) <= 2100 or max_year==0:
-        #    max_year_bool = True
+        max_year_bool = False
+        if max_year.isdigit() and 1900 <= int(max_year) <= 2100 or max_year==0:
+            max_year_bool = True
 
         only_restricted_videos = smart_input("Only restricted video(s)?  Y/n", default_only_restricted)
         only_restricted_videos_bool = False
