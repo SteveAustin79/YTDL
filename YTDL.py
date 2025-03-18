@@ -1174,7 +1174,7 @@ while True:
                     else:
                         if not skip_restricted_bool:
                             if (video.vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
-                            video.vid_info.get('playabilityStatus', {}).get('status') != 'LIVE_STREAM_OFFLINE' and
+                                    video.vid_info.get('playabilityStatus', {}).get('status') != 'LIVE_STREAM_OFFLINE' and
                                     do_not_download == 0):
                                 count_restricted_videos += 1
                                 count_ok_videos += 1
