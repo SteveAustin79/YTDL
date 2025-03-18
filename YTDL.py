@@ -8,6 +8,7 @@ import pytubefix.extract
 from pytubefix import YouTube, Channel, Playlist
 from pytubefix.cli import on_progress
 
+## date filter: newer than 2014, older than 2018
 
 version = "1.3.1 (20250317)"
 header_width_global = 97
@@ -44,6 +45,8 @@ REQUIRED_VIDEO_CHANNEL_CONFIG = {
     "c_max_resolution": "",
     "c_ignore_min_duration": "",
     "c_ignore_max_duration": "",
+    "c_minimum_year": "",
+    "c_maximum_year": "",
     "c_only_restricted": "",
     "c_skip_restricted": "",
     "c_minimum_views": "",
@@ -177,7 +180,7 @@ def cc_save_config(cc_file_path: str, cc_config: str) -> None:
     with open(cc_file_path, "w", encoding="utf-8") as cc_file:
         json.dump(cc_config, cc_file, indent=4, ensure_ascii=False)
 
-def cc_check_and_update_channel_config(cc_file_path: str, cc_required_config: dict) -> None:
+def cc_check_and_update_json_config(cc_file_path: str, cc_required_config: dict) -> None:
     """Ensures all required keys exist in the config file, adding missing ones."""
     cc_config = cc_load_config(cc_file_path)  # Load existing or empty config
 
@@ -704,7 +707,7 @@ while True:
             default_audio_mp3 = config["default_audioMP3"]
         except Exception as e:
             print("An error occurred, incomplete config file:", str(e))
-            cc_check_and_update_channel_config("config.json", REQUIRED_APP_CONFIG)
+            cc_check_and_update_json_config("config.json", REQUIRED_APP_CONFIG)
             continue
 
         if not os.path.exists(output_dir):
@@ -797,6 +800,8 @@ while True:
         default_max_res = "max"
         default_ignore_min_duration = "y"
         default_ignore_max_duration = "y"
+        default_minimum_year = 0
+        default_maximum_year = 0
         default_only_restricted = "n"
         default_skip_restricted = "n"
         default_minimum_views = 0
@@ -834,6 +839,20 @@ while True:
                 incomplete_config = True
                 incomplete_string.append("c_ignore_max_duration")
 
+            if "c_minimum_year" in channel_config:
+                if channel_config["c_minimum_year"] != "":
+                    default_minimum_year = channel_config["c_minimum_year"]
+            else:
+                incomplete_config = True
+                incomplete_string.append("c_minimum_year")
+
+            if "c_maximum_year" in channel_config:
+                if channel_config["c_maximum_year"] != "":
+                    default_maximum_year = channel_config["c_maximum_year"]
+            else:
+                incomplete_config = True
+                incomplete_string.append("c_maximum_year")
+
             if "c_only_restricted" in channel_config:
                 if channel_config["c_only_restricted"] != "":
                     default_only_restricted = channel_config["c_only_restricted"]
@@ -862,15 +881,32 @@ while True:
                 incomplete_config = True
                 incomplete_string.append("c_year_subfolders")
 
-            default_exclude_videos = channel_config["c_exclude_video_ids"]
-            default_include_videos = channel_config["c_include_video_ids"]
-            default_filter_words = channel_config["c_filter_words"]
+            if "c_exclude_video_ids" in channel_config:
+                if channel_config["c_exclude_video_ids"] != "":
+                    default_exclude_videos = channel_config["c_exclude_video_ids"]
+            else:
+                incomplete_config = True
+                incomplete_string.append("c_exclude_video_ids")
+
+            if "c_include_video_ids" in channel_config:
+                if channel_config["c_include_video_ids"] != "":
+                    default_include_videos = channel_config["c_include_video_ids"]
+            else:
+                incomplete_config = True
+                incomplete_string.append("c_include_video_ids")
+
+            if "c_filter_words" in channel_config:
+                if channel_config["c_filter_words"] != "":
+                    default_filter_words = channel_config["c_filter_words"]
+            else:
+                incomplete_config = True
+                incomplete_string.append("c_filter_words")
 
             if incomplete_config:
                 print(print_colored_text("\nIncomplete ", BCOLORS.ORANGE)
                       + print_colored_text("channel config file! --> Adding missing key(s) to file ", BCOLORS.BLUE)
                       + print_colored_text(str(incomplete_string), BCOLORS.ORANGE))
-                cc_check_and_update_channel_config(ytchannel_path + channel_config_path, REQUIRED_VIDEO_CHANNEL_CONFIG)
+                cc_check_and_update_json_config(ytchannel_path + channel_config_path, REQUIRED_VIDEO_CHANNEL_CONFIG)
             else:
                 print(print_colored_text("\nChannel config file found! ", BCOLORS.BLUE) +
                       print_colored_text("\n" + ytchannel_path + channel_config_path, BCOLORS.BLACK))
@@ -878,10 +914,10 @@ while True:
         if video_id_from_single_video != "":
             default_include_videos = video_id_from_single_video
 
+        default_value_mp3 = "v"
         if default_audio_mp3:
             default_value_mp3 = "a"
-        else:
-            default_value_mp3 = "v"
+
         audio_or_video = smart_input("\nAudio or Video?  a/v", default_value_mp3)
         audio_or_video_bool = True
         if audio_or_video == "v":
@@ -904,6 +940,16 @@ while True:
             ignore_max_duration_bool = False
             print(print_colored_text("Ignoring Video(s) > " + str(max_duration) + " Minutes!", BCOLORS.RED))
 
+        min_year = smart_input("Minimum Year (0=disabled):  ", default_minimum_year)
+        min_year_bool = False
+        if min_year.isdigit() and 1900 <= int(min_year) <= 2100:
+            min_year_bool = True
+
+        max_year = smart_input("Maximum Year (0=disabled):  ", default_maximum_year)
+        max_year_bool = False
+        if max_year.isdigit() and 1900 <= int(max_year) <= 2100:
+            max_year_bool = True
+
         only_restricted_videos = smart_input("Only restricted video(s)?  Y/n", default_only_restricted)
         only_restricted_videos_bool = False
         if only_restricted_videos == "y":
@@ -919,10 +965,9 @@ while True:
                 print(print_colored_text("Skipping restricted Video(s)!", BCOLORS.RED))
 
         min_video_views = int(smart_input("Minimum Views (0=disabled): ", default_minimum_views))
+        min_video_views_bool = False
         if min_video_views > 0:
             min_video_views_bool = True
-        else:
-            min_video_views_bool = False
 
         year_subfolders = False
         year_subfolders_temp = smart_input("Year sub folder structure?  Y/n", default_year_subfolders)
@@ -957,7 +1002,8 @@ while True:
 
         if os.path.exists(ytchannel_path + channel_config_path):
             if (default_max_res != limit_resolution_to or default_ignore_min_duration != ignore_min_duration or
-                        default_ignore_max_duration != ignore_max_duration or default_only_restricted != only_restricted_videos or
+                        default_ignore_max_duration != ignore_max_duration or default_minimum_year != min_year or
+                        default_maximum_year != max_year or default_only_restricted != only_restricted_videos or
                         default_skip_restricted != skip_restricted or default_minimum_views != min_video_views or
                         default_year_subfolders != year_subfolders_temp or default_exclude_videos != exclude_video_ids or
                         default_include_videos != include_video_ids or default_filter_words != video_name_filter):
@@ -969,6 +1015,10 @@ while True:
                         update_json_config(ytchannel_path + channel_config_path, "c_ignore_min_duration", ignore_min_duration)
                     if default_ignore_max_duration != ignore_max_duration:
                         update_json_config(ytchannel_path + channel_config_path, "c_ignore_max_duration", ignore_max_duration)
+                    if default_minimum_year != min_year:
+                        update_json_config(ytchannel_path + channel_config_path, "c_minimum_year", min_year)
+                    if default_maximum_year != max_year:
+                        update_json_config(ytchannel_path + channel_config_path, "c_maximum_year", max_year)
                     if default_only_restricted != only_restricted_videos:
                         update_json_config(ytchannel_path + channel_config_path, "c_only_restricted", only_restricted_videos)
                     if default_skip_restricted != skip_restricted:
@@ -985,7 +1035,8 @@ while True:
                         update_json_config(ytchannel_path + channel_config_path, "c_filter_words", video_name_filter)
         else:
             if (default_max_res != limit_resolution_to or default_ignore_min_duration != ignore_min_duration or
-                    default_ignore_max_duration != ignore_max_duration or default_only_restricted != only_restricted_videos or
+                    default_ignore_max_duration != ignore_max_duration or default_minimum_year != min_year or
+                        default_maximum_year != max_year or default_only_restricted != only_restricted_videos or
                     default_skip_restricted != skip_restricted or default_minimum_views != min_video_views or
                     default_year_subfolders != year_subfolders_temp or default_exclude_videos != exclude_video_ids or
                     default_include_videos != include_video_ids or default_filter_words != video_name_filter):
@@ -1000,6 +1051,12 @@ while True:
                     json_ignore_max_duration = ""
                     if default_ignore_max_duration != ignore_max_duration:
                         json_ignore_max_duration = ignore_max_duration
+                    json_min_year = 0
+                    if default_minimum_year != min_year:
+                        json_min_year = min_year
+                    json_max_year = 0
+                    if default_maximum_year != max_year:
+                        json_max_year = max_year
                     json_only_restricted_videos = ""
                     if default_only_restricted != only_restricted_videos:
                         json_only_restricted_videos = only_restricted_videos
@@ -1025,6 +1082,8 @@ while True:
                         "c_max_resolution": json_max_res,
                         "c_ignore_min_duration": json_ignore_min_duration,
                         "c_ignore_max_duration": json_ignore_max_duration,
+                        "c_minimum_year": json_min_year,
+                        "c_maximum_year": json_max_year,
                         "c_only_restricted": json_only_restricted_videos,
                         "c_skip_restricted": json_skip_restricted,
                         "c_minimum_views": json_min_video_views,
@@ -1080,6 +1139,14 @@ while True:
                     if not ignore_max_duration_bool:
                         video_duration = int(video.length / 60)
                         if video_duration > int(max_duration):
+                            do_not_download = 1
+
+                    if int(min_year) > 0:
+                        if video.publish_date.strftime("%Y") < min_year:
+                            do_not_download = 1
+
+                    if int(max_year) > 0:
+                        if video.publish_date.strftime("%Y") > max_year:
                             do_not_download = 1
 
                     if min_video_views > 0:
