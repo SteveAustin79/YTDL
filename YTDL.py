@@ -949,12 +949,12 @@ while True:
 
         min_year = smart_input("Minimum Year (0=disabled):  ", default_minimum_year)
         min_year_bool = False
-        if min_year.isdigit() and 1900 <= int(min_year) <= 2100 or min_year==0:
+        if str(min_year).isdigit() and 1900 <= int(min_year) <= 2100 or min_year==0:
             min_year_bool = True
 
         max_year = smart_input("Maximum Year (0=disabled):  ", default_maximum_year)
         max_year_bool = False
-        if max_year.isdigit() and 1900 <= int(max_year) <= 2100 or max_year==0:
+        if str(max_year).isdigit() and 1900 <= int(max_year) <= 2100 or max_year==0:
             max_year_bool = True
 
         only_restricted_videos = smart_input("Only restricted video(s)?  Y/n", default_only_restricted)
