@@ -941,9 +941,9 @@ while True:
             print(print_colored_text("Ignoring Video(s) > " + str(max_duration) + " Minutes!", BCOLORS.RED))
 
         min_year = int(smart_input("Minimum Year (0=disabled):  ", default_minimum_year))
-        min_year_bool = False
-        if min_year.isdigit() and 1900 <= int(min_year) <= 2100 or min_year==0:
-            min_year_bool = True
+        #min_year_bool = False
+        #if min_year.isdigit() and 1900 <= int(min_year) <= 2100 or min_year==0:
+        #    min_year_bool = True
 
         max_year = smart_input("Maximum Year (0=disabled):  ", default_maximum_year)
         #max_year_bool = False
