@@ -1151,11 +1151,11 @@ while True:
                             do_not_download = 1
 
                     if int(min_year) > 0:
-                        if int(video.publish_date.strftime("%Y")) < int(min_year):
+                        if int(video.publish_date.strftime("%Y")) <= int(min_year):
                             do_not_download = 1
 
                     if int(max_year) > 0:
-                        if int(video.publish_date.strftime("%Y")) > int(max_year):
+                        if int(video.publish_date.strftime("%Y")) >= int(max_year):
                             do_not_download = 1
 
                     if min_video_views > 0:
