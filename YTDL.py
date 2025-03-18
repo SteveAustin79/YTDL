@@ -8,9 +8,8 @@ import pytubefix.extract
 from pytubefix import YouTube, Channel, Playlist
 from pytubefix.cli import on_progress
 
-## date filter: newer than 2014, older than 2018
 
-version = "1.3.1 (20250317)"
+version = "1.3.2 (20250318)"
 header_width_global = 97
 first_column_width = 17
 first_column_width_wide = 37
