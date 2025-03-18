@@ -292,6 +292,8 @@ def print_video_infos(yt: YouTube, res: str, video_views: int) -> None:
         print(year_title_value, print_colored_text("  (" + str(min_year) + " - )", BCOLORS.BLACK))
     elif max_year_bool:
         print(year_title_value, print_colored_text("  ( - " + str(max_year) + ")", BCOLORS.BLACK))
+    else:
+        print(year_title_value)
 
     length_title = print_colored_text("Length: " + " " * (first_column_width - len("Length:")), BCOLORS.BLACK)
     length_title_value = length_title + format_time(yt.length)
