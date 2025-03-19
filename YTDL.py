@@ -400,7 +400,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                             latest_date = print_colored_text(latest_date, BCOLORS.GREEN)
                         else:
                             latest_date = print_colored_text(latest_date, BCOLORS.RED)
-                        latest_date_formated = (" " + print_colored_text("." * ((spaces-len(str(u_index))-len(line))-2), BCOLORS.BLACK)
+                        latest_date_formated = (" " + print_colored_text("." * ((spaces - len(str(u_index)) - len(line)) - 2), BCOLORS.BLACK)
                                                 + " Latest: " + latest_date + " | " + latest_video[i].video_id)
                         break
 
@@ -942,13 +942,13 @@ while True:
         ignore_min_duration_bool = True
         if ignore_min_duration == "n":
             ignore_min_duration_bool = False
-            # print(print_colored_text("Ignoring Video(s) < " + str(min_duration) + " Minutes!", BCOLORS.RED))
+            print(print_colored_text("Ignoring Video(s) < " + str(min_duration) + " Minutes!", BCOLORS.RED))
 
         ignore_max_duration = smart_input("Ignore max_duration?  Y/n", default_ignore_max_duration)
         ignore_max_duration_bool = True
         if ignore_max_duration == "n":
             ignore_max_duration_bool = False
-            # print(print_colored_text("Ignoring Video(s) > " + str(max_duration) + " Minutes!", BCOLORS.RED))
+            print(print_colored_text("Ignoring Video(s) > " + str(max_duration) + " Minutes!", BCOLORS.RED))
 
         min_year = smart_input("Minimum Year (0=disabled):  ", default_minimum_year)
         min_year_bool = False
@@ -964,7 +964,7 @@ while True:
         only_restricted_videos_bool = False
         if only_restricted_videos == "y":
             only_restricted_videos_bool = True
-            # print(print_colored_text("Downloading only restricted Video(s)!", BCOLORS.RED))
+            print(print_colored_text("Downloading only restricted Video(s)!", BCOLORS.RED))
 
         skip_restricted = default_skip_restricted
         skip_restricted_bool = False
@@ -972,7 +972,7 @@ while True:
             skip_restricted = smart_input("Skip restricted Video(s)?  Y/n", default_skip_restricted)
             if skip_restricted == "y":
                 skip_restricted_bool = True
-                # print(print_colored_text("Skipping restricted Video(s)!", BCOLORS.RED))
+                print(print_colored_text("Skipping restricted Video(s)!", BCOLORS.RED))
 
         min_video_views = int(smart_input("Minimum Views (0=disabled): ", default_minimum_views))
         min_video_views_bool = False
@@ -983,7 +983,7 @@ while True:
         year_subfolders_temp = smart_input("Year sub folder structure?  Y/n", default_year_subfolders)
         if year_subfolders_temp == "y":
             year_subfolders = True
-            # print(print_colored_text("Year sub folder structure active!", BCOLORS.RED))
+            print(print_colored_text("Year sub folder structure active!", BCOLORS.RED))
             make_year_subfolder_structure(ytchannel_path)
         else:
             if contains_folder_starting_with_2(ytchannel_path) and os.path.exists(ytchannel_path + channel_config_path):
