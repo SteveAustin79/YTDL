@@ -405,7 +405,8 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                                                     + " Latest: " + latest_date + " | " + latest_video[i].video_id)
                             break
                 except Exception as eee:
-                    latest_date_formated = "No channel!"
+                    latest_date_formated = (" " + print_colored_text("." * ((spaces - len(str(u_index)) - len(line)) - 2), BCOLORS.BLACK)
+                                            + "No channel!")
 
 
         print(f"{u_index}. {line}{latest_date_formated}")
