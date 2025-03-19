@@ -741,6 +741,7 @@ while True:
         if "- Enter YouTube Channel or Video URL -" in YTchannel:
             YTchannel = input("\nYouTube Channel, Video-, or Playlist URL:  ")
 
+        print("")
         print_asteriks_line()
 
         video_id_from_single_video = ""
