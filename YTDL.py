@@ -401,7 +401,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                             latest_date = print_colored_text(latest_date, BCOLORS.GREEN)
                         else:
                             latest_date = print_colored_text(latest_date, BCOLORS.RED)
-                        latest_date_formated = (" " * (spaces-len(str(u_index))-len(line)) + "Last: "
+                        latest_date_formated = ("." * (spaces-len(str(u_index))-len(line)) + "Last: "
                                                 + latest_date + " | " + latest_video[i].video_id)
                         break
 
