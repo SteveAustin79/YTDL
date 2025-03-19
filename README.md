@@ -13,7 +13,7 @@ Restricted video download possible, but requires authentication via accounts.goo
 - skipping already downloaded videos
 
 ### History
-- 20250316 - v1.3 - added channel configuration auto create
+- 20250316 - v1.3 - added automatic channel configuration (optional)
 - 20250315 - v1.2 - year sub folder structure: removed from config.json/added to channel config
 - 20250311 - v1.1 - added mp3 support, skip channel fetching if include list > 0, skip "Premiere in..." videos
 - 20250303 - v1.0 - code optimization
