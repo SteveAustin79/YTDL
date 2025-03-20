@@ -393,6 +393,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
             if not line == u_lines[(len(u_lines) - 1)]:
                 spaces = (header_width_global -34)
                 ytchannel = Channel(line)
+                line = line.replace(youtube_url, "")
                 try:
                     latest_video = list(ytchannel.videos)
                     for i in range(len(latest_video)):
