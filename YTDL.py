@@ -394,7 +394,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
             if not line == u_lines[(len(u_lines) - 1)]:
                 spaces = (header_width_global - 61)
                 ytchannel = Channel(line)
-                if os.path.exists(output_dir + "/" + clean_string_regex(ytchannel.channel_name).rstrip() + channel_config_path):
+                if os.path.exists(output_dir + "/" + clean_string_regex(ytchannel.channel_name).rstrip() + "/_config_channel.json"):
                     ch_config_exist = True
                 line = line.replace(youtube_url, "")[1:]
                 try:
