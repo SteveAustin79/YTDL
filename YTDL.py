@@ -391,7 +391,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
     for u_index, line in enumerate(u_lines, start=1):
         if u_show_latest_video_date:
             if not line == u_lines[(len(u_lines) - 1)]:
-                spaces = (header_width_global - 54)
+                spaces = (header_width_global - 65)
                 ytchannel = Channel(line)
                 line = line.replace(youtube_url, "")
                 try:
@@ -408,8 +408,9 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                             else:
                                 latest_date = print_colored_text(latest_date, BCOLORS.RED)
                             latest_date_formated = (" " + print_colored_text("." * ((spaces - len(str(u_index)) - len(line)) - 2), BCOLORS.BLACK)
-                                                    + " Last: " + latest_date + print_colored_text(" | ", BCOLORS.BLACK) + latest_video[i].video_id
-                                                    + print_colored_text(" | ", BCOLORS.BLACK) + print_colored_text(latest_video_name[:23], BCOLORS.BLACK))
+                                                    + " Last: " + latest_date + print_colored_text(" | ", BCOLORS.BLACK)
+                                                    + latest_video[i].video_id + print_colored_text(" | ", BCOLORS.BLACK)
+                                                    + print_colored_text(latest_video_name[:30], BCOLORS.BLACK))
                             break
                 except Exception as eee:
                     latest_date_formated = (" " + print_colored_text("." * ((spaces - len(str(u_index)) - len(line)) - 2), BCOLORS.BLACK)
