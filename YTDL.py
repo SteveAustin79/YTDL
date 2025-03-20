@@ -415,8 +415,8 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                 except Exception as eee:
                     latest_date_formated = (" " + print_colored_text("." * ((spaces - len(str(u_index)) - len(line)) - 2), BCOLORS.BLACK)
                                             + " " + print_colored_text(str(eee), BCOLORS.RED))
-
-        line = line.replace(youtube_url, "")[1:]
+        else:
+            line = line.replace(youtube_url, "")[1:]
         print(f"{u_index}. {line}{latest_date_formated}")
         latest_date_formated = ""
 
