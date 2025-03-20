@@ -393,7 +393,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
             if not line == u_lines[(len(u_lines) - 1)]:
                 spaces = (header_width_global - 61)
                 ytchannel = Channel(line)
-                line = line.replace(youtube_url, "")
+                line = line.replace(youtube_url, "")[1:]
                 try:
                     latest_video = list(ytchannel.videos)
                     for i in range(len(latest_video)):
@@ -416,7 +416,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                     latest_date_formated = (" " + print_colored_text("." * ((spaces - len(str(u_index)) - len(line)) - 2), BCOLORS.BLACK)
                                             + " " + print_colored_text(str(eee), BCOLORS.RED))
 
-        line = line.replace(youtube_url, "")
+        line = line.replace(youtube_url, "")[1:]
         print(f"{u_index}. {line}{latest_date_formated}")
         latest_date_formated = ""
 
