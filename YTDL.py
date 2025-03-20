@@ -391,7 +391,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
     print("Select channel:")
     for u_index, line in enumerate(u_lines, start=1):
         if not line == u_lines[(len(u_lines) - 1)]:
-            c_year_active = print_colored_text(".", BCOLORS.BLUE)
+            c_year_active = "."
             if u_show_latest_video_date:
                 ch_config_exist = False
                 spaces = (header_width_global - 61)
@@ -403,6 +403,8 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
 
                     if ch_config["c_year_subfolders"]=="y":
                         c_year_active = print_colored_text("Y", BCOLORS.BLUE)
+                    else:
+                        c_year_active = print_colored_text(".", BCOLORS.BLUE)
                 line = line.replace(youtube_url, "")[1:]
                 try:
                     latest_video = list(ytchannel.videos)
