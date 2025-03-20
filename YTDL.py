@@ -391,7 +391,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
     for u_index, line in enumerate(u_lines, start=1):
         if u_show_latest_video_date:
             if not line == u_lines[(len(u_lines) - 1)]:
-                spaces = (header_width_global - 60)
+                spaces = (header_width_global - 61)
                 ytchannel = Channel(line)
                 line = line.replace(youtube_url, "")[1:]
                 try:
