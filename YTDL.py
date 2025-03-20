@@ -283,7 +283,10 @@ def print_video_infos(yt: YouTube, res: str, video_views: int) -> None:
         print(views_title, format_view_count(video_views))
 
     year_title = print_colored_text("Date: " + " " * (first_column_width - len("Date:")), BCOLORS.BLACK)
-    year_title_value = year_title + yt.publish_date.strftime("%Y-%m-%d")
+    try:
+        year_title_value = year_title + yt.publish_date.strftime("%Y-%m-%d")
+    except Exception as eee:
+        year_title_value = year_title + eee
     if min_year_bool and max_year_bool:
         print(year_title_value, print_colored_text("  (" + str(min_year) + " - " + str(max_year) + ")", BCOLORS.BLACK))
     elif min_year_bool:
