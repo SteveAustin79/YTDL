@@ -408,9 +408,9 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                             else:
                                 latest_date = print_colored_text(latest_date, BCOLORS.RED)
                             latest_date_formated = (" " + print_colored_text("." * ((spaces - len(str(u_index)) - len(line)) - 2), BCOLORS.BLACK)
-                                                    + " Last: " + latest_date + print_colored_text(" | ", BCOLORS.BLACK)
+                                                    + " " + latest_date + print_colored_text(" | ", BCOLORS.BLACK)
                                                     + latest_video[i].video_id + print_colored_text(" | ", BCOLORS.BLACK)
-                                                    + print_colored_text(latest_video_name[:26], BCOLORS.BLACK))
+                                                    + print_colored_text(latest_video_name[:32], BCOLORS.BLACK))
                             break
                 except Exception as eee:
                     latest_date_formated = (" " + print_colored_text("." * ((spaces - len(str(u_index)) - len(line)) - 2), BCOLORS.BLACK)
