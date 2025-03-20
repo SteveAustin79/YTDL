@@ -13,6 +13,7 @@ header_width_global = 97
 first_column_width = 17
 first_column_width_wide = 37
 youtube_url = "https://www.youtube.com/"
+channel_config_path = "/_config_channel.json"
 
 class BCOLORS:
     WHITE      = "\033[97m"
@@ -848,8 +849,6 @@ while True:
         default_exclude_videos = ""
         default_include_videos = ""
         default_filter_words = ""
-
-        channel_config_path = "/_config_channel.json"
 
         if os.path.exists(ytchannel_path + channel_config_path):
             incomplete_config = False
