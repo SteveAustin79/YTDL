@@ -516,7 +516,10 @@ def download_video(channel_name: str, video_id: str, counter_id: int, video_tota
     print(format_header(colored_video_id + " - " + channel_name
                          + " - " + str(counter_id) + "/" + str(video_total_count), header_width))
 
-    publishing_date = yt.publish_date.strftime("%Y-%m-%d")
+    try:
+        publishing_date = yt.publish_date.strftime("%Y-%m-%d")
+    except Exception as eee:
+        publishing_date = eee
 
     # print(yt.vid_info.get('playabilityStatus'))
 
