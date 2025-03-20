@@ -12,6 +12,7 @@ version = "1.3.2 (20250319)"
 header_width_global = 97
 first_column_width = 17
 first_column_width_wide = 37
+youtube_url = "https://www.youtube.com/"
 
 class BCOLORS:
     WHITE      = "\033[97m"
@@ -413,7 +414,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                     latest_date_formated = (" " + print_colored_text("." * ((spaces - len(str(u_index)) - len(line)) - 2), BCOLORS.BLACK)
                                             + " " + print_colored_text(str(eee), BCOLORS.RED))
 
-
+        line = line.replace(youtube_url, "")
         print(f"{u_index}. {line}{latest_date_formated}")
         latest_date_formated = ""
 
