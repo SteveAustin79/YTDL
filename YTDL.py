@@ -398,6 +398,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                         if (latest_video[i].vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
                                 latest_video[i].vid_info.get('playabilityStatus', {}).get('status') != 'LIVE_STREAM_OFFLINE'):
                             latest_date = latest_video[i].publish_date.strftime("%Y-%m-%d")
+                            latest_video_name = latest_video[i].title
                             got_it = find_file_by_string(
                                 output_dir + "/" + clean_string_regex(ytchannel.channel_name).rstrip(), latest_date, "", False)
                             if got_it:
@@ -405,7 +406,8 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                             else:
                                 latest_date = print_colored_text(latest_date, BCOLORS.RED)
                             latest_date_formated = (" " + print_colored_text("." * ((spaces - len(str(u_index)) - len(line)) - 2), BCOLORS.BLACK)
-                                                    + " Latest: " + latest_date + print_colored_text(" | ", BCOLORS.BLACK) + latest_video[i].video_id)
+                                                    + " Latest: " + latest_date + print_colored_text(" | ", BCOLORS.BLACK) + latest_video[i].video_id +
+                                                    "\n" + latest_video_name)
                             break
                 except Exception as eee:
                     latest_date_formated = (" " + print_colored_text("." * ((spaces - len(str(u_index)) - len(line)) - 2), BCOLORS.BLACK)
