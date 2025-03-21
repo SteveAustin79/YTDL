@@ -394,11 +394,9 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
             c_year_active = print_colored_text(".", BCOLORS.BLACK)
             c_restricted_active = print_colored_text(".", BCOLORS.BLACK)
             if u_show_latest_video_date:
-                ch_config_exist = False
                 spaces = (header_width_global - 61)
                 ytchannel = Channel(line)
                 if os.path.exists(output_dir + "/" + clean_string_regex(ytchannel.channel_name).rstrip() + channel_config_path):
-                    ch_config_exist = True
                     c_year_active = print_colored_text("-", BCOLORS.BLUE)
                     c_restricted_active = print_colored_text("-", BCOLORS.RED)
                     ch_config = load_config(output_dir + "/" + clean_string_regex(ytchannel.channel_name).rstrip() + channel_config_path)
@@ -430,8 +428,6 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                 except Exception as eee:
                     latest_date_formated = (" " + print_colored_text("." * ((spaces - len(str(u_index)) - len(line)) - 2), BCOLORS.BLACK)
                                             + " " + print_colored_text(str(eee), BCOLORS.RED))
-                if ch_config_exist:
-                    line = print_colored_text(line, BCOLORS.BLUE)
             else:
                 line = line.replace(youtube_url, "")[1:]
 
