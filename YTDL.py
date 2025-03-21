@@ -403,7 +403,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                     if ch_config["c_year_subfolders"]=="y":
                         c_year_active = print_colored_text("Y", BCOLORS.BLUE)
                     if ch_config["c_only_restricted"]=="y":
-                        c_restricted_active = print_colored_text("r", BCOLORS.RED)
+                        c_restricted_active = print_colored_text("R", BCOLORS.RED)
 
                 line = line.replace(youtube_url, "")[1:]
                 try:
