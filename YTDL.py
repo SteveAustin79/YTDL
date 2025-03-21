@@ -399,9 +399,9 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                 if os.path.exists(output_dir + "/" + clean_string_regex(ytchannel.channel_name).rstrip() + channel_config_path):
                     ch_config_exist = True
                     c_year_active = print_colored_text(".", BCOLORS.BLUE)
-                ch_config = load_config(output_dir + "/" + clean_string_regex(ytchannel.channel_name).rstrip() + channel_config_path)
-                if ch_config["c_year_subfolders"]=="y":
-                    c_year_active = print_colored_text("Y", BCOLORS.BLUE)
+                    ch_config = load_config(output_dir + "/" + clean_string_regex(ytchannel.channel_name).rstrip() + channel_config_path)
+                    if ch_config["c_year_subfolders"]=="y":
+                        c_year_active = print_colored_text("Y", BCOLORS.BLUE)
 
                 line = line.replace(youtube_url, "")[1:]
                 try:
