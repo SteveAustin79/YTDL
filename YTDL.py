@@ -392,6 +392,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
     for u_index, line in enumerate(u_lines, start=1):
         if not line == u_lines[(len(u_lines) - 1)]:
             c_year_active = print_colored_text(".", BCOLORS.BLACK)
+            c_restricted_active = print_colored_text(".", BCOLORS.BLACK)
             if u_show_latest_video_date:
                 ch_config_exist = False
                 spaces = (header_width_global - 61)
@@ -399,9 +400,12 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                 if os.path.exists(output_dir + "/" + clean_string_regex(ytchannel.channel_name).rstrip() + channel_config_path):
                     ch_config_exist = True
                     c_year_active = print_colored_text("_", BCOLORS.BLUE)
+                    c_restricted_active = print_colored_text("_", BCOLORS.RED)
                     ch_config = load_config(output_dir + "/" + clean_string_regex(ytchannel.channel_name).rstrip() + channel_config_path)
                     if ch_config["c_year_subfolders"]=="y":
                         c_year_active = print_colored_text("Y", BCOLORS.BLUE)
+                    if ch_config["c_only_restricted"]=="y":
+                        c_restricted_active = print_colored_text("R", BCOLORS.RED)
 
                 line = line.replace(youtube_url, "")[1:]
                 try:
@@ -418,8 +422,8 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                             else:
                                 latest_date = print_colored_text(latest_date, BCOLORS.RED)
                             latest_date_formated = (
-                                    " " + print_colored_text("." * ((spaces - len(str(u_index)) - len(line)) - 3), BCOLORS.BLACK)
-                                    + c_year_active + " " + latest_date + print_colored_text(" | ", BCOLORS.BLACK)
+                                    " " + print_colored_text("." * ((spaces - len(str(u_index)) - len(line)) - 4), BCOLORS.BLACK)
+                                    + c_restricted_active + c_year_active + " " + latest_date + print_colored_text(" | ", BCOLORS.BLACK)
                                     + print_colored_text(latest_video[i].video_id, BCOLORS.BLACK) + print_colored_text(" | ", BCOLORS.BLACK)
                                     + print_colored_text(latest_video_name[:32], BCOLORS.BLACK))
                             break
