@@ -394,6 +394,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
             c_year_active = print_colored_text(".", BCOLORS.BLACK)
             c_restricted_active = print_colored_text(".", BCOLORS.BLACK)
             c_resolution_active = print_colored_text(".", BCOLORS.BLACK)
+
             if u_show_latest_video_date:
                 spaces = (header_width_global - 61)
                 ytchannel = Channel(line)
@@ -406,8 +407,10 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
 
                     if ch_config["c_year_subfolders"]=="y":
                         c_year_active = print_colored_text("Y", BCOLORS.BLUE)
+
                     if ch_config["c_only_restricted"]=="y":
                         c_restricted_active = print_colored_text("R", BCOLORS.RED)
+
                     if ch_config["c_max_resolution"]=="max":
                         c_restricted_active = print_colored_text("M", BCOLORS.YELLOW)
                     elif ch_config["c_max_resolution"]=="1080p":
