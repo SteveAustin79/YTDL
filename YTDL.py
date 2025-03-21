@@ -412,13 +412,13 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                         c_restricted_active = print_colored_text("R", BCOLORS.RED)
 
                     if ch_config["c_max_resolution"]=="max":
-                        c_restricted_active = print_colored_text("M", BCOLORS.YELLOW)
+                        c_resolution_active = print_colored_text("M", BCOLORS.YELLOW)
                     elif ch_config["c_max_resolution"]=="1080p":
-                        c_restricted_active = print_colored_text("1", BCOLORS.YELLOW)
+                        c_resolution_active = print_colored_text("1", BCOLORS.YELLOW)
                     elif ch_config["c_max_resolution"]=="720p":
-                        c_restricted_active = print_colored_text("7", BCOLORS.YELLOW)
+                        c_resolution_active = print_colored_text("7", BCOLORS.YELLOW)
                     elif ch_config["c_max_resolution"]=="2160p":
-                        c_restricted_active = print_colored_text("2", BCOLORS.YELLOW)
+                        c_resolution_active = print_colored_text("2", BCOLORS.YELLOW)
 
                 line = line.replace(youtube_url, "")[1:]
                 try:
