@@ -1245,11 +1245,10 @@ while True:
                         if video.views < min_video_views:
                             do_not_download = 1
 
-                    if (video.age_restricted == False and
+                    if (not video.age_restricted and
                             video.vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
                             video.vid_info.get('playabilityStatus', {}).get('status') != 'LIVE_STREAM_OFFLINE' and
                             do_not_download == 0 and not only_restricted_videos_bool):
-                        print("A")
                         count_ok_videos += 1
                         count_this_run += 1
                         count_skipped = 0
@@ -1258,10 +1257,9 @@ while True:
                                        count_ok_videos, len(video_watch_urls), video.views, False)
                     else:
                         if not skip_restricted_bool:
-                            if (video.age_restricted == True and video.vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
+                            if (video.age_restricted and video.vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
                                     video.vid_info.get('playabilityStatus', {}).get('status') != 'LIVE_STREAM_OFFLINE' and
                                     do_not_download == 0):
-                                print("B")
                                 count_restricted_videos += 1
                                 count_ok_videos += 1
                                 count_this_run += 1
