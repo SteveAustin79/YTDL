@@ -72,9 +72,9 @@ def check_channels_txt(filename: str, c_url: str) -> bool:
         else:
             return False
     except FileNotFoundError:
-        print("⚠️ File not found. Creating a new one and adding the URL.")
-        with open(filename, "w", encoding="utf-8") as file:
-            file.write(url + "\n")
+        # print("⚠️ File not found. Creating a new one and adding the URL.")
+        # with open(filename, "w", encoding="utf-8") as file:
+        #     file.write(url + "\n")
         return False
 
 
