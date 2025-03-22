@@ -424,7 +424,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
             c_resolution_active = print_colored_text(".", BCOLORS.BLACK)
 
             if u_show_latest_video_date:
-                spaces = (header_width_global - 61)
+                spaces = (header_width_global - 60)
                 ytchannel = Channel(line)
                 if os.path.exists(output_dir + "/" + clean_string_regex(ytchannel.channel_name).rstrip() + channel_config_path):
                     c_year_active = print_colored_text("-", BCOLORS.BLUE)
@@ -466,7 +466,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                                     " " + print_colored_text("." * ((spaces - len(str(u_index)) - len(line)) - 5), BCOLORS.BLACK)
                                     + c_resolution_active + c_restricted_active + c_year_active + " " + latest_date + print_colored_text(" | ", BCOLORS.BLACK)
                                     + print_colored_text(latest_video[i].video_id, BCOLORS.BLACK) + print_colored_text(" | ", BCOLORS.BLACK)
-                                    + print_colored_text(latest_video_name[:32], BCOLORS.BLACK))
+                                    + print_colored_text(latest_video_name[:31], BCOLORS.BLACK))
                             break
                 except Exception as eee:
                     latest_date_formated = (" " + print_colored_text("." * ((spaces - len(str(u_index)) - len(line)) - 2), BCOLORS.BLACK)
