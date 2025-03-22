@@ -66,7 +66,7 @@ def add_url_in_order(filename: str, url: str) -> None:
 
         # Check if the URL already exists
         if url in urls:
-            print("✅ URL already exists in the file.")
+            # print("✅ URL already exists in the file.")
             return
 
         # Insert the new URL and sort again
@@ -77,7 +77,7 @@ def add_url_in_order(filename: str, url: str) -> None:
         with open(filename, "w", encoding="utf-8") as file:
             file.write("\n".join(urls) + "\n")
 
-        print("✅ URL added in alphabetical order.")
+        print("✅ URL added to channels.txt.")
 
     except FileNotFoundError:
         print("⚠️ File not found. Creating a new one and adding the URL.")
