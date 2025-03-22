@@ -9,7 +9,7 @@ from pytubefix import YouTube, Channel, Playlist
 from pytubefix.cli import on_progress
 from pathlib import Path
 
-version = "1.3.3 (20250322)"
+version = "1.3.4 (20250322)"
 header_width_global = 97
 first_column_width = 17
 first_column_width_wide = 37
@@ -844,7 +844,9 @@ while True:
         print(print_colored_text(c.channel_url, BCOLORS.CYAN))
 
         # check if channels.txt has this url, if not, add it
-        add_url_in_order("channels.txt", c.channel_url)
+        add_url_to_channels_txt = smart_input("Add chanel to channels.txt?  Y/n", "n")
+        if add_url_to_channels_txt=="y":
+            add_url_in_order("channels.txt", c.channel_url)
 
         selected_video_ids = []
 
