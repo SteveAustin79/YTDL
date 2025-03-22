@@ -795,6 +795,7 @@ while True:
             if "c_channel_url" in single_channel_config:
                 if single_channel_config["c_channel_url"] != "":
                     lines.append(single_channel_config["c_channel_url"])
+        lines.append("--- Enter YouTube Channel or Video URL ---")
 
 
         if lines and len(lines) > 1:
