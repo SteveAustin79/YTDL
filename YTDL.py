@@ -419,13 +419,14 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
     print("Select channel:")
     for u_index, line in enumerate(u_lines, start=1):
         if not line == u_lines[(len(u_lines) - 1)]:
-            c_year_active = print_colored_text(".", BCOLORS.BLACK)
-            c_restricted_active = print_colored_text(".", BCOLORS.BLACK)
-            c_resolution_active = print_colored_text(".", BCOLORS.BLACK)
-
             if u_show_latest_video_date:
-                spaces = (header_width_global - 60)
+                spaces = (header_width_global - 53)
                 ytchannel = Channel(line)
+
+                c_year_active = print_colored_text(".", BCOLORS.BLACK)
+                c_restricted_active = print_colored_text(".", BCOLORS.BLACK)
+                c_resolution_active = print_colored_text(".", BCOLORS.BLACK)
+
                 if os.path.exists(output_dir + "/" + clean_string_regex(ytchannel.channel_name).rstrip() + channel_config_path):
                     c_year_active = print_colored_text("-", BCOLORS.BLUE)
                     c_restricted_active = print_colored_text("-", BCOLORS.RED)
@@ -448,6 +449,8 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                     elif ch_config["c_max_resolution"]=="2160p":
                         c_resolution_active = print_colored_text("2", BCOLORS.YELLOW)
 
+                combined_settings = c_resolution_active + c_restricted_active + c_year_active
+
                 line = line.replace(youtube_url, "")[1:]
                 got_it = False
                 try:
@@ -462,10 +465,10 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                             if not got_it:
                                 latest_date = print_colored_text(latest_date, BCOLORS.RED)
                             latest_date_formated = (
-                                    " " + print_colored_text("." * ((spaces - len(str(u_index)) - len(line)) - 5), BCOLORS.BLACK)
-                                    + c_resolution_active + c_restricted_active + c_year_active + " " + latest_date + print_colored_text(" | ", BCOLORS.BLACK)
+                                    " " + print_colored_text("." * ((spaces - len(str(u_index)) - len(line)) - (2 + len(combined_settings))), BCOLORS.BLACK)
+                                    + combined_settings + " " + latest_date + print_colored_text(" | ", BCOLORS.BLACK)
                                     + print_colored_text(latest_video[i].video_id, BCOLORS.BLACK) + print_colored_text(" | ", BCOLORS.BLACK)
-                                    + print_colored_text(latest_video_name[:31], BCOLORS.BLACK))
+                                    + print_colored_text(latest_video_name[:24], BCOLORS.BLACK))
                             break
                 except Exception as eee:
                     latest_date_formated = (" " + print_colored_text("." * ((spaces - len(str(u_index)) - len(line)) - 2), BCOLORS.BLACK)
