@@ -363,7 +363,7 @@ def rename_files_in_temp_directory() -> None:
 def read_channel_txt_lines(filename: str) -> list[str]:
     try:
         with open(filename, "r", encoding="utf-8") as file:
-            rc_lines = [line.strip() for line in file.readlines()]  # Remove newlines
+            rc_lines = [line.strip() for line in file if not line.lstrip().startswith("#")]  # Ignore commented lines
         rc_lines.append("--- Enter YouTube Channel or Video URL ---")
         return rc_lines
     except FileNotFoundError:
