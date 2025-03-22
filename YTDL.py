@@ -59,19 +59,36 @@ REQUIRED_VIDEO_CHANNEL_CONFIG = {
 }
 
 
-def add_url_in_order(filename: str, url: str) -> None:
+def check_channels_txt(filename: str, c_url: str) -> bool:
     try:
         # Read existing URLs and remove empty lines
         with open(filename, "r", encoding="utf-8") as file:
             urls = sorted(set(line.strip() for line in file if line.strip()))  # Remove duplicates and sort
 
         # Check if the URL already exists
-        if url in urls:
+        if c_url in urls:
+            # print("✅ URL already exists in the file.")
+            return True
+    except FileNotFoundError:
+        print("⚠️ File not found. Creating a new one and adding the URL.")
+        with open(filename, "w", encoding="utf-8") as file:
+            file.write(url + "\n")
+        return False
+
+
+def add_url_in_order(filename: str, a_url: str) -> None:
+    try:
+        # Read existing URLs and remove empty lines
+        with open(filename, "r", encoding="utf-8") as file:
+            urls = sorted(set(line.strip() for line in file if line.strip()))  # Remove duplicates and sort
+
+        # Check if the URL already exists
+        if a_url in urls:
             # print("✅ URL already exists in the file.")
             return
 
         # Insert the new URL and sort again
-        urls.append(url)
+        urls.append(a_url)
         urls.sort()
 
         # Write back the sorted list
@@ -853,9 +870,10 @@ while True:
         print(print_colored_text(c.channel_url, BCOLORS.CYAN))
 
         # check if channels.txt has this url, if not, add it
-        add_url_to_channels_txt = smart_input("Add chanel to channels.txt?  Y/n", "n")
-        if add_url_to_channels_txt=="y":
-            add_url_in_order("channels.txt", c.channel_url)
+        if not check_channels_txt(output_dir + "/" + clean_string_regex(c.channel_name).rstrip() + channel_config_path, c.channel_url):
+            add_url_to_channels_txt = smart_input("Add chanel to channels.txt?  Y/n", "n")
+            if add_url_to_channels_txt=="y":
+                add_url_in_order("channels.txt", c.channel_url)
 
         selected_video_ids = []
 
