@@ -7,6 +7,7 @@ import sys
 import pytubefix.extract
 from pytubefix import YouTube, Channel, Playlist
 from pytubefix.cli import on_progress
+from pathlib import Path
 
 # add downloaded channels automatically to channels.txt
 
@@ -538,6 +539,10 @@ def create_directories(restricted: bool, year: str) -> None:
         if not os.path.exists(ytchannel_path + f"{str(year)}"):
             os.makedirs(ytchannel_path + f"{str(year)}")
 
+def find_json_files(directory: str) -> list[str]:
+    """Searches a directory and its subdirectories for JSON files and returns their full paths."""
+    return [str(file) for file in Path(directory).rglob("*.json")]
+
 
 def download_video(channel_name: str, video_id: str, counter_id: int, video_total_count: int,
                    video_views: int, restricted: bool) -> None:
@@ -783,15 +788,14 @@ while True:
 
         # lines = read_channel_txt_lines("channels.txt")
         lines = []
-        all_channel_configs = []
-        for root, _, files in os.walk(output_dir):  # os.walk() traverses all subdirectories
-            for filename in files:
-                if ".json" in filename:
-                    single_channel_config = load_config(filename)
-                    # Access and set settings
-                    if "c_channel_url" in single_channel_config:
-                        if single_channel_config["c_channel_url"] != "":
-                            lines.append(single_channel_config["c_channel_url"])
+        all_channel_configs = find_json_files(output_dir)
+        for config in all_channel_configs:
+            single_channel_config = load_config(config)
+            # Access and set settings
+            if "c_channel_url" in single_channel_config:
+                if single_channel_config["c_channel_url"] != "":
+                    lines.append(single_channel_config["c_channel_url"])
+
 
         if lines and len(lines) > 1:
             YTchannel = user_selection(lines, show_latest_video_date)
