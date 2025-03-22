@@ -9,8 +9,6 @@ from pytubefix import YouTube, Channel, Playlist
 from pytubefix.cli import on_progress
 from pathlib import Path
 
-# add downloaded channels automatically to channels.txt
-
 version = "1.3.3 (20250322)"
 header_width_global = 97
 first_column_width = 17
@@ -58,6 +56,33 @@ REQUIRED_VIDEO_CHANNEL_CONFIG = {
     "c_include_video_ids": "",
     "c_filter_words": ""
 }
+
+
+def add_url_in_order(filename: str, url: str) -> None:
+    try:
+        # Read existing URLs and remove empty lines
+        with open(filename, "r", encoding="utf-8") as file:
+            urls = sorted(set(line.strip() for line in file if line.strip()))  # Remove duplicates and sort
+
+        # Check if the URL already exists
+        if url in urls:
+            print("✅ URL already exists in the file.")
+            return
+
+        # Insert the new URL and sort again
+        urls.append(url)
+        urls.sort()
+
+        # Write back the sorted list
+        with open(filename, "w", encoding="utf-8") as file:
+            file.write("\n".join(urls) + "\n")
+
+        print("✅ URL added in alphabetical order.")
+
+    except FileNotFoundError:
+        print("⚠️ File not found. Creating a new one and adding the URL.")
+        with open(filename, "w", encoding="utf-8") as file:
+            file.write(url + "\n")
 
 
 def create_json_config(file_path, config_values=None):
@@ -816,6 +841,9 @@ while True:
         print("\n" + print_colored_text(print_colored_text(str(c.channel_name), BCOLORS.BOLD), BCOLORS.CYAN))
         print(print_colored_text(print_colored_text("*" * len(str(c.channel_name)), BCOLORS.BOLD), BCOLORS.CYAN))
         print(print_colored_text(c.channel_url, BCOLORS.CYAN))
+
+        # check if channels.txt has this url, if not, add it
+        add_url_in_order("channels.txt", c.channel_url)
 
         selected_video_ids = []
 
