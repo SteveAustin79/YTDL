@@ -454,7 +454,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                     c_year_active = print_colored_text("-", BCOLORS.CYAN)
                     c_restricted_active = print_colored_text("-", BCOLORS.RED)
                     c_resolution_active = print_colored_text("-", BCOLORS.YELLOW)
-                    c_filter_words_active = print_colored_text("---        ", BCOLORS.DARKGREEN)
+                    c_filter_words_active = print_colored_text("    ---    ", BCOLORS.DARKGREEN)
 
                     ch_config = load_config(output_dir + "/" + clean_string_regex(ytchannel.channel_name).rstrip() + channel_config_path)
 
@@ -474,7 +474,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                         c_resolution_active = print_colored_text("2", BCOLORS.YELLOW)
 
                     if ch_config["c_filter_words"]!="":
-                        c_filter_words_active = print_colored_text(ch_config["c_filter_words"].ljust(11)[:11], BCOLORS.DARKGREEN)
+                        c_filter_words_active = print_colored_text(ch_config["c_filter_words"].center(11)[:11], BCOLORS.DARKGREEN)
 
                 combined_settings = c_resolution_active + c_restricted_active + c_year_active + c_filter_words_active
 
