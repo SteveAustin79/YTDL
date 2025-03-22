@@ -259,8 +259,9 @@ def load_config(c_file: str):
 
 
 def print_asteriks_line() -> None:
-    print("*" * header_width_global)
-
+    # formatted = f"{counter_str.ljust(total_length, '*')}"
+    # print("*" * header_width_global)
+    print(f"{get_free_space(output_dir).ljust(header_width_global, '*')}")
 
 def print_colored_text(message_text: str, color: str) -> str:
     return f"{color}{message_text}{BCOLORS.ENDC}"
