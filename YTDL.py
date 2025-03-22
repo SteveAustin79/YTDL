@@ -487,7 +487,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                         if (latest_video[i].vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
                                 latest_video[i].vid_info.get('playabilityStatus', {}).get('status') != 'LIVE_STREAM_OFFLINE'):
                             latest_video_name = latest_video[i].title
-                            latest_date = print_colored_text(latest_video[i].publish_date.strftime("%Y-%m-%d"), BCOLORS.BLACK)
+                            latest_date = latest_video[i].publish_date.strftime("%Y-%m-%d")
                             got_it = find_file_by_string(
                                 output_dir + "/" + clean_string_regex(ytchannel.channel_name).rstrip(), latest_date, "", False)
                             if not got_it:
