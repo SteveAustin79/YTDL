@@ -11,7 +11,7 @@ from pathlib import Path
 
 # add downloaded channels automatically to channels.txt
 
-version = "1.3.2 (20250319)"
+version = "1.3.3 (20250322)"
 header_width_global = 97
 first_column_width = 17
 first_column_width_wide = 37
@@ -786,16 +786,6 @@ while True:
         print_configuration()
 
         lines = read_channel_txt_lines("channels.txt")
-        # lines = []
-        # all_channel_configs = find_json_files(output_dir)
-        # for config in all_channel_configs:
-        #     single_channel_config = load_config(config)
-        #     # Access and set settings
-        #     if "c_channel_url" in single_channel_config:
-        #         if single_channel_config["c_channel_url"] != "":
-        #             lines.append(single_channel_config["c_channel_url"])
-        # lines.append("--- Enter YouTube Channel or Video URL ---")
-
         if lines and len(lines) > 1:
             YTchannel = user_selection(lines, show_latest_video_date)
         else:
