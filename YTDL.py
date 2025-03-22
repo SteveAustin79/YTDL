@@ -451,7 +451,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                 c_filter_words_active = print_colored_text("...........", BCOLORS.BLACK)
 
                 if os.path.exists(output_dir + "/" + clean_string_regex(ytchannel.channel_name).rstrip() + channel_config_path):
-                    c_year_active = print_colored_text("-", BCOLORS.BLUE)
+                    c_year_active = print_colored_text("-", BCOLORS.CYAN)
                     c_restricted_active = print_colored_text("-", BCOLORS.RED)
                     c_resolution_active = print_colored_text("-", BCOLORS.YELLOW)
                     c_filter_words_active = print_colored_text("---        ", BCOLORS.DARKGREEN)
@@ -459,7 +459,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                     ch_config = load_config(output_dir + "/" + clean_string_regex(ytchannel.channel_name).rstrip() + channel_config_path)
 
                     if ch_config["c_year_subfolders"]=="y":
-                        c_year_active = print_colored_text("Y", BCOLORS.BLUE)
+                        c_year_active = print_colored_text("Y", BCOLORS.CYAN)
 
                     if ch_config["c_only_restricted"]=="y":
                         c_restricted_active = print_colored_text("R", BCOLORS.RED)
