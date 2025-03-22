@@ -448,7 +448,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                 c_year_active = print_colored_text(".", BCOLORS.BLACK)
                 c_restricted_active = print_colored_text(".", BCOLORS.BLACK)
                 c_resolution_active = print_colored_text(".", BCOLORS.BLACK)
-                c_filter_words_active = print_colored_text("...........", BCOLORS.BLACK)
+                c_filter_words_active = print_colored_text("." * 13, BCOLORS.BLACK)
 
                 if os.path.exists(output_dir + "/" + clean_string_regex(ytchannel.channel_name).rstrip() + channel_config_path):
                     c_year_active = print_colored_text("-", BCOLORS.CYAN)
