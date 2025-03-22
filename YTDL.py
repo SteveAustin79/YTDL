@@ -69,6 +69,8 @@ def check_channels_txt(filename: str, c_url: str) -> bool:
         if c_url in urls:
             # print("✅ URL already exists in the file.")
             return True
+        else:
+            return False
     except FileNotFoundError:
         print("⚠️ File not found. Creating a new one and adding the URL.")
         with open(filename, "w", encoding="utf-8") as file:
