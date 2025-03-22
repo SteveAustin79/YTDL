@@ -16,7 +16,8 @@ first_column_width = 17
 first_column_width_wide = 37
 youtube_url = "https://www.youtube.com/"
 channel_config_path = "/_config_channel.json"
-date_format = "%Y-%m-%d"
+date_format = "%d.%m.%Y"
+date_time_format = "%d.%m.%Y %H:%M:%S"
 
 class BCOLORS:
     WHITE      = "\033[97m"
@@ -263,7 +264,7 @@ def load_config(c_file: str):
 def print_asteriks_line() -> None:
     now = datetime.now()
     free_space = print_colored_text(" " + get_free_space(output_dir) + " free | "
-                                    + now.strftime("%Y-%m-%d %H:%M:%S") + " ", BCOLORS.BLACK)
+                                    + now.strftime(date_time_format) + " ", BCOLORS.BLACK)
     print(f"{free_space.center(header_width_global + 9, '*')}")
 
 def print_colored_text(message_text: str, color: str) -> str:
