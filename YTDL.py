@@ -8,6 +8,8 @@ import pytubefix.extract
 from pytubefix import YouTube, Channel, Playlist
 from pytubefix.cli import on_progress
 
+# add downloaded channels automatically to channels.txt
+
 version = "1.3.2 (20250319)"
 header_width_global = 97
 first_column_width = 17
@@ -42,6 +44,7 @@ REQUIRED_APP_CONFIG = {
 }
 
 REQUIRED_VIDEO_CHANNEL_CONFIG = {
+    "c_channel_url": "",
     "c_max_resolution": "",
     "c_ignore_min_duration": "",
     "c_ignore_max_duration": "",
@@ -778,7 +781,18 @@ while True:
         delete_temp_files()
         print_configuration()
 
-        lines = read_channel_txt_lines("channels.txt")
+        # lines = read_channel_txt_lines("channels.txt")
+        lines = []
+        all_channel_configs = []
+        for root, _, files in os.walk(output_dir):  # os.walk() traverses all subdirectories
+            for filename in files:
+                if ".json" in filename:
+                    single_channel_config = load_config(filename)
+                    # Access and set settings
+                    if "c_channel_url" in single_channel_config:
+                        if single_channel_config["c_channel_url"] != "":
+                            lines.append(single_channel_config["c_channel_url"])
+
         if lines and len(lines) > 1:
             YTchannel = user_selection(lines, show_latest_video_date)
         else:
