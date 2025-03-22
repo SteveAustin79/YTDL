@@ -872,7 +872,7 @@ while True:
         print(print_colored_text(c.channel_url, BCOLORS.CYAN))
 
         # check if channels.txt has this url, if not, add it
-        if not check_channels_txt(output_dir + "/" + clean_string_regex(c.channel_name).rstrip() + channel_config_path, c.channel_url):
+        if not check_channels_txt("channels.txt", c.channel_url):
             add_url_to_channels_txt = smart_input("Add chanel to channels.txt?  Y/n", "n")
             if add_url_to_channels_txt=="y":
                 add_url_in_order("channels.txt", c.channel_url)
