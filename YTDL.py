@@ -449,6 +449,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                         c_resolution_active = print_colored_text("2", BCOLORS.YELLOW)
 
                 line = line.replace(youtube_url, "")[1:]
+                got_it = False
                 try:
                     latest_video = list(ytchannel.videos)
                     for i in range(len(latest_video)):
@@ -458,11 +459,9 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                             latest_video_name = latest_video[i].title
                             got_it = find_file_by_string(
                                 output_dir + "/" + clean_string_regex(ytchannel.channel_name).rstrip(), latest_date, "", False)
+                            latest_date = print_colored_text(latest_date, BCOLORS.RED)
                             if got_it:
                                 latest_date = print_colored_text(latest_date, BCOLORS.BLACK)
-                            else:
-                                latest_date = print_colored_text(latest_date, BCOLORS.RED)
-                                line = print_colored_text(line, BCOLORS.RED)
                             latest_date_formated = (
                                     " " + print_colored_text("." * ((spaces - len(str(u_index)) - len(line)) - 5), BCOLORS.BLACK)
                                     + c_resolution_active + c_restricted_active + c_year_active + " " + latest_date + print_colored_text(" | ", BCOLORS.BLACK)
@@ -472,6 +471,8 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                 except Exception as eee:
                     latest_date_formated = (" " + print_colored_text("." * ((spaces - len(str(u_index)) - len(line)) - 2), BCOLORS.BLACK)
                                             + " " + print_colored_text(str(eee), BCOLORS.RED))
+                if not got_it:
+                    line = print_colored_text(line, BCOLORS.RED)
             else:
                 line = line.replace(youtube_url, "")[1:]
 
