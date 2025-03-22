@@ -45,7 +45,6 @@ REQUIRED_APP_CONFIG = {
 }
 
 REQUIRED_VIDEO_CHANNEL_CONFIG = {
-    "c_channel_url": "",
     "c_max_resolution": "",
     "c_ignore_min_duration": "",
     "c_ignore_max_duration": "",
