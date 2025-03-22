@@ -454,7 +454,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                     c_year_active = print_colored_text("-", BCOLORS.CYAN)
                     c_restricted_active = print_colored_text("-", BCOLORS.RED)
                     c_resolution_active = print_colored_text("-", BCOLORS.YELLOW)
-                    c_filter_words_active = print_colored_text("---"[:11], BCOLORS.DARKGREEN)
+                    c_filter_words_active = print_colored_text("---"(11)[:11], BCOLORS.DARKGREEN)
 
                     ch_config = load_config(output_dir + "/" + clean_string_regex(ytchannel.channel_name).rstrip() + channel_config_path)
 
