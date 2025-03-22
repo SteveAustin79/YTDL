@@ -1248,7 +1248,7 @@ while True:
                     if (video.age_restricted == False and
                             video.vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
                             video.vid_info.get('playabilityStatus', {}).get('status') != 'LIVE_STREAM_OFFLINE' and
-                            do_not_download == 0 and not only_restricted_videos_bool):
+                            do_not_download == 0):
                         print("A")
                         count_ok_videos += 1
                         count_this_run += 1
