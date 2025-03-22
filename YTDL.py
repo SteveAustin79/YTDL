@@ -446,13 +446,13 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                 c_year_active = print_colored_text(".", BCOLORS.BLACK)
                 c_restricted_active = print_colored_text(".", BCOLORS.BLACK)
                 c_resolution_active = print_colored_text(".", BCOLORS.BLACK)
-                c_filter_words_active = print_colored_text(".........", BCOLORS.BLACK)
+                c_filter_words_active = print_colored_text("..........", BCOLORS.BLACK)
 
                 if os.path.exists(output_dir + "/" + clean_string_regex(ytchannel.channel_name).rstrip() + channel_config_path):
                     c_year_active = print_colored_text("-", BCOLORS.BLUE)
                     c_restricted_active = print_colored_text("-", BCOLORS.RED)
                     c_resolution_active = print_colored_text("-", BCOLORS.YELLOW)
-                    c_filter_words_active = print_colored_text("---      ", BCOLORS.DARKGREEN)
+                    c_filter_words_active = print_colored_text("---       ", BCOLORS.DARKGREEN)
 
                     ch_config = load_config(output_dir + "/" + clean_string_regex(ytchannel.channel_name).rstrip() + channel_config_path)
 
@@ -472,7 +472,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                         c_resolution_active = print_colored_text("2", BCOLORS.YELLOW)
 
                     if ch_config["c_filter_words"]!="":
-                        c_filter_words_active = print_colored_text(ch_config["c_filter_words"].ljust(9)[:9], BCOLORS.DARKGREEN)
+                        c_filter_words_active = print_colored_text(ch_config["c_filter_words"].ljust(10)[:10], BCOLORS.DARKGREEN)
 
                 combined_settings = c_filter_words_active + c_resolution_active + c_restricted_active + c_year_active
 
@@ -490,7 +490,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                             if not got_it:
                                 latest_date = print_colored_text(latest_date, BCOLORS.RED)
                             latest_date_formated = (
-                                    " " + print_colored_text("." * ((spaces - len(str(u_index)) - len(line)) - 14), BCOLORS.BLACK)
+                                    " " + print_colored_text("." * ((spaces - len(str(u_index)) - len(line)) - 15), BCOLORS.BLACK)
                                     + combined_settings + " " + latest_date + print_colored_text(" | ", BCOLORS.BLACK)
                                     + print_colored_text(latest_video[i].video_id, BCOLORS.BLACK) + print_colored_text(" | ", BCOLORS.BLACK)
                                     + print_colored_text(latest_video_name[:24], BCOLORS.BLACK))
