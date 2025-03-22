@@ -16,6 +16,7 @@ first_column_width = 17
 first_column_width_wide = 37
 youtube_url = "https://www.youtube.com/"
 channel_config_path = "/_config_channel.json"
+date_format = "%Y-%m-%d"
 
 class BCOLORS:
     WHITE      = "\033[97m"
@@ -337,7 +338,7 @@ def print_video_infos(yt: YouTube, res: str, video_views: int) -> None:
 
     year_title = print_colored_text("Date: " + " " * (first_column_width - len("Date:")), BCOLORS.BLACK)
     try:
-        year_title_value = year_title + yt.publish_date.strftime("%Y-%m-%d")
+        year_title_value = year_title + yt.publish_date.strftime(date_format)
     except Exception as eee:
         year_title_value = year_title + " " + str(eee)
     if min_year_bool and max_year_bool:
@@ -487,7 +488,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                         if (latest_video[i].vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
                                 latest_video[i].vid_info.get('playabilityStatus', {}).get('status') != 'LIVE_STREAM_OFFLINE'):
                             latest_video_name = latest_video[i].title
-                            latest_date = print_colored_text(latest_video[i].publish_date.strftime("%Y-%m-%d"), BCOLORS.BLACK)
+                            latest_date = print_colored_text(latest_video[i].publish_date.strftime(date_format), BCOLORS.BLACK)
                             got_it = find_file_by_string(
                                 output_dir + "/" + clean_string_regex(ytchannel.channel_name).rstrip(), latest_date, "", False)
                             if not got_it:
@@ -616,7 +617,7 @@ def download_video(channel_name: str, video_id: str, counter_id: int, video_tota
                          + " - " + str(counter_id) + "/" + str(video_total_count), header_width))
 
     try:
-        publishing_date = yt.publish_date.strftime("%Y-%m-%d")
+        publishing_date = yt.publish_date.strftime(date_format)
     except Exception as eee:
         publishing_date = eee
 
@@ -891,7 +892,7 @@ while True:
                 # Display the video list with numbers
                 video_list = list(c.videos)  # Convert to a list if not already
                 for index, v_video in enumerate(video_list, start=1):
-                    video_date_formated = print_colored_text(str(v_video.publish_date.strftime("%Y-%m-%d")), BCOLORS.BLACK)
+                    video_date_formated = print_colored_text(str(v_video.publish_date.strftime(date_format)), BCOLORS.BLACK)
                     video_message = f"{index}. {clean_string_regex(v_video.title)}"
                     space_formated = " " * (73-len(video_message))
                     if v_video.age_restricted:
