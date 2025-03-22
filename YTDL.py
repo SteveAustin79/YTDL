@@ -16,8 +16,8 @@ first_column_width = 17
 first_column_width_wide = 37
 youtube_url = "https://www.youtube.com/"
 channel_config_path = "/_config_channel.json"
-date_format = "%d.%m.%Y"
-date_time_format = "%d.%m.%Y %H:%M:%S"
+date_format = "%Y-%m-%d"
+date_time_format = "%Y-%m-%d %H:%M:%S"
 
 class BCOLORS:
     WHITE      = "\033[97m"
