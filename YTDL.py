@@ -476,7 +476,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                     if ch_config["c_filter_words"]!="":
                         c_filter_words_active = print_colored_text(ch_config["c_filter_words"].ljust(11)[:11], BCOLORS.DARKGREEN)
 
-                combined_settings = c_filter_words_active + c_resolution_active + c_restricted_active + c_year_active
+                combined_settings = c_resolution_active + c_restricted_active + c_year_active + c_filter_words_active
 
                 line = line.replace(youtube_url, "")[1:]
                 got_it = False
