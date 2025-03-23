@@ -33,6 +33,7 @@ class BCOLORS:
     DARK_CYAN  = "\033[36m"
     DARK_YELLOW= "\033[33m"
     DARK_GREEN = "\033[32m"
+    DARK_RED   = "\033[31m"
     UNDERLINE  = "\033[4m"
     BOLD       = "\033[1m"
     MOVES1UP   = "\033[F"
@@ -536,7 +537,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                             channel_total_videos = " " + str(len(latest_video)).rjust(5)[:5] + " | "
                             latest_video_id = latest_video[i].video_id
                             if latest_video[i].age_restricted:
-                                latest_video_id = print_colored_text(latest_video_id, BCOLORS.RED)
+                                latest_video_id = print_colored_text(latest_video_id, BCOLORS.DARK_RED)
                             latest_id_and_name = " | " + latest_video_id + print_colored_text(" | " + latest_video_name[:15], BCOLORS.BLACK)
 
                             got_it = find_file_by_string(output_dir + "/" +
