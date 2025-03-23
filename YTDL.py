@@ -532,13 +532,13 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                             latest_video_name = latest_video[i].title
                             latest_date_math = latest_video[i].publish_date.strftime(date_format_math)
                             latest_date = latest_video[i].publish_date.strftime(date_format_display)
-                            channel_total_videos = print_colored_text(" |" + str(len(latest_video)).rjust(5)[:5] + "| ", BCOLORS.BLACK)
-                            latest_id_and_name = (latest_video[i].video_id + " | " + latest_video_name[:14])
+                            channel_total_videos = print_colored_text(" |" + str(len(latest_video)).rjust(5)[:5] + "|", BCOLORS.BLACK)
+                            latest_id_and_name = (latest_video[i].video_id + "|" + latest_video_name[:14])
                             got_it = find_file_by_string(
                                 output_dir + "/" + clean_string_regex(ytchannel.channel_name).rstrip(), latest_date_math, "", False)
                             if not got_it:
                                 latest_date = print_colored_text(latest_date, BCOLORS.RED)
-                                latest_id_and_name = print_colored_text(latest_video[i].video_id + " | "
+                                latest_id_and_name = print_colored_text(latest_video[i].video_id + "|"
                                                                         + latest_video_name[:14], BCOLORS.DARK_WHITE)
                                 channel_total_videos = print_colored_text(channel_total_videos, BCOLORS.DARK_WHITE)
                             latest_date_formated = (
