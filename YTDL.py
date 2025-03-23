@@ -488,14 +488,19 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
 
                 line = line.replace(youtube_url, "")[1:]
                 got_it = False
-                # main_config = load_config("config.json")
+                main_config = load_config("config.json")
                 try:
-                    ch_config_tmp = ""
-                    if os.path.exists(output_dir + "/" + clean_string_regex(
-                            ytchannel.channel_name).rstrip() + channel_config_path):
-                        ch_config = load_config(output_dir + "/" + clean_string_regex(
-                            ytchannel.channel_name).rstrip() + channel_config_path)
-                        ch_config_tmp = ch_config["c_filter_words"]
+                    ch_config_filter_words = ""
+                    ch_config_min_duration = 0
+                    ch_config_min_duration = 999
+                    if os.path.exists(output_dir + "/" + clean_string_regex(ytchannel.channel_name).rstrip() + channel_config_path):
+                        ch_config = load_config(output_dir + "/" + clean_string_regex(ytchannel.channel_name).rstrip() + channel_config_path)
+                        ch_config_filter_words = ch_config["c_filter_words"]
+                        if int(config["min_duration_in_minutes"]) > 0:
+                            ch_config_min_duration = int(config["min_duration_in_minutes"])
+                        if int(config["max_duration_in_minutes"]) > 0:
+                            ch_config_max_duration = int(config["max_duration_in_minutes"])
+
                     latest_video = list(ytchannel.videos)
                     for i in range(len(latest_video)):
                         # check here filters (filter words, year etc)
@@ -506,7 +511,8 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                         #             latest_video[i].length / 60) < int(main_config["max_duration_in_minutes"])):
                         if (latest_video[i].vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
                                 latest_video[i].vid_info.get('playabilityStatus', {}).get('status') != 'LIVE_STREAM_OFFLINE' and
-                                 any(word.lower() in latest_video[i].title.lower() for word in string_to_list(ch_config_tmp))):
+                                 any(word.lower() in latest_video[i].title.lower() for word in string_to_list(ch_config_filter_words))
+                                and ch_config_min_duration < int(latest_video[i].length / 60) < ch_config_max_duration):
                             latest_video_name = latest_video[i].title
                             latest_date_math = latest_video[i].publish_date.strftime(date_format_math)
                             latest_date = latest_video[i].publish_date.strftime(date_format_display)
