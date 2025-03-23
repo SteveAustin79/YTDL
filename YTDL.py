@@ -530,7 +530,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                               print_colored_text(" from " + latest_video[i].author, BCOLORS.DARK_GREEN), end="", flush=True)
                         if (latest_video[i].vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
                                 latest_video[i].vid_info.get('playabilityStatus', {}).get('status') != 'LIVE_STREAM_OFFLINE' and
-                                 any(word.lower() in latest_video[i].title.lower() for word in string_to_list(ch_config_filter_words))
+                                any(word.lower() in latest_video[i].title.lower() for word in string_to_list(ch_config_filter_words))
                                 and latest_video[i].video_id not in ch_config_exclude_list
                                 and config_min_duration <= int(latest_video[i].length / 60) <= config_max_duration
                                 and latest_video[i].views >= ch_config_min_views
