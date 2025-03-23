@@ -453,7 +453,6 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
     for u_index, line in enumerate(u_lines, start=1):
         if not line == u_lines[(len(u_lines) - 1)]:
             if u_show_latest_video_date:
-                print()
                 spaces = (header_width_global - 52)
                 ytchannel = Channel(line)
 
@@ -523,7 +522,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                         #         latest_video[i].vid_info.get('playabilityStatus', {}).get(
                         #             'status') != 'LIVE_STREAM_OFFLINE'):
                         print(print_colored_text(f"\rChecking " + latest_video[i].author + " " +
-                                    latest_video[i].video_id + " " + latest_video[i].title, BCOLORS.BLACK), end="", flush=True)
+                                    latest_video[i].video_id, BCOLORS.BLACK), end="", flush=True)
                         if (latest_video[i].vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
                                 latest_video[i].vid_info.get('playabilityStatus', {}).get('status') != 'LIVE_STREAM_OFFLINE' and
                                  any(word.lower() in latest_video[i].title.lower() for word in string_to_list(ch_config_filter_words))
@@ -551,7 +550,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                                             + " " + print_colored_text(str(eee), BCOLORS.RED))
 
 
-        print(f"\r{u_index}. {line}{latest_date_formated}", end="", flush=True)
+        print(f"\r{u_index}. {line}{latest_date_formated}", flush=True)
         latest_date_formated = ""
 
     while True:
