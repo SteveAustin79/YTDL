@@ -529,18 +529,25 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                                 and latest_video[i].video_id not in ch_config_exclude_list
                                 and config_min_duration <= int(latest_video[i].length / 60) <= config_max_duration
                                 and latest_video[i].views >= ch_config_min_views):
+
                             latest_video_name = latest_video[i].title
                             latest_date_math = latest_video[i].publish_date.strftime(date_format_math)
                             latest_date = latest_video[i].publish_date.strftime(date_format_display)
                             channel_total_videos = " " + str(len(latest_video)).rjust(5)[:5] + " | "
-                            latest_id_and_name = " | " + latest_video[i].video_id + " | " + latest_video_name[:15]
+                            latest_video_id = latest_video[i].video_id
+                            latest_id_and_name = " | " + latest_video_id + " | " + latest_video_name[:15]
+
+                            if latest_video[i].age_restricted:
+                                latest_video_id = print_colored_text(latest_video_id, BCOLORS.RED)
+
                             got_it = find_file_by_string(
                                 output_dir + "/" + clean_string_regex(ytchannel.channel_name).rstrip(), latest_date_math, "", False)
                             if not got_it:
                                 latest_date = print_colored_text(latest_date, BCOLORS.RED)
-                                latest_id_and_name = print_colored_text(" | " + latest_video[i].video_id + " | "
+                                latest_id_and_name = print_colored_text(" | " + latest_video_id + " | "
                                                                         + latest_video_name[:15], BCOLORS.DARK_WHITE)
                                 channel_total_videos = print_colored_text(channel_total_videos, BCOLORS.DARK_WHITE)
+
                             latest_date_formated = (
                                     " " + print_colored_text("." * ((spaces - len(str(u_index)) - len(line)) - 16), BCOLORS.BLACK)
                                     + combined_settings + print_colored_text(channel_total_videos, BCOLORS.BLACK) + print_colored_text(latest_date, BCOLORS.BLACK)
