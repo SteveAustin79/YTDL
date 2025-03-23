@@ -522,7 +522,8 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                         # if (latest_video[i].vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
                         #         latest_video[i].vid_info.get('playabilityStatus', {}).get(
                         #             'status') != 'LIVE_STREAM_OFFLINE'):
-                        print(f"\rChecking " + latest_video[i].video_id, end="", flush=True)
+                        print(print_colored_text(f"\rChecking " +
+                                    latest_video[i].video_id + " " + latest_video[i].title, BCOLORS.BLACK), end="", flush=True)
                         if (latest_video[i].vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
                                 latest_video[i].vid_info.get('playabilityStatus', {}).get('status') != 'LIVE_STREAM_OFFLINE' and
                                  any(word.lower() in latest_video[i].title.lower() for word in string_to_list(ch_config_filter_words))
