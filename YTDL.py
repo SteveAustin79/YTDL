@@ -453,6 +453,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
     for u_index, line in enumerate(u_lines, start=1):
         if not line == u_lines[(len(u_lines) - 1)]:
             if u_show_latest_video_date:
+                print()
                 spaces = (header_width_global - 52)
                 ytchannel = Channel(line)
 
