@@ -542,7 +542,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                             latest_date_formated = (
                                     " " + print_colored_text("." * ((spaces - len(str(u_index)) - len(line)) - 16), BCOLORS.BLACK)
                                     + combined_settings + " (" + str(len(latest_video)).rjust(5)[:5] + ") " + print_colored_text(latest_date, BCOLORS.BLACK)
-                                    + print_colored_text(latest_id_and_name, BCOLORS.BLACK))
+                                    + " | " + print_colored_text(latest_id_and_name, BCOLORS.BLACK))
                             break
                     if got_it:
                         line = print_colored_text(line, BCOLORS.BLACK)
