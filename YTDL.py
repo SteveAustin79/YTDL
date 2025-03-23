@@ -516,12 +516,13 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                         #     ch_config_restricted = True
                         ch_config_exclude_list = string_to_list(ch_config["c_exclude_video_ids"])
 
+                    print(f"\rScanning channel... " + ytchannel.channel_name, end="", flush=True)
                     latest_video = list(ytchannel.videos)
                     for i in range(len(latest_video)):
                         # if (latest_video[i].vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
                         #         latest_video[i].vid_info.get('playabilityStatus', {}).get(
                         #             'status') != 'LIVE_STREAM_OFFLINE'):
-                        print(print_colored_text(f"\rChecking " + str(len(latest_video)) + " videos from " + latest_video[i].author + " " +
+                        print(print_colored_text(f"\r" + " " * len(str(u_index)) + "Checking " + str(len(latest_video)) + " videos from " + latest_video[i].author + " " +
                                     latest_video[i].video_id, BCOLORS.BLACK), end="", flush=True)
                         if (latest_video[i].vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
                                 latest_video[i].vid_info.get('playabilityStatus', {}).get('status') != 'LIVE_STREAM_OFFLINE' and
