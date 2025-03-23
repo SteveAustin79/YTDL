@@ -6,5 +6,5 @@
     "video_listing": false,
     "show_latest_video_date": true,
     "default_audioMP3": false,
-    "filters_on_in_channels_list": true
+    "filters_on_in_channels_list": false
 }
