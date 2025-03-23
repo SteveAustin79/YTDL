@@ -518,8 +518,8 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                             ch_config_restricted.remove(False)
                         ch_config_exclude_list = string_to_list(ch_config["c_exclude_video_ids"])
 
-                    print(print_colored_text(f"\r" + " " * (len(str(u_index)) + 2) + "Scanning channel... " +
-                                             ytchannel.channel_name, BCOLORS.DARK_GREEN), end="", flush=True)
+                    print(print_colored_text(f"\r" + " " * (len(str(u_index)) + 2) + "Scanning channel... ", BCOLORS.DARK_GREEN) +
+                                             print_colored_text(ytchannel.channel_name, BCOLORS.GREEN), end="", flush=True)
                     latest_video = list(ytchannel.videos)
                     for i in range(len(latest_video)):
                         # if (latest_video[i].vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
