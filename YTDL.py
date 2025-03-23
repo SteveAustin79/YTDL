@@ -549,7 +549,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                                             + " " + print_colored_text(str(eee), BCOLORS.RED))
 
 
-        print(f"{u_index}. {line}{latest_date_formated}")
+        print(f"\r{u_index}. {line}{latest_date_formated}", end="", flush=True)
         latest_date_formated = ""
 
     while True:
