@@ -506,10 +506,10 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                         ch_config = load_config(output_dir + "/" + clean_string_regex(ytchannel.channel_name).rstrip() + channel_config_path)
 
                         ch_config_filter_words = ch_config["c_filter_words"]
-                        if int(config["min_duration_in_minutes"]) > 0:
-                            config_min_duration = int(config["min_duration_in_minutes"])
-                        if int(config["max_duration_in_minutes"]) > 0:
-                            config_max_duration = int(config["max_duration_in_minutes"])
+                        if int(main_config["min_duration_in_minutes"]) > 0:
+                            config_min_duration = int(main_config["min_duration_in_minutes"])
+                        if int(main_config["max_duration_in_minutes"]) > 0:
+                            config_max_duration = int(main_config["max_duration_in_minutes"])
                         if str(ch_config["c_minimum_views"]).strip():
                             ch_config_min_views = int(ch_config["c_minimum_views"])
                         # if ch_config["c_only_restricted"]=="y":
