@@ -505,17 +505,14 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
 
                     latest_video = list(ytchannel.videos)
                     for i in range(len(latest_video)):
-                        # check here filters (filter words, year etc)
+                        if (latest_video[i].vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
+                                latest_video[i].vid_info.get('playabilityStatus', {}).get(
+                                    'status') != 'LIVE_STREAM_OFFLINE'):
                         # if (latest_video[i].vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
                         #         latest_video[i].vid_info.get('playabilityStatus', {}).get('status') != 'LIVE_STREAM_OFFLINE' and
-                        #         any(word.lower() in latest_video[i].title.lower() for word in string_to_list(ch_config["c_filter_words"]))
-                        #         and int(main_config["min_duration_in_minutes"]) < int(
-                        #             latest_video[i].length / 60) < int(main_config["max_duration_in_minutes"])):
-                        if (latest_video[i].vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
-                                latest_video[i].vid_info.get('playabilityStatus', {}).get('status') != 'LIVE_STREAM_OFFLINE' and
-                                 any(word.lower() in latest_video[i].title.lower() for word in string_to_list(ch_config_filter_words))
-                                and latest_video[i].video_id not in ch_config_exclude_list
-                                and config_min_duration <= int(latest_video[i].length / 60) <= config_max_duration):
+                        #          any(word.lower() in latest_video[i].title.lower() for word in string_to_list(ch_config_filter_words))
+                        #         and latest_video[i].video_id not in ch_config_exclude_list
+                        #         and config_min_duration <= int(latest_video[i].length / 60) <= config_max_duration):
                             latest_video_name = latest_video[i].title
                             latest_date_math = latest_video[i].publish_date.strftime(date_format_math)
                             latest_date = latest_video[i].publish_date.strftime(date_format_display)
@@ -1304,7 +1301,7 @@ while True:
                             do_not_download = 1
 
                     if min_video_views > 0:
-                        if video.views < min_video_views:
+                        if video.views <= min_video_views:
                             do_not_download = 1
 
                     if (not video.age_restricted and
