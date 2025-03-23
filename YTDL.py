@@ -19,7 +19,7 @@ channel_config_path = "/_config_channel.json"
 date_format_display = "%d.%m.%Y"
 date_time_format = "%d.%m.%Y %H:%M:%S"
 date_format_math = "%Y-%m-%d"
-FILTERS_ON = False
+FILTERS_ON = True
 
 
 class BCOLORS:
