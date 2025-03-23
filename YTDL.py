@@ -312,6 +312,10 @@ def print_configuration() -> None:
     if default_audio_mp3:
         default_audio_mp3_color = BCOLORS.GREEN
     print_configuration_line("Default audio/MP3:", default_audio_mp3, default_audio_mp3_color)
+    default_filters_on_color = BCOLORS.RED
+    if default_filters_on:
+        default_filters_on_color = BCOLORS.GREEN
+    print_configuration_line("Default Filters on channels list:", default_filters_on, default_filters_on_color)
     print_asteriks_line()
     print("")
 
