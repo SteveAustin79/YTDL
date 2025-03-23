@@ -537,7 +537,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                             latest_video_id = latest_video[i].video_id
                             if latest_video[i].age_restricted:
                                 latest_video_id = print_colored_text(latest_video_id, BCOLORS.RED)
-                            latest_id_and_name = " | " + latest_video_id + " | " + latest_video_name[:15]
+                            latest_id_and_name = " | " + latest_video_id + print_colored_text(" | " + latest_video_name[:15], BCOLORS.BLACK)
 
                             got_it = find_file_by_string(output_dir + "/" +
                                         clean_string_regex(ytchannel.channel_name).rstrip(), latest_date_math, "", False)
