@@ -521,7 +521,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                         # if (latest_video[i].vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
                         #         latest_video[i].vid_info.get('playabilityStatus', {}).get(
                         #             'status') != 'LIVE_STREAM_OFFLINE'):
-                        print(print_colored_text(f"\rChecking " + str(len(latest_video)) + " " + latest_video[i].author + " " +
+                        print(print_colored_text(f"\rChecking " + str(len(latest_video)) + " videos from " + latest_video[i].author + " " +
                                     latest_video[i].video_id, BCOLORS.BLACK), end="", flush=True)
                         if (latest_video[i].vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
                                 latest_video[i].vid_info.get('playabilityStatus', {}).get('status') != 'LIVE_STREAM_OFFLINE' and
