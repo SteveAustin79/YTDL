@@ -543,8 +543,8 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                                         clean_string_regex(ytchannel.channel_name).rstrip(), latest_date_math, "", False)
                             if not got_it:
                                 latest_date = print_colored_text(latest_date, BCOLORS.RED)
-                                latest_id_and_name = print_colored_text(" | " + latest_video_id + " | "
-                                                                        + latest_video_name[:15], BCOLORS.DARK_WHITE)
+                                latest_id_and_name = (" | " + latest_video_id + " | " +
+                                                      print_colored_text(latest_video_name[:15], BCOLORS.DARK_WHITE))
                                 channel_total_videos = print_colored_text(channel_total_videos, BCOLORS.DARK_WHITE)
 
                             latest_date_formated = (
