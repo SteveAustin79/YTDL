@@ -492,7 +492,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                 try:
                     ch_config_filter_words = ""
                     ch_config_min_duration = 0
-                    ch_config_min_duration = 999
+                    ch_config_max_duration = 999
                     if os.path.exists(output_dir + "/" + clean_string_regex(ytchannel.channel_name).rstrip() + channel_config_path):
                         ch_config = load_config(output_dir + "/" + clean_string_regex(ytchannel.channel_name).rstrip() + channel_config_path)
                         ch_config_filter_words = ch_config["c_filter_words"]
