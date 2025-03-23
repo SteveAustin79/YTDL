@@ -518,14 +518,16 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                             ch_config_restricted.remove(False)
                         ch_config_exclude_list = string_to_list(ch_config["c_exclude_video_ids"])
 
-                    print(print_colored_text(f"\r" + " " * (len(str(u_index)) + 2) + "Scanning channel... " + ytchannel.channel_name, BCOLORS.DARK_CYAN), end="", flush=True)
+                    print(print_colored_text(f"\r" + " " * (len(str(u_index)) + 2) + "Scanning channel... " +
+                                             ytchannel.channel_name, BCOLORS.DARK_GREEN), end="", flush=True)
                     latest_video = list(ytchannel.videos)
                     for i in range(len(latest_video)):
                         # if (latest_video[i].vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
                         #         latest_video[i].vid_info.get('playabilityStatus', {}).get('status') != 'LIVE_STREAM_OFFLINE'):
-                        print(print_colored_text(f"\r" + " " * (len(str(u_index)) + 2) + "Checking video ", BCOLORS.DARK_CYAN) +
-                              print_colored_text(print_colored_text(latest_video[i].video_id + ": " + str(i + 1) + " of " + str(len(latest_video)), BCOLORS.CYAN), BCOLORS.BOLD) +
-                              print_colored_text(" from " + latest_video[i].author, BCOLORS.DARK_CYAN), end="", flush=True)
+                        print(print_colored_text(f"\r" + " " * (len(str(u_index)) + 2) + "Checking video ", BCOLORS.DARK_GREEN) +
+                              print_colored_text(print_colored_text(latest_video[i].video_id + ": " + str(i + 1) +
+                                                                " of " + str(len(latest_video)), BCOLORS.GREEN), BCOLORS.BOLD) +
+                              print_colored_text(" from " + latest_video[i].author, BCOLORS.DARK_GREEN), end="", flush=True)
                         if (latest_video[i].vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
                                 latest_video[i].vid_info.get('playabilityStatus', {}).get('status') != 'LIVE_STREAM_OFFLINE' and
                                  any(word.lower() in latest_video[i].title.lower() for word in string_to_list(ch_config_filter_words))
