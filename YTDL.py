@@ -491,16 +491,21 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                 main_config = load_config("config.json")
                 try:
                     ch_config_filter_words = ""
-                    ch_config_exclude_list = string_to_list("")
                     config_min_duration = 0
                     config_max_duration = 999
+                    ch_config_restrcted = False
+                    ch_config_exclude_list = string_to_list("")
+
                     if os.path.exists(output_dir + "/" + clean_string_regex(ytchannel.channel_name).rstrip() + channel_config_path):
                         ch_config = load_config(output_dir + "/" + clean_string_regex(ytchannel.channel_name).rstrip() + channel_config_path)
+
                         ch_config_filter_words = ch_config["c_filter_words"]
                         if int(config["min_duration_in_minutes"]) > 0:
                             config_min_duration = int(config["min_duration_in_minutes"])
                         if int(config["max_duration_in_minutes"]) > 0:
                             config_max_duration = int(config["max_duration_in_minutes"])
+                        if config["c_only_restricted"]=="y":
+                            ch_config_restrcted = True
                         ch_config_exclude_list = string_to_list(ch_config["c_exclude_video_ids"])
 
                     latest_video = list(ytchannel.videos)
@@ -512,7 +517,8 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                                 latest_video[i].vid_info.get('playabilityStatus', {}).get('status') != 'LIVE_STREAM_OFFLINE' and
                                  any(word.lower() in latest_video[i].title.lower() for word in string_to_list(ch_config_filter_words))
                                 and latest_video[i].video_id not in ch_config_exclude_list
-                                and config_min_duration <= int(latest_video[i].length / 60) <= config_max_duration):
+                                and config_min_duration <= int(latest_video[i].length / 60) <= config_max_duration and
+                                latest_video[i].age_restricted == ch_config_restrcted):
                             latest_video_name = latest_video[i].title
                             latest_date_math = latest_video[i].publish_date.strftime(date_format_math)
                             latest_date = latest_video[i].publish_date.strftime(date_format_display)
