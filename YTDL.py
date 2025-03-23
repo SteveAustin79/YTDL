@@ -505,7 +505,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                             config_min_duration = int(config["min_duration_in_minutes"])
                         if int(config["max_duration_in_minutes"]) > 0:
                             config_max_duration = int(config["max_duration_in_minutes"])
-                        if int(ch_config["c_minimum_views"]) > 0:
+                        if str(ch_config["c_minimum_views"]).strip():
                             ch_config_min_views = int(ch_config["c_minimum_views"])
                         # if ch_config["c_only_restricted"]=="y":
                         #     ch_config_restricted = True
