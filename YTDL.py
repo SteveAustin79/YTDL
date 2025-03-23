@@ -31,7 +31,7 @@ class BCOLORS:
     RED        = "\033[91m"
     BLACK      = "\033[90m"
     DARK_CYAN  = "\033[36m"
-    ORANGE     = "\033[33m"
+    DARK_YELLOW= "\033[33m"
     DARK_GREEN = "\033[32m"
     UNDERLINE  = "\033[4m"
     BOLD       = "\033[1m"
@@ -1030,9 +1030,9 @@ while True:
                 incomplete_string.append("c_filter_words")
 
             if incomplete_config:
-                print(print_colored_text("\nIncomplete ", BCOLORS.ORANGE)
+                print(print_colored_text("\nIncomplete ", BCOLORS.DARK_YELLOW)
                       + print_colored_text("channel config file! --> Adding missing key(s) to file ", BCOLORS.BLUE)
-                      + print_colored_text(str(incomplete_string), BCOLORS.ORANGE))
+                      + print_colored_text(str(incomplete_string), BCOLORS.DARK_YELLOW))
                 cc_check_and_update_json_config(ytchannel_path + channel_config_path, REQUIRED_VIDEO_CHANNEL_CONFIG)
             else:
                 print(print_colored_text("\nChannel config file found! ", BCOLORS.BLUE) +
