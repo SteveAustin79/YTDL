@@ -10,7 +10,7 @@ from pytubefix.cli import on_progress
 from pathlib import Path
 from datetime import datetime
 
-version = "1.3.4 (20250323)"
+version = "1.3.5 (20250323)"
 header_width_global = 99
 first_column_width = 17
 first_column_width_wide = 37
