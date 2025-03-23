@@ -10,7 +10,7 @@ from pytubefix.cli import on_progress
 from pathlib import Path
 from datetime import datetime
 
-version = "1.3.4 (20250322)"
+version = "1.3.4 (20250323)"
 header_width_global = 97
 first_column_width = 17
 first_column_width_wide = 37
@@ -457,14 +457,14 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                 c_resolution_active = print_colored_text(".", BCOLORS.BLACK)
                 c_filter_words_active = print_colored_text("." * 13, BCOLORS.BLACK)
 
-                ch_config = load_config(
-                    output_dir + "/" + clean_string_regex(ytchannel.channel_name).rstrip() + channel_config_path)
-
                 if os.path.exists(output_dir + "/" + clean_string_regex(ytchannel.channel_name).rstrip() + channel_config_path):
                     c_year_active = print_colored_text("-", BCOLORS.DARK_GREEN)
                     c_restricted_active = print_colored_text("-", BCOLORS.RED)
                     c_resolution_active = print_colored_text("-", BCOLORS.YELLOW)
                     c_filter_words_active = print_colored_text("---".center(13)[:13], BCOLORS.DARK_CYAN)
+
+                    ch_config = load_config(
+                        output_dir + "/" + clean_string_regex(ytchannel.channel_name).rstrip() + channel_config_path)
 
                     if ch_config["c_year_subfolders"]=="y":
                         c_year_active = print_colored_text("Y", BCOLORS.DARK_GREEN)
