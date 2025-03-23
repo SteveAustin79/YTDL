@@ -487,13 +487,16 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
 
                 line = line.replace(youtube_url, "")[1:]
                 got_it = False
+                main_config = load_config("config.json")
                 try:
                     latest_video = list(ytchannel.videos)
                     for i in range(len(latest_video)):
                         # check here filters (filter words, year etc)
                         if (latest_video[i].vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
                                 latest_video[i].vid_info.get('playabilityStatus', {}).get('status') != 'LIVE_STREAM_OFFLINE' and
-                                any(word.lower() in latest_video[i].title.lower() for word in string_to_list(ch_config["c_filter_words"]))):
+                                any(word.lower() in latest_video[i].title.lower() for word in string_to_list(config["min_duration_in_minutes"]))
+                                and int(latest_video[i].length / 60) < int(main_config["min_duration_in_minutes"]) and
+                                    int(latest_video[i].length / 60) > int(main_config["max_duration_in_minutes"])):
                             latest_video_name = latest_video[i].title
                             latest_date_math = latest_video[i].publish_date.strftime(date_format_math)
                             latest_date = latest_video[i].publish_date.strftime(date_format_display)
