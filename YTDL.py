@@ -19,6 +19,7 @@ channel_config_path = "/_config_channel.json"
 date_format_display = "%d.%m.%Y"
 date_time_format = "%d.%m.%Y %H:%M:%S"
 date_format_math = "%Y-%m-%d"
+FILTERS_ON = False
 
 
 class BCOLORS:
@@ -497,7 +498,8 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                     ch_config_min_views = 0
                     ch_config_exclude_list = string_to_list("")
 
-                    if os.path.exists(output_dir + "/" + clean_string_regex(ytchannel.channel_name).rstrip() + channel_config_path):
+                    if os.path.exists(output_dir + "/" + clean_string_regex(ytchannel.channel_name).rstrip() + channel_config_path)\
+                            and FILTERS_ON:
                         ch_config = load_config(output_dir + "/" + clean_string_regex(ytchannel.channel_name).rstrip() + channel_config_path)
 
                         ch_config_filter_words = ch_config["c_filter_words"]
