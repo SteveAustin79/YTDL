@@ -520,8 +520,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                     latest_video = list(ytchannel.videos)
                     for i in range(len(latest_video)):
                         # if (latest_video[i].vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
-                        #         latest_video[i].vid_info.get('playabilityStatus', {}).get(
-                        #             'status') != 'LIVE_STREAM_OFFLINE'):
+                        #         latest_video[i].vid_info.get('playabilityStatus', {}).get('status') != 'LIVE_STREAM_OFFLINE'):
                         print(print_colored_text(f"\r" + " " * (len(str(u_index)) + 2) + "Checking video " + latest_video[i].video_id
                                 + ": " + str(i + 1) + " of " + str(len(latest_video)) + " from " + latest_video[i].author, BCOLORS.BLACK), end="", flush=True)
                         if (latest_video[i].vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
