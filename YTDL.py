@@ -19,8 +19,6 @@ channel_config_path = "/_config_channel.json"
 date_format_display = "%d.%m.%Y"
 date_time_format = "%d.%m.%Y %H:%M:%S"
 date_format_math = "%Y-%m-%d"
-FILTERS_ON = True
-
 
 class BCOLORS:
     WHITE      = "\033[97m"
@@ -48,7 +46,8 @@ REQUIRED_APP_CONFIG = {
     "max_duration_in_minutes": "",
     "video_listing": "",
     "show_latest_video_date": "",
-    "default_audioMP3": ""
+    "default_audioMP3": "",
+    "filters_on_in_channels_list": ""
 }
 
 REQUIRED_VIDEO_CHANNEL_CONFIG = {
@@ -499,7 +498,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                     ch_config_exclude_list = string_to_list("")
 
                     if os.path.exists(output_dir + "/" + clean_string_regex(ytchannel.channel_name).rstrip() + channel_config_path)\
-                            and FILTERS_ON:
+                            and default_filters_on:
                         ch_config = load_config(output_dir + "/" + clean_string_regex(ytchannel.channel_name).rstrip() + channel_config_path)
 
                         ch_config_filter_words = ch_config["c_filter_words"]
@@ -858,6 +857,7 @@ while True:
             video_listing = config["video_listing"]
             show_latest_video_date = config["show_latest_video_date"]
             default_audio_mp3 = config["default_audioMP3"]
+            default_filters_on = config["filters_on_in_channels_list"]
         except Exception as e:
             print("An error occurred, incomplete config file:", str(e))
             cc_check_and_update_json_config("config.json", REQUIRED_APP_CONFIG)
