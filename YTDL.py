@@ -507,9 +507,10 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                         ch_config = load_config(output_dir + "/" + clean_string_regex(ytchannel.channel_name).rstrip() + channel_config_path)
 
                         ch_config_filter_words = ch_config["c_filter_words"]
-                        if int(main_config["min_duration_in_minutes"]) > 0:
+                        # if int(main_config["min_duration_in_minutes"]) > 0:
+                        if str(main_config["min_duration_in_minutes"]).strip():
                             config_min_duration = int(main_config["min_duration_in_minutes"])
-                        if int(main_config["max_duration_in_minutes"]) > 0:
+                        if str(main_config["max_duration_in_minutes"]).strip():
                             config_max_duration = int(main_config["max_duration_in_minutes"])
                         if str(ch_config["c_minimum_views"]).strip():
                             ch_config_min_views = int(ch_config["c_minimum_views"])
