@@ -309,13 +309,13 @@ def print_configuration() -> None:
         show_latest_video_date_color = BCOLORS.GREEN
     print_configuration_line("Show latest Video date:", show_latest_video_date, show_latest_video_date_color)
     default_audio_mp3_color = BCOLORS.RED
-    if default_audio_mp3:
-        default_audio_mp3_color = BCOLORS.GREEN
-    print_configuration_line("Default audio/MP3:", default_audio_mp3, default_audio_mp3_color)
     default_filters_on_color = BCOLORS.RED
     if default_filters_on:
         default_filters_on_color = BCOLORS.GREEN
     print_configuration_line("Default Filters on channels list:", default_filters_on, default_filters_on_color)
+    if default_audio_mp3:
+        default_audio_mp3_color = BCOLORS.GREEN
+    print_configuration_line("Default audio/MP3:", default_audio_mp3, default_audio_mp3_color)
     print_asteriks_line()
     print("")
 
