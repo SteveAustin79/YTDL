@@ -493,7 +493,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                     ch_config_filter_words = ""
                     config_min_duration = 0
                     config_max_duration = 999
-                    ch_config_restricted = True | False
+                    ch_config_restricted = True or False
                     ch_config_exclude_list = string_to_list("")
 
                     if os.path.exists(output_dir + "/" + clean_string_regex(ytchannel.channel_name).rstrip() + channel_config_path):
