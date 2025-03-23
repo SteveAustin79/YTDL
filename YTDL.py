@@ -495,8 +495,8 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                         if (latest_video[i].vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
                                 latest_video[i].vid_info.get('playabilityStatus', {}).get('status') != 'LIVE_STREAM_OFFLINE' and
                                 any(word.lower() in latest_video[i].title.lower() for word in string_to_list(config["min_duration_in_minutes"]))
-                                and int(main_config["min_duration_in_minutes"]) > int(
-                                    latest_video[i].length / 60) > int(main_config["max_duration_in_minutes"])):
+                                and int(main_config["min_duration_in_minutes"]) < int(
+                                    latest_video[i].length / 60) < int(main_config["max_duration_in_minutes"])):
                             latest_video_name = latest_video[i].title
                             latest_date_math = latest_video[i].publish_date.strftime(date_format_math)
                             latest_date = latest_video[i].publish_date.strftime(date_format_display)
