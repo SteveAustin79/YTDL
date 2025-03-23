@@ -30,8 +30,9 @@ class BCOLORS:
     GREEN      = "\033[92m"
     RED        = "\033[91m"
     BLACK      = "\033[90m"
+    DARK_CYAN  = "\033[36m"
     ORANGE     = "\033[33m"
-    DARKGREEN  = "\033[32m"
+    DARK_GREEN = "\033[32m"
     UNDERLINE  = "\033[4m"
     BOLD       = "\033[1m"
     MOVES1UP   = "\033[F"
@@ -459,7 +460,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                     c_year_active = print_colored_text("-", BCOLORS.CYAN)
                     c_restricted_active = print_colored_text("-", BCOLORS.RED)
                     c_resolution_active = print_colored_text("-", BCOLORS.YELLOW)
-                    c_filter_words_active = print_colored_text("---".center(13)[:13], BCOLORS.DARKGREEN)
+                    c_filter_words_active = print_colored_text("---".center(13)[:13], BCOLORS.DARK_CYAN)
 
                     ch_config = load_config(output_dir + "/" + clean_string_regex(ytchannel.channel_name).rstrip() + channel_config_path)
 
@@ -479,7 +480,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                         c_resolution_active = print_colored_text("2", BCOLORS.YELLOW)
 
                     if ch_config["c_filter_words"]!="":
-                        c_filter_words_active = print_colored_text(ch_config["c_filter_words"].center(13)[:13], BCOLORS.DARKGREEN)
+                        c_filter_words_active = print_colored_text(ch_config["c_filter_words"].center(13)[:13], BCOLORS.DARK_CYAN)
 
                 combined_settings = c_resolution_active + c_restricted_active + c_year_active + c_filter_words_active
 
