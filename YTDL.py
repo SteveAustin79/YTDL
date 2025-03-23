@@ -453,7 +453,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
     for u_index, line in enumerate(u_lines, start=1):
         if not line == u_lines[(len(u_lines) - 1)]:
             if u_show_latest_video_date:
-                spaces = (header_width_global - 52)
+                spaces = (header_width_global - 54)
                 ytchannel = Channel(line)
 
                 c_year_active = print_colored_text(".", BCOLORS.BLACK)
