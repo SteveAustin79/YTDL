@@ -457,21 +457,23 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
         if not line == u_lines[(len(u_lines) - 1)]:
             if u_show_latest_video_date:
                 spaces = (header_width_global - 54)
-                ytchannel = Channel(line)
+                ytchannel_info = Channel(line)
+                ytchannel_info_channel_name = ytchannel_info.channel_name
+                ytchannel_info_videos = ytchannel_info.videos
 
                 c_year_active = print_colored_text(".", BCOLORS.BLACK)
                 c_restricted_active = print_colored_text(".", BCOLORS.BLACK)
                 c_resolution_active = print_colored_text(".", BCOLORS.BLACK)
                 c_filter_words_active = print_colored_text("." * 13, BCOLORS.BLACK)
 
-                if os.path.exists(output_dir + "/" + clean_string_regex(ytchannel.channel_name).rstrip() + channel_config_path):
+                if os.path.exists(output_dir + "/" + clean_string_regex(ytchannel_info_channel_name).rstrip() + channel_config_path):
                     c_year_active = print_colored_text("-", BCOLORS.DARK_GREEN)
                     c_restricted_active = print_colored_text("-", BCOLORS.RED)
                     c_resolution_active = print_colored_text("-", BCOLORS.YELLOW)
                     c_filter_words_active = print_colored_text("---".center(13)[:13], BCOLORS.DARK_CYAN)
 
                     ch_config = load_config(
-                        output_dir + "/" + clean_string_regex(ytchannel.channel_name).rstrip() + channel_config_path)
+                        output_dir + "/" + clean_string_regex(ytchannel_info_channel_name).rstrip() + channel_config_path)
 
                     if ch_config["c_year_subfolders"]=="y":
                         c_year_active = print_colored_text("Y", BCOLORS.DARK_GREEN)
@@ -504,9 +506,9 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                     ch_config_min_views = 0
                     ch_config_exclude_list = string_to_list("")
 
-                    if os.path.exists(output_dir + "/" + clean_string_regex(ytchannel.channel_name).rstrip() + channel_config_path)\
+                    if os.path.exists(output_dir + "/" + clean_string_regex(ytchannel_info_channel_name).rstrip() + channel_config_path)\
                             and default_filters_on:
-                        ch_config = load_config(output_dir + "/" + clean_string_regex(ytchannel.channel_name).rstrip() + channel_config_path)
+                        ch_config = load_config(output_dir + "/" + clean_string_regex(ytchannel_info_channel_name).rstrip() + channel_config_path)
 
                         ch_config_filter_words = ch_config["c_filter_words"]
                         # if int(main_config["min_duration_in_minutes"]) > 0:
@@ -521,8 +523,8 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                         ch_config_exclude_list = string_to_list(ch_config["c_exclude_video_ids"])
 
                     print(print_colored_text(f"\r" + " " * (len(str(u_index)) + 2) + "Scanning channel... ", BCOLORS.DARK_GREEN) +
-                                print_colored_text(print_colored_text(ytchannel.channel_name, BCOLORS.BOLD), BCOLORS.GREEN), end="", flush=True)
-                    latest_video = list(ytchannel.videos)
+                                print_colored_text(print_colored_text(ytchannel_info_channel_name, BCOLORS.BOLD), BCOLORS.GREEN), end="", flush=True)
+                    latest_video = list(ytchannel_info_videos)
                     for i in range(len(latest_video)):
                         print(print_colored_text(f"\r" + " " * (len(str(u_index)) + 2) + "Find match: ", BCOLORS.DARK_GREEN) +
                                 print_colored_text(print_colored_text(str(i + 1) + "/" + str(len(latest_video)) + " | " +
@@ -547,7 +549,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                             latest_id_and_name = " | " + latest_video_id + print_colored_text(" | " + latest_video_name[:15], BCOLORS.BLACK)
 
                             got_it = find_file_by_string(output_dir + "/" +
-                                        clean_string_regex(ytchannel.channel_name).rstrip(), latest_date_math, "", False)
+                                        clean_string_regex(ytchannel_info_channel_name).rstrip(), latest_date_math, "", False)
                             if not got_it:
                                 latest_date = print_colored_text(latest_date, BCOLORS.RED)
                                 latest_id_and_name = (print_colored_text(" | " + latest_video_id + " | " +
