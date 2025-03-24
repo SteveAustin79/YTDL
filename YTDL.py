@@ -692,9 +692,10 @@ def download_video(channel_name: str, video_id: str, counter_id: int, video_tota
     else:
         year = ""
 
-    res = max(print_resolutions(yt), key=lambda x: int(x.rstrip('p')))
+    # res = max(print_resolutions(yt), key=lambda x: int(x.rstrip('p')))
     if limit_resolution_to != "max":
-        res = limit_resolution(res, limit_resolution_to)
+        # res = limit_resolution(res, limit_resolution_to)
+        res = "1080p"
 
     print_video_infos(yt, res, video_views)
 
