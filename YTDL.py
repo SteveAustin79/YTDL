@@ -12,7 +12,7 @@ from datetime import datetime
 
 # make min/max duration as channel config, not main config
 
-version = "1.3.5 (20250323)"
+version = "1.3.7 (20250324)"
 header_width_global = 99
 first_column_width = 17
 first_column_width_wide = 37
