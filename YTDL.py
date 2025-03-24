@@ -606,13 +606,17 @@ def find_media_files(fmf_path: str) -> tuple[str | None, str | None]:
 
 
 def print_resolutions(yt: YouTube) -> list[str]:
-    streams = yt.streams.filter(file_extension='mp4')  # StreamQuery object
-    # Convert StreamQuery to a formatted string
-    stream_string = "\n".join([str(stream) for stream in streams])
-    # Extract resolutions using regex
-    resolutions = re.findall(r'res="(\d+p)"', stream_string)
-    # Remove duplicates and sort in descending order
-    unique_resolutions = sorted(set(resolutions), key=lambda x: int(x[:-1]), reverse=True)
+    try:
+        streams = yt.streams.filter(file_extension='mp4')  # StreamQuery object
+        # Convert StreamQuery to a formatted string
+        stream_string = "\n".join([str(stream) for stream in streams])
+        # Extract resolutions using regex
+        resolutions = re.findall(r'res="(\d+p)"', stream_string)
+        # Remove duplicates and sort in descending order
+        unique_resolutions = sorted(set(resolutions), key=lambda x: int(x[:-1]), reverse=True)
+    except Exception as eeee:
+        print(eeee)
+        unique_resolutions = ""
 
     return unique_resolutions
 
