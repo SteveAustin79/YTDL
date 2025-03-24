@@ -69,6 +69,110 @@ REQUIRED_VIDEO_CHANNEL_CONFIG = {
 }
 
 
+def channel_config_control() -> None:
+    """ CHANNEL CONFIG CONTROL """
+
+    if os.path.exists(ytchannel_path + channel_config_path):
+        if (default_max_res != limit_resolution_to or default_ignore_min_duration != ignore_min_duration or
+                default_ignore_max_duration != ignore_max_duration or default_minimum_year != min_year or
+                default_maximum_year != max_year or default_only_restricted != only_restricted_videos or
+                default_skip_restricted != skip_restricted or default_minimum_views != min_video_views or
+                default_year_subfolders != year_subfolders_temp or default_exclude_videos != exclude_video_ids or
+                default_include_videos != include_video_ids or default_filter_words != video_name_filter):
+            update_settings_text = print_colored_text("\nUpdate settings in channel config file?  Y/n", BCOLORS.BLUE)
+            save_settings_in_channel_config = smart_input(update_settings_text, "n")
+            if save_settings_in_channel_config == "y":
+                if default_max_res != limit_resolution_to:
+                    update_json_config(ytchannel_path + channel_config_path, "c_max_resolution", limit_resolution_to)
+                if default_ignore_min_duration != ignore_min_duration:
+                    update_json_config(ytchannel_path + channel_config_path, "c_ignore_min_duration",
+                                       ignore_min_duration)
+                if default_ignore_max_duration != ignore_max_duration:
+                    update_json_config(ytchannel_path + channel_config_path, "c_ignore_max_duration",
+                                       ignore_max_duration)
+                if default_minimum_year != min_year:
+                    update_json_config(ytchannel_path + channel_config_path, "c_minimum_year", min_year)
+                if default_maximum_year != max_year:
+                    update_json_config(ytchannel_path + channel_config_path, "c_maximum_year", max_year)
+                if default_only_restricted != only_restricted_videos:
+                    update_json_config(ytchannel_path + channel_config_path, "c_only_restricted",
+                                       only_restricted_videos)
+                if default_skip_restricted != skip_restricted:
+                    update_json_config(ytchannel_path + channel_config_path, "c_skip_restricted", skip_restricted)
+                if default_minimum_views != min_video_views:
+                    update_json_config(ytchannel_path + channel_config_path, "c_minimum_views", min_video_views)
+                if default_year_subfolders != year_subfolders_temp:
+                    update_json_config(ytchannel_path + channel_config_path, "c_year_subfolders", year_subfolders_temp)
+                if default_exclude_videos != exclude_video_ids:
+                    update_json_config(ytchannel_path + channel_config_path, "c_exclude_video_ids", exclude_video_ids)
+                if default_include_videos != include_video_ids:
+                    update_json_config(ytchannel_path + channel_config_path, "c_include_video_ids", include_video_ids)
+                if default_filter_words != video_name_filter:
+                    update_json_config(ytchannel_path + channel_config_path, "c_filter_words", video_name_filter)
+    else:
+        if (default_max_res != limit_resolution_to or default_ignore_min_duration != ignore_min_duration or
+                default_ignore_max_duration != ignore_max_duration or default_minimum_year != min_year or
+                default_maximum_year != max_year or default_only_restricted != only_restricted_videos or
+                default_skip_restricted != skip_restricted or default_minimum_views != min_video_views or
+                default_year_subfolders != year_subfolders_temp or default_exclude_videos != exclude_video_ids or
+                default_include_videos != include_video_ids or default_filter_words != video_name_filter):
+            create_text = print_colored_text("Create channel config file?  Y/n", BCOLORS.BLUE)
+            create_channel_config_file = smart_input(create_text, "n")
+            if create_channel_config_file == "y":
+                json_max_res = ""
+                if default_max_res != limit_resolution_to:
+                    json_max_res = limit_resolution_to
+                json_ignore_min_duration = ""
+                if default_ignore_min_duration != ignore_min_duration:
+                    json_ignore_min_duration = ignore_min_duration
+                json_ignore_max_duration = ""
+                if default_ignore_max_duration != ignore_max_duration:
+                    json_ignore_max_duration = ignore_max_duration
+                json_min_year = 0
+                if default_minimum_year != min_year:
+                    json_min_year = min_year
+                json_max_year = 0
+                if default_maximum_year != max_year:
+                    json_max_year = max_year
+                json_only_restricted_videos = ""
+                if default_only_restricted != only_restricted_videos:
+                    json_only_restricted_videos = only_restricted_videos
+                json_skip_restricted = ""
+                if default_skip_restricted != skip_restricted:
+                    json_skip_restricted = skip_restricted
+                json_min_video_views = 0
+                if default_minimum_views != min_video_views:
+                    json_min_video_views = min_video_views
+                json_year_subfolders_temp = ""
+                if default_year_subfolders != year_subfolders_temp:
+                    json_year_subfolders_temp = year_subfolders_temp
+                json_exclude_video_ids = ""
+                if default_exclude_videos != exclude_video_ids:
+                    json_exclude_video_ids = exclude_video_ids
+                json_include_video_ids = ""
+                if default_include_videos != include_video_ids:
+                    json_include_video_ids = include_video_ids
+                json_video_name_filter = ""
+                if default_filter_words != video_name_filter:
+                    json_video_name_filter = video_name_filter
+                custom_values = {
+                    "c_max_resolution": json_max_res,
+                    "c_ignore_min_duration": json_ignore_min_duration,
+                    "c_ignore_max_duration": json_ignore_max_duration,
+                    "c_minimum_year": json_min_year,
+                    "c_maximum_year": json_max_year,
+                    "c_only_restricted": json_only_restricted_videos,
+                    "c_skip_restricted": json_skip_restricted,
+                    "c_minimum_views": json_min_video_views,
+                    "c_year_subfolders": json_year_subfolders_temp,
+                    "c_exclude_video_ids": json_exclude_video_ids,
+                    "c_include_video_ids": json_include_video_ids,
+                    "c_filter_words": json_video_name_filter
+                }
+                create_json_config(ytchannel_path + channel_config_path, custom_values)
+
+    """ END OF CHANNEL CONFIG CONTROL """
+
 def check_channels_txt(filename: str, c_url: str) -> bool:
     try:
         # Read existing URLs and remove empty lines
@@ -525,8 +629,9 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                     print(print_colored_text(f"\r" + " " * (len(str(u_index)) + 2) + "Scanning channel... ", BCOLORS.DARK_GREEN) +
                                 print_colored_text(print_colored_text(ytchannel_info_channel_name, BCOLORS.BOLD), BCOLORS.GREEN), end="", flush=True)
                     all_channel_videos = list(ytchannel_info_videos)
+
                     for i in range(len(all_channel_videos)):
-                        youtube_video_object =  all_channel_videos[i]
+                        youtube_video_object = all_channel_videos[i]
                         youtube_vo_video_id = youtube_video_object.video_id
                         youtube_vo_author = youtube_video_object.author
                         youtube_vo_title = youtube_video_object.title
@@ -1203,101 +1308,7 @@ while True:
             smart_input("\nEnter filter word(s) (comma separated list): ", default_filter_words))
         video_name_filter_list = string_to_list(video_name_filter)
 
-        if os.path.exists(ytchannel_path + channel_config_path):
-            if (default_max_res != limit_resolution_to or default_ignore_min_duration != ignore_min_duration or
-                        default_ignore_max_duration != ignore_max_duration or default_minimum_year != min_year or
-                        default_maximum_year != max_year or default_only_restricted != only_restricted_videos or
-                        default_skip_restricted != skip_restricted or default_minimum_views != min_video_views or
-                        default_year_subfolders != year_subfolders_temp or default_exclude_videos != exclude_video_ids or
-                        default_include_videos != include_video_ids or default_filter_words != video_name_filter):
-                update_settings_text = print_colored_text("\nUpdate settings in channel config file?  Y/n", BCOLORS.BLUE)
-                save_settings_in_channel_config = smart_input(update_settings_text, "n")
-                if save_settings_in_channel_config == "y":
-                    if default_max_res != limit_resolution_to:
-                        update_json_config(ytchannel_path + channel_config_path, "c_max_resolution", limit_resolution_to)
-                    if default_ignore_min_duration != ignore_min_duration:
-                        update_json_config(ytchannel_path + channel_config_path, "c_ignore_min_duration", ignore_min_duration)
-                    if default_ignore_max_duration != ignore_max_duration:
-                        update_json_config(ytchannel_path + channel_config_path, "c_ignore_max_duration", ignore_max_duration)
-                    if default_minimum_year != min_year:
-                        update_json_config(ytchannel_path + channel_config_path, "c_minimum_year", min_year)
-                    if default_maximum_year != max_year:
-                        update_json_config(ytchannel_path + channel_config_path, "c_maximum_year", max_year)
-                    if default_only_restricted != only_restricted_videos:
-                        update_json_config(ytchannel_path + channel_config_path, "c_only_restricted", only_restricted_videos)
-                    if default_skip_restricted != skip_restricted:
-                        update_json_config(ytchannel_path + channel_config_path, "c_skip_restricted", skip_restricted)
-                    if default_minimum_views != min_video_views:
-                        update_json_config(ytchannel_path + channel_config_path, "c_minimum_views", min_video_views)
-                    if default_year_subfolders != year_subfolders_temp:
-                        update_json_config(ytchannel_path + channel_config_path, "c_year_subfolders", year_subfolders_temp)
-                    if default_exclude_videos != exclude_video_ids:
-                        update_json_config(ytchannel_path + channel_config_path, "c_exclude_video_ids", exclude_video_ids)
-                    if default_include_videos != include_video_ids:
-                        update_json_config(ytchannel_path + channel_config_path, "c_include_video_ids", include_video_ids)
-                    if default_filter_words != video_name_filter:
-                        update_json_config(ytchannel_path + channel_config_path, "c_filter_words", video_name_filter)
-        else:
-            if (default_max_res != limit_resolution_to or default_ignore_min_duration != ignore_min_duration or
-                    default_ignore_max_duration != ignore_max_duration or default_minimum_year != min_year or
-                        default_maximum_year != max_year or default_only_restricted != only_restricted_videos or
-                    default_skip_restricted != skip_restricted or default_minimum_views != min_video_views or
-                    default_year_subfolders != year_subfolders_temp or default_exclude_videos != exclude_video_ids or
-                    default_include_videos != include_video_ids or default_filter_words != video_name_filter):
-                create_text = print_colored_text("Create channel config file?  Y/n", BCOLORS.BLUE)
-                create_channel_config_file = smart_input(create_text, "n")
-                if create_channel_config_file == "y":
-                    json_max_res = ""
-                    if default_max_res != limit_resolution_to:
-                        json_max_res = limit_resolution_to
-                    json_ignore_min_duration = ""
-                    if default_ignore_min_duration != ignore_min_duration:
-                        json_ignore_min_duration = ignore_min_duration
-                    json_ignore_max_duration = ""
-                    if default_ignore_max_duration != ignore_max_duration:
-                        json_ignore_max_duration = ignore_max_duration
-                    json_min_year = 0
-                    if default_minimum_year != min_year:
-                        json_min_year = min_year
-                    json_max_year = 0
-                    if default_maximum_year != max_year:
-                        json_max_year = max_year
-                    json_only_restricted_videos = ""
-                    if default_only_restricted != only_restricted_videos:
-                        json_only_restricted_videos = only_restricted_videos
-                    json_skip_restricted = ""
-                    if default_skip_restricted != skip_restricted:
-                        json_skip_restricted = skip_restricted
-                    json_min_video_views = 0
-                    if default_minimum_views != min_video_views:
-                        json_min_video_views = min_video_views
-                    json_year_subfolders_temp = ""
-                    if default_year_subfolders != year_subfolders_temp:
-                        json_year_subfolders_temp = year_subfolders_temp
-                    json_exclude_video_ids = ""
-                    if default_exclude_videos != exclude_video_ids:
-                        json_exclude_video_ids = exclude_video_ids
-                    json_include_video_ids = ""
-                    if default_include_videos != include_video_ids:
-                        json_include_video_ids = include_video_ids
-                    json_video_name_filter = ""
-                    if default_filter_words != video_name_filter:
-                        json_video_name_filter = video_name_filter
-                    custom_values = {
-                        "c_max_resolution": json_max_res,
-                        "c_ignore_min_duration": json_ignore_min_duration,
-                        "c_ignore_max_duration": json_ignore_max_duration,
-                        "c_minimum_year": json_min_year,
-                        "c_maximum_year": json_max_year,
-                        "c_only_restricted": json_only_restricted_videos,
-                        "c_skip_restricted": json_skip_restricted,
-                        "c_minimum_views": json_min_video_views,
-                        "c_year_subfolders": json_year_subfolders_temp,
-                        "c_exclude_video_ids": json_exclude_video_ids,
-                        "c_include_video_ids": json_include_video_ids,
-                        "c_filter_words": json_video_name_filter
-                    }
-                    create_json_config(ytchannel_path + channel_config_path, custom_values)
+        channel_config_control()
 
         count_total_videos = 0
         count_restricted_videos = 0
