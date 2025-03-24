@@ -668,7 +668,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                                 if youtube_vo_age_restricted:
                                     latest_video_id_text = print_colored_text(latest_video_id_text, BCOLORS.DARK_RED)
                                 latest_id_and_name = " | " + latest_video_id_text + print_colored_text(
-                                    " | " + latest_video_name_text, BCOLORS.BLACK)
+                                    " | " + latest_video_name_text[:25], BCOLORS.BLACK)
 
                                 got_it = find_file_by_string(output_dir + "/" +
                                                              clean_string_regex(ytchannel_info_channel_name).rstrip(),
@@ -676,7 +676,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                                 if not got_it:
                                     latest_date = print_colored_text(latest_date, BCOLORS.RED)
                                     latest_id_and_name = (print_colored_text(" | " + latest_video_id_text + " | " +
-                                                                             latest_video_name_text,
+                                                                             latest_video_name_text[:25],
                                                                              BCOLORS.DARK_WHITE))
                                     channel_total_videos = print_colored_text(channel_total_videos, BCOLORS.DARK_WHITE)
 
