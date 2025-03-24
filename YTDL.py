@@ -528,7 +528,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                                 print_colored_text(print_colored_text(str(i + 1) + "/" + str(len(latest_video)) + " | " +
                                 latest_video[i].video_id, BCOLORS.GREEN), BCOLORS.BOLD) +
                                 print_colored_text(" | " + str(str(latest_video[i].author)[:20] + " | "
-                                                   + latest_video[i].title).ljust(59, " ")[:59], BCOLORS.DARK_GREEN), end="", flush=True)
+                                                   + latest_video[i].title).ljust(58, " ")[:58], BCOLORS.DARK_GREEN), end="", flush=True)
                         if (latest_video[i].vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
                                 latest_video[i].vid_info.get('playabilityStatus', {}).get('status') != 'LIVE_STREAM_OFFLINE' and
                                 any(word.lower() in latest_video[i].title.lower() for word in string_to_list(ch_config_filter_words))
