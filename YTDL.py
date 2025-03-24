@@ -560,8 +560,8 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
     for u_index, line in enumerate(u_lines, start=1):
         if not line == u_lines[(len(u_lines) - 1)]:
             spaces = (header_width_global - 54)
+            ytchannel_info = Channel(line)
             if u_show_latest_video_date:
-                ytchannel_info = Channel(line)
                 ytchannel_info_channel_name = ytchannel_info.channel_name
                 ytchannel_info_videos = ytchannel_info.videos
 
@@ -688,7 +688,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                     latest_date_formated = (" " + print_colored_text("." * ((spaces - len(str(u_index)) - len(line)) - 2), BCOLORS.BLACK)
                                             + " " + print_colored_text(str(eee), BCOLORS.RED))
             else:
-                latest_video_from_channel = channelYT.last_updated.strftime(date_format_display)
+                latest_video_from_channel = ytchannel_info.last_updated.strftime(date_format_display)
                 latest_date_formated = (" " + print_colored_text("." * ((spaces - len(str(u_index)) - len(line)) - 16), BCOLORS.BLACK)
                                         + print_colored_text(latest_video_from_channel, BCOLORS.BLACK))
 
