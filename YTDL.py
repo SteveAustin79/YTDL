@@ -694,8 +694,8 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                     else:
                         latest_date_from_channel = ytchannel_info.last_updated
                         latest_date_formated = (" " +
-                                    print_colored_text("." * ((spaces - len(str(u_index)) - len(line)) - 16), BCOLORS.BLACK)
-                                        + print_colored_text(str(latest_date_from_channel), BCOLORS.BLACK))
+                                    print_colored_text("." * (spaces - len(str(u_index)) - len(line)), BCOLORS.BLACK)
+                                        + print_colored_text("Last updated " + str(latest_date_from_channel), BCOLORS.BLACK))
 
                 except Exception as eee:
                     latest_date_formated = (" " + print_colored_text("." * ((spaces - len(str(u_index)) - len(line)) - 2), BCOLORS.BLACK)
