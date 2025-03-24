@@ -684,7 +684,7 @@ def download_video(channel_name: str, video_id: str, counter_id: int, video_tota
         publishing_date = eee
 
     # print(yt.vid_info.get('playabilityStatus'))
-    print(yt.streams.filter(file_extension='mp4'))
+    # print(yt.streams.filter(file_extension='mp4'))
 
     if year_subfolders:
         year = "/" + str(yt.publish_date.strftime("%Y"))
