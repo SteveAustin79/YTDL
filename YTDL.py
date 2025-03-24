@@ -377,7 +377,7 @@ def print_video_infos(yt: YouTube, res: str, video_views: int) -> None:
         print(print_colored_text("Resolution:" + " " * (first_column_width - len("Resolution:")), BCOLORS.BLACK),
               print_colored_text(res, BCOLORS.YELLOW),
               print_colored_text("  (" + limit_resolution_to + ")", BCOLORS.BLACK))
-        # print(" " * first_column_width, print_colored_text(str(print_resolutions(yt)), BCOLORS.BLACK))
+        print(" " * first_column_width, print_colored_text(str(print_resolutions(yt)), BCOLORS.BLACK))
 
 
 def format_time(seconds: int) -> str:
@@ -692,10 +692,9 @@ def download_video(channel_name: str, video_id: str, counter_id: int, video_tota
     else:
         year = ""
 
-    # res = max(print_resolutions(yt), key=lambda x: int(x.rstrip('p')))
+    res = max(print_resolutions(yt), key=lambda x: int(x.rstrip('p')))
     if limit_resolution_to != "max":
-        # res = limit_resolution(res, limit_resolution_to)
-        res = "1080p"
+        res = limit_resolution(res, limit_resolution_to)
 
     print_video_infos(yt, res, video_views)
 
