@@ -698,7 +698,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                         latest_date_formated = (" " +
                                     print_colored_text("." * (spaces - len(str(u_index)) - len(line)), BCOLORS.BLACK)
                                         + combined_settings + print_colored_text(
-                                        str(" Last updated " + latest_date_from_channel).rjust(45, ".")[:45], BCOLORS.BLACK))
+                                        str(" Last updated " + latest_date_from_channel).rjust(44, ".")[:44], BCOLORS.BLACK))
 
                 except Exception as eee:
                     latest_date_formated = (" " + print_colored_text("." * ((spaces - len(str(u_index)) - len(line)) - 2), BCOLORS.BLACK)
