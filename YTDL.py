@@ -693,12 +693,13 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                             line = print_colored_text(line, BCOLORS.BLACK)
                     else:
                         latest_date_from_channel = ytchannel_info.last_updated
+                        latest_color = BCOLORS.BLACK
                         if latest_date_from_channel.count("hours") > 0:
-                            latest_date_from_channel = print_colored_text(latest_date_from_channel, BCOLORS.RED)
+                            latest_color = BCOLORS.RED
                         latest_date_formated = (" " +
                                     print_colored_text("." * (spaces - len(str(u_index)) - len(line)), BCOLORS.BLACK)
                                         + combined_settings + print_colored_text(str("Last updated " +
-                                            str(latest_date_from_channel)).rjust(35, ".")[:35], BCOLORS.BLACK))
+                                            str(latest_date_from_channel)).rjust(35, ".")[:35], latest_colors))
 
                 except Exception as eee:
                     latest_date_formated = (" " + print_colored_text("." * ((spaces - len(str(u_index)) - len(line)) - 2), BCOLORS.BLACK)
