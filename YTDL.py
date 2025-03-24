@@ -695,7 +695,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                         latest_date_from_channel = ytchannel_info.last_updated
                         latest_date_color = BCOLORS.BLACK
                         if latest_date_from_channel.count("hours") > 0:
-                            latest_date_color = BCOLORS.DARK_WHITE
+                            latest_date_color = BCOLORS.RED
                         latest_date_formated = (" " +
                                     print_colored_text("." * (spaces - len(str(u_index)) - len(line)), BCOLORS.BLACK)
                                         + combined_settings + print_colored_text(str(" Last updated " +
