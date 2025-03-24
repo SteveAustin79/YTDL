@@ -649,9 +649,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                                   print_colored_text(
                                       print_colored_text(str(i + 1) + "/" + str(len(all_channel_videos)) + " | " +
                                                          youtube_vo_video_id, BCOLORS.GREEN), BCOLORS.BOLD) +
-                                  print_colored_text(" | " + str(str(youtube_vo_author)[:22] + " | "
-                                                                 + youtube_vo_title).ljust(57, " ")[:57],
-                                                     BCOLORS.DARK_GREEN), end="", flush=True)
+                                  print_colored_text(" | " + youtube_vo_author, BCOLORS.DARK_GREEN), end="", flush=True)
                             if (youtube_vo_vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
                                     youtube_vo_vid_info.get('playabilityStatus', {}).get(
                                         'status') != 'LIVE_STREAM_OFFLINE' and
