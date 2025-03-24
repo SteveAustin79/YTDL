@@ -283,7 +283,7 @@ def extract_number(res: str):
 
 
 def clean_youtube_urls(to_clean_video_list: list) -> list[str]:
-    prefix = youtube_base_url
+    prefix = youtube_watch_url
     return [to_clean_video.replace(prefix, "") for to_clean_video in to_clean_video_list]
 
 
@@ -666,13 +666,13 @@ def download_video(channel_name: str, video_id: str, counter_id: int, video_tota
     colored_video_id = video_id
     header_width = (header_width_global + 11)
     if restricted:
-        yt = YouTube(youtube_base_url + video_id, use_oauth=True, allow_oauth_cache=True,
+        yt = YouTube(youtube_watch_url + video_id, use_oauth=True, allow_oauth_cache=True,
                      on_progress_callback=on_progress)
         restricted_path_snippet = "restricted/"
         colored_video_id = print_colored_text(video_id, BCOLORS.RED)
         header_width = (header_width_global + 20)
     else:
-        yt = YouTube(youtube_base_url + video_id, on_progress_callback=on_progress)
+        yt = YouTube(youtube_watch_url + video_id, on_progress_callback=on_progress)
 
     print("\n")
     print(format_header(colored_video_id + " - " + channel_name
@@ -876,7 +876,7 @@ while True:
         try:
         # Access settings
             output_dir = config["output_directory"]
-            youtube_base_url = config["youtube_base_url"]
+            youtube_watch_url = config["youtube_watch_url"]
             min_duration = config["min_duration_in_minutes"]
             max_duration = config["max_duration_in_minutes"]
             video_listing = config["video_listing"]
@@ -915,12 +915,12 @@ while True:
         print_asteriks_line()
 
         video_id_from_single_video = ""
-        if youtube_base_url in YTchannel:
-            ytv = YouTube(YTchannel, on_progress_callback=on_progress)
+        if youtube_watch_url in YTchannel:
+            ytv = YouTube(YTchannel)
             YTchannel = ytv.channel_url
             video_id_from_single_video = ytv.video_id
         elif "https://" not in YTchannel:
-            ytv = YouTube(youtube_base_url + YTchannel, on_progress_callback=on_progress)
+            ytv = YouTube(youtube_watch_url + YTchannel)
             YTchannel = ytv.channel_url
             video_id_from_single_video = ytv.video_id
         elif "list=" in YTchannel:
@@ -930,30 +930,35 @@ while True:
                 video_id_from_single_video += p_video.video_id + ","
             video_id_from_single_video = video_id_from_single_video[:-1]
 
-        c = Channel(YTchannel)
-        print("\n" + print_colored_text(print_colored_text(str(c.channel_name), BCOLORS.BOLD), BCOLORS.CYAN))
-        print(print_colored_text(print_colored_text("*" * len(str(c.channel_name)), BCOLORS.BOLD), BCOLORS.CYAN))
-        print(print_colored_text(c.channel_url, BCOLORS.CYAN))
+        channelYT = Channel(YTchannel)
+        channelYT_name = channelYT.channel_name
+        channelYT_url = channelYT.channel_url
+        channelYT_video_urls = channelYT.video_urls
+        channelYT_videos = channelYT.videos
+
+        print("\n" + print_colored_text(print_colored_text(str(channelYT_name), BCOLORS.BOLD), BCOLORS.CYAN))
+        print(print_colored_text(print_colored_text("*" * len(str(channelYT_name)), BCOLORS.BOLD), BCOLORS.CYAN))
+        print(print_colored_text(channelYT_url, BCOLORS.CYAN))
 
         # check if channels.txt has this url, if not, add it
-        if not check_channels_txt("channels.txt", c.channel_url):
+        if not check_channels_txt("channels.txt", channelYT_url):
             add_url_to_channels_txt = smart_input("Add chanel to channels.txt?  Y/n", "n")
             if add_url_to_channels_txt=="y":
-                add_url_in_order("channels.txt", c.channel_url)
+                add_url_in_order("channels.txt", channelYT_url)
 
         selected_video_ids = []
 
         if video_listing:
             more_than = ""
-            if len(c.video_urls) > 50:
+            if len(channelYT_video_urls) > 50:
                 more_than = " This can take a while..."
 
-            list_all_videos = smart_input("\nList all " + str(len(c.video_urls)) + " Videos?" + more_than + " (Restricted videos in "
+            list_all_videos = smart_input("\nList all " + str(len(channelYT_video_urls)) + " Videos?" + more_than + " (Restricted videos in "
                                           + print_colored_text("red", BCOLORS.RED) + ")  Y/n", "y")
             if list_all_videos == "y":
                 print("")
                 # Display the video list with numbers
-                video_list = list(c.videos)  # Convert to a list if not already
+                video_list = list(channelYT_videos)  # Convert to a list if not already
                 for index, v_video in enumerate(video_list, start=1):
                     video_date_formated = print_colored_text(str(v_video.publish_date.strftime(date_format_display)), BCOLORS.BLACK)
                     video_message = f"{index}. {clean_string_regex(v_video.title)}"
@@ -983,7 +988,7 @@ while True:
                         print("Invalid input, please enter numbers separated by commas.")
 
         ytchannel_path = smart_input("\nDownload Path:" + " " * (first_column_width - len("Download Path:")),
-                                     output_dir + "/" + clean_string_regex(c.channel_name).rstrip())
+                                     output_dir + "/" + clean_string_regex(channelYT_name).rstrip())
         default_max_res = "max"
         default_ignore_min_duration = "y"
         default_ignore_max_duration = "y"
@@ -1291,10 +1296,10 @@ while True:
 
         if len(include_list) > 0:
             for include in include_list:
-                video_watch_urls.append(youtube_base_url + include)
+                video_watch_urls.append(youtube_watch_url + include)
         else:
             print()
-            for url in c.video_urls:
+            for url in channelYT_video_urls:
                 count_total_videos += 1
                 if url.video_id not in exclude_list:
                     if len(include_list) > 0:
@@ -1303,7 +1308,7 @@ while True:
                     # else:
                     video_watch_urls.append(url.watch_url)
                 print(f"\rFetching " + str(count_total_videos) + " videos", end="", flush=True)
-            print(f"\rTotal {count_total_videos} Video(s) by: \033[96m{c.channel_name}\033[0m", end="", flush=True)
+            print(f"\rTotal {count_total_videos} Video(s) by: \033[96m{channelYT_name}\033[0m", end="", flush=True)
             print("\n")
 
         for url in video_watch_urls:
@@ -1314,7 +1319,7 @@ while True:
                 print(print_colored_text(f"\rSkipping {count_skipped} Videos", BCOLORS.MAGENTA), end="", flush=True)
             else:
                 do_not_download = 0
-                video = YouTube(youtube_base_url + only_video_id, on_progress_callback=on_progress)
+                video = YouTube(youtube_watch_url + only_video_id)
 
                 if video_name_filter == "" or any(
                         word.lower() in video.title.lower() for word in video_name_filter_list):
@@ -1349,7 +1354,7 @@ while True:
                         count_this_run += 1
                         count_skipped = 0
                         video_list.append(video.video_id)
-                        download_video(clean_string_regex(c.channel_name).rstrip(), video.video_id,
+                        download_video(clean_string_regex(channelYT_name).rstrip(), video.video_id,
                                        count_ok_videos, len(video_watch_urls), video.views, False)
                     else:
                         if not skip_restricted_bool:
@@ -1360,7 +1365,7 @@ while True:
                                 count_ok_videos += 1
                                 count_this_run += 1
                                 video_list_restricted.append(video.video_id)
-                                download_video(clean_string_regex(c.channel_name).rstrip(), video.video_id,
+                                download_video(clean_string_regex(channelYT_name).rstrip(), video.video_id,
                                                count_ok_videos, len(video_watch_urls), video.views, True)
 
         if count_this_run == 0:

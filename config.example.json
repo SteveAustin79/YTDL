@@ -1,6 +1,6 @@
 {
     "output_directory": "/mnt/G/YTDLchannel",
-    "youtube_base_url": "https://www.youtube.com/watch?v=",
+    "youtube_watch_url": "https://www.youtube.com/watch?v=",
     "min_duration_in_minutes": 5,
     "max_duration_in_minutes": 60,
     "video_listing": false,
