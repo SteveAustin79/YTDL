@@ -678,46 +678,47 @@ def download_video(channel_name: str, video_id: str, counter_id: int, video_tota
     colored_video_id = video_id
     header_width = (header_width_global + 11)
     if restricted:
-        yt = YouTube(youtube_watch_url + video_id, use_oauth=True, allow_oauth_cache=True,
+        y_tube = YouTube(youtube_watch_url + video_id, use_oauth=True, allow_oauth_cache=True,
                      on_progress_callback=on_progress)
         restricted_path_snippet = "restricted/"
         colored_video_id = print_colored_text(video_id, BCOLORS.RED)
         header_width = (header_width_global + 20)
     else:
-        yt = YouTube(youtube_watch_url + video_id, on_progress_callback=on_progress)
+        y_tube = YouTube(youtube_watch_url + video_id, on_progress_callback=on_progress)
+
+    y_tube_publish_date = y_tube.publish_date
+    y_tube_title = y_tube.title
 
     print("\n")
     print(format_header(colored_video_id + " - " + channel_name
                          + " - " + str(counter_id) + "/" + str(video_total_count), header_width))
 
     try:
-        publishing_date = yt.publish_date.strftime(date_format_math)
+        publishing_date = y_tube_publish_date.strftime(date_format_math)
     except Exception as eee:
         publishing_date = eee
 
     # print(yt.vid_info.get('playabilityStatus'))
 
     if year_subfolders:
-        year = "/" + str(yt.publish_date.strftime("%Y"))
+        year = "/" + str(y_tube_publish_date.strftime("%Y"))
     else:
         year = ""
 
-    res = max(print_resolutions(yt), key=lambda x: int(x.rstrip('p')))
+    res = max(print_resolutions(y_tube), key=lambda x: int(x.rstrip('p')))
     if limit_resolution_to != "max":
         res = limit_resolution(res, limit_resolution_to)
 
-    print_video_infos(yt, res, video_views)
+    print_video_infos(y_tube, res, video_views)
 
     if os.path.exists(
-            ytchannel_path + year + "/" + restricted_path_snippet + str(publishing_date) + " - " + res + " - " + clean_string_regex(
-                yt.title) + " - " + video_id + ".mp4") and not audio_or_video_bool:
+            ytchannel_path + year + "/" + restricted_path_snippet + str(publishing_date) + " - " + res + " - " +
+            clean_string_regex(y_tube_title) + " - " + video_id + ".mp4") and not audio_or_video_bool:
         print(print_colored_text("\nVideo already downloaded\n", BCOLORS.GREEN))
     else:
         if audio_or_video_bool:
-            if os.path.exists(
-                    ytchannel_path + year + "/" + restricted_path_snippet + str(
-                        publishing_date) + " - " + clean_string_regex(
-                        yt.title) + " - " + video_id + ".mp3"):
+            if os.path.exists(ytchannel_path + year + "/" + restricted_path_snippet +
+                        str(publishing_date) + " - " + clean_string_regex(y_tube_title) + " - " + video_id + ".mp3"):
                 print(print_colored_text("\nMP3 already downloaded\n", BCOLORS.GREEN))
 
         more_than1080p = False
@@ -731,9 +732,9 @@ def download_video(channel_name: str, video_id: str, counter_id: int, video_tota
                 print(print_colored_text("\nMerged file still available!", BCOLORS.BLACK))
                 convert_webm_to_mp4("tmp/" + video_file_tmp, path, year, restricted)
             else:
-                download_video_process(yt, res, more_than1080p, publishing_date, year, restricted)
+                download_video_process(y_tube, res, more_than1080p, publishing_date, year, restricted)
         else:
-            download_video_process(yt, res, more_than1080p, publishing_date, year, restricted)
+            download_video_process(y_tube, res, more_than1080p, publishing_date, year, restricted)
 
 
 def download_video_process(yt: YouTube, res: str, more_than1080p: bool, publishing_date: str, year: str,
