@@ -692,7 +692,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                         if got_it:
                             line = print_colored_text(line, BCOLORS.BLACK)
                     else:
-                        latest_date_from_channel = ytchannel_info.last_updated.strftime(date_format_display)
+                        latest_date_from_channel = datetime(ytchannel_info.last_updated).strftime(date_format_display)
                         latest_date_formated = (" " +
                                     print_colored_text("." * ((spaces - len(str(u_index)) - len(line)) - 16), BCOLORS.BLACK)
                                         + print_colored_text(latest_date_from_channel, BCOLORS.BLACK))
