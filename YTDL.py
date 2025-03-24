@@ -524,36 +524,46 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
 
                     print(print_colored_text(f"\r" + " " * (len(str(u_index)) + 2) + "Scanning channel... ", BCOLORS.DARK_GREEN) +
                                 print_colored_text(print_colored_text(ytchannel_info_channel_name, BCOLORS.BOLD), BCOLORS.GREEN), end="", flush=True)
-                    latest_video = list(ytchannel_info_videos)
-                    for i in range(len(latest_video)):
-                        print(print_colored_text(f"\r" + " " * (len(str(u_index)) + 2) + "Find match: ", BCOLORS.DARK_GREEN) +
-                                print_colored_text(print_colored_text(str(i + 1) + "/" + str(len(latest_video)) + " | " +
-                                latest_video[i].video_id, BCOLORS.GREEN), BCOLORS.BOLD) +
-                                print_colored_text(" | " + str(str(latest_video[i].author)[:22] + " | "
-                                                   + latest_video[i].title).ljust(57, " ")[:57], BCOLORS.DARK_GREEN), end="", flush=True)
-                        if (latest_video[i].vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
-                                latest_video[i].vid_info.get('playabilityStatus', {}).get('status') != 'LIVE_STREAM_OFFLINE' and
-                                any(word.lower() in latest_video[i].title.lower() for word in string_to_list(ch_config_filter_words))
-                                and latest_video[i].video_id not in ch_config_exclude_list
-                                and config_min_duration <= int(latest_video[i].length / 60) <= config_max_duration
-                                and latest_video[i].views >= ch_config_min_views
-                                and latest_video[i].age_restricted in ch_config_restricted):
+                    all_channel_videos = list(ytchannel_info_videos)
+                    for i in range(len(all_channel_videos)):
+                        youtube_video_object =  all_channel_videos[i]
+                        youtube_vo_video_id = youtube_video_object.video_id
+                        youtube_vo_author = youtube_video_object.author
+                        youtube_vo_title = youtube_video_object.title
+                        youtube_vo_vid_info = youtube_video_object.vid_info
+                        youtube_vo_length = youtube_video_object.length
+                        youtube_vo_views = youtube_video_object.views
+                        youtube_vo_age_restricted = youtube_video_object.age_restricted
+                        youtube_vo_publish_date = youtube_video_object.publish_date
 
-                            latest_video_name = latest_video[i].title
-                            latest_date_math = latest_video[i].publish_date.strftime(date_format_math)
-                            latest_date = latest_video[i].publish_date.strftime(date_format_display)
-                            channel_total_videos = " " + str(len(latest_video)).rjust(5)[:5] + " | "
-                            latest_video_id = latest_video[i].video_id
-                            if latest_video[i].age_restricted:
-                                latest_video_id = print_colored_text(latest_video_id, BCOLORS.DARK_RED)
-                            latest_id_and_name = " | " + latest_video_id + print_colored_text(" | " + latest_video_name[:15], BCOLORS.BLACK)
+                        print(print_colored_text(f"\r" + " " * (len(str(u_index)) + 2) + "Find match: ", BCOLORS.DARK_GREEN) +
+                                print_colored_text(print_colored_text(str(i + 1) + "/" + str(len(all_channel_videos)) + " | " +
+                                youtube_vo_video_id, BCOLORS.GREEN), BCOLORS.BOLD) +
+                                print_colored_text(" | " + str(str(youtube_vo_author)[:22] + " | "
+                                                   + youtube_vo_title).ljust(57, " ")[:57], BCOLORS.DARK_GREEN), end="", flush=True)
+                        if (youtube_vo_vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
+                                youtube_vo_vid_info.get('playabilityStatus', {}).get('status') != 'LIVE_STREAM_OFFLINE' and
+                                any(word.lower() in youtube_vo_title.lower() for word in string_to_list(ch_config_filter_words))
+                                and youtube_vo_video_id not in ch_config_exclude_list
+                                and config_min_duration <= int(youtube_vo_length / 60) <= config_max_duration
+                                and youtube_vo_views >= ch_config_min_views
+                                and youtube_vo_age_restricted in ch_config_restricted):
+
+                            latest_video_name_text = youtube_vo_title
+                            latest_date_math = youtube_vo_publish_date.strftime(date_format_math)
+                            latest_date = youtube_vo_publish_date.strftime(date_format_display)
+                            channel_total_videos = " " + str(len(all_channel_videos)).rjust(5)[:5] + " | "
+                            latest_video_id_text = youtube_vo_video_id
+                            if youtube_vo_age_restricted:
+                                latest_video_id_text = print_colored_text(latest_video_id_text, BCOLORS.DARK_RED)
+                            latest_id_and_name = " | " + latest_video_id_text + print_colored_text(" | " + latest_video_name_text[:15], BCOLORS.BLACK)
 
                             got_it = find_file_by_string(output_dir + "/" +
                                         clean_string_regex(ytchannel_info_channel_name).rstrip(), latest_date_math, "", False)
                             if not got_it:
                                 latest_date = print_colored_text(latest_date, BCOLORS.RED)
-                                latest_id_and_name = (print_colored_text(" | " + latest_video_id + " | " +
-                                                      latest_video_name[:15], BCOLORS.DARK_WHITE))
+                                latest_id_and_name = (print_colored_text(" | " + latest_video_id_text + " | " +
+                                                      latest_video_name_text[:15], BCOLORS.DARK_WHITE))
                                 channel_total_videos = print_colored_text(channel_total_videos, BCOLORS.DARK_WHITE)
 
                             latest_date_formated = (
