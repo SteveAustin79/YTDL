@@ -49,8 +49,8 @@ REQUIRED_APP_CONFIG = {
     "max_duration_in_minutes": "",
     "video_listing": "",
     "show_latest_video_date": "",
-    "default_audioMP3": "",
-    "filters_on_in_channels_list": ""
+    "filters_on_in_channels_list": "",
+    "default_audioMP3": ""
 }
 
 REQUIRED_VIDEO_CHANNEL_CONFIG = {
@@ -524,8 +524,6 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                                 print_colored_text(print_colored_text(ytchannel.channel_name, BCOLORS.BOLD), BCOLORS.GREEN), end="", flush=True)
                     latest_video = list(ytchannel.videos)
                     for i in range(len(latest_video)):
-                        # if (latest_video[i].vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
-                        #         latest_video[i].vid_info.get('playabilityStatus', {}).get('status') != 'LIVE_STREAM_OFFLINE'):
                         print(print_colored_text(f"\r" + " " * (len(str(u_index)) + 2) + "Find matching video: ", BCOLORS.DARK_GREEN) +
                                 print_colored_text(print_colored_text(str(i + 1) + " of " + str(len(latest_video)) + " " +
                                 latest_video[i].video_id, BCOLORS.GREEN), BCOLORS.BOLD) +
@@ -882,8 +880,8 @@ while True:
             max_duration = config["max_duration_in_minutes"]
             video_listing = config["video_listing"]
             show_latest_video_date = config["show_latest_video_date"]
-            default_audio_mp3 = config["default_audioMP3"]
             default_filters_on = config["filters_on_in_channels_list"]
+            default_audio_mp3 = config["default_audioMP3"]
         except Exception as e:
             print("An error occurred, incomplete config file:", str(e))
             cc_check_and_update_json_config("config.json", REQUIRED_APP_CONFIG)
