@@ -524,11 +524,11 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                                 print_colored_text(print_colored_text(ytchannel.channel_name, BCOLORS.BOLD), BCOLORS.GREEN), end="", flush=True)
                     latest_video = list(ytchannel.videos)
                     for i in range(len(latest_video)):
-                        print(print_colored_text(f"\r" + " " * (len(str(u_index)) + 2) + "Find matching video: ", BCOLORS.DARK_GREEN) +
+                        print(print_colored_text(f"\r" + " " * (len(str(u_index)) + 2) + "Find match: ", BCOLORS.DARK_GREEN) +
                                 print_colored_text(print_colored_text(str(i + 1) + "/" + str(len(latest_video)) + " | " +
                                 latest_video[i].video_id, BCOLORS.GREEN), BCOLORS.BOLD) +
-                                print_colored_text(" | " + str(latest_video[i].author)[:12] + " | "
-                                                   + str(latest_video[i].title)[:28], BCOLORS.DARK_GREEN), end="", flush=True)
+                                print_colored_text(" | " + str(latest_video[i].author)[:13] + " | "
+                                                   + str(latest_video[i].title)[:27], BCOLORS.DARK_GREEN), end="", flush=True)
                         if (latest_video[i].vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
                                 latest_video[i].vid_info.get('playabilityStatus', {}).get('status') != 'LIVE_STREAM_OFFLINE' and
                                 any(word.lower() in latest_video[i].title.lower() for word in string_to_list(ch_config_filter_words))
