@@ -683,7 +683,7 @@ def download_video(channel_name: str, video_id: str, counter_id: int, video_tota
     except Exception as eee:
         publishing_date = eee
 
-    print(publishing_date)
+    print(yt.title)
     # print(yt.vid_info.get('playabilityStatus'))
     # print(yt.streams.filter(file_extension='mp4'))
     # print(str(yt.streams))
