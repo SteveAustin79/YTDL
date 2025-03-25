@@ -1328,7 +1328,7 @@ while True:
             smart_input("\nEnter filter word(s) (comma separated list): ", default_filter_words))
         video_name_filter_list = string_to_list(video_name_filter)
 
-        channel_config_control()
+        #channel_config_control()
 
         count_total_videos = 0
         count_restricted_videos = 0
