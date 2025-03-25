@@ -633,6 +633,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                         # all_channel_videos = list(ytchannel_info_videos)
 
                         counter = 0
+                        size = ytchannel_info_videos.__dict__.items()
                         for video_iter in ytchannel_info_videos:
                         # for i in range(len(all_channel_videos)):
                         #     youtube_video_object = all_channel_videos[i]
@@ -650,7 +651,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                             print(print_colored_text(f"\r" + " " * (len(str(u_index)) + 2) + "Find match: " +
                                      youtube_vo_author + " | ", BCOLORS.DARK_GREEN) +
                                      # print_colored_text(str(i + 1) + "/" + str(len(ytchannel_info_videos)) + " | " +
-                                     print_colored_text(str(counter + 1) + " | " +
+                                     print_colored_text(str(counter + 1) + "/" + str(len(size)) + " | " +
                                                          youtube_vo_video_id, BCOLORS.GREEN), end="", flush=True)
                             if (youtube_vo_vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
                                     youtube_vo_vid_info.get('playabilityStatus', {}).get(
@@ -666,7 +667,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                                 latest_date_math = youtube_vo_publish_date.strftime(date_format_math)
                                 latest_date = youtube_vo_publish_date.strftime(date_format_display)
                                 #channel_total_videos = " " + str(len(all_channel_videos)).rjust(5)[:5] + " | "
-                                channel_total_videos = " | "
+                                channel_total_videos = " " + str(len(size)).rjust(5)[:5] + " | "
                                 latest_video_id_text = youtube_vo_video_id
                                 if youtube_vo_age_restricted:
                                     latest_video_id_text = print_colored_text(latest_video_id_text, BCOLORS.DARK_RED)
