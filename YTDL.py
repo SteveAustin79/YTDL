@@ -803,13 +803,13 @@ def download_video(channel_name: str, video_id: str, counter_id: int, video_tota
     colored_video_id = video_id
     header_width = (header_width_global + 11)
     if restricted:
-        y_tube = YouTube(youtube_watch_url + video_id, 'WEB', use_oauth=True, allow_oauth_cache=True,
+        y_tube = YouTube(youtube_watch_url + video_id, use_oauth=True, allow_oauth_cache=True,
                      on_progress_callback=on_progress)
         restricted_path_snippet = "restricted/"
         colored_video_id = print_colored_text(video_id, BCOLORS.RED)
         header_width = (header_width_global + 20)
     else:
-        y_tube = YouTube(youtube_watch_url + video_id, 'WEB', on_progress_callback=on_progress)
+        y_tube = YouTube(youtube_watch_url + video_id, on_progress_callback=on_progress)
 
     y_tube_publish_date = y_tube.publish_date
     y_tube_title = y_tube.title
@@ -1363,7 +1363,7 @@ while True:
                 print(print_colored_text(f"\rSkipping {count_skipped} Videos", BCOLORS.MAGENTA), end="", flush=True)
             else:
                 do_not_download = 0
-                video = YouTube(youtube_watch_url + only_video_id, 'WEB', on_progress_callback=on_progress)
+                video = YouTube(youtube_watch_url + only_video_id, on_progress_callback=on_progress)
                 if video_name_filter == "" or any(
                         word.lower() in video.title.lower() for word in video_name_filter_list):
                     if not ignore_min_duration_bool:
