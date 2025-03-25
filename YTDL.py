@@ -660,7 +660,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                                     and youtube_vo_views >= ch_config_min_views
                                     and youtube_vo_age_restricted in ch_config_restricted):
 
-                                latest_video_name_text = youtube_vo_title
+                                latest_video_title_text = youtube_vo_title
                                 latest_date_math = youtube_vo_publish_date.strftime(date_format_math)
                                 latest_date = youtube_vo_publish_date.strftime(date_format_display)
                                 channel_total_videos = " " + str(len(all_channel_videos)).rjust(5)[:5] + " | "
@@ -668,7 +668,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                                 if youtube_vo_age_restricted:
                                     latest_video_id_text = print_colored_text(latest_video_id_text, BCOLORS.DARK_RED)
                                 latest_id_and_name = " | " + latest_video_id_text + print_colored_text(
-                                    " | " + latest_video_name_text[:25], BCOLORS.BLACK)
+                                    " | " + latest_video_title_text[:18], BCOLORS.BLACK)
 
                                 got_it = find_file_by_string(output_dir + "/" +
                                                              clean_string_regex(ytchannel_info_channel_name).rstrip(),
@@ -676,8 +676,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                                 if not got_it:
                                     latest_date = print_colored_text(latest_date, BCOLORS.RED)
                                     latest_id_and_name = (print_colored_text(" | " + latest_video_id_text + " | " +
-                                                                             latest_video_name_text[:25],
-                                                                             BCOLORS.DARK_WHITE))
+                                                                latest_video_title_text[:18], BCOLORS.DARK_WHITE))
                                     channel_total_videos = print_colored_text(channel_total_videos, BCOLORS.DARK_WHITE)
 
                                 latest_date_formated = (
