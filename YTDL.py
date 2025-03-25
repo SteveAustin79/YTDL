@@ -1328,7 +1328,7 @@ while True:
             smart_input("\nEnter filter word(s) (comma separated list): ", default_filter_words))
         video_name_filter_list = string_to_list(video_name_filter)
 
-        #channel_config_control()
+        channel_config_control()
 
         count_total_videos = 0
         count_restricted_videos = 0
@@ -1363,7 +1363,7 @@ while True:
                 print(print_colored_text(f"\rSkipping {count_skipped} Videos", BCOLORS.MAGENTA), end="", flush=True)
             else:
                 do_not_download = 0
-                video = YouTube(youtube_watch_url + only_video_id, 'WEB')
+                video = YouTube(youtube_watch_url + only_video_id, 'WEB', on_progress_callback=on_progress)
 
                 if video_name_filter == "" or any(
                         word.lower() in video.title.lower() for word in video_name_filter_list):
