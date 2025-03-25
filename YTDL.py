@@ -713,6 +713,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
 
     while True:
         try:
+            print("")
             print_asteriks_line()
             choice = int(input("\nEnter the number of your choice: "))
             if 1 <= choice <= len(u_lines):
