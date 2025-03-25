@@ -645,12 +645,11 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                             youtube_vo_age_restricted = youtube_video_object.age_restricted
                             youtube_vo_publish_date = youtube_video_object.publish_date
 
-                            print(print_colored_text(f"\r" + " " * (len(str(u_index)) + 2) + "Find match: ",
-                                                     BCOLORS.DARK_GREEN) +
-                                  print_colored_text(
+                            print(print_colored_text(f"\r" + " " * (len(str(u_index)) + 2) + "Find match: " +
+                                     youtube_vo_author + " | ", BCOLORS.DARK_GREEN) +
+                                    print_colored_text(
                                       print_colored_text(str(i + 1) + "/" + str(len(all_channel_videos)) + " | " +
-                                                         youtube_vo_video_id, BCOLORS.GREEN), BCOLORS.BOLD) +
-                                  print_colored_text(" | " + youtube_vo_author, BCOLORS.DARK_GREEN), end="", flush=True)
+                                                         youtube_vo_video_id, BCOLORS.GREEN), BCOLORS.BOLD), end="", flush=True)
                             if (youtube_vo_vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
                                     youtube_vo_vid_info.get('playabilityStatus', {}).get(
                                         'status') != 'LIVE_STREAM_OFFLINE' and
