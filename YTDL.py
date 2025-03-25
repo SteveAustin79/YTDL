@@ -640,7 +640,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                         counter = 0
                         # size = ytchannel_info.video_urls
                         # Run the function in a separate thread
-                        worker = threading.Thread(target=background_task, daemon=True)
+                        worker = threading.Thread(target=background_task(ytchannel_info), daemon=True)
                         worker.start()
                         for video_iter in ytchannel_info_videos:
                             counter += 1
