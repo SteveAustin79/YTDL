@@ -626,6 +626,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                             ch_config_restricted.remove(False)
                         ch_config_exclude_list = string_to_list(ch_config["c_exclude_video_ids"])
 
+                    # FILTERS ON #################
                     if default_filters_on:
                         print(print_colored_text(f"\r" + " " * (len(str(u_index)) + 2) + "Scanning channel... ",
                                                  BCOLORS.DARK_GREEN) +
@@ -668,7 +669,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                                 if youtube_vo_age_restricted:
                                     latest_video_id_text = print_colored_text(latest_video_id_text, BCOLORS.DARK_RED)
                                 latest_id_and_name = " | " + latest_video_id_text + print_colored_text(
-                                    " | " + latest_video_title_text[:18], BCOLORS.BLACK)
+                                    " | " + latest_video_title_text[:15], BCOLORS.BLACK)
 
                                 got_it = find_file_by_string(output_dir + "/" +
                                                              clean_string_regex(ytchannel_info_channel_name).rstrip(),
@@ -676,7 +677,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                                 if not got_it:
                                     latest_date = print_colored_text(latest_date, BCOLORS.RED)
                                     latest_id_and_name = (print_colored_text(" | " + latest_video_id_text + " | " +
-                                                                latest_video_title_text[:18], BCOLORS.DARK_WHITE))
+                                                                latest_video_title_text[:15], BCOLORS.DARK_WHITE))
                                     channel_total_videos = print_colored_text(channel_total_videos, BCOLORS.DARK_WHITE)
 
                                 latest_date_formated = (
@@ -688,6 +689,8 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                                 break
                         if got_it:
                             line = print_colored_text(line, BCOLORS.BLACK)
+
+                    # FILTERS OFF #################
                     else:
                         latest_date_from_channel = ytchannel_info.last_updated
                         latest_date_color = BCOLORS.BLACK
