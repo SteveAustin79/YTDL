@@ -628,10 +628,8 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
 
                     # FILTERS ON #################
                     if default_filters_on:
-                        print(print_colored_text(f"\r" + " " * (len(str(u_index)) + 2) + "Scanning channel... ",
-                                                 BCOLORS.DARK_GREEN) +
-                              print_colored_text(print_colored_text(ytchannel_info_channel_name, BCOLORS.BOLD),
-                                                 BCOLORS.GREEN), end="", flush=True)
+                        print(print_colored_text(f"\r" + " " * (len(str(u_index)) + 2) + "Scanning channel... ", BCOLORS.DARK_GREEN) +
+                              print_colored_text(ytchannel_info_channel_name, BCOLORS.GREEN), end="", flush=True)
                         all_channel_videos = list(ytchannel_info_videos)
 
                         for i in range(len(all_channel_videos)):
@@ -647,9 +645,8 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
 
                             print(print_colored_text(f"\r" + " " * (len(str(u_index)) + 2) + "Find match: " +
                                      youtube_vo_author + " | ", BCOLORS.DARK_GREEN) +
-                                    print_colored_text(
                                       print_colored_text(str(i + 1) + "/" + str(len(all_channel_videos)) + " | " +
-                                                         youtube_vo_video_id, BCOLORS.GREEN), BCOLORS.BOLD), end="", flush=True)
+                                                         youtube_vo_video_id, BCOLORS.GREEN), end="", flush=True)
                             if (youtube_vo_vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
                                     youtube_vo_vid_info.get('playabilityStatus', {}).get(
                                         'status') != 'LIVE_STREAM_OFFLINE' and
