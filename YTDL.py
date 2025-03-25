@@ -4,6 +4,7 @@ import shutil
 import subprocess
 import json
 import sys
+import threading
 import pytubefix.extract
 from pytubefix import YouTube, Channel, Playlist
 from pytubefix.cli import on_progress
@@ -21,6 +22,7 @@ channel_config_path = "/_config_channel.json"
 date_format_display = "%d.%m.%Y"
 date_time_format = "%d.%m.%Y %H:%M:%S"
 date_format_math = "%Y-%m-%d"
+size = 0
 
 class BCOLORS:
     WHITE      = "\033[97m"
@@ -536,6 +538,10 @@ def read_channel_txt_lines(filename: str) -> list[str]:
         return []
 
 
+def background_task(ytchannel_info: Channel) -> None:
+    size = len(ytchannel_info.video_urls)
+
+
 def user_selection(u_lines, u_show_latest_video_date: bool):
     """Displays the lines as a selection menu and gets user input."""
     if not u_lines:
@@ -632,7 +638,10 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                               print_colored_text(ytchannel_info_channel_name, BCOLORS.GREEN), end="", flush=True)
 
                         counter = 0
-                        size = ytchannel_info.video_urls
+                        # size = ytchannel_info.video_urls
+                        # Run the function in a separate thread
+                        worker = threading.Thread(target=background_task, daemon=True)
+                        worker.start()
                         for video_iter in ytchannel_info_videos:
                             counter += 1
                             youtube_video_object = video_iter
@@ -647,7 +656,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
 
                             print(print_colored_text(f"\r" + " " * (len(str(u_index)) + 2) + youtube_vo_author +
                                                      " ... Find match: ", BCOLORS.DARK_GREEN) +
-                                     print_colored_text(str(counter + 1) + "/" + str(len(size)) + " | " +
+                                     print_colored_text(str(counter + 1) + "/" + str(size) + " | " +
                                                          youtube_vo_video_id, BCOLORS.GREEN), end="", flush=True)
                             if (youtube_vo_vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
                                     youtube_vo_vid_info.get('playabilityStatus', {}).get(
@@ -662,7 +671,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                                 latest_video_title_text = youtube_vo_title
                                 latest_date_math = youtube_vo_publish_date.strftime(date_format_math)
                                 latest_date = youtube_vo_publish_date.strftime(date_format_display)
-                                channel_total_videos = " " + str(len(size)).rjust(5)[:5] + " | "
+                                channel_total_videos = " " + str(size).rjust(5)[:5] + " | "
                                 latest_video_id_text = youtube_vo_video_id
                                 if youtube_vo_age_restricted:
                                     latest_video_id_text = print_colored_text(latest_video_id_text, BCOLORS.DARK_RED)
