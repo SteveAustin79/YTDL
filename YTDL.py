@@ -633,7 +633,10 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                         # all_channel_videos = list(ytchannel_info_videos)
 
                         counter = 0
-                        size = ytchannel_info.length
+                        size_urls = ytchannel_info.video_urls
+                        size = []
+                        for s_url in size_urls:
+                            size.append(s_url)
                         for video_iter in ytchannel_info_videos:
                         # for i in range(len(all_channel_videos)):
                         #     youtube_video_object = all_channel_videos[i]
