@@ -1364,37 +1364,30 @@ while True:
             else:
                 do_not_download = 0
                 video = YouTube(youtube_watch_url + only_video_id, 'WEB', on_progress_callback=on_progress)
-                print("HERE1")
                 if video_name_filter == "" or any(
                         word.lower() in video.title.lower() for word in video_name_filter_list):
                     if not ignore_min_duration_bool:
                         video_duration = int(video.length / 60)
                         if video_duration <= int(min_duration):
                             do_not_download = 1
-                    print("HERE2")
                     if not ignore_max_duration_bool:
                         video_duration = int(video.length / 60)
                         if video_duration >= int(max_duration):
                             do_not_download = 1
-                    print("HERE3")
                     if int(min_year) > 0:
                         if int(video.publish_date.strftime("%Y")) <= int(min_year):
                             do_not_download = 1
                             break
-                    print("HERE4")
                     if int(max_year) > 0:
                         if int(video.publish_date.strftime("%Y")) >= int(max_year):
                             do_not_download = 1
-                    print("HERE5")
                     if min_video_views > 0:
                         if video.views <= min_video_views:
                             do_not_download = 1
-                    print("HERE6")
                     if (not video.age_restricted and
                             video.vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
                             video.vid_info.get('playabilityStatus', {}).get('status') != 'LIVE_STREAM_OFFLINE' and
                             do_not_download == 0 and not only_restricted_videos_bool):
-                        print("HERE7")
                         count_ok_videos += 1
                         count_this_run += 1
                         count_skipped = 0
@@ -1406,7 +1399,6 @@ while True:
                             if (video.age_restricted and video.vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
                                     video.vid_info.get('playabilityStatus', {}).get('status') != 'LIVE_STREAM_OFFLINE' and
                                     do_not_download == 0):
-                                print("HERE8")
                                 count_restricted_videos += 1
                                 count_ok_videos += 1
                                 count_this_run += 1
