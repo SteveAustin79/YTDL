@@ -630,13 +630,10 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                     if default_filters_on:
                         print(print_colored_text(f"\r" + " " * (len(str(u_index)) + 2) + "Scanning channel... ", BCOLORS.DARK_GREEN) +
                               print_colored_text(ytchannel_info_channel_name, BCOLORS.GREEN), end="", flush=True)
-                        # all_channel_videos = list(ytchannel_info_videos)
 
                         counter = 0
                         size = ytchannel_info.video_urls
                         for video_iter in ytchannel_info_videos:
-                        # for i in range(len(all_channel_videos)):
-                        #     youtube_video_object = all_channel_videos[i]
                             counter += 1
                             youtube_video_object = video_iter
                             youtube_vo_video_id = youtube_video_object.video_id
@@ -648,9 +645,8 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                             youtube_vo_age_restricted = youtube_video_object.age_restricted
                             youtube_vo_publish_date = youtube_video_object.publish_date
 
-                            print(print_colored_text(f"\r" + " " * (len(str(u_index)) + 2) + "Find match: " +
-                                     youtube_vo_author + " | ", BCOLORS.DARK_GREEN) +
-                                     # print_colored_text(str(i + 1) + "/" + str(len(ytchannel_info_videos)) + " | " +
+                            print(print_colored_text(f"\r" + " " * (len(str(u_index)) + 2) + youtube_vo_author +
+                                                     " ... Find match: ", BCOLORS.DARK_GREEN) +
                                      print_colored_text(str(counter + 1) + "/" + str(len(size)) + " | " +
                                                          youtube_vo_video_id, BCOLORS.GREEN), end="", flush=True)
                             if (youtube_vo_vid_info.get('playabilityStatus', {}).get('status') != 'UNPLAYABLE' and
@@ -666,7 +662,6 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                                 latest_video_title_text = youtube_vo_title
                                 latest_date_math = youtube_vo_publish_date.strftime(date_format_math)
                                 latest_date = youtube_vo_publish_date.strftime(date_format_display)
-                                #channel_total_videos = " " + str(len(all_channel_videos)).rjust(5)[:5] + " | "
                                 channel_total_videos = " " + str(len(size)).rjust(5)[:5] + " | "
                                 latest_video_id_text = youtube_vo_video_id
                                 if youtube_vo_age_restricted:
