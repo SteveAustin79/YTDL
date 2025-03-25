@@ -21,6 +21,7 @@ channel_config_path = "/_config_channel.json"
 date_format_display = "%d.%m.%Y"
 date_time_format = "%d.%m.%Y %H:%M:%S"
 date_format_math = "%Y-%m-%d"
+web_client = False
 
 class BCOLORS:
     WHITE      = "\033[97m"
@@ -560,7 +561,10 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
     for u_index, line in enumerate(u_lines, start=1):
         if not line == u_lines[(len(u_lines) - 1)]:
             spaces = (header_width_global - 54)
-            ytchannel_info = Channel(line)
+            if web_client:
+                ytchannel_info = Channel(line, 'WEB')
+            else:
+                ytchannel_info = Channel(line)
             if u_show_latest_video_date:
                 ytchannel_info_channel_name = ytchannel_info.channel_name
                 ytchannel_info_videos = ytchannel_info.videos
@@ -803,13 +807,20 @@ def download_video(channel_name: str, video_id: str, counter_id: int, video_tota
     colored_video_id = video_id
     header_width = (header_width_global + 11)
     if restricted:
-        y_tube = YouTube(youtube_watch_url + video_id, use_oauth=True, allow_oauth_cache=True,
+        if web_client:
+            y_tube = YouTube(youtube_watch_url + video_id, 'WEB', use_oauth=True, allow_oauth_cache=True,
                      on_progress_callback=on_progress)
+        else:
+            y_tube = YouTube(youtube_watch_url + video_id, use_oauth=True, allow_oauth_cache=True,
+                             on_progress_callback=on_progress)
         restricted_path_snippet = "restricted/"
         colored_video_id = print_colored_text(video_id, BCOLORS.RED)
         header_width = (header_width_global + 20)
     else:
-        y_tube = YouTube(youtube_watch_url + video_id, on_progress_callback=on_progress)
+        if web_client:
+            y_tube = YouTube(youtube_watch_url + video_id, 'WEB', on_progress_callback=on_progress)
+        else:
+            y_tube = YouTube(youtube_watch_url + video_id, on_progress_callback=on_progress)
 
     y_tube_publish_date = y_tube.publish_date
     y_tube_title = y_tube.title
@@ -1054,21 +1065,33 @@ while True:
 
         video_id_from_single_video = ""
         if youtube_watch_url in YTchannel:
-            ytv = YouTube(YTchannel)
+            if web_client:
+                ytv = YouTube(YTchannel, 'WEB')
+            else:
+                ytv = YouTube(YTchannel)
             YTchannel = ytv.channel_url
             video_id_from_single_video = ytv.video_id
         elif "https://" not in YTchannel:
-            ytv = YouTube(youtube_watch_url + YTchannel)
+            if web_client:
+                ytv = YouTube(youtube_watch_url + YTchannel, 'WEB')
+            else:
+                ytv = YouTube(youtube_watch_url + YTchannel)
             YTchannel = ytv.channel_url
             video_id_from_single_video = ytv.video_id
         elif "list=" in YTchannel:
-            playlist = Playlist(YTchannel)
+            if web_client:
+                playlist = Playlist(YTchannel, 'WEB')
+            else:
+                playlist = Playlist(YTchannel)
             YTchannel = playlist.owner_url
             for p_video in playlist.videos:
                 video_id_from_single_video += p_video.video_id + ","
             video_id_from_single_video = video_id_from_single_video[:-1]
 
-        channelYT = Channel(YTchannel)
+        if web_client:
+            channelYT = Channel(YTchannel, 'WEB')
+        else:
+            channelYT = Channel(YTchannel)
         channelYT_name = channelYT.channel_name
         channelYT_url = channelYT.channel_url
         channelYT_video_urls = channelYT.video_urls
@@ -1363,7 +1386,10 @@ while True:
                 print(print_colored_text(f"\rSkipping {count_skipped} Videos", BCOLORS.MAGENTA), end="", flush=True)
             else:
                 do_not_download = 0
-                video = YouTube(youtube_watch_url + only_video_id, on_progress_callback=on_progress)
+                if web_client:
+                    video = YouTube(youtube_watch_url + only_video_id, 'WEB', on_progress_callback=on_progress)
+                else:
+                    video = YouTube(youtube_watch_url + only_video_id, on_progress_callback=on_progress)
                 if video_name_filter == "" or any(
                         word.lower() in video.title.lower() for word in video_name_filter_list):
                     if not ignore_min_duration_bool:
