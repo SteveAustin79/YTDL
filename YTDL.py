@@ -665,7 +665,8 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                                 latest_video_title_text = youtube_vo_title
                                 latest_date_math = youtube_vo_publish_date.strftime(date_format_math)
                                 latest_date = youtube_vo_publish_date.strftime(date_format_display)
-                                channel_total_videos = " " + str(len(all_channel_videos)).rjust(5)[:5] + " | "
+                                #channel_total_videos = " " + str(len(all_channel_videos)).rjust(5)[:5] + " | "
+                                channel_total_videos = " | "
                                 latest_video_id_text = youtube_vo_video_id
                                 if youtube_vo_age_restricted:
                                     latest_video_id_text = print_colored_text(latest_video_id_text, BCOLORS.DARK_RED)
