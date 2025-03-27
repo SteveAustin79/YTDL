@@ -21,7 +21,7 @@ channel_config_path = "/" + "_config_channel.json"
 date_format_display = "%d.%m.%Y"
 date_time_format = "%d.%m.%Y %H:%M:%S"
 date_format_math = "%Y-%m-%d"
-web_client = True
+web_client = False
 
 class BCOLORS:
     WHITE      = "\033[97m"
