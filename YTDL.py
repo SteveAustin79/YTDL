@@ -16,12 +16,10 @@ version = "1.3.8 (20250325)"
 header_width_global = 99
 first_column_width = 17
 first_column_width_wide = 37
-youtube_url = "https://www.youtube.com/"
 channel_config_path = "/" + "_config_channel.json"
 date_format_display = "%d.%m.%Y"
 date_time_format = "%d.%m.%Y %H:%M:%S"
 date_format_math = "%Y-%m-%d"
-web_client = True
 
 class BCOLORS:
     WHITE      = "\033[97m"
@@ -46,23 +44,22 @@ class BCOLORS:
 REQUIRED_APP_CONFIG = {
     "output_directory": "",
     "youtube_base_url": "",
-    "min_duration_in_minutes": "",
-    "max_duration_in_minutes": "",
     "video_listing": "",
     "show_latest_video_date": "",
     "filters_on_in_channels_list": "",
-    "default_audioMP3": ""
+    "default_audioMP3": "",
+    "web_client": ""
 }
 
 REQUIRED_VIDEO_CHANNEL_CONFIG = {
     "c_max_resolution": "",
-    "c_ignore_min_duration": "",
-    "c_ignore_max_duration": "",
-    "c_minimum_year": "",
-    "c_maximum_year": "",
+    "c_min_duration_in_minutes": 0,
+    "c_max_duration_in_minutes": 0,
+    "c_minimum_year": 0,
+    "c_maximum_year": 0,
     "c_only_restricted": "",
     "c_skip_restricted": "",
-    "c_minimum_views": "",
+    "c_minimum_views": 0,
     "c_year_subfolders": "",
     "c_exclude_video_ids": "",
     "c_include_video_ids": "",
@@ -74,8 +71,8 @@ def channel_config_control() -> None:
     """ CHANNEL CONFIG CONTROL """
 
     if os.path.exists(ytchannel_path + channel_config_path):
-        if (default_max_res != limit_resolution_to or default_ignore_min_duration != ignore_min_duration or
-                default_ignore_max_duration != ignore_max_duration or default_minimum_year != min_year or
+        if (default_max_res != limit_resolution_to or default_min_duration_in_minutes != min_duration or
+                default_max_duration_in_minutes != max_duration or default_minimum_year != min_year or
                 default_maximum_year != max_year or default_only_restricted != only_restricted_videos or
                 default_skip_restricted != skip_restricted or default_minimum_views != min_video_views or
                 default_year_subfolders != year_subfolders_temp or default_exclude_videos != exclude_video_ids or
@@ -85,12 +82,12 @@ def channel_config_control() -> None:
             if save_settings_in_channel_config == "y":
                 if default_max_res != limit_resolution_to:
                     update_json_config(ytchannel_path + channel_config_path, "c_max_resolution", limit_resolution_to)
-                if default_ignore_min_duration != ignore_min_duration:
-                    update_json_config(ytchannel_path + channel_config_path, "c_ignore_min_duration",
-                                       ignore_min_duration)
-                if default_ignore_max_duration != ignore_max_duration:
-                    update_json_config(ytchannel_path + channel_config_path, "c_ignore_max_duration",
-                                       ignore_max_duration)
+                if default_min_duration_in_minutes != min_duration:
+                    update_json_config(ytchannel_path + channel_config_path, "c_min_duration_in_minutes",
+                                       min_duration)
+                if default_max_duration_in_minutes != max_duration:
+                    update_json_config(ytchannel_path + channel_config_path, "c_max_duration_in_minutes",
+                                       max_duration)
                 if default_minimum_year != min_year:
                     update_json_config(ytchannel_path + channel_config_path, "c_minimum_year", min_year)
                 if default_maximum_year != max_year:
@@ -111,8 +108,8 @@ def channel_config_control() -> None:
                 if default_filter_words != video_name_filter:
                     update_json_config(ytchannel_path + channel_config_path, "c_filter_words", video_name_filter)
     else:
-        if (default_max_res != limit_resolution_to or default_ignore_min_duration != ignore_min_duration or
-                default_ignore_max_duration != ignore_max_duration or default_minimum_year != min_year or
+        if (default_max_res != limit_resolution_to or default_min_duration_in_minutes != min_duration or
+                default_max_duration_in_minutes != max_duration or default_minimum_year != min_year or
                 default_maximum_year != max_year or default_only_restricted != only_restricted_videos or
                 default_skip_restricted != skip_restricted or default_minimum_views != min_video_views or
                 default_year_subfolders != year_subfolders_temp or default_exclude_videos != exclude_video_ids or
@@ -123,12 +120,12 @@ def channel_config_control() -> None:
                 json_max_res = ""
                 if default_max_res != limit_resolution_to:
                     json_max_res = limit_resolution_to
-                json_ignore_min_duration = ""
-                if default_ignore_min_duration != ignore_min_duration:
-                    json_ignore_min_duration = ignore_min_duration
-                json_ignore_max_duration = ""
-                if default_ignore_max_duration != ignore_max_duration:
-                    json_ignore_max_duration = ignore_max_duration
+                json_min_duration_in_minutes = 0
+                if default_min_duration_in_minutes != min_duration:
+                    json_min_duration_in_minutes = min_duration
+                json_max_duration_in_minutes = 0
+                if default_max_duration_in_minutes != max_duration:
+                    json_max_duration_in_minutes = max_duration
                 json_min_year = 0
                 if default_minimum_year != min_year:
                     json_min_year = min_year
@@ -158,8 +155,8 @@ def channel_config_control() -> None:
                     json_video_name_filter = video_name_filter
                 custom_values = {
                     "c_max_resolution": json_max_res,
-                    "c_ignore_min_duration": json_ignore_min_duration,
-                    "c_ignore_max_duration": json_ignore_max_duration,
+                    "c_min_duration_in_minutes": json_min_duration_in_minutes,
+                    "c_max_duration_in_minutes": json_max_duration_in_minutes,
                     "c_minimum_year": json_min_year,
                     "c_maximum_year": json_max_year,
                     "c_only_restricted": json_only_restricted_videos,
@@ -406,8 +403,8 @@ def print_configuration() -> None:
     print("Configuration (" + os.path.abspath("config.json") + "):")
     print_asteriks_line()
     print_configuration_line("Output directory:", output_dir, BCOLORS.CYAN)
-    print_configuration_line("Minimum Video duration in Minutes:", min_duration, BCOLORS.CYAN)
-    print_configuration_line("Maximum Video duration in Minutes:", max_duration, BCOLORS.CYAN)
+    # print_configuration_line("Minimum Video duration in Minutes:", min_duration, BCOLORS.CYAN)
+    # print_configuration_line("Maximum Video duration in Minutes:", max_duration, BCOLORS.CYAN)
     video_listing_color = BCOLORS.RED
     if video_listing:
         video_listing_color = BCOLORS.GREEN
@@ -469,11 +466,11 @@ def print_video_infos(yt: YouTube, res: str, video_views: int) -> None:
 
     length_title = print_colored_text("Length: " + " " * (first_column_width - len("Length:")), BCOLORS.BLACK)
     length_title_value = length_title + format_time(yt.length)
-    if ignore_max_duration_bool and ignore_min_duration_bool:
+    if not max_duration_bool and not min_duration_bool:
         print(length_title_value)
-    elif ignore_max_duration_bool:
+    elif not max_duration_bool:
         print(length_title_value, print_colored_text("  (" + min_duration + "m <", BCOLORS.BLACK))
-    elif ignore_min_duration_bool:
+    elif not min_duration_bool:
         print(length_title_value, print_colored_text("  (< " + max_duration + "m", BCOLORS.BLACK))
     else:
         print(length_title_value, print_colored_text("  (" + min_duration + "m < " + max_duration + "m)", BCOLORS.BLACK))
@@ -1026,13 +1023,15 @@ while True:
         try:
         # Access settings
             output_dir = config["output_directory"]
+            youtube_url = config["youtube_url"]
             youtube_watch_url = config["youtube_watch_url"]
-            min_duration = config["min_duration_in_minutes"]
-            max_duration = config["max_duration_in_minutes"]
+            # min_duration = config["min_duration_in_minutes"]
+            # max_duration = config["max_duration_in_minutes"]
             video_listing = config["video_listing"]
             show_latest_video_date = config["show_latest_video_date"]
             default_filters_on = config["filters_on_in_channels_list"]
             default_audio_mp3 = config["default_audioMP3"]
+            web_client = config["web_client"]
         except Exception as e:
             print("An error occurred, incomplete config file:", str(e))
             cc_check_and_update_json_config("config.json", REQUIRED_APP_CONFIG)
@@ -1152,8 +1151,8 @@ while True:
         ytchannel_path = smart_input("\nDownload Path:" + " " * (first_column_width - len("Download Path:")),
                                      output_dir + "/" + clean_string_regex(channelYT_name).rstrip())
         default_max_res = "max"
-        default_ignore_min_duration = "y"
-        default_ignore_max_duration = "y"
+        default_min_duration_in_minutes = 0
+        default_max_duration_in_minutes = 0
         default_minimum_year = 0
         default_maximum_year = 0
         default_only_restricted = "n"
@@ -1177,19 +1176,19 @@ while True:
                 incomplete_config = True
                 incomplete_string.append("c_max_resolution")
 
-            if "c_ignore_min_duration" in channel_config:
-                if channel_config["c_ignore_min_duration"] != "":
-                    default_ignore_min_duration = channel_config["c_ignore_min_duration"]
+            if "c_min_duration_in_minutes" in channel_config:
+                if channel_config["c_min_duration_in_minutes"] != "":
+                    default_min_duration_in_minutes = channel_config["c_min_duration_in_minutes"]
             else:
                 incomplete_config = True
-                incomplete_string.append("c_ignore_min_duration")
+                incomplete_string.append("c_min_duration_in_minutes")
 
-            if "c_ignore_max_duration" in channel_config:
-                if channel_config["c_ignore_max_duration"] != "":
-                    default_ignore_max_duration = channel_config["c_ignore_max_duration"]
+            if "c_max_duration_in_minutes" in channel_config:
+                if channel_config["c_max_duration_in_minutes"] != "":
+                    default_max_duration_in_minutes = channel_config["c_max_duration_in_minutes"]
             else:
                 incomplete_config = True
-                incomplete_string.append("c_ignore_max_duration")
+                incomplete_string.append("c_max_duration_in_minutes")
 
             if "c_minimum_year" in channel_config:
                 if channel_config["c_minimum_year"] != "":
@@ -1280,17 +1279,15 @@ while True:
         else:
             limit_resolution_to = smart_input("Max. Resolution:  ", default_max_res)
 
-        ignore_min_duration = smart_input("Ignore min_duration?  Y/n", default_ignore_min_duration)
-        ignore_min_duration_bool = True
-        if ignore_min_duration == "n":
-            ignore_min_duration_bool = False
-            print(print_colored_text("Ignoring Video(s) < " + str(min_duration) + " Minutes!", BCOLORS.RED))
+        min_duration = smart_input("Minimum duration in minutes?", default_min_duration_in_minutes)
+        min_duration_bool = False
+        if str(min_duration).isdigit() and int(min_duration)!=0:
+            min_duration_bool = True
 
-        ignore_max_duration = smart_input("Ignore max_duration?  Y/n", default_ignore_max_duration)
-        ignore_max_duration_bool = True
-        if ignore_max_duration == "n":
-            ignore_max_duration_bool = False
-            print(print_colored_text("Ignoring Video(s) > " + str(max_duration) + " Minutes!", BCOLORS.RED))
+        max_duration = smart_input("Maximum duration in minutes?", default_max_duration_in_minutes)
+        max_duration_bool = False
+        if str(max_duration).isdigit() and int(max_duration)!=0:
+            max_duration_bool = True
 
         min_year = smart_input("Minimum Year (0=disabled):  ", default_minimum_year)
         min_year_bool = False
@@ -1393,11 +1390,11 @@ while True:
                     video = YouTube(youtube_watch_url + only_video_id, on_progress_callback=on_progress)
                 if video_name_filter == "" or any(
                         word.lower() in video.title.lower() for word in video_name_filter_list):
-                    if not ignore_min_duration_bool:
+                    if min_duration_bool:
                         video_duration = int(video.length / 60)
                         if video_duration <= int(min_duration):
                             do_not_download = 1
-                    if not ignore_max_duration_bool:
+                    if max_duration_bool:
                         video_duration = int(video.length / 60)
                         if video_duration >= int(max_duration):
                             do_not_download = 1

@@ -1,7 +1,7 @@
 {
     "c_max_resolution": "",
-    "c_ignore_min_duration": "",
-    "c_ignore_max_duration": "",
+    "c_min_duration_in_minutes": 0,
+    "c_max_duration_in_minutes": 0,
     "c_minimum_year": 0,
     "c_maximum_year": 0,
     "c_only_restricted": "",
