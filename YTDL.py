@@ -1025,8 +1025,6 @@ while True:
             output_dir = config["output_directory"]
             youtube_url = config["youtube_url"]
             youtube_watch_url = config["youtube_watch_url"]
-            # min_duration = config["min_duration_in_minutes"]
-            # max_duration = config["max_duration_in_minutes"]
             video_listing = config["video_listing"]
             show_latest_video_date = config["show_latest_video_date"]
             default_filters_on = config["filters_on_in_channels_list"]
