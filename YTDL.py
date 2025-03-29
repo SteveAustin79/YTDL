@@ -10,8 +10,6 @@ from pytubefix.cli import on_progress
 from pathlib import Path
 from datetime import datetime
 
-# make min/max duration as channel config, not main config
-
 version = "1.3.9 (20250329)"
 header_width_global = 99
 first_column_width = 17
