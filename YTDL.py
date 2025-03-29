@@ -603,7 +603,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                 try:
                     ch_config_filter_words = ""
                     ch_config_min_duration = 0
-                    ch_config_max_duration = 999
+                    ch_config_max_duration = 9999
                     ch_config_restricted = { True, False }
                     ch_config_min_views = 0
                     ch_config_exclude_list = string_to_list("")
@@ -616,7 +616,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                         # if int(main_config["min_duration_in_minutes"]) > 0:
                         if str(ch_config["c_min_duration_in_minutes"]).strip():
                             ch_config_min_duration = int(ch_config["c_min_duration_in_minutes"])
-                        if str(ch_config["c_max_duration_in_minutes"]).strip():
+                        if str(ch_config["c_max_duration_in_minutes"]).strip() and int(ch_config["c_max_duration_in_minutes"]>0):
                             ch_config_max_duration = int(ch_config["c_max_duration_in_minutes"])
                         if str(ch_config["c_minimum_views"]).strip():
                             ch_config_min_views = int(ch_config["c_minimum_views"])
