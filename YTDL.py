@@ -1274,14 +1274,14 @@ while True:
         else:
             limit_resolution_to = smart_input("Max. Resolution:  ", default_max_res)
 
-        min_duration = smart_input("Minimum duration in minutes?", default_min_duration_in_minutes)
+        min_duration = smart_input("Minimum duration in minutes (0=disabled):", default_min_duration_in_minutes)
         min_duration_bool = False
-        if str(min_duration).isdigit() and int(min_duration)!=0:
+        if str(min_duration).isdigit() and int(min_duration) > 0:
             min_duration_bool = True
 
-        max_duration = smart_input("Maximum duration in minutes?", default_max_duration_in_minutes)
+        max_duration = smart_input("Maximum duration in minutes (0=disabled):", default_max_duration_in_minutes)
         max_duration_bool = False
-        if str(max_duration).isdigit() and int(max_duration)!=0:
+        if str(max_duration).isdigit() and int(max_duration) > 0:
             max_duration_bool = True
 
         min_year = smart_input("Minimum Year (0=disabled):  ", default_minimum_year)
@@ -1310,7 +1310,7 @@ while True:
 
         min_video_views = int(smart_input("Minimum Views (0=disabled): ", default_minimum_views))
         min_video_views_bool = False
-        if min_video_views > 0:
+        if int(min_video_views) > 0:
             min_video_views_bool = True
 
         year_subfolders = False
@@ -1389,7 +1389,7 @@ while True:
                         video_duration = int(video.length / 60)
                         if video_duration <= int(min_duration):
                             do_not_download = 1
-                    if max_duration_bool:
+                    if max_duration_bool and max_duration > min_duration:
                         video_duration = int(video.length / 60)
                         if video_duration >= int(max_duration):
                             do_not_download = 1
