@@ -371,7 +371,7 @@ def load_config(c_file: str):
 def print_asteriks_line() -> None:
     now = datetime.now()
     free_space = print_colored_text(" " + now.strftime(date_time_format) + " | " +
-                                    get_free_space(output_dir) + " free", BCOLORS.BLACK)
+                                    get_free_space(output_dir) + " free" + " ", BCOLORS.BLACK)
     print(f"{free_space.center(header_width_global + 9, '*')}")
 
 def print_colored_text(message_text: str, color: str) -> str:
