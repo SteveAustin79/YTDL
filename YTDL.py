@@ -403,8 +403,6 @@ def print_configuration() -> None:
     print("Configuration (" + os.path.abspath("config.json") + "):")
     print_asteriks_line()
     print_configuration_line("Output directory:", output_dir, BCOLORS.CYAN)
-    # print_configuration_line("Minimum Video duration in Minutes:", min_duration, BCOLORS.CYAN)
-    # print_configuration_line("Maximum Video duration in Minutes:", max_duration, BCOLORS.CYAN)
     video_listing_color = BCOLORS.RED
     if video_listing:
         video_listing_color = BCOLORS.GREEN
@@ -605,8 +603,8 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                 main_config = load_config("config.json")
                 try:
                     ch_config_filter_words = ""
-                    config_min_duration = 0
-                    config_max_duration = 999
+                    ch_config_min_duration = 0
+                    ch_config_max_duration = 999
                     ch_config_restricted = { True, False }
                     ch_config_min_views = 0
                     ch_config_exclude_list = string_to_list("")
@@ -617,10 +615,10 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
 
                         ch_config_filter_words = ch_config["c_filter_words"]
                         # if int(main_config["min_duration_in_minutes"]) > 0:
-                        if str(main_config["min_duration_in_minutes"]).strip():
-                            config_min_duration = int(main_config["min_duration_in_minutes"])
-                        if str(main_config["max_duration_in_minutes"]).strip():
-                            config_max_duration = int(main_config["max_duration_in_minutes"])
+                        if str(main_config["c_min_duration_in_minutes"]).strip():
+                            ch_config_min_duration = int(main_config["c_min_duration_in_minutes"])
+                        if str(main_config["c_max_duration_in_minutes"]).strip():
+                            ch_config_max_duration = int(main_config["c_max_duration_in_minutes"])
                         if str(ch_config["c_minimum_views"]).strip():
                             ch_config_min_views = int(ch_config["c_minimum_views"])
                         if ch_config["c_only_restricted"]=="y":
@@ -656,7 +654,7 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
                                     any(word.lower() in youtube_vo_title.lower() for word in
                                         string_to_list(ch_config_filter_words))
                                     and youtube_vo_video_id not in ch_config_exclude_list
-                                    and config_min_duration <= int(youtube_vo_length / 60) <= config_max_duration
+                                    and ch_config_min_duration <= int(youtube_vo_length / 60) <= ch_config_max_duration
                                     and youtube_vo_views >= ch_config_min_views
                                     and youtube_vo_age_restricted in ch_config_restricted):
 
