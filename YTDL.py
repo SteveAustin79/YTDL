@@ -600,7 +600,6 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
 
                 line = line.replace(youtube_url, "")[1:]
                 got_it = False
-                main_config = load_config("config.json")
                 try:
                     ch_config_filter_words = ""
                     ch_config_min_duration = 0
@@ -615,10 +614,10 @@ def user_selection(u_lines, u_show_latest_video_date: bool):
 
                         ch_config_filter_words = ch_config["c_filter_words"]
                         # if int(main_config["min_duration_in_minutes"]) > 0:
-                        if str(main_config["c_min_duration_in_minutes"]).strip():
-                            ch_config_min_duration = int(main_config["c_min_duration_in_minutes"])
-                        if str(main_config["c_max_duration_in_minutes"]).strip():
-                            ch_config_max_duration = int(main_config["c_max_duration_in_minutes"])
+                        if str(ch_config["c_min_duration_in_minutes"]).strip():
+                            ch_config_min_duration = int(ch_config["c_min_duration_in_minutes"])
+                        if str(ch_config["c_max_duration_in_minutes"]).strip():
+                            ch_config_max_duration = int(ch_config["c_max_duration_in_minutes"])
                         if str(ch_config["c_minimum_views"]).strip():
                             ch_config_min_views = int(ch_config["c_minimum_views"])
                         if ch_config["c_only_restricted"]=="y":
